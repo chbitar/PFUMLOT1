@@ -1,0 +1,30 @@
+{
+  "pfumv10App": {
+    "espaceEtudiant": {
+      "home": {
+        "title": "EspaceEtudiants",
+        "createLabel": "Créer un nouveau Espace Etudiant",
+        "createOrEditLabel": "Créer ou éditer un Espace Etudiant",
+        "search": "Recherche pour Espace Etudiant",
+        "notFound": "Aucun Espace Etudiant trouvé"
+      },
+      "created": "Un nouveau Espace Etudiant a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Espace Etudiant avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Espace Etudiant avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Espace Etudiant {{ id }} ?"
+      },
+      "detail": {
+        "title": "Espace Etudiant"
+      },
+      "emploiDuTemps": "Emploi Du Temps",
+      "user": "User",
+      "etudiantLicence": "Etudiant Licence",
+      "etudiantMaster": "Etudiant Master",
+      "etudiantExecutif": "Etudiant Executif",
+      "calendrier": "Calendrier",
+      "absence": "Absence",
+      "annonce": "Annonce"
+    }
+  }
+}

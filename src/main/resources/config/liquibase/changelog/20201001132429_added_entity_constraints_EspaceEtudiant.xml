@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity EspaceEtudiant.
+    -->
+    <changeSet id="20201001132429-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="espace_etudiant"
+                                 constraintName="fk_espace_etudiant_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="etudiant_licence_id"
+                                 baseTableName="espace_etudiant"
+                                 constraintName="fk_espace_etudiant_etudiant_licence_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="etudiants_licence"/>
+
+        <addForeignKeyConstraint baseColumnNames="etudiant_master_id"
+                                 baseTableName="espace_etudiant"
+                                 constraintName="fk_espace_etudiant_etudiant_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="etudiants_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="etudiant_executif_id"
+                                 baseTableName="espace_etudiant"
+                                 constraintName="fk_espace_etudiant_etudiant_executif_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="etudiants_executif"/>
+
+        <addForeignKeyConstraint baseColumnNames="calendrier_id"
+                                 baseTableName="espace_etudiant"
+                                 constraintName="fk_espace_etudiant_calendrier_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="calendrier_module"/>
+
+        <addForeignKeyConstraint baseColumnNames="absence_id"
+                                 baseTableName="espace_etudiant"
+                                 constraintName="fk_espace_etudiant_absence_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="absence"/>
+
+        <addForeignKeyConstraint baseColumnNames="annonce_id"
+                                 baseTableName="espace_etudiant"
+                                 constraintName="fk_espace_etudiant_annonce_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="annonce"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,27 @@
+{
+  "pfumv10App": {
+    "anneeInscription": {
+      "home": {
+        "title": "AnneeInscriptions",
+        "createLabel": "Créer un nouveau Annee Inscription",
+        "createOrEditLabel": "Créer ou éditer un Annee Inscription",
+        "search": "Recherche pour Annee Inscription",
+        "notFound": "Aucun Annee Inscription trouvé"
+      },
+      "created": "Un nouveau Annee Inscription a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Annee Inscription avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Annee Inscription avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Annee Inscription {{ id }} ?"
+      },
+      "detail": {
+        "title": "Annee Inscription"
+      },
+      "annee": "Annee",
+      "calendrierModule": "Calendrier Module",
+      "etudiantsExecutif": "Etudiants Executif",
+      "etudiantsLicence": "Etudiants Licence",
+      "etudiantsMaster": "Etudiants Master"
+    }
+  }
+}

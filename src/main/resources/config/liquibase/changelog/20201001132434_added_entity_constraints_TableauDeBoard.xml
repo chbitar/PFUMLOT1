@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity TableauDeBoard.
+    -->
+    <changeSet id="20201001132434-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="tableau_de_board_id"
+                                 baseTableName="tableau_de_board_filier"
+                                 constraintName="fk_tableau_de_board_filier_tableau_de_board_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tableau_de_board"/>
+
+        <addForeignKeyConstraint baseColumnNames="filier_id"
+                                 baseTableName="tableau_de_board_filier"
+                                 constraintName="fk_tableau_de_board_filier_filier_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="filiere"/>
+        
+        <addForeignKeyConstraint baseColumnNames="tableau_de_board_id"
+                                 baseTableName="tableau_de_board_calendrier"
+                                 constraintName="fk_tableau_de_board_calendrier_tableau_de_board_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tableau_de_board"/>
+
+        <addForeignKeyConstraint baseColumnNames="calendrier_id"
+                                 baseTableName="tableau_de_board_calendrier"
+                                 constraintName="fk_tableau_de_board_calendrier_calendrier_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="calendrier_module"/>
+        
+    </changeSet>
+</databaseChangeLog>

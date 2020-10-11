@@ -1,0 +1,29 @@
+{
+  "pfumv10App": {
+    "calendrierModule": {
+      "home": {
+        "title": "CalendrierModules",
+        "createLabel": "Créer un nouveau Calendrier Module",
+        "createOrEditLabel": "Créer ou éditer un Calendrier Module",
+        "search": "Recherche pour Calendrier Module",
+        "notFound": "Aucun Calendrier Module trouvé"
+      },
+      "created": "Un nouveau Calendrier Module a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Calendrier Module avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Calendrier Module avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Calendrier Module {{ id }} ?"
+      },
+      "detail": {
+        "title": "Calendrier Module"
+      },
+      "libelle": "Libelle",
+      "dateControlContinu1": "Date Control Continu 1",
+      "dateControlContinu2": "Date Control Continu 2",
+      "espaceEtudiant": "Espace Etudiant",
+      "module": "Module",
+      "anneeInscription": "Annee Inscription",
+      "board": "Board"
+    }
+  }
+}

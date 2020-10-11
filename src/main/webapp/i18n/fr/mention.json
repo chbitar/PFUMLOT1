@@ -1,0 +1,11 @@
+{
+  "pfumv10App": {
+    "Mention": {
+      "null": "",
+      "Passable": "Passable",
+      "Assez_bien": "Assez_bien",
+      "Bien": "Bien",
+      "Tres_bien": "Tres_bien"
+    }
+  }
+}

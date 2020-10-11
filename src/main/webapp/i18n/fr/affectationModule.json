@@ -1,0 +1,26 @@
+{
+  "pfumv10App": {
+    "affectationModule": {
+      "home": {
+        "title": "AffectationModules",
+        "createLabel": "Créer un nouveau Affectation Module",
+        "createOrEditLabel": "Créer ou éditer un Affectation Module",
+        "search": "Recherche pour Affectation Module",
+        "notFound": "Aucun Affectation Module trouvé"
+      },
+      "created": "Un nouveau Affectation Module a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Affectation Module avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Affectation Module avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Affectation Module {{ id }} ?"
+      },
+      "detail": {
+        "title": "Affectation Module"
+      },
+      "annee": "Annee",
+      "semestre": "Semestre",
+      "module": "Module",
+      "professeur": "Professeur"
+    }
+  }
+}

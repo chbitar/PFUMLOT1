@@ -1,0 +1,50 @@
+{
+  "pfumv10App": {
+    "etudiantsExecutif": {
+      "home": {
+        "title": "EtudiantsExecutifs",
+        "createLabel": "Créer un nouveau Etudiants Executif",
+        "createOrEditLabel": "Créer ou éditer un Etudiants Executif",
+        "search": "Recherche pour Etudiants Executif",
+        "notFound": "Aucun Etudiants Executif trouvé"
+      },
+      "created": "Un nouveau Etudiants Executif a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Etudiants Executif avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Etudiants Executif avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Etudiants Executif {{ id }} ?"
+      },
+      "detail": {
+        "title": "Etudiants Executif"
+      },
+      "suffixe": "Suffixe",
+      "nom": "Nom",
+      "prenom": "Prenom",
+      "dateNaissance": "Date Naissance",
+      "adresseContact": "Adresse Contact",
+      "ville": "Ville",
+      "email": "Email",
+      "pjBac": "Pj Bac",
+      "mention": "Mention",
+      "cinPass": "Cin Pass",
+      "paysNationalite": "Pays Nationalite",
+      "paysResidence": "Pays Residence",
+      "codepostal": "Codepostal",
+      "province": "Province",
+      "tel": "Tel",
+      "photo": "Photo",
+      "extraitActeNaissance": "Extrait Acte Naissance",
+      "bacalaureat": "Bacalaureat",
+      "cinPassport": "Cin Passport",
+      "diplome": "Diplome",
+      "inscriptionvalide": "Inscriptionvalide",
+      "absent": "Absent",
+      "user": "User",
+      "absence": "Absence",
+      "espaceEtudiant": "Espace Etudiant",
+      "filiere": "Filiere",
+      "anneeInscription": "Annee Inscription",
+      "modalite": "Modalite"
+    }
+  }
+}

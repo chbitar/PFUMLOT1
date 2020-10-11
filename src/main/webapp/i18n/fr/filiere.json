@@ -1,0 +1,32 @@
+{
+  "pfumv10App": {
+    "filiere": {
+      "home": {
+        "title": "Filieres",
+        "createLabel": "Créer un nouveau Filiere",
+        "createOrEditLabel": "Créer ou éditer un Filiere",
+        "search": "Recherche pour Filiere",
+        "notFound": "Aucun Filiere trouvé"
+      },
+      "created": "Un nouveau Filiere a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Filiere avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Filiere avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Filiere {{ id }} ?"
+      },
+      "detail": {
+        "title": "Filiere"
+      },
+      "nomfiliere": "Nomfiliere",
+      "responsable": "Responsable",
+      "accreditaion": "Accreditaion",
+      "programme": "Programme",
+      "etudiantsExecutif": "Etudiants Executif",
+      "etudiantsLicence": "Etudiants Licence",
+      "etudiantsMaster": "Etudiants Master",
+      "module": "Module",
+      "etablissement": "Etablissement",
+      "board": "Board"
+    }
+  }
+}

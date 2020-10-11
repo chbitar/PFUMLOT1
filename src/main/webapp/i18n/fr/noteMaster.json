@@ -1,0 +1,29 @@
+{
+  "pfumv10App": {
+    "noteMaster": {
+      "home": {
+        "title": "NoteMasters",
+        "createLabel": "Créer un nouveau Note Master",
+        "createOrEditLabel": "Créer ou éditer un Note Master",
+        "search": "Recherche pour Note Master",
+        "notFound": "Aucun Note Master trouvé"
+      },
+      "created": "Un nouveau Note Master a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Note Master avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Note Master avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Note Master {{ id }} ?"
+      },
+      "detail": {
+        "title": "Note Master"
+      },
+      "semestre": "Semestre",
+      "noteCC1": "Note CC 1",
+      "noteCC2": "Note CC 2",
+      "noteFinal": "Note Final",
+      "date": "Date",
+      "user": "User",
+      "module": "Module"
+    }
+  }
+}

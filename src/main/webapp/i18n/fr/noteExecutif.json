@@ -1,0 +1,29 @@
+{
+  "pfumv10App": {
+    "noteExecutif": {
+      "home": {
+        "title": "NoteExecutifs",
+        "createLabel": "Créer un nouveau Note Executif",
+        "createOrEditLabel": "Créer ou éditer un Note Executif",
+        "search": "Recherche pour Note Executif",
+        "notFound": "Aucun Note Executif trouvé"
+      },
+      "created": "Un nouveau Note Executif a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Note Executif avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Note Executif avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Note Executif {{ id }} ?"
+      },
+      "detail": {
+        "title": "Note Executif"
+      },
+      "semestre": "Semestre",
+      "noteCC1": "Note CC 1",
+      "noteCC2": "Note CC 2",
+      "noteFinal": "Note Final",
+      "date": "Date",
+      "user": "User",
+      "module": "Module"
+    }
+  }
+}

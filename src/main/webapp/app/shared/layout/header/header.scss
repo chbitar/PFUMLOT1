@@ -1,0 +1,42 @@
+$header-color: #fff;
+$header-color-secondary: #bbb;
+$header-color-hover: darken($header-color, 20%);
+
+/* ==========================================================================
+Developement Ribbon
+========================================================================== */
+
+/* ==========================================================================
+Navbar styles
+========================================================================== */
+
+.brand-logo {
+  &:hover {
+    text-decoration: none;
+  }
+  .brand-icon {
+    height: 35px;
+    width: auto;
+    display: inline-block;
+    img {
+      height: 45px;
+    }
+  }
+}
+
+.brand-title {
+  font-size: 24px;
+  color: $header-color;
+  &:hover {
+    color: $header-color-hover;
+    text-decoration: none;
+  }
+}
+
+.loading-bar {
+  height: 3px;
+  background-color: #009cd8;
+  position: absolute;
+  top: 0px;
+  z-index: 1031;
+}

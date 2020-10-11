@@ -1,0 +1,31 @@
+{
+  "pfumv10App": {
+    "modalitePaiement": {
+      "home": {
+        "title": "ModalitePaiements",
+        "createLabel": "Créer un nouveau Modalite Paiement",
+        "createOrEditLabel": "Créer ou éditer un Modalite Paiement",
+        "search": "Recherche pour Modalite Paiement",
+        "notFound": "Aucun Modalite Paiement trouvé"
+      },
+      "created": "Un nouveau Modalite Paiement a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Modalite Paiement avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Modalite Paiement avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Modalite Paiement {{ id }} ?"
+      },
+      "detail": {
+        "title": "Modalite Paiement"
+      },
+      "modalite": "Modalite",
+      "coutProgrammettc": "Cout Programmettc",
+      "coutProgrammettcDevise": "Cout Programmettc Devise",
+      "remiseNiveau1": "Remise Niveau 1",
+      "remiseNiveau2": "Remise Niveau 2",
+      "devise": "Devise",
+      "etudiantsLicence": "Etudiants Licence",
+      "etudiantsMaster": "Etudiants Master",
+      "etudiantsExecutif": "Etudiants Executif"
+    }
+  }
+}

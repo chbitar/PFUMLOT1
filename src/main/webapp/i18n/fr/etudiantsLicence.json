@@ -1,0 +1,49 @@
+{
+  "pfumv10App": {
+    "etudiantsLicence": {
+      "home": {
+        "title": "EtudiantsLicences",
+        "createLabel": "Créer un nouveau Etudiants Licence",
+        "createOrEditLabel": "Créer ou éditer un Etudiants Licence",
+        "search": "Recherche pour Etudiants Licence",
+        "notFound": "Aucun Etudiants Licence trouvé"
+      },
+      "created": "Un nouveau Etudiants Licence a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Etudiants Licence avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Etudiants Licence avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Etudiants Licence {{ id }} ?"
+      },
+      "detail": {
+        "title": "Etudiants Licence"
+      },
+      "suffixe": "Suffixe",
+      "nom": "Nom",
+      "prenom": "Prenom",
+      "dateNaissance": "Date Naissance",
+      "adresseContact": "Adresse Contact",
+      "ville": "Ville",
+      "email": "Email",
+      "pjBac": "Pj Bac",
+      "mention": "Mention",
+      "cinPass": "Cin Pass",
+      "paysNationalite": "Pays Nationalite",
+      "paysResidence": "Pays Residence",
+      "codepostal": "Codepostal",
+      "province": "Province",
+      "tel": "Tel",
+      "photo": "Photo",
+      "extraitActeNaissance": "Extrait Acte Naissance",
+      "bacalaureat": "Bacalaureat",
+      "cinPassport": "Cin Passport",
+      "inscriptionvalide": "Inscriptionvalide",
+      "absent": "Absent",
+      "user": "User",
+      "absence": "Absence",
+      "espaceEtudiant": "Espace Etudiant",
+      "filiere": "Filiere",
+      "anneeInscription": "Annee Inscription",
+      "modalite": "Modalite"
+    }
+  }
+}

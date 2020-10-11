@@ -1,0 +1,25 @@
+{
+  "pfumv10App": {
+    "tableauDeBoard": {
+      "home": {
+        "title": "TableauDeBoards",
+        "createLabel": "Créer un nouveau Tableau De Board",
+        "createOrEditLabel": "Créer ou éditer un Tableau De Board",
+        "search": "Recherche pour Tableau De Board",
+        "notFound": "Aucun Tableau De Board trouvé"
+      },
+      "created": "Un nouveau Tableau De Board a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Tableau De Board avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Tableau De Board avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Tableau De Board {{ id }} ?"
+      },
+      "detail": {
+        "title": "Tableau De Board"
+      },
+      "tableauDeBoard": "Tableau De Board",
+      "filier": "Filier",
+      "calendrier": "Calendrier"
+    }
+  }
+}

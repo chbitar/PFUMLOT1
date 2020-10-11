@@ -1,0 +1,50 @@
+{
+  "pfumv10App": {
+    "etudiantsMaster": {
+      "home": {
+        "title": "EtudiantsMasters",
+        "createLabel": "Créer un nouveau Etudiants Master",
+        "createOrEditLabel": "Créer ou éditer un Etudiants Master",
+        "search": "Recherche pour Etudiants Master",
+        "notFound": "Aucun Etudiants Master trouvé"
+      },
+      "created": "Un nouveau Etudiants Master a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Etudiants Master avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Etudiants Master avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Etudiants Master {{ id }} ?"
+      },
+      "detail": {
+        "title": "Etudiants Master"
+      },
+      "suffixe": "Suffixe",
+      "nom": "Nom",
+      "prenom": "Prenom",
+      "dateNaissance": "Date Naissance",
+      "adresseContact": "Adresse Contact",
+      "ville": "Ville",
+      "email": "Email",
+      "typeBac": "Type Bac",
+      "mention": "Mention",
+      "cinPass": "Cin Pass",
+      "paysNationalite": "Pays Nationalite",
+      "paysResidence": "Pays Residence",
+      "codepostal": "Codepostal",
+      "province": "Province",
+      "tel": "Tel",
+      "photo": "Photo",
+      "extraitActeNaissance": "Extrait Acte Naissance",
+      "bacalaureat": "Bacalaureat",
+      "cinPassport": "Cin Passport",
+      "diplome": "Diplome",
+      "inscriptionvalide": "Inscriptionvalide",
+      "absent": "Absent",
+      "user": "User",
+      "absence": "Absence",
+      "espaceEtudiant": "Espace Etudiant",
+      "filiere": "Filiere",
+      "anneeInscription": "Annee Inscription",
+      "modalite": "Modalite"
+    }
+  }
+}

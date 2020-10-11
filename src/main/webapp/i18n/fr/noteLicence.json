@@ -1,0 +1,29 @@
+{
+  "pfumv10App": {
+    "noteLicence": {
+      "home": {
+        "title": "NoteLicences",
+        "createLabel": "Créer un nouveau Note Licence",
+        "createOrEditLabel": "Créer ou éditer un Note Licence",
+        "search": "Recherche pour Note Licence",
+        "notFound": "Aucun Note Licence trouvé"
+      },
+      "created": "Un nouveau Note Licence a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Note Licence avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Note Licence avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Note Licence {{ id }} ?"
+      },
+      "detail": {
+        "title": "Note Licence"
+      },
+      "semestre": "Semestre",
+      "noteCC1": "Note CC 1",
+      "noteCC2": "Note CC 2",
+      "noteFinal": "Note Final",
+      "date": "Date",
+      "user": "User",
+      "module": "Module"
+    }
+  }
+}

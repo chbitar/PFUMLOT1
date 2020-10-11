@@ -1,0 +1,30 @@
+{
+  "pfumv10App": {
+    "absence": {
+      "home": {
+        "title": "Absences",
+        "createLabel": "Créer un nouveau Absence",
+        "createOrEditLabel": "Créer ou éditer un Absence",
+        "search": "Recherche pour Absence",
+        "notFound": "Aucun Absence trouvé"
+      },
+      "created": "Un nouveau Absence a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Absence avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Absence avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Absence {{ id }} ?"
+      },
+      "detail": {
+        "title": "Absence"
+      },
+      "absent": "Absent",
+      "dateSeance": "Date Seance",
+      "espaceEtudiant": "Espace Etudiant",
+      "user": "User",
+      "module": "Module",
+      "etudiantsLicence": "Etudiants Licence",
+      "etudiantsMaster": "Etudiants Master",
+      "etudiantsExecutif": "Etudiants Executif"
+    }
+  }
+}

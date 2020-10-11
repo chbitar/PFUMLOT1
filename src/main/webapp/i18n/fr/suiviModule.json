@@ -1,0 +1,34 @@
+{
+  "pfumv10App": {
+    "suiviModule": {
+      "home": {
+        "title": "SuiviModules",
+        "createLabel": "Créer un nouveau Suivi Module",
+        "createOrEditLabel": "Créer ou éditer un Suivi Module",
+        "search": "Recherche pour Suivi Module",
+        "notFound": "Aucun Suivi Module trouvé"
+      },
+      "created": "Un nouveau Suivi Module a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Suivi Module avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Suivi Module avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Suivi Module {{ id }} ?"
+      },
+      "detail": {
+        "title": "Suivi Module"
+      },
+      "semestre": "Semestre",
+      "descriptif": "Descriptif",
+      "observations": "Observations",
+      "date": "Date",
+      "debutCreneau": "Debut Creneau",
+      "finCreneau": "Fin Creneau",
+      "duree": "Duree",
+      "user": "User",
+      "module": "Module",
+      "professeur": "Professeur"
+
+      
+    }
+  }
+}
