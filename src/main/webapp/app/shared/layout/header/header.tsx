@@ -14,10 +14,23 @@ import { InscriptionsMenu } from 'app/shared/layout/menus/inscriptions';
 import { ScolariteMenu } from 'app/shared/layout/menus/scolarite';
 import { EspaceProfMenu } from 'app/shared/layout/menus/espaceprofesseur';
 import { ConfigurationMenu } from 'app/shared/layout/menus/configuration';
+import { AUTHORITIES } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { IRootState } from 'app/shared/reducers';
+import { connect } from 'react-redux';
+import { EspaceEtudiantMenuExecutif } from '../menus/espace-etudiant-executif';
+import { EspaceEtudiantMenuLicence } from '../menus/espace-etudiant-licence';
+import { EspaceEtudiantMenuMaster } from '../menus/espace-etudiant-master';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isUser: boolean;
+  isEtudiantLicence: boolean;
+  isEtudiantMaster: boolean;
+  isEtudiantExecutif: boolean;
+  isProf: boolean;
+  isRespFil: boolean;
   ribbonEnv: string;
   isInProduction: boolean;
   isSwaggerEnabled: boolean;
@@ -29,7 +42,7 @@ export interface IHeaderState {
   menuOpen: boolean;
 }
 
-export default class Header extends React.Component<IHeaderProps, IHeaderState> {
+export class Header extends React.Component<IHeaderProps, IHeaderState> {
   state: IHeaderState = {
     menuOpen: false
   };
@@ -54,7 +67,19 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
   };
 
   render() {
-    const { currentLocale, isAuthenticated, isAdmin, isSwaggerEnabled, isInProduction } = this.props;
+    const {
+      currentLocale,
+      isAuthenticated,
+      isAdmin,
+      isEtudiantLicence,
+      isRespFil,
+      isUser,
+      isEtudiantExecutif,
+      isEtudiantMaster,
+      isProf,
+      isSwaggerEnabled,
+      isInProduction
+    } = this.props;
 
     /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
 
@@ -69,9 +94,12 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                 <img src="content/images/ostelea.png" className="img-circle" alt="User Image" />
               </div>
               <Home />
-              {isAuthenticated && <InscriptionsMenu />}
-              {isAuthenticated && <ScolariteMenu />}
-              {isAuthenticated && <EspaceProfMenu />}
+              {isAuthenticated && (isUser || isAdmin) && <InscriptionsMenu />}
+              {isAuthenticated && (isRespFil || isAdmin) && <ScolariteMenu />}
+              {isAuthenticated && (isProf || isAdmin) && <EspaceProfMenu />}
+              {isAuthenticated && (isEtudiantExecutif || isAdmin) && <EspaceEtudiantMenuExecutif />}
+              {isAuthenticated && (isEtudiantLicence || isAdmin) && <EspaceEtudiantMenuLicence />}
+              {isAuthenticated && (isEtudiantMaster || isAdmin) && <EspaceEtudiantMenuMaster />}
               {isAuthenticated && <EntitiesMenu />}
               {isAuthenticated && isAdmin && <ConfigurationMenu />}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
@@ -84,3 +112,21 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
     );
   }
 }
+
+const mapStateToProps = ({ authentication }: IRootState) => ({
+  isEtudiantExecutif: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ROLE_ETUDIANT_EXECUTIF]),
+  isEtudiantLicence: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ROLE_ETUDIANT_LICENCE]),
+  isEtudiantMaster: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ROLE_ETUDIANT_MASTER]),
+  isProf: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.PROF]),
+  isUser: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.USER]),
+  isRespFil: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ROLE_RESP_FILIERE])
+});
+
+const mapDispatchToProps = {};
+type StateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = typeof mapDispatchToProps;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

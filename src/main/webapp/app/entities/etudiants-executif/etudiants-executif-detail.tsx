@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import fileDownload from 'react-file-download';
 import React from 'react';
@@ -13,7 +12,8 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './etudiants-executif.reducer';
 import { IEtudiantsExecutif } from 'app/shared/model/etudiants-executif.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IEtudiantsExecutifDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -22,19 +22,29 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
     this.props.getEntity(this.props.match.params.id);
   }
 
-  
-  handlePaymentSelect = () => () => {
-    const requestUrl = `/api/orders/${this.props.match.params.id}/PDF`;
-    axios.get(requestUrl, {
-      responseType: 'blob',
-    }).then(res => {
-      fileDownload(res.data, "attestation.pdf");
-    }); 
-  
-    };
+  genererAttestationInscription = () => () => {
+    const requestUrl = `/api/attestation/${this.props.match.params.id}/PDF`;
+    axios
+      .get(requestUrl, {
+        responseType: 'blob'
+      })
+      .then(res => {
+        fileDownload(res.data, 'attestation.pdf');
+      });
+  };
+  genererBadge = () => () => {
+    const requestUrl = `/api/badge/etudiantExecutif/${this.props.match.params.id}/PDF`;
+    axios
+      .get(requestUrl, {
+        responseType: 'blob'
+      })
+      .then(res => {
+        fileDownload(res.data, 'badge.pdf');
+      });
+  };
 
   render() {
-    const { etudiantsExecutifEntity } = this.props;
+    const { etudiantsExecutifEntity, isUser, isRespFin, isAdmin } = this.props;
     return (
       <div>
         <Row>
@@ -276,13 +286,21 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                   <Translate contentKey="pfumv10App.etudiantsExecutif.modalite">Modalite</Translate>
                 </dt>
                 <dd>{etudiantsExecutifEntity.modalite ? etudiantsExecutifEntity.modalite.modalite : ''}</dd>
-                <dd>
-                  <Button color="info" onClick={this.handlePaymentSelect()}>Attestation d'inscription </Button>
 
-                </dd>
-                <dd>
-                  <Button color="info">Badge</Button>
-                </dd>
+                {(isAdmin || isUser) && (
+                  <dd>
+                    <Button color="info" onClick={this.genererAttestationInscription()}>
+                      Attestation d'inscription{' '}
+                    </Button>
+                  </dd>
+                )}
+                {(isAdmin || isUser) && (
+                  <dd>
+                    <Button color="info" onClick={this.genererBadge()}>
+                      Badge
+                    </Button>
+                  </dd>
+                )}
               </Col>
             </Row>
           </div>
@@ -297,12 +315,14 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                   </span>
                 </Button>
                 &nbsp;
-                <Button tag={Link} to={`/entity/etudiants-executif/${etudiantsExecutifEntity.id}/edit`} replace color="primary">
-                  <FontAwesomeIcon icon="pencil-alt" />{' '}
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.edit">Edit</Translate>
-                  </span>
-                </Button>
+                {(isAdmin || isUser) && (
+                  <Button tag={Link} to={`/entity/etudiants-executif/${etudiantsExecutifEntity.id}/edit`} replace color="primary">
+                    <FontAwesomeIcon icon="pencil-alt" />{' '}
+                    <span className="d-none d-md-inline">
+                      <Translate contentKey="entity.action.edit">Edit</Translate>
+                    </span>
+                  </Button>
+                )}
               </Col>
             </Row>
           </div>
@@ -312,8 +332,11 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
   }
 }
 
-const mapStateToProps = ({ etudiantsExecutif }: IRootState) => ({
-  etudiantsExecutifEntity: etudiantsExecutif.entity
+const mapStateToProps = ({ etudiantsExecutif, authentication }: IRootState) => ({
+  etudiantsExecutifEntity: etudiantsExecutif.entity,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isUser: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.USER]),
+  isRespFin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ROLE_RESP_FINANCE])
 });
 
 const mapDispatchToProps = { getEntity };

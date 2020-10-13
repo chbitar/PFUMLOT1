@@ -50,14 +50,39 @@ public class ReportResource {
 	 *         of orders in body.
 	 * @throws java.io.IOException
 	 */
-//	@GetMapping("/orders/{type}")
-	@GetMapping("/orders/{etudiantId}/{type}")
+	@GetMapping("/attestation/{etudiantId}/{type}")
 
-	public ResponseEntity<Resource> exportAllOrders(@PathVariable Integer etudiantId,@PathVariable String type, HttpServletRequest request)
+	public ResponseEntity<Resource> genererAttestationInscription(@PathVariable Integer etudiantId,@PathVariable String type, HttpServletRequest request)
 			throws IOException, java.io.IOException {
 		log.debug("REST request to export all Orders");
 		// Load file as Resource
-		Resource resource = reportService.exportAll(etudiantId,type);
+		Resource resource = reportService.genererAttestationInscription(etudiantId,type);
+		// Try to determine file's content type
+		String contentType = null;
+		try {
+			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+		} catch (IOException ex) {
+			log.info("Could not determine file type.");
+		}
+
+		// Fallback to the default content type if type could not be determined
+		if (contentType == null) {
+			contentType = "application/octet-stream";
+		}
+
+		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
+				.contentLength(resource.getFile().length())
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + resource.getFilename())
+				.headers(HeaderUtil.createAlert(applicationName, "Orders exported successfully", resource.toString()))
+				.body(resource);
+	}
+	
+	@GetMapping("/badge/etudiantExecutif/{etudiantId}/{type}")
+	public ResponseEntity<Resource> genererBadge(@PathVariable Integer etudiantId,@PathVariable String type, HttpServletRequest request)
+			throws IOException, java.io.IOException {
+		log.debug("REST request to export all Orders");
+		// Load file as Resource
+		Resource resource = reportService.genererBadgeEtudiantExecutif(etudiantId,type);
 		// Try to determine file's content type
 		String contentType = null;
 		try {
@@ -102,6 +127,12 @@ public class ReportResource {
 				.headers(HeaderUtil.createAlert(applicationName, "Orders exported successfully", resource.toString()))
 				.body(resource);
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

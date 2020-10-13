@@ -38,7 +38,6 @@ const Routes = ({ match }) => (
         hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}
       />
 
-     
       <PrivateRoute
         path={`${match.url}/annee-inscription`}
         component={AnneeInscription}
@@ -52,23 +51,23 @@ const Routes = ({ match }) => (
       <PrivateRoute
         path={`${match.url}/etudiants-executif`}
         component={EtudiantsExecutif}
-        hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER,AUTHORITIES.ETUDIANT]}
+        hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER, AUTHORITIES.ROLE_ETUDIANT_EXECUTIF]}
       />
       <PrivateRoute
         path={`${match.url}/etudiants-licence`}
         component={EtudiantsLicence}
-        hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}
+        hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER, AUTHORITIES.ROLE_ETUDIANT_LICENCE]}
       />
       <PrivateRoute
         path={`${match.url}/etudiants-master`}
         component={EtudiantsMaster}
-        hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}
+        hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER, AUTHORITIES.ROLE_ETUDIANT_MASTER]}
       />
       <PrivateRoute path={`${match.url}/filiere`} component={Filiere} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path={`${match.url}/module`} component={Module} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path={`${match.url}/professeur`} component={Professeur} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path={`${match.url}/suivi-module`} component={SuiviModule} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.PROF]} />
-     {/*  <PrivateRoute
+      {/*  <PrivateRoute
         path={`${match.url}/etablissement`}
         component={Etablissement}
         hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}
@@ -76,12 +75,17 @@ const Routes = ({ match }) => (
       <PrivateRoute
         path={`${match.url}/modalite-paiement`}
         component={ModalitePaiement}
-        hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.FINANCE]}
+        hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.ROLE_RESP_FINANCE]}
       />
       <PrivateRoute
         path={`${match.url}/espace-etudiant`}
         component={EspaceEtudiant}
-        hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.ETUDIANT]}
+        hasAnyAuthorities={[
+          AUTHORITIES.ADMIN,
+          AUTHORITIES.ROLE_ETUDIANT_EXECUTIF,
+          AUTHORITIES.ROLE_ETUDIANT_LICENCE,
+          AUTHORITIES.ROLE_ETUDIANT_MASTER
+        ]}
       />
       <PrivateRoute path={`${match.url}/annonce`} component={Annonce} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path={`${match.url}/note-licence`} component={NoteLicence} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.PROF]} />

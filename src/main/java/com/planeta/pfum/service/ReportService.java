@@ -87,7 +87,7 @@ public class ReportService  {
 	 * @param type
 	 */
 	@Transactional(readOnly = true)
-	public Resource exportAll(Integer etudiantId, String type ) {
+	public Resource genererAttestationInscription(Integer etudiantId, String type ) {
 		try {
 			File file = ResourceUtils.getFile("classpath:INSCIRPTION.jrxml");
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -109,6 +109,53 @@ public class ReportService  {
 			case "PRINT":
 				fileName = "example.pdf";
 //				JasperExportManager.exportReportToPdfFile(jasperPrint, this.fileStorageLocation + "/example.pdf");
+				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
+				break;
+			case "XLSX":
+				fileName = "Example.xlsx";
+				simpleReportExporter.exportToXlsx(this.fileStorageLocation + "/" + fileName, "Example");
+				break;
+			case "CSV":
+				fileName = "example.csv";
+				simpleReportExporter.exportToCsv(this.fileStorageLocation + "/" + fileName);
+				break;
+			default:
+				break;
+			}
+
+			return loadFileAsResource(fileName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
+	@Transactional(readOnly = true)
+	public Resource genererBadgeEtudiantExecutif(Integer etudiantId, String type ) {
+		try {
+			File file = ResourceUtils.getFile("classpath:BADGEESLSCAEXECUTIF.jrxml");
+			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+			JRSaver.saveObject(jasperReport, "BADGEESLSCAEXECUTIF.jasper");
+			Map<String, Object> parameters = new HashMap<>();
+			parameters.put("EtudiantId",Long.valueOf(etudiantId));
+
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+
+			SimpleReportExporter simpleReportExporter = new SimpleReportExporter(jasperPrint);
+			String fileName = "";
+			switch (type) {
+			case "PDF": 
+			case "PRINT":
+				fileName = "example.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 				break;
 			case "XLSX":

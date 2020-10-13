@@ -1,31 +1,46 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.EtudiantsLicence;
-import com.planeta.pfum.domain.EtudiantsMaster;
-import com.planeta.pfum.domain.Filiere;
-import com.planeta.pfum.repository.EtudiantsMasterRepository;
-import com.planeta.pfum.repository.FiliereRepository;
-import com.planeta.pfum.repository.search.EtudiantsMasterSearchRepository;
-import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.planeta.pfum.domain.EtudiantsMaster;
+import com.planeta.pfum.domain.Filiere;
+import com.planeta.pfum.domain.User;
+import com.planeta.pfum.repository.EtudiantsMasterRepository;
+import com.planeta.pfum.repository.FiliereRepository;
+import com.planeta.pfum.repository.UserRepository;
+import com.planeta.pfum.repository.search.EtudiantsMasterSearchRepository;
+import com.planeta.pfum.security.AuthoritiesConstants;
+import com.planeta.pfum.security.SecurityUtils;
+import com.planeta.pfum.service.UserService;
+import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.EtudiantsMaster}.
@@ -46,13 +61,21 @@ public class EtudiantsMasterResource {
     private final EtudiantsMasterSearchRepository etudiantsMasterSearchRepository;
 
     private final FiliereRepository filiereRepository;
+    
+    
+    private final UserService userService;
+    
+    private final UserRepository userRepository;
 
-    public EtudiantsMasterResource(EtudiantsMasterRepository etudiantsMasterRepository, EtudiantsMasterSearchRepository etudiantsMasterSearchRepository, FiliereRepository filiereRepository) {
+    public EtudiantsMasterResource(EtudiantsMasterRepository etudiantsMasterRepository, EtudiantsMasterSearchRepository etudiantsMasterSearchRepository, FiliereRepository filiereRepository,UserRepository userRepository,UserService userService) {
         this.etudiantsMasterRepository = etudiantsMasterRepository;
         this.etudiantsMasterSearchRepository = etudiantsMasterSearchRepository;
         this.filiereRepository = filiereRepository;
+        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
+    
     /**
      * {@code POST  /etudiants-masters} : Create a new etudiantsMaster.
      *
@@ -72,19 +95,27 @@ public class EtudiantsMasterResource {
         Filiere filiere = filiereRepository.findById(etudiantsMaster.getFiliere().getId()).get();
         String ecole = filiere.getEtablissement().getNomEcole();
 
-        String suffixe = "ES20";
+        Calendar c = Calendar.getInstance();        
+        int fourDigYear = c.get(Calendar.YEAR);
+        
+        String suffixe = "ES"+ Integer.toString(fourDigYear).substring(2);
 
         switch (ecole) {
             case "ESLSCA":
-                suffixe = "ES20" + result.getId();
+                suffixe = "ES20" + customFormat("0000", result.getId());
                 break;
 
             case "OSTELEA":
-                suffixe = "OS20" + result.getId();
+                suffixe = "OS20" + customFormat("0000", result.getId());
                 break;
             default:
                 break;
         }
+        
+        //Creation d'un compte USER pour se connecter
+        User newUser = userService.createUserForEtudiants(etudiantsMaster);
+        etudiantsMaster.setUser(newUser);
+        
         result.setSuffixe(suffixe);
 
         etudiantsMasterRepository.save(etudiantsMaster);
@@ -125,7 +156,14 @@ public class EtudiantsMasterResource {
     @GetMapping("/etudiants-masters")
     public List<EtudiantsMaster> getAllEtudiantsMasters() {
         log.debug("REST request to get all EtudiantsMasters");
+        
+    	if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT_MASTER)) {
+			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+			return etudiantsMasterRepository.findAllByUserId(user.get().getId());
+		} 
+    	
         return etudiantsMasterRepository.findAll();
+
     }
 
     /**
@@ -170,13 +208,15 @@ public class EtudiantsMasterResource {
             .collect(Collectors.toList());
     }
 
-    //CHT
     @GetMapping("/etudiants-masters/filiere/{fil}")
     public List<EtudiantsMaster> getAllEtudiantsMasterByFiliere(@PathVariable Filiere fil) {
         log.debug("REST request to get all etudiants-masters");
         return etudiantsMasterRepository.findAllByFiliere(fil);
     }
 
-    //CHT
+    private String customFormat(String pattern, long value ) {
+        DecimalFormat myFormatter = new DecimalFormat(pattern);
+        return myFormatter.format(value);
+     }
 
 }

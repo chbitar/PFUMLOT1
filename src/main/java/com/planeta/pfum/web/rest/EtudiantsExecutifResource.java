@@ -4,6 +4,8 @@ import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,6 +41,7 @@ import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import java.time.LocalDate;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.EtudiantsExecutif}.
@@ -61,6 +64,7 @@ public class EtudiantsExecutifResource {
     private final FiliereRepository filiereRepository;
     
     private final UserService userService;
+    
     private final UserRepository userRepository;
 
     
@@ -92,32 +96,34 @@ public class EtudiantsExecutifResource {
         EtudiantsExecutif result = etudiantsExecutifRepository.save(etudiantsExecutif);
         
         
-        // formatage code etudiant
         Filiere filiere=  filiereRepository.findById(etudiantsExecutif.getFiliere().getId()).get();
         String ecole = filiere.getEtablissement().getNomEcole();
-
-        String suffixe = "ES20";
+        
+        Calendar c = Calendar.getInstance();        
+        int fourDigYear = c.get(Calendar.YEAR);
+        
+        String suffixe = "ES"+ Integer.toString(fourDigYear).substring(2);
 
         switch (ecole) {
             case "ESLSCA":
-                suffixe = "ES20" + result.getId();
+                suffixe = "ES20" + customFormat("0000", result.getId());
                 break;
 
             case "OSTELEA":
-                suffixe = "OS20" + result.getId();
+                suffixe = "OS20" + customFormat("0000", result.getId());
                 break;
             default:
                 break;
         }
         
         //Creation d'un compte USER pour se connecter
-        User newUser = userService.createUserForEtudiantsExecutif(etudiantsExecutif);
+        User newUser = userService.createUserForEtudiants(etudiantsExecutif);
         etudiantsExecutif.setUser(newUser);
         
         result.setSuffixe(suffixe);
 
         etudiantsExecutifRepository.save(etudiantsExecutif);
-       //
+       
         etudiantsExecutifSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-executifs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -155,10 +161,8 @@ public class EtudiantsExecutifResource {
     public List<EtudiantsExecutif> getAllEtudiantsExecutifs() {
         log.debug("REST request to get all EtudiantsExecutifs");
         
-        
-    	if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT)) {
+    	if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT_EXECUTIF)) {
 			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-
 			return etudiantsExecutifRepository.findAllByUserId(user.get().getId());
 		} 
         
@@ -207,13 +211,18 @@ public class EtudiantsExecutifResource {
             .collect(Collectors.toList());
     }
 
-    //CHT
     @GetMapping("/etudiants-executifs/filiere/{fil}")
     public List<EtudiantsExecutif> getAllEtudiantsExecutifsByFiliere(@PathVariable Filiere fil) {
         log.debug("REST request to get all etudiants-executifs");
         return etudiantsExecutifRepository.findAllByFiliere(fil);
     }
-    //CHT
+
+    
+    
+    private String customFormat(String pattern, long value ) {
+        DecimalFormat myFormatter = new DecimalFormat(pattern);
+        return myFormatter.format(value);
+     }
 
 }
 

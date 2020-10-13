@@ -3,6 +3,8 @@ package com.planeta.pfum.service;
 import com.planeta.pfum.config.Constants;
 import com.planeta.pfum.domain.Authority;
 import com.planeta.pfum.domain.EtudiantsExecutif;
+import com.planeta.pfum.domain.EtudiantsLicence;
+import com.planeta.pfum.domain.EtudiantsMaster;
 import com.planeta.pfum.domain.Professeur;
 import com.planeta.pfum.domain.User;
 import com.planeta.pfum.repository.AuthorityRepository;
@@ -330,13 +332,11 @@ public class UserService {
         return user;
     }
     
-    public User createUserForEtudiantsExecutif(EtudiantsExecutif p) {
+    public User createUserForEtudiants(EtudiantsExecutif p) {
         User user = new User();
         user.setLogin(p.getEmail());
         user.setFirstName(p.getNom());
         user.setLastName(p.getPrenom());
-       // StringBuilder mail=new StringBuilder(p.getNomPrenom());
-       // mail.append("@mail.com");
         user.setEmail(p.getEmail());
         user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
         String encryptedPassword = passwordEncoder.encode("Maroc@2020");
@@ -345,7 +345,50 @@ public class UserService {
         user.setResetDate(Instant.now());
         user.setActivated(false);
         Set<Authority> authorities = new HashSet<>();
-        authorityRepository.findById(AuthoritiesConstants.ETUDIANT).ifPresent(authorities::add);
+        authorityRepository.findById(AuthoritiesConstants.ETUDIANT_EXECUTIF).ifPresent(authorities::add);
+        user.setAuthorities(authorities);
+        userRepository.save(user);
+        this.clearUserCaches(user);
+        log.debug("Created Information for User: {}", user);
+        return user;
+    }
+    
+    
+    public User createUserForEtudiants(EtudiantsLicence p) {
+        User user = new User();
+        user.setLogin(p.getEmail());
+        user.setFirstName(p.getNom());
+        user.setLastName(p.getPrenom());
+        user.setEmail(p.getEmail());
+        user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
+        String encryptedPassword = passwordEncoder.encode("Maroc@2020");
+        user.setPassword(encryptedPassword);
+        user.setResetKey(RandomUtil.generateResetKey());
+        user.setResetDate(Instant.now());
+        user.setActivated(false);
+        Set<Authority> authorities = new HashSet<>();
+        authorityRepository.findById(AuthoritiesConstants.ETUDIANT_LICENCE).ifPresent(authorities::add);
+        user.setAuthorities(authorities);
+        userRepository.save(user);
+        this.clearUserCaches(user);
+        log.debug("Created Information for User: {}", user);
+        return user;
+    }
+    
+    public User createUserForEtudiants(EtudiantsMaster p) {
+        User user = new User();
+        user.setLogin(p.getEmail());
+        user.setFirstName(p.getNom());
+        user.setLastName(p.getPrenom());
+        user.setEmail(p.getEmail());
+        user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
+        String encryptedPassword = passwordEncoder.encode("Maroc@2020");
+        user.setPassword(encryptedPassword);
+        user.setResetKey(RandomUtil.generateResetKey());
+        user.setResetDate(Instant.now());
+        user.setActivated(false);
+        Set<Authority> authorities = new HashSet<>();
+        authorityRepository.findById(AuthoritiesConstants.ETUDIANT_MASTER).ifPresent(authorities::add);
         user.setAuthorities(authorities);
         userRepository.save(user);
         this.clearUserCaches(user);

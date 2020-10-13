@@ -16,4 +16,6 @@ import java.util.List;
 public interface EtudiantsLicenceRepository extends JpaRepository<EtudiantsLicence, Long> {
 
     List<EtudiantsLicence> findAllByFiliere(Filiere fil);
+
+	List<EtudiantsLicence> findAllByUserId(Long id);
 }
