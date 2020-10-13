@@ -72,6 +72,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
               {isAuthenticated && <InscriptionsMenu />}
               {isAuthenticated && <ScolariteMenu />}
               {isAuthenticated && <EspaceProfMenu />}
+              {isAuthenticated && <EntitiesMenu />}
               {isAuthenticated && isAdmin && <ConfigurationMenu />}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
               <LocaleMenu currentLocale={currentLocale} onClick={this.handleLocaleChange} />

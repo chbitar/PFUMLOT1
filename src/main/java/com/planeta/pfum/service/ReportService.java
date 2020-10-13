@@ -89,9 +89,9 @@ public class ReportService  {
 	@Transactional(readOnly = true)
 	public Resource exportAll(Integer etudiantId, String type ) {
 		try {
-			File file = ResourceUtils.getFile("classpath:attestationScolarite.jrxml");
+			File file = ResourceUtils.getFile("classpath:INSCIRPTION.jrxml");
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-			JRSaver.saveObject(jasperReport, "attestationScolarite.jasper");
+			JRSaver.saveObject(jasperReport, "INSCIRPTION.jasper");
 //			 java.util.List<EtudiantsExecutif> nodeList = new ArrayList<EtudiantsExecutif>();
 //			    nodeList.add(etudiantsExecutifRepository.getOne(1l));
 //			exampleReport.jrxml
