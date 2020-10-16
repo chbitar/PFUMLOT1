@@ -1,6 +1,8 @@
 package com.planeta.pfum.web.rest;
 
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -8,15 +10,24 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.planeta.pfum.domain.User;
 import com.planeta.pfum.domain.enumeration.Programme;
+import com.planeta.pfum.repository.UserRepository;
+import com.planeta.pfum.security.SecurityUtils;
+import com.planeta.pfum.service.MailService;
 import com.planeta.pfum.service.ReportService;
+import com.planeta.pfum.service.dto.MessageEmail;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.jsonwebtoken.io.IOException;
@@ -37,8 +48,16 @@ public class ReportResource {
 
 	private final ReportService reportService;
 
-	public ReportResource(ReportService reportService) {
+	private final MailService mailService;
+
+	private final UserRepository userRepository;
+
+	
+	public ReportResource(ReportService reportService,MailService mailService,UserRepository userRepository) {
 		this.reportService = reportService;
+		this.mailService = mailService;
+		this.userRepository = userRepository;
+
 	}
 
 
@@ -127,5 +146,25 @@ public class ReportResource {
 				.headers(HeaderUtil.createAlert(applicationName, "Orders exported successfully", resource.toString()))
 				.body(resource);
 	}
+	
+	
+
+	  
+    @PostMapping("/etudiants/envoyer-email")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void envoyerDemandeEtudiant( @RequestBody MessageEmail message) {
+		Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+
+        mailService.envoyerDemandeEtudiant(user.get(),message.getSujet(),message.getCorps()) ;
+
+    }
+    
+    
+	
+	
+	
+	
+	
+	
 
 }

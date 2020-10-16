@@ -16,7 +16,9 @@ export const EspaceProfMenu = props => (
     <MenuItem icon="asterisk" to="/entity/suivi-module">
       Suivi module
     </MenuItem>
-
+    <MenuItem icon="asterisk" to="/entity/emploi-avis">
+      Emploi de temps et Avis
+    </MenuItem>
     <Alert variant="primary">Notes</Alert>
     <MenuItem icon="asterisk" to="/entity/note-licence">
       Licence

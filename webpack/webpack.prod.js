@@ -46,7 +46,17 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             loader: 'sass-loader',
             options: { implementation: sass }
           }
+          
         ]
+      },
+       {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: 'eslint-loader',
+          options: {
+            failOnError: false,
+            failOnWarning: false,
+          }
       }
     ]
   },

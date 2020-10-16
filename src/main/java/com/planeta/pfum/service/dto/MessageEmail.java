@@ -11,8 +11,7 @@ public class MessageEmail {
 
 //    @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String sujet;
-
-    private String objet;
+    private String corps;
 
     public MessageEmail() {
         // Empty constructor needed for Jackson.
@@ -28,13 +27,16 @@ public class MessageEmail {
 		this.sujet = sujet;
 	}
 
-	public String getObjet() {
-		return objet;
+
+	public String getCorps() {
+		return corps;
 	}
 
-	public void setObjet(String objet) {
-		this.objet = objet;
+
+	public void setCorps(String corps) {
+		this.corps = corps;
 	}
+
 
 
 }

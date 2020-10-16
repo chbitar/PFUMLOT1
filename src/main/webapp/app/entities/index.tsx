@@ -26,6 +26,7 @@ import NoteExecutif from './note-executif';
 import TableauDeBoard from './tableau-de-board';
 import { AUTHORITIES } from 'app/config/constants';
 import PrivateRoute from 'app/shared/auth/private-route';
+import { EmploiEtAvis } from './professeur/emploi-avis';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -68,6 +69,8 @@ const Routes = ({ match }) => (
       <PrivateRoute path={`${match.url}/module`} component={Module} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path={`${match.url}/professeur`} component={Professeur} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path={`${match.url}/suivi-module`} component={SuiviModule} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.PROF]} />
+      <PrivateRoute path={`${match.url}/emploi-avis`} component={EmploiEtAvis} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.PROF]} />
+
       <PrivateRoute
         path={`${match.url}/etablissement`}
         component={Etablissement}

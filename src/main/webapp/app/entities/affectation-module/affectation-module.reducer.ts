@@ -150,7 +150,6 @@ export const deleteEntity: ICrudDeleteAction<IAffectationModule> = id => async d
   return result;
 };
 
-
 export const getEntitiesBySemestre: ICrudGetAction<IAffectationModule> = sem => {
   const requestUrl = `${apiUrl}/semestre/${sem}`;
   return {
@@ -158,7 +157,6 @@ export const getEntitiesBySemestre: ICrudGetAction<IAffectationModule> = sem => 
     payload: axios.get<IAffectationModule>(requestUrl)
   };
 };
-
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET

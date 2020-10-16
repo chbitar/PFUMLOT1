@@ -123,8 +123,6 @@ export default (state: EtudiantsExecutifState = initialState, action): Etudiants
 const apiUrl = 'api/etudiants-executifs';
 const apiSearchUrl = 'api/_search/etudiants-executifs';
 
-// Actions
-
 export const getSearchEntities: ICrudSearchAction<IEtudiantsExecutif> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_ETUDIANTSEXECUTIFS,
   payload: axios.get<IEtudiantsExecutif>(`${apiSearchUrl}?query=${query}`)
@@ -171,8 +169,6 @@ export const deleteEntity: ICrudDeleteAction<IEtudiantsExecutif> = id => async d
   return result;
 };
 
-//CHT
-
 export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsExecutif> = fil => {
   const requestUrl = `${apiUrl}/filiere/${fil}`;
   return {
@@ -180,8 +176,6 @@ export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsExecutif> = fil => {
     payload: axios.get<IEtudiantsExecutif>(requestUrl)
   };
 };
-
-//CHT
 
 export const setBlob = (name, data, contentType?) => ({
   type: ACTION_TYPES.SET_BLOB,
@@ -196,9 +190,9 @@ export const reset = () => ({
   type: ACTION_TYPES.RESET
 });
 
-export const envoyerMail = (objet, sujet) => ({
+export const envoyerMail = (sujet, corps) => ({
   type: ACTION_TYPES.ENVOYER_EMAIL,
-  payload: axios.post(`${apiUrl}/envoyer-email`, { objet, sujet }),
+  payload: axios.post(`api/etudiants/envoyer-email`, { sujet, corps }),
   meta: {
     successMessage: 'Le mail a été envoyé avec succès',
     errorMessage: translate('global.email.error')

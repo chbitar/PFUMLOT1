@@ -25,7 +25,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
   }
 
   genererAttestationInscription = () => () => {
-    const requestUrl = `/api/attestation/${this.props.match.params.id}/PDF/MASTER_EXECUTIF`;
+    const requestUrl = `/api/attestation/${this.props.match.params.id}/PDF/LICENCE`;
     axios
       .get(requestUrl, {
         responseType: 'blob'
@@ -35,7 +35,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
       });
   };
   genererBadge = () => () => {
-    const requestUrl = `/api/badge/etudiantExecutif/${this.props.match.params.id}/PDF`;
+    const requestUrl = `/api/badge/etudiant/${this.props.match.params.id}/PDF`;
     axios
       .get(requestUrl, {
         responseType: 'blob'
@@ -284,7 +284,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                 )}
                 <br />
                 <br />
-                <Button tag={Link} to="/entity/etudiants-executif" replace color="info">
+                <Button tag={Link} to="/entity/etudiants-licence" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />{' '}
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
@@ -292,7 +292,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                 </Button>
                 &nbsp;
                 {(isAdmin || isUser) && (
-                  <Button tag={Link} to={`/entity/etudiants-executif/${etudiantsLicenceEntity.id}/edit`} replace color="primary">
+                  <Button tag={Link} to={`/entity/etudiants-licence/${etudiantsLicenceEntity.id}/edit`} replace color="primary">
                     <FontAwesomeIcon icon="pencil-alt" />{' '}
                     <span className="d-none d-md-inline">
                       <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -344,11 +344,11 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                     <div className="card-body">
                       <AvForm onValidSubmit={this.handleEnvoyerMail}>
                         <AvGroup>
-                          <Label id="prenomLabel" for="etudiants-executif-prenom">
+                          <Label id="prenomLabel" for="etudiants-licence-prenom">
                             Object :
                           </Label>
                           <AvField
-                            id="etudiants-executif-prenom"
+                            id="etudiants-licence-prenom"
                             type="text"
                             name="objet"
                             validate={{

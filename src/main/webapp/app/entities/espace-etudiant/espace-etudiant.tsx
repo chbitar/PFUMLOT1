@@ -181,20 +181,6 @@ export class EspaceEtudiant extends React.Component<IEspaceEtudiantProps, IEspac
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
-                        { this.props.isEtudiant &&                   
-                        <><Button tag={Link} to={`${match.url}/${espaceEtudiant.id}/edit`} color="primary" size="sm">
-                            <FontAwesomeIcon icon="pencil-alt" />{' '}
-                            <span className="d-none d-md-inline">
-                              <Translate contentKey="entity.action.edit">Edit</Translate>
-                            </span>
-                          </Button>
-                            <Button tag={Link} to={`${match.url}/${espaceEtudiant.id}/delete`} color="danger" size="sm">
-                              <FontAwesomeIcon icon="trash" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.delete">Delete</Translate>
-                              </span>
-                            </Button></>
-                         }
                       </div>
                     </td>
                   </tr>
@@ -213,9 +199,7 @@ export class EspaceEtudiant extends React.Component<IEspaceEtudiantProps, IEspac
 }
 
 const mapStateToProps = ({ espaceEtudiant }: IRootState) => ({
-  espaceEtudiantList: espaceEtudiant.entities,
-  isEtudiant: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ETUDIANT]),
-
+  espaceEtudiantList: espaceEtudiant.entities
 });
 
 const mapDispatchToProps = {

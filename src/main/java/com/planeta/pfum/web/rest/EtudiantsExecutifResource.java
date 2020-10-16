@@ -220,19 +220,6 @@ public class EtudiantsExecutifResource {
     }
 
     
-  
-    @PostMapping("/etudiants-executifs/envoyer-email")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccount( @RequestBody MessageEmail message) {
-    	System.out.println(message.getObjet());
-    	System.out.println(message.getSujet());
-
-//        mailService.sendActivationEmail(user);
-    }
-    
-    
-    
-    
     private String customFormat(String pattern, long value ) {
         DecimalFormat myFormatter = new DecimalFormat(pattern);
         return myFormatter.format(value);

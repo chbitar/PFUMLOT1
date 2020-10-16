@@ -61,7 +61,6 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
         ...values
       };
 
-      console.log(entity);
       if (this.state.isNew) {
         this.props.createEntity(entity);
       } else {

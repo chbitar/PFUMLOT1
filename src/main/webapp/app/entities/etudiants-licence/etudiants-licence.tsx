@@ -47,14 +47,12 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
 
   handleSearch = event => this.setState({ search: event.target.value });
 
-  //===========CHT====================================
   toggleActive = etudiantsExecutif => () => {
     this.props.updateEntity({
       ...etudiantsExecutif,
       inscriptionvalide: !etudiantsExecutif.inscriptionvalide
     });
   };
-  //===========CHT====================================
 
   filtrerListFiliereEtab = e => {
     this.props.getEntitiesByEtab(e.target.value);

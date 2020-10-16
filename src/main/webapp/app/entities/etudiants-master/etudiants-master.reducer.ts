@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction, translate } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
@@ -15,7 +15,8 @@ export const ACTION_TYPES = {
   UPDATE_ETUDIANTSMASTER: 'etudiantsMaster/UPDATE_ETUDIANTSMASTER',
   DELETE_ETUDIANTSMASTER: 'etudiantsMaster/DELETE_ETUDIANTSMASTER',
   SET_BLOB: 'etudiantsMaster/SET_BLOB',
-  RESET: 'etudiantsMaster/RESET'
+  RESET: 'etudiantsMaster/RESET',
+  ENVOYER_EMAIL: 'etudiantsExecutif/ENVOYER_EMAIL'
 };
 
 const initialState = {
@@ -28,8 +29,6 @@ const initialState = {
 };
 
 export type EtudiantsMasterState = Readonly<typeof initialState>;
-
-// Reducer
 
 export default (state: EtudiantsMasterState = initialState, action): EtudiantsMasterState => {
   switch (action.type) {
@@ -45,6 +44,7 @@ export default (state: EtudiantsMasterState = initialState, action): EtudiantsMa
     case REQUEST(ACTION_TYPES.CREATE_ETUDIANTSMASTER):
     case REQUEST(ACTION_TYPES.UPDATE_ETUDIANTSMASTER):
     case REQUEST(ACTION_TYPES.DELETE_ETUDIANTSMASTER):
+    case REQUEST(ACTION_TYPES.ENVOYER_EMAIL):
       return {
         ...state,
         errorMessage: null,
@@ -57,6 +57,7 @@ export default (state: EtudiantsMasterState = initialState, action): EtudiantsMa
     case FAILURE(ACTION_TYPES.CREATE_ETUDIANTSMASTER):
     case FAILURE(ACTION_TYPES.UPDATE_ETUDIANTSMASTER):
     case FAILURE(ACTION_TYPES.DELETE_ETUDIANTSMASTER):
+    case FAILURE(ACTION_TYPES.ENVOYER_EMAIL):
       return {
         ...state,
         loading: false,
@@ -106,6 +107,12 @@ export default (state: EtudiantsMasterState = initialState, action): EtudiantsMa
       return {
         ...initialState
       };
+    case SUCCESS(ACTION_TYPES.ENVOYER_EMAIL):
+      return {
+        ...state,
+        updating: false,
+        updateSuccess: true
+      };
     default:
       return state;
   }
@@ -113,8 +120,6 @@ export default (state: EtudiantsMasterState = initialState, action): EtudiantsMa
 
 const apiUrl = 'api/etudiants-masters';
 const apiSearchUrl = 'api/_search/etudiants-masters';
-
-// Actions
 
 export const getSearchEntities: ICrudSearchAction<IEtudiantsMaster> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_ETUDIANTSMASTERS,
@@ -162,8 +167,6 @@ export const deleteEntity: ICrudDeleteAction<IEtudiantsMaster> = id => async dis
   return result;
 };
 
-//CHT
-
 export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsMaster> = fil => {
   const requestUrl = `${apiUrl}/filiere/${fil}`;
   return {
@@ -171,8 +174,6 @@ export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsMaster> = fil => {
     payload: axios.get<IEtudiantsMaster>(requestUrl)
   };
 };
-
-//CHT
 
 export const setBlob = (name, data, contentType?) => ({
   type: ACTION_TYPES.SET_BLOB,
@@ -185,4 +186,13 @@ export const setBlob = (name, data, contentType?) => ({
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET
+});
+
+export const envoyerMail = (objet, sujet) => ({
+  type: ACTION_TYPES.ENVOYER_EMAIL,
+  payload: axios.post(`${apiUrl}/envoyer-email`, { objet, sujet }),
+  meta: {
+    successMessage: 'Le mail a été envoyé avec succès',
+    errorMessage: translate('global.email.error')
+  }
 });

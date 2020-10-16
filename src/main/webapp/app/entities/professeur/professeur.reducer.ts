@@ -102,17 +102,10 @@ export default (state: ProfesseurState = initialState, action): ProfesseurState 
 const apiUrl = 'api/professeurs';
 const apiSearchUrl = 'api/_search/professeurs';
 
-// Actions
-
 export const getSearchEntities: ICrudSearchAction<IProfesseur> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_PROFESSEURS,
   payload: axios.get<IProfesseur>(`${apiSearchUrl}?query=${query}`)
 });
-
-//export const getEntities: ICrudGetAllAction<IProfesseur> = (page, size, sort) => ({
-//  type: ACTION_TYPES.FETCH_PROFESSEUR_LIST,
-//  payload: axios.get<IProfesseur>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
-//});
 
 export const getEntities: ICrudGetAllAction<IProfesseur> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_PROFESSEUR_LIST,

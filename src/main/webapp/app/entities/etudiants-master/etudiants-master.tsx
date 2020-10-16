@@ -47,14 +47,12 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
 
   handleSearch = event => this.setState({ search: event.target.value });
 
-  //===========CHT====================================
   toggleActive = etudiantsMaster => () => {
     this.props.updateEntity({
       ...etudiantsMaster,
       inscriptionvalide: !etudiantsMaster.inscriptionvalide
     });
   };
-  //===========CHT====================================
 
   filtrerListFiliereEtab = e => {
     this.props.getEntitiesByEtab(e.target.value);

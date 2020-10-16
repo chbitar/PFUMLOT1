@@ -161,7 +161,6 @@ export const deleteEntity: ICrudDeleteAction<ISuiviModule> = id => async dispatc
   return result;
 };
 
-
 export const getEntitiesAffectedToProf: ICrudGetAllAction<ISuiviModule> = () => {
   const requestUrl = `${apiUrl}/professeur`;
   return {
@@ -169,7 +168,6 @@ export const getEntitiesAffectedToProf: ICrudGetAllAction<ISuiviModule> = () => 
     payload: axios.get<ISuiviModule>(requestUrl)
   };
 };
-
 
 export const setBlob = (name, data, contentType?) => ({
   type: ACTION_TYPES.SET_BLOB,

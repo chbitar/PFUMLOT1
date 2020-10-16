@@ -129,11 +129,8 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
                       <TextFormat type="date" value={suiviModule.finCreneau} format={APP_DATE_FORMAT} />
                     </td>
                     <td>{suiviModule.duree}</td>
-
                     <td>{suiviModule.module ? <Link to={`module/${suiviModule.module.id}`}>{suiviModule.module.nomModule}</Link> : ''}</td>
-                    
-                    <td>{suiviModule.user ? suiviModule.user.firstName +' '+ suiviModule.user.lastName : ''}</td>
-
+                    <td>{suiviModule.user ? suiviModule.user.firstName + ' ' + suiviModule.user.lastName : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${suiviModule.id}`} color="info" size="sm">

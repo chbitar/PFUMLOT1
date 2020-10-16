@@ -64,7 +64,7 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
           <Col sm="12">
             Choisissez un semestre
             <select onChange={this.filtrerListAffectationModule}>
-              <option value=""> </option>
+              <option value="" />
               <option value="S1">S1</option>
               <option value="S2">S2</option>
               <option value="S3">S3</option>
@@ -79,7 +79,6 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
             <Table responsive>
               <thead>
                 <tr>
-            
                   <th>
                     <Translate contentKey="pfumv10App.affectationModule.annee">Annee</Translate>
                   </th>
@@ -111,15 +110,16 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
                     </td>
                     <td>
                       {affectationModule.professeur ? (
-                        <Link to={`professeur/${affectationModule.professeur.id}`}>{affectationModule.professeur.nom + ' ' + affectationModule.professeur.prenom}</Link>
+                        <Link to={`professeur/${affectationModule.professeur.id}`}>
+                          {affectationModule.professeur.nom + ' ' + affectationModule.professeur.prenom}
+                        </Link>
                       ) : (
                         ''
                       )}
                     </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
-
-                      <Button tag={Link} to={`${match.url}/${affectationModule.id}`} color="info" size="sm">
+                        <Button tag={Link} to={`${match.url}/${affectationModule.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.view">View</Translate>

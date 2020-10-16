@@ -7,13 +7,8 @@ import { AvFeedback, AvForm, AvGroup, AvInput } from 'availity-reactstrap-valida
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-
-import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { IModule } from 'app/shared/model/module.model';
-//import { getEntities as getModules } from 'app/entities/module/module.reducer';
 import { getModulesAffectedToProf as getModules } from 'app/entities/module/module.reducer';
-
 import { IEtudiantsLicence } from 'app/shared/model/etudiants-licence.model';
 import { getEntities as getEtudiantsLicences } from 'app/entities/etudiants-licence/etudiants-licence.reducer';
 import { IEtudiantsMaster } from 'app/shared/model/etudiants-master.model';
@@ -24,10 +19,6 @@ import { getEntity, updateEntity, createEntity, reset } from './absence.reducer'
 import { IAbsence } from 'app/shared/model/absence.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
-import { Console } from 'console';
-import { Absence } from './absence';
-import { isEmpty, isInteger, isNumber } from 'lodash';
 
 export interface IAbsenceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -92,7 +83,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
 
   handleInputChangeExecutif(event) {
     const target = event.target;
-    var value = target.value;
+    const value = target.value;
 
     if (target.checked) {
       this.state.etudiantListExecutif[value] = value;
@@ -102,7 +93,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
   }
   handleInputChangeLicence(event) {
     const target = event.target;
-    var value = target.value;
+    const value = target.value;
 
     if (target.checked) {
       this.state.etudiantListLicence[value] = value;
@@ -113,7 +104,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
 
   handleInputChangeMaster(event) {
     const target = event.target;
-    var value = target.value;
+    const value = target.value;
 
     if (target.checked) {
       this.state.etudiantListMaster[value] = value;
@@ -124,11 +115,6 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
 
   saveEntity = (event, errors, values) => {
     values.dateSeance = convertDateTimeToServer(values.dateSeance);
-
-    console.log(this.state.etudiantListLicence);
-    console.log(this.state.etudiantListMaster);
-    console.log(this.state.etudiantListExecutif);
-
     if (errors.length === 0) {
       const { absenceEntity } = this.props;
       const entity = {

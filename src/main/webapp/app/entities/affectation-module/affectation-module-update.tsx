@@ -7,21 +7,11 @@ import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstr
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-
-import { IModule } from 'app/shared/model/module.model';
-//import { getEntities as getModules } from 'app/entities/module/module.reducer';
-import { IProfesseur } from 'app/shared/model/professeur.model';
-//import { getEntities as getProfesseurs } from 'app/entities/professeur/professeur.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './affectation-module.reducer';
 import { IAffectationModule } from 'app/shared/model/affectation-module.model';
 // tslint:disable-next-line:no-unused-variable
-import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
-
 import { getEntitiesBySemestre as getModules } from 'app/entities/module/module.reducer';
-
 import { getEntities as getProfesseurs } from 'app/entities/professeur/professeur.reducer';
-
 export interface IAffectationModuleUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface IAffectationModuleUpdateState {
@@ -77,11 +67,11 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
   handleClose = () => {
     this.props.history.push('/entity/affectation-module');
   };
-  
+
   fillListModule = e => {
     this.props.getModules(e.target.value);
   };
-  
+
   render() {
     const { affectationModuleEntity, modules, professeurs, loading, updating } = this.props;
     const { isNew } = this.state;
@@ -154,13 +144,7 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                   </Label>
                   <AvInput id="affectation-module-professeur" type="select" className="form-control" name="professeur.id">
                     <option value="" key="0" />
-                    {professeurs
-                      ? professeurs.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nom +' '+ otherEntity.prenom}
-                          </option>
-                        ))
-                      : null}
+                    affectation-module.reducer.ts
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/affectation-module" replace color="info">

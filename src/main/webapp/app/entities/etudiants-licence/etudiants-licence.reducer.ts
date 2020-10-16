@@ -174,8 +174,6 @@ export const deleteEntity: ICrudDeleteAction<IEtudiantsLicence> = id => async di
   return result;
 };
 
-//CHT
-
 export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsLicence> = fil => {
   const requestUrl = `${apiUrl}/filiere/${fil}`;
   return {
@@ -184,7 +182,6 @@ export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsLicence> = fil => {
   };
 };
 
-//CHT
 export const setBlob = (name, data, contentType?) => ({
   type: ACTION_TYPES.SET_BLOB,
   payload: {

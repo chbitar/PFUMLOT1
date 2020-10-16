@@ -102,8 +102,6 @@ export default (state: ModuleState = initialState, action): ModuleState => {
 const apiUrl = 'api/modules';
 const apiSearchUrl = 'api/_search/modules';
 
-// Actions
-
 export const getSearchEntities: ICrudSearchAction<IModule> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_MODULES,
   payload: axios.get<IModule>(`${apiSearchUrl}?query=${query}`)
@@ -150,7 +148,6 @@ export const deleteEntity: ICrudDeleteAction<IModule> = id => async dispatch => 
   return result;
 };
 
-
 export const getEntitiesBySemestre: ICrudSearchAction<IModule> = sem => {
   const requestUrl = `${apiUrl}/semestre/${sem}`;
   return {
@@ -167,8 +164,6 @@ export const getEntitiesAffectedToProf: ICrudSearchAction<IModule> = sem => {
   };
 };
 
-
-
 export const getModulesAffectedToProf: ICrudSearchAction<IModule> = () => {
   const requestUrl = `${apiUrl}/professeur`;
   return {
@@ -176,9 +171,6 @@ export const getModulesAffectedToProf: ICrudSearchAction<IModule> = () => {
     payload: axios.get<IModule>(requestUrl)
   };
 };
-
-
-
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET

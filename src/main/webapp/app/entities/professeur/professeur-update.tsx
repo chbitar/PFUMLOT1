@@ -141,7 +141,6 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
                   </Label>
                   <AvField id="professeur-rib" type="text" name="rib" />
                 </AvGroup>
-                
                 <Button tag={Link} id="cancel-save" to="/entity/professeur" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;

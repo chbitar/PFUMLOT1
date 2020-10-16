@@ -48,7 +48,11 @@ export class AffectationModuleDetail extends React.Component<IAffectationModuleD
             <dt>
               <Translate contentKey="pfumv10App.affectationModule.professeur">Professeur</Translate>
             </dt>
-            <dd>{affectationModuleEntity.professeur ? affectationModuleEntity.professeur.nom +' '+ affectationModuleEntity.professeur.prenom : ''}</dd>
+            <dd>
+              {affectationModuleEntity.professeur
+                ? affectationModuleEntity.professeur.nom + ' ' + affectationModuleEntity.professeur.prenom
+                : ''}
+            </dd>
           </dl>
           <Button tag={Link} to="/entity/affectation-module" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

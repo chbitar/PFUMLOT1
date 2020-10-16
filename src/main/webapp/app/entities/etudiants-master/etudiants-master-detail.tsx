@@ -1,39 +1,56 @@
-
 import axios from 'axios';
 import fileDownload from 'react-file-download';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col } from 'reactstrap';
+import { Button, Row, Col, Label } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAction, openFile, byteSize, TextFormat } from 'react-jhipster';
+import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import { Translate, ICrudGetAction, openFile, byteSize, TextFormat, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { IRootState } from 'app/shared/reducers';
-import { getEntity } from './etudiants-master.reducer';
-import { IEtudiantsMaster } from 'app/shared/model/etudiants-master.model';
+import { getEntity, envoyerMail } from './etudiants-master.reducer';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { getDocumentByTypeDocument as getDocuments } from 'app/entities/document/document.reducer';
 
 export interface IEtudiantsMasterDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetailProps> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
+    this.props.getDocuments('MASTER');
   }
 
-  handlePaymentSelect = () => () => {
-    const requestUrl = `/api/orders/${this.props.match.params.id}/PDF`;
-    axios.get(requestUrl, {
-      responseType: 'blob',
-    }).then(res => {
-      fileDownload(res.data, "attestation.pdf");
-    }); 
-  
-    };
+  genererAttestationInscription = () => () => {
+    const requestUrl = `/api/attestation/${this.props.match.params.id}/PDF/MASTER`;
+    axios
+      .get(requestUrl, {
+        responseType: 'blob'
+      })
+      .then(res => {
+        fileDownload(res.data, 'attestation.pdf');
+      });
+  };
+  genererBadge = () => () => {
+    const requestUrl = `/api/badge/etudiant/${this.props.match.params.id}/PDF`;
+    axios
+      .get(requestUrl, {
+        responseType: 'blob'
+      })
+      .then(res => {
+        fileDownload(res.data, 'badge.pdf');
+      });
+  };
+
+  handleEnvoyerMail = (event, values) => {
+    this.props.envoyerMail(values.objet, values.sujet);
+  };
 
   render() {
-    const { etudiantsMasterEntity } = this.props;
+    const { etudiantsMasterEntity, isUser, isRespFin, isAdmin, documentList } = this.props;
+
     return (
       <div>
         <Row>
@@ -95,12 +112,6 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                     </span>
                   </dt>
                   <dd>{etudiantsMasterEntity.codepostal}</dd>
-                  <dt>
-                    <span id="paysNationalite">
-                      <Translate contentKey="pfumv10App.etudiantsMaster.paysNationalite">Pays Nationalite</Translate>
-                    </span>
-                  </dt>
-                  <dd>{etudiantsMasterEntity.paysNationalite}</dd>
                 </dl>
               </Col>
               <Col md="6">
@@ -127,9 +138,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                 </dt>
                 <dd>{etudiantsMasterEntity.anneeInscription ? etudiantsMasterEntity.anneeInscription.annee : ''}</dd>
                 <dt>
-                  <span id="typeBac">
-                    <span id="pjBac">Intitulé d'un bac :</span>
-                  </span>
+                  <span id="pjBac">Intitulé d'un bac :</span>
                 </dt>
                 <dd>{etudiantsMasterEntity.typeBac}</dd>
                 <dt>
@@ -235,26 +244,6 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                     </div>
                   ) : null}
                 </dd>
-                <dt>
-                  <span id="diplome">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.diplome">Diplome</Translate>
-                  </span>
-                </dt>
-                <dd>
-                  {etudiantsMasterEntity.diplome ? (
-                    <div>
-                      <a onClick={openFile(etudiantsMasterEntity.diplomeContentType, etudiantsMasterEntity.diplome)}>
-                        <img
-                          src={`data:${etudiantsMasterEntity.diplomeContentType};base64,${etudiantsMasterEntity.diplome}`}
-                          style={{ maxHeight: '30px' }}
-                        />
-                      </a>
-                      <span>
-                        {etudiantsMasterEntity.diplomeContentType}, {byteSize(etudiantsMasterEntity.diplome)}
-                      </span>
-                    </div>
-                  ) : null}
-                </dd>
               </Col>
             </Row>
           </div>
@@ -278,19 +267,22 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                   <Translate contentKey="pfumv10App.etudiantsMaster.modalite">Modalite</Translate>
                 </dt>
                 <dd>{etudiantsMasterEntity.modalite ? etudiantsMasterEntity.modalite.modalite : ''}</dd>
-                <dd>
-                  <Button color="info" onClick={this.handlePaymentSelect()}>Attestation d'inscription </Button>
-
-                </dd>
-                <dd>
-                  <Button color="info">Badge</Button>
-                </dd>
-              </Col>
-            </Row>
-          </div>
-          <div>
-            <Row>
-              <Col>
+                {(isAdmin || isUser) && (
+                  <dd>
+                    <Button color="info" onClick={this.genererAttestationInscription()}>
+                      Attestation d'inscription{' '}
+                    </Button>
+                  </dd>
+                )}
+                {(isAdmin || isUser) && (
+                  <dd>
+                    <Button color="info" onClick={this.genererBadge()}>
+                      Badge
+                    </Button>
+                  </dd>
+                )}
+                <br />
+                <br />
                 <Button tag={Link} to="/entity/etudiants-master" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />{' '}
                   <span className="d-none d-md-inline">
@@ -298,28 +290,109 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                   </span>
                 </Button>
                 &nbsp;
-                <Button tag={Link} to={`/entity/etudiants-master/${etudiantsMasterEntity.id}/edit`} replace color="primary">
-                  <FontAwesomeIcon icon="pencil-alt" />{' '}
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.edit">Edit</Translate>
-                  </span>
-                </Button>
+                {(isAdmin || isUser) && (
+                  <Button tag={Link} to={`/entity/etudiants-master/${etudiantsMasterEntity.id}/edit`} replace color="primary">
+                    <FontAwesomeIcon icon="pencil-alt" />{' '}
+                    <span className="d-none d-md-inline">
+                      <Translate contentKey="entity.action.edit">Edit</Translate>
+                    </span>
+                  </Button>
+                )}
+              </Col>
+
+              <Col md="6">
+                <span className="badge badge-warning">Emploi de temps et Avis</span>
+
+                {documentList &&
+                  documentList.length > 0 &&
+                  documentList.map((document, i) => (
+                    <>
+                      <dt>
+                        <span id={document.titre} />
+                      </dt>
+                      <dd>
+                        <div key={`entity-${i}`}>
+                          {document.data ? (
+                            <div>
+                              <a onClick={openFile(document.dataContentType, document.data)}>
+                                <FontAwesomeIcon icon="file-pdf" />
+                                {document.titre}
+                                &nbsp;
+                              </a>
+                              <span id={document.titre}>
+                                {document.dataContentType}, {byteSize(document.data)}
+                              </span>
+                            </div>
+                          ) : null}
+                        </div>
+                      </dd>
+                    </>
+                  ))}
               </Col>
             </Row>
           </div>
+          <div>
+            <Row>
+              <Col>
+                <dt />
+                <dd>
+                  <span className="badge badge-warning">Envoi Demande</span>
 
-          <Col md="8" />
+                  <div className="card border-primary">
+                    <div className="card-header">Envoyer un E-mail</div>
+                    <div className="card-body">
+                      <AvForm onValidSubmit={this.handleEnvoyerMail}>
+                        <AvGroup>
+                          <Label id="objectLabel" for="etudiants-master-object">
+                            Object :
+                          </Label>
+                          <AvField
+                            id="etudiants-master-objet"
+                            type="text"
+                            name="objet"
+                            validate={{
+                              required: { value: true, errorMessage: translate('entity.validation.required') }
+                            }}
+                          />
+                        </AvGroup>
+                        <AvGroup>
+                          <Label id="observationsLabel" for="suivi-module-observations">
+                            Sujet :{' '}
+                          </Label>
+                          <AvInput
+                            id="suivi-module-observations"
+                            type="textarea"
+                            name="sujet"
+                            validate={{
+                              required: { value: true, errorMessage: translate('entity.validation.required') }
+                            }}
+                          />
+                        </AvGroup>
+                        <Button color="success" type="submit">
+                          <Translate contentKey="password.form.button">Save</Translate>
+                        </Button>
+                      </AvForm>
+                    </div>
+                  </div>
+                </dd>
+              </Col>
+            </Row>
+          </div>
         </Row>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ etudiantsMaster }: IRootState) => ({
-  etudiantsMasterEntity: etudiantsMaster.entity
+const mapStateToProps = ({ etudiantsMaster, authentication, document }: IRootState) => ({
+  etudiantsMasterEntity: etudiantsMaster.entity,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isUser: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.USER]),
+  isRespFin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ROLE_RESP_FINANCE]),
+  documentList: document.entities
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = { getEntity, envoyerMail, getDocuments };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

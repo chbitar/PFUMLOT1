@@ -52,7 +52,6 @@ export class ProfesseurDetail extends React.Component<IProfesseurDetailProps> {
               </span>
             </dt>
             <dd>{professeurEntity.email}</dd>
-           
             <dt>
               <span id="etablissement">
                 <Translate contentKey="pfumv10App.professeur.etablissement">Etablissement</Translate>
@@ -83,7 +82,6 @@ export class ProfesseurDetail extends React.Component<IProfesseurDetailProps> {
               </span>
             </dt>
             <dd>{professeurEntity.rib}</dd>
-           
             <dt>
               <Translate contentKey="pfumv10App.professeur.user">User</Translate>
             </dt>

@@ -8,12 +8,9 @@ import { Button, Row, Col, Label } from 'reactstrap';
 import { Translate, ICrudGetAction, openFile, byteSize, TextFormat, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-
 import { IRootState } from 'app/shared/reducers';
 import { getEntity, envoyerMail } from './etudiants-executif.reducer';
 import { getDocumentByTypeDocument as getDocuments } from 'app/entities/document/document.reducer';
-
-import { IEtudiantsExecutif } from 'app/shared/model/etudiants-executif.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
@@ -38,7 +35,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
       });
   };
   genererBadge = () => () => {
-    const requestUrl = `/api/badge/etudiantExecutif/${this.props.match.params.id}/PDF`;
+    const requestUrl = `/api/badge/etudiant/${this.props.match.params.id}/PDF`;
     axios
       .get(requestUrl, {
         responseType: 'blob'
@@ -49,7 +46,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
   };
 
   handleEnvoyerMail = (event, values) => {
-    this.props.envoyerMail(values.objet, values.sujet);
+    this.props.envoyerMail(values.sujet, values.corps);
   };
 
   render() {
@@ -370,26 +367,26 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                     <div className="card-body">
                       <AvForm onValidSubmit={this.handleEnvoyerMail}>
                         <AvGroup>
-                          <Label id="prenomLabel" for="etudiants-executif-prenom">
-                            Object :
+                          <Label id="sujetLabel" for="etudiants-executif-sujet">
+                            Objet :
                           </Label>
                           <AvField
-                            id="etudiants-executif-prenom"
+                            id="etudiants-executif-sujet"
                             type="text"
-                            name="objet"
+                            name="sujet"
                             validate={{
                               required: { value: true, errorMessage: translate('entity.validation.required') }
                             }}
                           />
                         </AvGroup>
                         <AvGroup>
-                          <Label id="observationsLabel" for="suivi-module-observations">
-                            Sujet :{' '}
+                          <Label id="corpsLabel" for="suivi-module-corps">
+                            Contenu :{' '}
                           </Label>
                           <AvInput
-                            id="suivi-module-observations"
+                            id="suivi-module-corps"
                             type="textarea"
-                            name="sujet"
+                            name="corps"
                             validate={{
                               required: { value: true, errorMessage: translate('entity.validation.required') }
                             }}

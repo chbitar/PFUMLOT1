@@ -101,4 +101,21 @@ public class MailService {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
     }
+    
+    @Async
+    public void envoyerDemandeEtudiant(User user, String sujet,String corps ) {
+        log.debug("Sending Student request email to '{}'", user.getEmail());
+        sendStudentRequestEmailFromTemplate(user, "mail/studentRequestEmail", sujet,corps);
+    }
+    
+    @Async
+    public void sendStudentRequestEmailFromTemplate(User user, String templateName, String sujet,String corps) {
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable("body",corps);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        sendEmail("garar.jamal@gmail.com", sujet, content, false, true);
+    }
+    
 }
