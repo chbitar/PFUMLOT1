@@ -1162,7 +1162,7 @@
                                 <id>clean-artifacts</id>
                                 <phase>install</phase>
                                 <goals>
-                                    <goal>clean</goal>
+                                    <goal>clean install</goal>
                                 </goals>
                                 <configuration>
                                     <excludeDefaultDirectories>true</excludeDefaultDirectories>
