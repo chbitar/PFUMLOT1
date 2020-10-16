@@ -35,7 +35,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
       });
   };
   genererBadge = () => () => {
-    const requestUrl = `/api/badge/etudiant/${this.props.match.params.id}/PDF`;
+    const requestUrl = `/api/badge/etudiant/${this.props.match.params.id}/PDF/LICENCE`;
     axios
       .get(requestUrl, {
         responseType: 'blob'

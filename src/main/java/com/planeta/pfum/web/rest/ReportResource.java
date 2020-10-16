@@ -1,6 +1,5 @@
 package com.planeta.pfum.web.rest;
 
-
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,15 +51,12 @@ public class ReportResource {
 
 	private final UserRepository userRepository;
 
-	
-	public ReportResource(ReportService reportService,MailService mailService,UserRepository userRepository) {
+	public ReportResource(ReportService reportService, MailService mailService, UserRepository userRepository) {
 		this.reportService = reportService;
 		this.mailService = mailService;
 		this.userRepository = userRepository;
 
 	}
-
-
 
 	/**
 	 * {@code GET  /orders} : get all the orders.
@@ -71,11 +67,12 @@ public class ReportResource {
 	 * @throws java.io.IOException
 	 */
 	@GetMapping("/attestation/{etudiantId}/{type}/{programme}")
-	public ResponseEntity<Resource> genererAttestationInscription(@PathVariable Integer etudiantId,@PathVariable String type,@PathVariable Programme programme, HttpServletRequest request)
+	public ResponseEntity<Resource> genererAttestationInscription(@PathVariable Integer etudiantId,
+			@PathVariable String type, @PathVariable Programme programme, HttpServletRequest request)
 			throws IOException, java.io.IOException {
 		log.debug("REST request to export all Orders");
 		// Load file as Resource
-		Resource resource = reportService.genererAttestationInscription(etudiantId,type,programme);
+		Resource resource = reportService.genererAttestationInscription(etudiantId, type, programme);
 		// Try to determine file's content type
 		String contentType = null;
 		try {
@@ -95,13 +92,13 @@ public class ReportResource {
 				.headers(HeaderUtil.createAlert(applicationName, "Orders exported successfully", resource.toString()))
 				.body(resource);
 	}
-	
-	@GetMapping("/badge/etudiantExecutif/{etudiantId}/{type}")
-	public ResponseEntity<Resource> genererBadge(@PathVariable Integer etudiantId,@PathVariable String type, HttpServletRequest request)
-			throws IOException, java.io.IOException {
+
+	@GetMapping("/badge/etudiant/{etudiantId}/{type}/{programme}")
+	public ResponseEntity<Resource> genererBadge(@PathVariable Integer etudiantId, @PathVariable String type,
+			@PathVariable Programme programme, HttpServletRequest request) throws IOException, java.io.IOException {
 		log.debug("REST request to export all Orders");
 		// Load file as Resource
-		Resource resource = reportService.genererBadgeEtudiantExecutif(etudiantId,type);
+		Resource resource = reportService.genererBadgeEtudiant(etudiantId, type, programme);
 		// Try to determine file's content type
 		String contentType = null;
 		try {
@@ -121,13 +118,13 @@ public class ReportResource {
 				.headers(HeaderUtil.createAlert(applicationName, "Orders exported successfully", resource.toString()))
 				.body(resource);
 	}
-	
+
 	@GetMapping("/etatInscrition/{filiereId}/{type}")
-	public ResponseEntity<Resource> exportEtatInscriptionParFiliere(@PathVariable Integer filiereId,@PathVariable String type, HttpServletRequest request)
-			throws IOException, java.io.IOException {
+	public ResponseEntity<Resource> exportEtatInscriptionParFiliere(@PathVariable Integer filiereId,
+			@PathVariable String type, HttpServletRequest request) throws IOException, java.io.IOException {
 		log.debug("REST request to export all Orders");
 		// Load file as Resource
-		Resource resource = reportService.exportEtatInscriptionParFiliere(filiereId,type);
+		Resource resource = reportService.exportEtatInscriptionParFiliere(filiereId, type);
 		String contentType = null;
 		try {
 			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
@@ -146,25 +143,14 @@ public class ReportResource {
 				.headers(HeaderUtil.createAlert(applicationName, "Orders exported successfully", resource.toString()))
 				.body(resource);
 	}
-	
-	
 
-	  
-    @PostMapping("/etudiants/envoyer-email")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void envoyerDemandeEtudiant( @RequestBody MessageEmail message) {
+	@PostMapping("/etudiants/envoyer-email")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void envoyerDemandeEtudiant(@RequestBody MessageEmail message) {
 		Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
 
-        mailService.envoyerDemandeEtudiant(user.get(),message.getSujet(),message.getCorps()) ;
+		mailService.envoyerDemandeEtudiant(user.get(), message.getSujet(), message.getCorps());
 
-    }
-    
-    
-	
-	
-	
-	
-	
-	
+	}
 
 }

@@ -35,7 +35,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
       });
   };
   genererBadge = () => () => {
-    const requestUrl = `/api/badge/etudiant/${this.props.match.params.id}/PDF`;
+    const requestUrl = `/api/badge/etudiant/${this.props.match.params.id}/PDF/MASTER_EXECUTIF`;
     axios
       .get(requestUrl, {
         responseType: 'blob'
