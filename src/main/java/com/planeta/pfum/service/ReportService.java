@@ -78,7 +78,7 @@ public class ReportService  {
 
 
 	public ReportService(EtudiantsExecutifRepository etudiantsExecutifRepository,FiliereRepository filiereRepository,EtudiantsMasterRepository etudiantsMasterRepository,EtudiantsLicenceRepository etudiantsLicenceRepository) throws Exception {
-		this.fileStorageLocation = Paths.get("../Docs").toAbsolutePath().normalize();
+		this.fileStorageLocation = Paths.get("Docs").toAbsolutePath().normalize();
 		this.etudiantsExecutifRepository = etudiantsExecutifRepository;
 		this.filiereRepository = filiereRepository;
 		this.etudiantsMasterRepository = etudiantsMasterRepository;
