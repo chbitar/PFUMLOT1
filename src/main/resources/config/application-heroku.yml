@@ -27,3 +27,5 @@ spring:
   data:
     jest:
       uri: ${BONSAI_URL}
+server:
+  port: ${PORT:8080}
