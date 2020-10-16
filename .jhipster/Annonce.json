@@ -1,0 +1,32 @@
+{
+    "name": "Annonce",
+    "fields": [
+        {
+            "fieldName": "annonce",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "commentaire",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "espaceEtudiant",
+            "otherEntityRelationshipName": "annonce",
+            "relationshipName": "espaceEtudiant"
+        }
+    ],
+    "changelogDate": "20201014002153",
+    "entityTableName": "annonce",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

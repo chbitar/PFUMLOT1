@@ -167,7 +167,14 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                                     </div>
                                   ) : null}
                                   <input id="file_photo" type="file" onChange={this.onBlobChange(true, 'photo')} accept="image/*" />
-                                  <AvInput type="hidden" name="photo" value={photo} />
+                                  <AvInput
+                                    type="hidden"
+                                    name="photo"
+                                    value={photo}
+                                    validate={{
+                                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                                    }}
+                                  />
                                 </AvGroup>
                               </AvGroup>
                             </Col>
@@ -346,7 +353,15 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                                 <Label for="etudiants-executif-filiere">
                                   <Translate contentKey="pfumv10App.etudiantsExecutif.filiere">Filiere</Translate>
                                 </Label>
-                                <AvInput id="etudiants-executif-filiere" type="select" className="form-control" name="filiere.id">
+                                <AvInput
+                                  id="etudiants-executif-filiere"
+                                  type="select"
+                                  className="form-control"
+                                  name="filiere.id"
+                                  validate={{
+                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                  }}
+                                >
                                   <option value="" key="0" />
                                   {filieres
                                     ? filieres.map(otherEntity => (
@@ -366,6 +381,9 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                                   type="select"
                                   className="form-control"
                                   name="anneeInscription.id"
+                                  validate={{
+                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                  }}
                                 >
                                   <option value="" key="0" />
                                   {anneeInscriptions
@@ -461,7 +479,14 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                                     onChange={this.onBlobChange(true, 'bacalaureat')}
                                     accept="image/*"
                                   />
-                                  <AvInput type="hidden" name="bacalaureat" value={bacalaureat} />
+                                  <AvInput
+                                    type="hidden"
+                                    name="bacalaureat"
+                                    value={bacalaureat}
+                                    validate={{
+                                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                                    }}
+                                  />
                                 </AvGroup>
                               </AvGroup>
                               <AvGroup>
@@ -496,7 +521,14 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                                     onChange={this.onBlobChange(true, 'cinPassport')}
                                     accept="image/*"
                                   />
-                                  <AvInput type="hidden" name="cinPassport" value={cinPassport} />
+                                  <AvInput
+                                    type="hidden"
+                                    name="cinPassport"
+                                    value={cinPassport}
+                                    validate={{
+                                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                                    }}
+                                  />
                                 </AvGroup>
                               </AvGroup>
                               <AvGroup>

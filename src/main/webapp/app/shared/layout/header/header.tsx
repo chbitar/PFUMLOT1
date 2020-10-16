@@ -18,9 +18,7 @@ import { AUTHORITIES } from 'app/config/constants';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { IRootState } from 'app/shared/reducers';
 import { connect } from 'react-redux';
-import { EspaceEtudiantMenuExecutif } from '../menus/espace-etudiant-executif';
-import { EspaceEtudiantMenuLicence } from '../menus/espace-etudiant-licence';
-import { EspaceEtudiantMenuMaster } from '../menus/espace-etudiant-master';
+import { EspaceEtudiantMenu } from '../menus/espace-etudiant-executif';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -97,9 +95,14 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
               {isAuthenticated && (isUser || isAdmin) && <InscriptionsMenu />}
               {isAuthenticated && (isRespFil || isAdmin) && <ScolariteMenu />}
               {isAuthenticated && (isProf || isAdmin) && <EspaceProfMenu />}
-              {isAuthenticated && (isEtudiantExecutif || isAdmin) && <EspaceEtudiantMenuExecutif />}
-              {isAuthenticated && (isEtudiantLicence || isAdmin) && <EspaceEtudiantMenuLicence />}
-              {isAuthenticated && (isEtudiantMaster || isAdmin) && <EspaceEtudiantMenuMaster />}
+              {isAuthenticated && (isEtudiantExecutif || isEtudiantLicence || isEtudiantMaster || isAdmin) && (
+                <EspaceEtudiantMenu
+                  isAdmin={isAdmin}
+                  isEtudiantExecutif={isEtudiantExecutif}
+                  isEtudiantLicence={isEtudiantLicence}
+                  isEtudiantMaster={isEtudiantMaster}
+                />
+              )}
               {isAuthenticated && <EntitiesMenu />}
               {isAuthenticated && isAdmin && <ConfigurationMenu />}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}

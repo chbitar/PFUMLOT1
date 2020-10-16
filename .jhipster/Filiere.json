@@ -1,0 +1,72 @@
+{
+    "name": "Filiere",
+    "fields": [
+        {
+            "fieldName": "nomfiliere",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "responsable",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "accreditaion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "programme",
+            "fieldType": "Programme",
+            "fieldValues": "LICENCE,MASTER,MASTER_EXECUTIF"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "etudiantsExecutif",
+            "otherEntityRelationshipName": "filiere",
+            "relationshipName": "etudiantsExecutif"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "etudiantsLicence",
+            "otherEntityRelationshipName": "filiere",
+            "relationshipName": "etudiantsLicence"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "etudiantsMaster",
+            "otherEntityRelationshipName": "filiere",
+            "relationshipName": "etudiantsMaster"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "module",
+            "otherEntityRelationshipName": "filiere",
+            "relationshipName": "module"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "etablissement",
+            "otherEntityRelationshipName": "filiere",
+            "relationshipName": "etablissement",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "tableauDeBoard",
+            "otherEntityRelationshipName": "filier",
+            "relationshipName": "board",
+            "otherEntityField": "id",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20201014002146",
+    "entityTableName": "filiere",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

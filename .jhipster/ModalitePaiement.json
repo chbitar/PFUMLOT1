@@ -1,0 +1,59 @@
+{
+    "name": "ModalitePaiement",
+    "fields": [
+        {
+            "fieldName": "modalite",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "coutProgrammettc",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "coutProgrammettcDevise",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "remiseNiveau1",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "remiseNiveau2",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "devise",
+            "fieldType": "Devise",
+            "fieldValues": "MAD,USD"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "etudiantsLicence",
+            "otherEntityRelationshipName": "modalite",
+            "relationshipName": "etudiantsLicence"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "etudiantsMaster",
+            "otherEntityRelationshipName": "modalite",
+            "relationshipName": "etudiantsMaster"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "etudiantsExecutif",
+            "otherEntityRelationshipName": "modalite",
+            "relationshipName": "etudiantsExecutif"
+        }
+    ],
+    "changelogDate": "20201014002151",
+    "entityTableName": "modalite_paiement",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

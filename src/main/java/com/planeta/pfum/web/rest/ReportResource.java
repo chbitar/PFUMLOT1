@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.planeta.pfum.domain.enumeration.Programme;
 import com.planeta.pfum.service.ReportService;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -29,7 +30,7 @@ public class ReportResource {
 
 	private final Logger log = LoggerFactory.getLogger(ReportResource.class);
 
-	private static final String ENTITY_NAME = "orderOrder";
+	private static final String ENTITY_NAME = "report";
 
 	@Value("${jhipster.clientApp.name}")
 	private String applicationName;
@@ -50,13 +51,12 @@ public class ReportResource {
 	 *         of orders in body.
 	 * @throws java.io.IOException
 	 */
-	@GetMapping("/attestation/{etudiantId}/{type}")
-
-	public ResponseEntity<Resource> genererAttestationInscription(@PathVariable Integer etudiantId,@PathVariable String type, HttpServletRequest request)
+	@GetMapping("/attestation/{etudiantId}/{type}/{programme}")
+	public ResponseEntity<Resource> genererAttestationInscription(@PathVariable Integer etudiantId,@PathVariable String type,@PathVariable Programme programme, HttpServletRequest request)
 			throws IOException, java.io.IOException {
 		log.debug("REST request to export all Orders");
 		// Load file as Resource
-		Resource resource = reportService.genererAttestationInscription(etudiantId,type);
+		Resource resource = reportService.genererAttestationInscription(etudiantId,type,programme);
 		// Try to determine file's content type
 		String contentType = null;
 		try {
@@ -127,16 +127,5 @@ public class ReportResource {
 				.headers(HeaderUtil.createAlert(applicationName, "Orders exported successfully", resource.toString()))
 				.body(resource);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

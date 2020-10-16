@@ -19,6 +19,7 @@ import Etablissement from './etablissement';
 import ModalitePaiement from './modalite-paiement';
 import EspaceEtudiant from './espace-etudiant';
 import Annonce from './annonce';
+import Document from './document';
 import NoteLicence from './note-licence';
 import NoteMaster from './note-master';
 import NoteExecutif from './note-executif';
@@ -67,11 +68,11 @@ const Routes = ({ match }) => (
       <PrivateRoute path={`${match.url}/module`} component={Module} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path={`${match.url}/professeur`} component={Professeur} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path={`${match.url}/suivi-module`} component={SuiviModule} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.PROF]} />
-      {/*  <PrivateRoute
+      <PrivateRoute
         path={`${match.url}/etablissement`}
         component={Etablissement}
         hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}
-      /> */}
+      />
       <PrivateRoute
         path={`${match.url}/modalite-paiement`}
         component={ModalitePaiement}
@@ -95,7 +96,12 @@ const Routes = ({ match }) => (
         component={NoteExecutif}
         hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.PROF]}
       />
+      <PrivateRoute path={`${match.url}/document`} component={Document} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
+
       <ErrorBoundaryRoute path={`${match.url}/tableau-de-board`} component={TableauDeBoard} />
+      <ErrorBoundaryRoute path={`${match.url}/document`} component={Document} />
+      <ErrorBoundaryRoute path={`${match.url}/etudiants-executif`} component={EtudiantsExecutif} />
+
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

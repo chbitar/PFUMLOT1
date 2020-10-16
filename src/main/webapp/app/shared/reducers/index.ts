@@ -88,6 +88,10 @@ import noteExecutif, {
 import tableauDeBoard, {
   TableauDeBoardState
 } from 'app/entities/tableau-de-board/tableau-de-board.reducer';
+// prettier-ignore
+import document, {
+  DocumentState
+} from 'app/entities/document/document.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -120,6 +124,8 @@ export interface IRootState {
   readonly noteMaster: NoteMasterState;
   readonly noteExecutif: NoteExecutifState;
   readonly tableauDeBoard: TableauDeBoardState;
+  readonly document: DocumentState;
+
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -154,6 +160,7 @@ const rootReducer = combineReducers<IRootState>({
   noteMaster,
   noteExecutif,
   tableauDeBoard,
+  document,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

@@ -91,9 +91,7 @@ export class Absence extends React.Component<IAbsenceProps, IAbsenceState> {
                   <th>
                     <Translate contentKey="pfumv10App.absence.dateSeance">Date Seance</Translate>
                   </th>
-                  <th>
-                    <Translate contentKey="pfumv10App.absence.user">User</Translate>
-                  </th>
+
                   <th>
                     <Translate contentKey="pfumv10App.absence.module">Module</Translate>
                   </th>
@@ -121,25 +119,30 @@ export class Absence extends React.Component<IAbsenceProps, IAbsenceState> {
                     <td>
                       <TextFormat type="date" value={absence.dateSeance} format={APP_DATE_FORMAT} />
                     </td>
-                    <td>{absence.user ? absence.user.email : ''}</td>
                     <td>{absence.module ? <Link to={`module/${absence.module.id}`}>{absence.module.nomModule}</Link> : ''}</td>
                     <td>
                       {absence.etudiantsLicence ? (
-                        <Link to={`etudiants-licence/${absence.etudiantsLicence.id}`}>{absence.etudiantsLicence.nom +' '+ absence.etudiantsLicence.prenom}</Link>
+                        <Link to={`etudiants-licence/${absence.etudiantsLicence.id}`}>
+                          {absence.etudiantsLicence.nom + ' ' + absence.etudiantsLicence.prenom}
+                        </Link>
                       ) : (
                         ''
                       )}
                     </td>
                     <td>
                       {absence.etudiantsMaster ? (
-                        <Link to={`etudiants-master/${absence.etudiantsMaster.id}`}>{absence.etudiantsMaster.nom +' '+ absence.etudiantsMaster.prenom}</Link>
+                        <Link to={`etudiants-master/${absence.etudiantsMaster.id}`}>
+                          {absence.etudiantsMaster.nom + ' ' + absence.etudiantsMaster.prenom}
+                        </Link>
                       ) : (
                         ''
                       )}
                     </td>
                     <td>
                       {absence.etudiantsExecutif ? (
-                        <Link to={`etudiants-executif/${absence.etudiantsExecutif.id}`}>{absence.etudiantsExecutif.nom +' '+ absence.etudiantsExecutif.prenom}</Link>
+                        <Link to={`etudiants-executif/${absence.etudiantsExecutif.id}`}>
+                          {absence.etudiantsExecutif.nom + ' ' + absence.etudiantsExecutif.prenom}
+                        </Link>
                       ) : (
                         ''
                       )}
@@ -152,12 +155,7 @@ export class Absence extends React.Component<IAbsenceProps, IAbsenceState> {
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
-                        <Button tag={Link} to={`${match.url}/${absence.id}/edit`} color="primary" size="sm">
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
+
                         <Button tag={Link} to={`${match.url}/${absence.id}/delete`} color="danger" size="sm">
                           <FontAwesomeIcon icon="trash" />{' '}
                           <span className="d-none d-md-inline">

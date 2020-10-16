@@ -1,0 +1,70 @@
+{
+    "name": "EspaceEtudiant",
+    "fields": [
+        {
+            "fieldName": "emploiDuTemps",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "espaceEtudiant",
+            "relationshipName": "user",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "etudiantsLicence",
+            "otherEntityRelationshipName": "espaceEtudiant",
+            "relationshipName": "etudiantLicence",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "etudiantsMaster",
+            "otherEntityRelationshipName": "espaceEtudiant",
+            "relationshipName": "etudiantMaster",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "etudiantsExecutif",
+            "otherEntityRelationshipName": "espaceEtudiant",
+            "relationshipName": "etudiantExecutif",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "calendrierModule",
+            "otherEntityRelationshipName": "espaceEtudiant",
+            "relationshipName": "calendrier",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "absence",
+            "otherEntityRelationshipName": "espaceEtudiant",
+            "relationshipName": "absence",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "annonce",
+            "otherEntityRelationshipName": "espaceEtudiant",
+            "relationshipName": "annonce",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20201014002152",
+    "entityTableName": "espace_etudiant",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

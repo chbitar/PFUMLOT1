@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.planeta.pfum.domain.EtudiantsExecutif;
@@ -37,11 +39,11 @@ import com.planeta.pfum.repository.search.EtudiantsExecutifSearchRepository;
 import com.planeta.pfum.security.AuthoritiesConstants;
 import com.planeta.pfum.security.SecurityUtils;
 import com.planeta.pfum.service.UserService;
+import com.planeta.pfum.service.dto.MessageEmail;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import java.time.LocalDate;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.EtudiantsExecutif}.
@@ -217,6 +219,18 @@ public class EtudiantsExecutifResource {
         return etudiantsExecutifRepository.findAllByFiliere(fil);
     }
 
+    
+  
+    @PostMapping("/etudiants-executifs/envoyer-email")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerAccount( @RequestBody MessageEmail message) {
+    	System.out.println(message.getObjet());
+    	System.out.println(message.getSujet());
+
+//        mailService.sendActivationEmail(user);
+    }
+    
+    
     
     
     private String customFormat(String pattern, long value ) {

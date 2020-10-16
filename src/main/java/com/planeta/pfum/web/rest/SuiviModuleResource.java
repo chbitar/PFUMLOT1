@@ -68,6 +68,7 @@ public class SuiviModuleResource {
 	private final UserRepository userRepository;
 
 	private final AffectationModuleRepository affectationModuleRepository;
+	
 	private final ModuleRepository moduleRepository;
 
 	public SuiviModuleResource(SuiviModuleRepository suiviModuleRepository,

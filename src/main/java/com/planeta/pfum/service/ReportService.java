@@ -30,8 +30,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 
 import com.planeta.pfum.domain.EtudiantsExecutif;
+import com.planeta.pfum.domain.Filiere;
+import com.planeta.pfum.domain.enumeration.Programme;
 import com.planeta.pfum.report.SimpleReportExporter;
 import com.planeta.pfum.repository.EtudiantsExecutifRepository;
+import com.planeta.pfum.repository.EtudiantsLicenceRepository;
+import com.planeta.pfum.repository.EtudiantsMasterRepository;
 import com.planeta.pfum.repository.FiliereRepository;
 
 import net.sf.jasperreports.engine.JRDataSource;
@@ -53,6 +57,12 @@ public class ReportService  {
 	private final Logger log = LoggerFactory.getLogger(ReportService.class);
 
 	private final EtudiantsExecutifRepository etudiantsExecutifRepository;
+
+	private final EtudiantsMasterRepository etudiantsMasterRepository;
+	
+	private final EtudiantsLicenceRepository etudiantsLicenceRepository;
+
+	
 	
 	private final FiliereRepository filiereRepository;
 
@@ -67,10 +77,13 @@ public class ReportService  {
 	private final Path fileStorageLocation;
 
 
-	public ReportService(EtudiantsExecutifRepository etudiantsExecutifRepository,FiliereRepository filiereRepository) throws Exception {
+	public ReportService(EtudiantsExecutifRepository etudiantsExecutifRepository,FiliereRepository filiereRepository,EtudiantsMasterRepository etudiantsMasterRepository,EtudiantsLicenceRepository etudiantsLicenceRepository) throws Exception {
 		this.fileStorageLocation = Paths.get("../Docs").toAbsolutePath().normalize();
 		this.etudiantsExecutifRepository = etudiantsExecutifRepository;
 		this.filiereRepository = filiereRepository;
+		this.etudiantsMasterRepository = etudiantsMasterRepository;
+		this.etudiantsLicenceRepository = etudiantsLicenceRepository;
+
 		
 		try {
 			Files.createDirectories(this.fileStorageLocation);
@@ -87,41 +100,70 @@ public class ReportService  {
 	 * @param type
 	 */
 	@Transactional(readOnly = true)
-	public Resource genererAttestationInscription(Integer etudiantId, String type ) {
+	public Resource genererAttestationInscription(Integer etudiantId, String type,Programme programme ) {
 		try {
-			File file = ResourceUtils.getFile("classpath:INSCIRPTION.jrxml");
-			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-			JRSaver.saveObject(jasperReport, "INSCIRPTION.jasper");
-//			 java.util.List<EtudiantsExecutif> nodeList = new ArrayList<EtudiantsExecutif>();
-//			    nodeList.add(etudiantsExecutifRepository.getOne(1l));
-//			exampleReport.jrxml
+			
 			
 			Map<String, Object> parameters = new HashMap<>();
-			parameters.put("EtudiantId",Long.valueOf(etudiantId));
-			parameters.put("FiliereId", etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getFiliere().getId());
 
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 
-			SimpleReportExporter simpleReportExporter = new SimpleReportExporter(jasperPrint);
-			String fileName = "";
-			switch (type) {
-			case "PDF": 
-			case "PRINT":
-				fileName = "example.pdf";
-//				JasperExportManager.exportReportToPdfFile(jasperPrint, this.fileStorageLocation + "/example.pdf");
+			Filiere filiere=null;
+			String fileName ="";
+			File file=null;
+			JasperReport jasperReport=null;
+			JasperPrint jasperPrint;
+			SimpleReportExporter simpleReportExporter=null;
+			
+			
+			switch (programme) {
+			case LICENCE:
+				 filiere=etudiantsLicenceRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
+				 file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAL.jrxml");
+				 jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAL.jasper");
+
+					parameters.put("EtudiantId",Long.valueOf(etudiantId));
+					parameters.put("FiliereId", filiere.getId());
+					
+				 jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				 simpleReportExporter = new SimpleReportExporter(jasperPrint);
+				 fileName = "attestationInscription-Licence.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 				break;
-			case "XLSX":
-				fileName = "Example.xlsx";
-				simpleReportExporter.exportToXlsx(this.fileStorageLocation + "/" + fileName, "Example");
+           case MASTER:
+  			     filiere=etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
+        	     file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAM.jrxml");
+				 jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAM.jasper");
+
+					parameters.put("EtudiantId",Long.valueOf(etudiantId));
+					parameters.put("FiliereId", filiere.getId());
+					
+				 jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				 simpleReportExporter = new SimpleReportExporter(jasperPrint);
+				 fileName = "attestationInscription-Master.pdf";
+				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 				break;
-			case "CSV":
-				fileName = "example.csv";
-				simpleReportExporter.exportToCsv(this.fileStorageLocation + "/" + fileName);
+           case MASTER_EXECUTIF:
+  			      filiere=etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
+        	     file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAE.jrxml");
+				 jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAE.jasper");
+				 
+
+					parameters.put("EtudiantId",Long.valueOf(etudiantId));
+					parameters.put("FiliereId", filiere.getId());
+					
+				 jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				 simpleReportExporter = new SimpleReportExporter(jasperPrint);
+				 fileName = "attestationInscription-Ececutif.pdf";
+				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 				break;
 			default:
 				break;
-			}
+			} 
+			
+
 
 			return loadFileAsResource(fileName);
 		} catch (FileNotFoundException e) {

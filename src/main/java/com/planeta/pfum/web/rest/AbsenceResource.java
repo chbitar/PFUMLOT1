@@ -72,6 +72,10 @@ public class AbsenceResource {
         if (absence.getId() != null) {
             throw new BadRequestAlertException("A new absence cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        
+		Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+		absence.setUser(user.get());
+		
         Absence result = absenceRepository.save(absence);
         absenceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/absences/" + result.getId()))

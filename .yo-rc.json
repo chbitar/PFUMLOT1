@@ -35,6 +35,8 @@
     "otherModules": [],
     "enableTranslation": true,
     "nativeLanguage": "fr",
-    "languages": ["fr"]
+    "languages": ["fr"],
+    "herokuAppName": "pfum",
+    "herokuDeployType": "jar"
   }
 }

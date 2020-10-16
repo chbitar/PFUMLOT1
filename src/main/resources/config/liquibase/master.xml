@@ -33,6 +33,7 @@
     <include file="config/liquibase/changelog/20201001132432_added_entity_NoteMaster.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201001132433_added_entity_NoteExecutif.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201001132434_added_entity_TableauDeBoard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201014164306_added_entity_Document.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20201001132416_added_entity_constraints_Absence.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201001132417_added_entity_constraints_AffectationModule.xml" relativeToChangelogFile="false"/>

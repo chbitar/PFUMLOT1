@@ -1,0 +1,78 @@
+{
+    "name": "Module",
+    "fields": [
+        {
+            "fieldName": "nomModule",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "volumeHoraire",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "semestre",
+            "fieldType": "Semestre",
+            "fieldValues": "S1,S2,S3,S4,S5,S6"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "absence",
+            "otherEntityRelationshipName": "module",
+            "relationshipName": "absence"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "affectationModule",
+            "otherEntityRelationshipName": "module",
+            "relationshipName": "affectationModule"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "calendrierModule",
+            "otherEntityRelationshipName": "module",
+            "relationshipName": "calendrierModule"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "suiviModule",
+            "otherEntityRelationshipName": "module",
+            "relationshipName": "suiviModule"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "noteLicence",
+            "otherEntityRelationshipName": "module",
+            "relationshipName": "noteLicence"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "noteMaster",
+            "otherEntityRelationshipName": "module",
+            "relationshipName": "noteMaster"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "noteExecutif",
+            "otherEntityRelationshipName": "module",
+            "relationshipName": "noteExecutif"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "filiere",
+            "otherEntityRelationshipName": "module",
+            "relationshipName": "filiere",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20201014002147",
+    "entityTableName": "module",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

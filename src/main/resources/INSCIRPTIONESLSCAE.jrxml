@@ -53,7 +53,7 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
 		<parameter name="FiliereId2" class="java.lang.Long"/>
 		<queryString language="SQL">
-			<![CDATA[select  nom_module,semestre from pfum.module group by semestre,nom_module]]>
+			<![CDATA[select  nom_module,semestre from pfum.module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
 		</queryString>
 		<field name="semestre" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="semestre"/>
@@ -76,7 +76,7 @@
 	<parameter name="FiliereId" class="java.lang.Long"/>
 	<parameter name="EtudiantId" class="java.lang.Long"/>
 	<queryString>
-		<![CDATA[select e.ville , e.nom,e.prenom,e.cin_pass,e.date_naissance,e.suffixe,f.nomfiliere,a.annee from  etudiants_executif e , filiere f,annee_inscription  a where  e.filiere_id=f.id  and e.annee_inscription_id=a.id]]>
+		<![CDATA[select e.ville , e.nom,e.prenom,e.cin_pass,e.date_naissance,e.suffixe,f.nomfiliere,a.annee from  etudiants_executif e , filiere f,annee_inscription  a where  e.filiere_id=f.id  and e.annee_inscription_id=a.id and e.id=$P{EtudiantId}]]>
 	</queryString>
 	<field name="prenom" class="java.lang.String"/>
 	<field name="nom" class="java.lang.String"/>
@@ -153,14 +153,14 @@
 				<text><![CDATA[Le Directeur Pédagogique D'ESLSCA Business Shcool , atteste que : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="162" y="147" width="100" height="15" uuid="e195827e-620d-4ba0-9ab1-5a3d4e54e7c2"/>
+				<reportElement x="162" y="147" width="168" height="15" uuid="e195827e-620d-4ba0-9ab1-5a3d4e54e7c2"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nom}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="271" y="147" width="91" height="15" uuid="fe1aee84-1b30-4293-a321-4bcddc01428e"/>
+				<reportElement x="356" y="147" width="140" height="15" uuid="fe1aee84-1b30-4293-a321-4bcddc01428e"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
@@ -181,7 +181,7 @@
 				<textFieldExpression><![CDATA[$F{suffixe}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="162" y="207" width="100" height="15" uuid="c80bbcaa-3d44-4435-9095-f9c45f9c6765"/>
+				<reportElement x="162" y="207" width="334" height="15" uuid="c80bbcaa-3d44-4435-9095-f9c45f9c6765"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>

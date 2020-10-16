@@ -1,0 +1,36 @@
+{
+    "name": "TableauDeBoard",
+    "fields": [
+        {
+            "fieldName": "tableauDeBoard",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "filiere",
+            "otherEntityRelationshipName": "board",
+            "relationshipName": "filier",
+            "otherEntityField": "nomfiliere",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "calendrierModule",
+            "otherEntityRelationshipName": "board",
+            "relationshipName": "calendrier",
+            "otherEntityField": "libelle",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20201014002157",
+    "entityTableName": "tableau_de_board",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

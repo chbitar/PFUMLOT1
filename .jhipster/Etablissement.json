@@ -1,0 +1,51 @@
+{
+    "name": "Etablissement",
+    "fields": [
+        {
+            "fieldName": "nomEcole",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "adresse",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "rc",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ice",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tp",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "identiteFiche",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "logo",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "filiere",
+            "otherEntityRelationshipName": "etablissement",
+            "relationshipName": "filiere"
+        }
+    ],
+    "changelogDate": "20201014002150",
+    "entityTableName": "etablissement",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

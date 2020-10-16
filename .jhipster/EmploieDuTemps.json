@@ -1,0 +1,25 @@
+{
+    "name": "EmploieDuTemps",
+    "fields": [
+        {
+            "fieldName": "emploieDuTemps",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "programme",
+            "fieldType": "Programme",
+            "fieldValues": "LICENCE,MASTER,MASTER_EXECUTIF"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20201014002158",
+    "entityTableName": "emploie_du_temps",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

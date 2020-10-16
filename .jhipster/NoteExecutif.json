@@ -1,0 +1,51 @@
+{
+    "name": "NoteExecutif",
+    "fields": [
+        {
+            "fieldName": "semestre",
+            "fieldType": "Semestre",
+            "fieldValues": "S1,S2,S3,S4,S5,S6"
+        },
+        {
+            "fieldName": "noteCC1",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "noteCC2",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "noteFinal",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "noteExecutif",
+            "relationshipName": "user",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "module",
+            "otherEntityRelationshipName": "noteExecutif",
+            "relationshipName": "module",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20201014002156",
+    "entityTableName": "note_executif",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

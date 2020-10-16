@@ -61,6 +61,7 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
         ...values
       };
 
+      console.log(entity);
       if (this.state.isNew) {
         this.props.createEntity(entity);
       } else {
@@ -118,6 +119,9 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
                     className="form-control"
                     name="programme"
                     value={(!isNew && filiereEntity.programme) || 'LICENCE'}
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
                   >
                     <option value="LICENCE">{translate('pfumv10App.Programme.LICENCE')}</option>
                     <option value="MASTER">{translate('pfumv10App.Programme.MASTER')}</option>
@@ -128,11 +132,22 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
                   <Label for="filiere-etablissement">
                     <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
                   </Label>
-                  <AvInput id="filiere-etablissement" type="select" className="form-control" name="etablissement.id" disabled  >
+                  <AvInput
+                    id="filiere-etablissement"
+                    type="select"
+                    className="form-control"
+                    name="etablissement.id"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  >
+                    <option value="" key="0">
+                      Prière de choisir l'école
+                    </option>
                     {etablissements
                       ? etablissements.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nomEcole}
+                            {otherEntity.nomEcole} {otherEntity.id}
                           </option>
                         ))
                       : null}

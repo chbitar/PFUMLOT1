@@ -3,27 +3,32 @@ import fileDownload from 'react-file-download';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col } from 'reactstrap';
+import { Button, Row, Col, Label } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAction, openFile, byteSize, TextFormat } from 'react-jhipster';
+import { Translate, ICrudGetAction, openFile, byteSize, TextFormat, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntity } from './etudiants-executif.reducer';
+import { getEntity, envoyerMail } from './etudiants-executif.reducer';
+import { getDocumentByTypeDocument as getDocuments } from 'app/entities/document/document.reducer';
+
 import { IEtudiantsExecutif } from 'app/shared/model/etudiants-executif.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import value from '*.json';
 
 export interface IEtudiantsExecutifDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifDetailProps> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
+    this.props.getDocuments('MASTER_EXECUTIF');
   }
 
   genererAttestationInscription = () => () => {
-    const requestUrl = `/api/attestation/${this.props.match.params.id}/PDF`;
+    const requestUrl = `/api/attestation/${this.props.match.params.id}/PDF/MASTER_EXECUTIF`;
     axios
       .get(requestUrl, {
         responseType: 'blob'
@@ -43,8 +48,12 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
       });
   };
 
+  handleEnvoyerMail = (event, values) => {
+    this.props.envoyerMail(values.objet, values.sujet);
+  };
+
   render() {
-    const { etudiantsExecutifEntity, isUser, isRespFin, isAdmin } = this.props;
+    const { etudiantsExecutifEntity, isUser, isRespFin, isAdmin, documentList } = this.props;
     return (
       <div>
         <Row>
@@ -270,7 +279,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
           </div>
           <div>
             <Row>
-              <Col>
+              <Col md="6">
                 <span className="badge badge-warning">Status d'inscription</span>
                 <dt>
                   <span id="inscriptionvalide">Validation inscription</span>
@@ -286,7 +295,6 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                   <Translate contentKey="pfumv10App.etudiantsExecutif.modalite">Modalite</Translate>
                 </dt>
                 <dd>{etudiantsExecutifEntity.modalite ? etudiantsExecutifEntity.modalite.modalite : ''}</dd>
-
                 {(isAdmin || isUser) && (
                   <dd>
                     <Button color="info" onClick={this.genererAttestationInscription()}>
@@ -301,13 +309,8 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                     </Button>
                   </dd>
                 )}
-              </Col>
-            </Row>
-          </div>
-          <div>
-            <Row>
-              &nbsp;
-              <Col>
+                <br />
+                <br />
                 <Button tag={Link} to="/entity/etudiants-executif" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />{' '}
                   <span className="d-none d-md-inline">
@@ -324,6 +327,82 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                   </Button>
                 )}
               </Col>
+              <Col md="6">
+                <span className="badge badge-warning">Emploi de temps et Avis</span>
+
+                {documentList &&
+                  documentList.length > 0 &&
+                  documentList.map((document, i) => (
+                    <>
+                      <dt>
+                        <span id={document.titre} />
+                      </dt>
+                      <dd>
+                        <div key={`entity-${i}`}>
+                          {document.data ? (
+                            <div>
+                              <a onClick={openFile(document.dataContentType, document.data)}>
+                                <FontAwesomeIcon icon="file-pdf" />
+                                {document.titre}
+                                &nbsp;
+                              </a>
+                              <span id={document.titre}>
+                                {document.dataContentType}, {byteSize(document.data)}
+                              </span>
+                            </div>
+                          ) : null}
+                        </div>
+                      </dd>
+                    </>
+                  ))}
+              </Col>
+            </Row>
+          </div>
+          <div>
+            <Row>
+              <Col>
+                <dt />
+                <dd>
+                  <span className="badge badge-warning">Envoi Demande</span>
+
+                  <div className="card border-primary">
+                    <div className="card-header">Envoyer un E-mail</div>
+                    <div className="card-body">
+                      <AvForm onValidSubmit={this.handleEnvoyerMail}>
+                        <AvGroup>
+                          <Label id="prenomLabel" for="etudiants-executif-prenom">
+                            Object :
+                          </Label>
+                          <AvField
+                            id="etudiants-executif-prenom"
+                            type="text"
+                            name="objet"
+                            validate={{
+                              required: { value: true, errorMessage: translate('entity.validation.required') }
+                            }}
+                          />
+                        </AvGroup>
+                        <AvGroup>
+                          <Label id="observationsLabel" for="suivi-module-observations">
+                            Sujet :{' '}
+                          </Label>
+                          <AvInput
+                            id="suivi-module-observations"
+                            type="textarea"
+                            name="sujet"
+                            validate={{
+                              required: { value: true, errorMessage: translate('entity.validation.required') }
+                            }}
+                          />
+                        </AvGroup>
+                        <Button color="success" type="submit">
+                          <Translate contentKey="password.form.button">Save</Translate>
+                        </Button>
+                      </AvForm>
+                    </div>
+                  </div>
+                </dd>
+              </Col>
             </Row>
           </div>
         </Row>
@@ -332,14 +411,15 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
   }
 }
 
-const mapStateToProps = ({ etudiantsExecutif, authentication }: IRootState) => ({
+const mapStateToProps = ({ etudiantsExecutif, authentication, document }: IRootState) => ({
   etudiantsExecutifEntity: etudiantsExecutif.entity,
   isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
   isUser: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.USER]),
-  isRespFin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ROLE_RESP_FINANCE])
+  isRespFin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ROLE_RESP_FINANCE]),
+  documentList: document.entities
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = { getEntity, getDocuments, envoyerMail };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

@@ -10,10 +10,36 @@ import { IRootState } from 'app/shared/reducers';
 import { AUTHORITIES } from 'app/config/constants';
 import { connect } from 'react-redux';
 
-export const EspaceEtudiantMenuExecutif = props => (
-  <NavDropdown icon="user-edit" name="Espace Etudiant" id="entity-menu">
+const EspaceEtudiantMenuExecutif = (
+  <>
     <MenuItem icon="asterisk" to="/entity/etudiants-executif">
       Espace Master Executif
     </MenuItem>
+  </>
+);
+
+const EspaceEtudiantMenuLicence = (
+  <>
+    <MenuItem icon="asterisk" to="/entity/etudiants-licence">
+      Espace Licence
+    </MenuItem>
+  </>
+);
+
+const EspaceEtudiantMenuMaster = (
+  <>
+    <MenuItem icon="asterisk" to="/entity/etudiants-master">
+      Espace Master
+    </MenuItem>
+  </>
+);
+
+export const EspaceEtudiantMenu = ({ isAdmin, isEtudiantExecutif, isEtudiantLicence, isEtudiantMaster }) => (
+  <NavDropdown icon="user-edit" name="Espace Etudiant" id="entity-menu">
+    {isEtudiantExecutif || isAdmin ? EspaceEtudiantMenuExecutif : ''}
+    {isEtudiantLicence || isAdmin ? EspaceEtudiantMenuLicence : ''}
+    {isEtudiantMaster || isAdmin ? EspaceEtudiantMenuMaster : ''}
   </NavDropdown>
 );
+
+export default EspaceEtudiantMenu;

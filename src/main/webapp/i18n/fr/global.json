@@ -26,6 +26,7 @@
         "noteMaster": "Note Master",
         "noteExecutif": "Note Executif",
         "tableauDeBoard": "Tableau De Board",
+        "document": "Document",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -149,6 +150,10 @@
     "emailexists": "Email déjà utilisé !",
     "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'ID !",
     "idnull": "Invalid ID"
+  },
+  "email": {
+    "succees": "Le mail a été envoyé avec succès",
+    "error": "Le mail n'a pas été envoyé, veuillez essayer de nouveau"
   },
   "footer": "Ceci est votre pied de page"
 }

@@ -1,0 +1,24 @@
+{
+  "pfumv10App": {
+    "emploieDuTemps": {
+      "home": {
+        "title": "EmploieDuTemps",
+        "createLabel": "Créer un nouveau Emploie Du Temps",
+        "createOrEditLabel": "Créer ou éditer un Emploie Du Temps",
+        "search": "Recherche pour Emploie Du Temps",
+        "notFound": "Aucun Emploie Du Temps trouvé"
+      },
+      "created": "Un nouveau Emploie Du Temps a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Emploie Du Temps avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Emploie Du Temps avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Emploie Du Temps {{ id }} ?"
+      },
+      "detail": {
+        "title": "Emploie Du Temps"
+      },
+      "emploieDuTemps": "Emploie Du Temps",
+      "programme": "Programme"
+    }
+  }
+}

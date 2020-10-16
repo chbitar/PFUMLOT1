@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "titre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "data",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "typeDocument",
+            "fieldType": "TypeDocument",
+            "fieldValues": "PROFESSEUR,LICENCE,MASTER,MASTER_EXECUTIF",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20201014164306",
+    "dto": "mapstruct",
+    "searchEngine": "elasticsearch",
+    "service": "serviceClass",
+    "entityTableName": "document",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}
