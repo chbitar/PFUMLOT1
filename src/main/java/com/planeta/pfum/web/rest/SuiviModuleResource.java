@@ -104,7 +104,7 @@ public class SuiviModuleResource {
 		suiviModule.setUser(user.get());
 
 		SuiviModule result = suiviModuleRepository.save(suiviModule);
-		suiviModuleSearchRepository.save(result);
+//		suiviModuleSearchRepository.save(result);
 		return ResponseEntity
 				.created(new URI("/api/suivi-modules/" + result.getId())).headers(HeaderUtil
 						.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -130,7 +130,7 @@ public class SuiviModuleResource {
 			throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
 		}
 		SuiviModule result = suiviModuleRepository.save(suiviModule);
-		suiviModuleSearchRepository.save(result);
+//		suiviModuleSearchRepository.save(result);
 		return ResponseEntity.ok().headers(
 				HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, suiviModule.getId().toString()))
 				.body(result);
@@ -172,7 +172,7 @@ public class SuiviModuleResource {
 	public ResponseEntity<Void> deleteSuiviModule(@PathVariable Long id) {
 		log.debug("REST request to delete SuiviModule : {}", id);
 		suiviModuleRepository.deleteById(id);
-		suiviModuleSearchRepository.deleteById(id);
+//		suiviModuleSearchRepository.deleteById(id);
 		return ResponseEntity.noContent()
 				.headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
 				.build();
@@ -188,8 +188,11 @@ public class SuiviModuleResource {
 	@GetMapping("/_search/suivi-modules")
 	public List<SuiviModule> searchSuiviModules(@RequestParam String query) {
 		log.debug("REST request to search SuiviModules for query {}", query);
-		return StreamSupport.stream(suiviModuleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-				.collect(Collectors.toList());
+//		return StreamSupport.stream(suiviModuleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//				.collect(Collectors.toList());
+		
+        return new ArrayList<SuiviModule>();
+
 	}
 
 	@GetMapping("/suivi-modules/professeur")

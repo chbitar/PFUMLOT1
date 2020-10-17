@@ -4,6 +4,7 @@ import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.planeta.pfum.domain.Module;
 import com.planeta.pfum.domain.Professeur;
 import com.planeta.pfum.domain.User;
 import com.planeta.pfum.repository.ProfesseurRepository;
@@ -80,7 +82,7 @@ public class ProfesseurResource {
         //
 
         Professeur result = professeurRepository.save(professeur);
-        professeurSearchRepository.save(result);
+//        professeurSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/professeurs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -102,7 +104,7 @@ public class ProfesseurResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Professeur result = professeurRepository.save(professeur);
-        professeurSearchRepository.save(result);
+//        professeurSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, professeur.getId().toString()))
             .body(result);
@@ -141,7 +143,7 @@ public class ProfesseurResource {
     public ResponseEntity<Void> deleteProfesseur(@PathVariable Long id) {
         log.debug("REST request to delete Professeur : {}", id);
         professeurRepository.deleteById(id);
-        professeurSearchRepository.deleteById(id);
+//        professeurSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -155,9 +157,12 @@ public class ProfesseurResource {
     @GetMapping("/_search/professeurs")
     public List<Professeur> searchProfesseurs(@RequestParam String query) {
         log.debug("REST request to search Professeurs for query {}", query);
-        return StreamSupport
-            .stream(professeurSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(professeurSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        
+        return new ArrayList<Professeur>();
+
     }
 
 }

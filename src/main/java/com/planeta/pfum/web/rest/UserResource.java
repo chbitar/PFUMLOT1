@@ -1,6 +1,7 @@
 package com.planeta.pfum.web.rest;
 
 import com.planeta.pfum.config.Constants;
+import com.planeta.pfum.domain.SuiviModule;
 import com.planeta.pfum.domain.User;
 import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.repository.search.UserSearchRepository;
@@ -207,8 +208,11 @@ public class UserResource {
      */
     @GetMapping("/_search/users/{query}")
     public List<User> search(@PathVariable String query) {
-        return StreamSupport
-            .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+    	
+        return new ArrayList<User>();
+
     }
 }

@@ -7,6 +7,7 @@ import com.planeta.pfum.repository.AbsenceRepository;
 import com.planeta.pfum.repository.ProfesseurRepository;
 import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.repository.search.AbsenceSearchRepository;
+// absenceSearchRepository;
 import com.planeta.pfum.security.AuthoritiesConstants;
 import com.planeta.pfum.security.SecurityUtils;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -77,7 +78,7 @@ public class AbsenceResource {
 		absence.setUser(user.get());
 		
         Absence result = absenceRepository.save(absence);
-        absenceSearchRepository.save(result);
+        // absenceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/absences/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -99,7 +100,7 @@ public class AbsenceResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Absence result = absenceRepository.save(absence);
-        absenceSearchRepository.save(result);
+        // absenceSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, absence.getId().toString()))
             .body(result);
@@ -147,7 +148,7 @@ public class AbsenceResource {
     public ResponseEntity<Void> deleteAbsence(@PathVariable Long id) {
         log.debug("REST request to delete Absence : {}", id);
         absenceRepository.deleteById(id);
-        absenceSearchRepository.deleteById(id);
+        // absenceSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -161,9 +162,10 @@ public class AbsenceResource {
     @GetMapping("/_search/absences")
     public List<Absence> searchAbsences(@RequestParam String query) {
         log.debug("REST request to search Absences for query {}", query);
-        return StreamSupport
-            .stream(absenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(absenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        return new ArrayList<Absence>();
     }
 
 }

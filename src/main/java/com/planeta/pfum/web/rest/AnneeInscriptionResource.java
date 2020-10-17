@@ -1,5 +1,6 @@
 package com.planeta.pfum.web.rest;
 
+import com.planeta.pfum.domain.AffectationModule;
 import com.planeta.pfum.domain.AnneeInscription;
 import com.planeta.pfum.repository.AnneeInscriptionRepository;
 import com.planeta.pfum.repository.search.AnneeInscriptionSearchRepository;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,7 +61,7 @@ public class AnneeInscriptionResource {
             throw new BadRequestAlertException("A new anneeInscription cannot already have an ID", ENTITY_NAME, "idexists");
         }
         AnneeInscription result = anneeInscriptionRepository.save(anneeInscription);
-        anneeInscriptionSearchRepository.save(result);
+//        anneeInscriptionSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/annee-inscriptions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +83,7 @@ public class AnneeInscriptionResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         AnneeInscription result = anneeInscriptionRepository.save(anneeInscription);
-        anneeInscriptionSearchRepository.save(result);
+//        anneeInscriptionSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, anneeInscription.getId().toString()))
             .body(result);
@@ -122,7 +123,7 @@ public class AnneeInscriptionResource {
     public ResponseEntity<Void> deleteAnneeInscription(@PathVariable Long id) {
         log.debug("REST request to delete AnneeInscription : {}", id);
         anneeInscriptionRepository.deleteById(id);
-        anneeInscriptionSearchRepository.deleteById(id);
+//        anneeInscriptionSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -136,9 +137,11 @@ public class AnneeInscriptionResource {
     @GetMapping("/_search/annee-inscriptions")
     public List<AnneeInscription> searchAnneeInscriptions(@RequestParam String query) {
         log.debug("REST request to search AnneeInscriptions for query {}", query);
-        return StreamSupport
-            .stream(anneeInscriptionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(anneeInscriptionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        return new ArrayList<AnneeInscription>();
+
     }
 
 }

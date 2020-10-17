@@ -2,6 +2,7 @@ package com.planeta.pfum.web.rest;
 
 import com.planeta.pfum.domain.AffectationModule;
 import com.planeta.pfum.domain.Etablissement;
+import com.planeta.pfum.domain.EtudiantsMaster;
 import com.planeta.pfum.domain.Filiere;
 import com.planeta.pfum.domain.enumeration.Semestre;
 import com.planeta.pfum.repository.FiliereRepository;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,7 +64,7 @@ public class FiliereResource {
             throw new BadRequestAlertException("A new filiere cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Filiere result = filiereRepository.save(filiere);
-        filiereSearchRepository.save(result);
+//        filiereSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/filieres/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -85,7 +86,7 @@ public class FiliereResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Filiere result = filiereRepository.save(filiere);
-        filiereSearchRepository.save(result);
+//        filiereSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, filiere.getId().toString()))
             .body(result);
@@ -125,7 +126,7 @@ public class FiliereResource {
     public ResponseEntity<Void> deleteFiliere(@PathVariable Long id) {
         log.debug("REST request to delete Filiere : {}", id);
         filiereRepository.deleteById(id);
-        filiereSearchRepository.deleteById(id);
+//        filiereSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -139,9 +140,12 @@ public class FiliereResource {
     @GetMapping("/_search/filieres")
     public List<Filiere> searchFilieres(@RequestParam String query) {
         log.debug("REST request to search Filieres for query {}", query);
-        return StreamSupport
-            .stream(filiereSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(filiereSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        
+        return new ArrayList<Filiere>();
+
     }
 
     @GetMapping("/filieres/etablissement/{etab}")

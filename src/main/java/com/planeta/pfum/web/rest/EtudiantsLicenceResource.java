@@ -28,6 +28,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -113,7 +114,7 @@ public class EtudiantsLicenceResource {
         
         result.setSuffixe(suffixe);
 
-        etudiantsLicenceSearchRepository.save(result);
+//        etudiantsLicenceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-licences/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -135,7 +136,7 @@ public class EtudiantsLicenceResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         EtudiantsLicence result = etudiantsLicenceRepository.save(etudiantsLicence);
-        etudiantsLicenceSearchRepository.save(result);
+//        etudiantsLicenceSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, etudiantsLicence.getId().toString()))
             .body(result);
@@ -182,7 +183,7 @@ public class EtudiantsLicenceResource {
     public ResponseEntity<Void> deleteEtudiantsLicence(@PathVariable Long id) {
         log.debug("REST request to delete EtudiantsLicence : {}", id);
         etudiantsLicenceRepository.deleteById(id);
-        etudiantsLicenceSearchRepository.deleteById(id);
+//        etudiantsLicenceSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -196,9 +197,11 @@ public class EtudiantsLicenceResource {
     @GetMapping("/_search/etudiants-licences")
     public List<EtudiantsLicence> searchEtudiantsLicences(@RequestParam String query) {
         log.debug("REST request to search EtudiantsLicences for query {}", query);
-        return StreamSupport
-           .stream(etudiantsLicenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//           .stream(etudiantsLicenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        return new ArrayList<EtudiantsLicence>();
+
     }
     
     @GetMapping("/etudiants-licences/filiere/{fil}")

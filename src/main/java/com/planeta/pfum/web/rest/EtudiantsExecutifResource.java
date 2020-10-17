@@ -5,6 +5,7 @@ import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.planeta.pfum.domain.EspaceEtudiant;
 import com.planeta.pfum.domain.EtudiantsExecutif;
 import com.planeta.pfum.domain.Filiere;
 import com.planeta.pfum.domain.User;
@@ -126,7 +128,7 @@ public class EtudiantsExecutifResource {
 
         etudiantsExecutifRepository.save(etudiantsExecutif);
        
-        etudiantsExecutifSearchRepository.save(result);
+//        etudiantsExecutifSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-executifs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -148,7 +150,7 @@ public class EtudiantsExecutifResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         EtudiantsExecutif result = etudiantsExecutifRepository.save(etudiantsExecutif);
-        etudiantsExecutifSearchRepository.save(result);
+//        etudiantsExecutifSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, etudiantsExecutif.getId().toString()))
             .body(result);
@@ -194,7 +196,7 @@ public class EtudiantsExecutifResource {
     public ResponseEntity<Void> deleteEtudiantsExecutif(@PathVariable Long id) {
         log.debug("REST request to delete EtudiantsExecutif : {}", id);
         etudiantsExecutifRepository.deleteById(id);
-        etudiantsExecutifSearchRepository.deleteById(id);
+//        etudiantsExecutifSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -208,9 +210,12 @@ public class EtudiantsExecutifResource {
     @GetMapping("/_search/etudiants-executifs")
     public List<EtudiantsExecutif> searchEtudiantsExecutifs(@RequestParam String query) {
         log.debug("REST request to search EtudiantsExecutifs for query {}", query);
-        return StreamSupport
-            .stream(etudiantsExecutifSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(etudiantsExecutifSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        
+        return new ArrayList<EtudiantsExecutif>();
+
     }
 
     @GetMapping("/etudiants-executifs/filiere/{fil}")

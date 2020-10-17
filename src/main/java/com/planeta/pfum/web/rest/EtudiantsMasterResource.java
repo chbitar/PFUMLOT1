@@ -5,6 +5,7 @@ import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.planeta.pfum.domain.EtudiantsLicence;
 import com.planeta.pfum.domain.EtudiantsMaster;
 import com.planeta.pfum.domain.Filiere;
 import com.planeta.pfum.domain.User;
@@ -120,7 +122,7 @@ public class EtudiantsMasterResource {
 
         etudiantsMasterRepository.save(etudiantsMaster);
         //
-        etudiantsMasterSearchRepository.save(result);
+//        etudiantsMasterSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-masters/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -142,7 +144,7 @@ public class EtudiantsMasterResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         EtudiantsMaster result = etudiantsMasterRepository.save(etudiantsMaster);
-        etudiantsMasterSearchRepository.save(result);
+//        etudiantsMasterSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, etudiantsMaster.getId().toString()))
             .body(result);
@@ -189,7 +191,7 @@ public class EtudiantsMasterResource {
     public ResponseEntity<Void> deleteEtudiantsMaster(@PathVariable Long id) {
         log.debug("REST request to delete EtudiantsMaster : {}", id);
         etudiantsMasterRepository.deleteById(id);
-        etudiantsMasterSearchRepository.deleteById(id);
+//        etudiantsMasterSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -203,9 +205,12 @@ public class EtudiantsMasterResource {
     @GetMapping("/_search/etudiants-masters")
     public List<EtudiantsMaster> searchEtudiantsMasters(@RequestParam String query) {
         log.debug("REST request to search EtudiantsMasters for query {}", query);
-        return StreamSupport
-            .stream(etudiantsMasterSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(etudiantsMasterSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        
+        return new ArrayList<EtudiantsMaster>();
+
     }
 
     @GetMapping("/etudiants-masters/filiere/{fil}")
