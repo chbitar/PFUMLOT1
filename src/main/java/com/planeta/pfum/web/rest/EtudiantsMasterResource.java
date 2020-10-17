@@ -117,11 +117,10 @@ public class EtudiantsMasterResource {
         //Creation d'un compte USER pour se connecter
         User newUser = userService.createUserForEtudiants(etudiantsMaster);
         etudiantsMaster.setUser(newUser);
-        
-        result.setSuffixe(suffixe);
+        etudiantsMaster.setSuffixe(suffixe);
 
         etudiantsMasterRepository.save(etudiantsMaster);
-        //
+        
 //        etudiantsMasterSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-masters/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))

@@ -123,8 +123,7 @@ public class EtudiantsExecutifResource {
         //Creation d'un compte USER pour se connecter
         User newUser = userService.createUserForEtudiants(etudiantsExecutif);
         etudiantsExecutif.setUser(newUser);
-        
-        result.setSuffixe(suffixe);
+        etudiantsExecutif.setSuffixe(suffixe);
 
         etudiantsExecutifRepository.save(etudiantsExecutif);
        

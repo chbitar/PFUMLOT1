@@ -144,7 +144,13 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                   </Label>
                   <AvInput id="affectation-module-professeur" type="select" className="form-control" name="professeur.id">
                     <option value="" key="0" />
-                    affectation-module.reducer.ts
+                    {professeurs
+                      ? professeurs.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.nom + ' ' + otherEntity.prenom}
+                          </option>
+                        ))
+                      : null}
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/affectation-module" replace color="info">

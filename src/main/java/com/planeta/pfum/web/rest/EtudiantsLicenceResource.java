@@ -111,8 +111,7 @@ public class EtudiantsLicenceResource {
         //Creation d'un compte USER pour se connecter
         User newUser = userService.createUserForEtudiants(etudiantsLicence);
         etudiantsLicence.setUser(newUser);
-        
-        result.setSuffixe(suffixe);
+        etudiantsLicence.setSuffixe(suffixe);
 
 //        etudiantsLicenceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-licences/" + result.getId()))
