@@ -108,8 +108,7 @@ public class ReportService {
 				filiere = etudiantsLicenceRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				parameters.put("FiliereId", filiere.getId());
 
-				 Resource resource = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAL.jrxml");
-				 jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
+				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAL.jrxml").getInputStream());
 				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAL.jasper");
 
 				
@@ -121,12 +120,11 @@ public class ReportService {
 				break;
 			case MASTER:
 				filiere = etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
+				parameters.put("FiliereId", filiere.getId());
 
-				 resource = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAM.jrxml");
-				 jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
+				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAM.jrxml").getInputStream());
 				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAM.jasper");
 
-				parameters.put("FiliereId", filiere.getId());
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
@@ -135,11 +133,11 @@ public class ReportService {
 				break;
 			case MASTER_EXECUTIF:
 				filiere = etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
-				 resource = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAE.jrxml");
-				 jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
-				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAM.jasper");
-				
 				parameters.put("FiliereId", filiere.getId());
+
+				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAE.jrxml").getInputStream());
+				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAE.jasper");
+				
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
