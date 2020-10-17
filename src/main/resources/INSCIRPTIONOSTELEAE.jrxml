@@ -86,6 +86,7 @@
 	<field name="nomfiliere" class="java.lang.String"/>
 	<field name="annee" class="java.lang.String"/>
 	<field name="suffixe" class="java.lang.String"/>
+	<field name="logo" class="java.awt.Image"/>
 	<title>
 		<band height="230" splitType="Stretch">
 			<staticText>
@@ -133,7 +134,7 @@
 				<reportElement stretchType="ContainerHeight" x="0" y="0" width="160" height="50" uuid="94883631-a913-43e2-b182-ab8d77d0181e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA["C:/Users/garar/OneDrive/Bureau/OSTELEA.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$F{logo}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="136" y="55" width="285" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">

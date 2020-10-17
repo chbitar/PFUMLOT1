@@ -104,11 +104,11 @@ public class EtudiantsMasterResource {
 
         switch (ecole) {
             case "ESLSCA":
-                suffixe = "ES20" + customFormat("0000", result.getId());
+                suffixe = "ES" + Integer.toString(fourDigYear).substring(2)  + customFormat("0000", result.getId());
                 break;
 
             case "OSTELEA":
-                suffixe = "OS20" + customFormat("0000", result.getId());
+                suffixe = "OS" + Integer.toString(fourDigYear).substring(2)  + customFormat("0000", result.getId());
                 break;
             default:
                 break;

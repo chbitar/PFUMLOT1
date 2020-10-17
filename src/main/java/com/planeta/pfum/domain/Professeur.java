@@ -57,9 +57,6 @@ public class Professeur implements Serializable {
     
     @Column(name = "telephone")
     private String telephone;
-    
-    @Column(name = "idEtablissement")
-    private Long idEtablissement;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -228,16 +225,8 @@ public class Professeur implements Serializable {
     }
     
     
-    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    public Long getIdEtablissement() {
-		return idEtablissement;
-	}
-
-	public void setIdEtablissement(Long idEtablissement) {
-		this.idEtablissement = idEtablissement;
-	}
 
 	@Override
     public boolean equals(Object o) {

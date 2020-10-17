@@ -108,8 +108,8 @@ public class ReportService {
 				filiere = etudiantsLicenceRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				parameters.put("FiliereId", filiere.getId());
 
-				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAL.jrxml").getInputStream());
-				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAL.jasper");
+				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONL.jrxml").getInputStream());
+				 JRSaver.saveObject(jasperReport, "INSCIRPTIONL.jasper");
 
 				
 				
@@ -122,8 +122,8 @@ public class ReportService {
 				filiere = etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				parameters.put("FiliereId", filiere.getId());
 
-				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAM.jrxml").getInputStream());
-				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAM.jasper");
+				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONM.jrxml").getInputStream());
+				 JRSaver.saveObject(jasperReport, "INSCIRPTIONM.jasper");
 
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
@@ -135,8 +135,8 @@ public class ReportService {
 				filiere = etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				parameters.put("FiliereId", filiere.getId());
 
-				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAE.jrxml").getInputStream());
-				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAE.jasper");
+				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONE.jrxml").getInputStream());
+				 JRSaver.saveObject(jasperReport, "INSCIRPTIONE.jasper");
 				
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
