@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +54,7 @@ public class DocumentService {
         Document document = documentMapper.toEntity(documentDTO);
         document = documentRepository.save(document);
         DocumentDTO result = documentMapper.toDto(document);
-        documentSearchRepository.save(document);
+//        documentSearchRepository.save(document);
         return result;
     }
 
@@ -92,7 +93,7 @@ public class DocumentService {
     public void delete(Long id) {
         log.debug("Request to delete Document : {}", id);
         documentRepository.deleteById(id);
-        documentSearchRepository.deleteById(id);
+//        documentSearchRepository.deleteById(id);
     }
 
     /**
@@ -104,10 +105,12 @@ public class DocumentService {
     @Transactional(readOnly = true)
     public List<DocumentDTO> search(String query) {
         log.debug("Request to search Documents for query {}", query);
-        return StreamSupport
-            .stream(documentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(documentMapper::toDto)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(documentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .map(documentMapper::toDto)
+//            .collect(Collectors.toList());
+        
+       return new ArrayList<DocumentDTO>(); 
     }
 
 	public List<Module> findAllByTypeDocument(TypeDocument sem) {
