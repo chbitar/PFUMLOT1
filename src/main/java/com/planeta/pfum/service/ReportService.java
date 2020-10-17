@@ -106,30 +106,25 @@ public class ReportService {
 			switch (programme) {
 			case LICENCE:
 				filiere = etudiantsLicenceRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
-//				file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAL.jrxml");
-				 Resource resource = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAL.jrxml");
-				 file = resource.getFile();
-				
-				
-				jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-				JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAL.jasper");
-
 				parameters.put("FiliereId", filiere.getId());
 
+				 Resource resource = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAL.jrxml");
+				 jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
+				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAL.jasper");
+
+				
+				
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "attestationInscription-Licence.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 				break;
 			case MASTER:
-//				filiere = etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
-//				file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAM.jrxml");
-				
-				file = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAM.jrxml").getFile();
-				
-				
-				jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-				JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAM.jasper");
+				filiere = etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
+
+				 resource = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAM.jrxml");
+				 jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
+				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAM.jasper");
 
 				parameters.put("FiliereId", filiere.getId());
 
@@ -140,12 +135,10 @@ public class ReportService {
 				break;
 			case MASTER_EXECUTIF:
 				filiere = etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
-//				file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAE.jrxml");
-				file = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAE.jrxml").getFile();
-
-				jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-				JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAE.jasper");
-
+				 resource = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAE.jrxml");
+				 jasperReport = JasperCompileManager.compileReport(resource.getInputStream());
+				 JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAM.jasper");
+				
 				parameters.put("FiliereId", filiere.getId());
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
