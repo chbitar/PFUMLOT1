@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,6 +53,9 @@ public class ReportService {
 	private final EtudiantsLicenceRepository etudiantsLicenceRepository;
 
 	private final FiliereRepository filiereRepository;
+	
+    private final ResourceLoader resourceLoader;
+
 
 	@Autowired
 	private DataSource dataSource;
@@ -62,13 +66,14 @@ public class ReportService {
 	private final Path fileStorageLocation;
 
 	public ReportService(EtudiantsExecutifRepository etudiantsExecutifRepository, FiliereRepository filiereRepository,
-			EtudiantsMasterRepository etudiantsMasterRepository, EtudiantsLicenceRepository etudiantsLicenceRepository)
+			EtudiantsMasterRepository etudiantsMasterRepository, EtudiantsLicenceRepository etudiantsLicenceRepository, ResourceLoader resourceLoader)
 			throws Exception {
 		this.fileStorageLocation = Paths.get("Docs").toAbsolutePath().normalize();
 		this.etudiantsExecutifRepository = etudiantsExecutifRepository;
 		this.filiereRepository = filiereRepository;
 		this.etudiantsMasterRepository = etudiantsMasterRepository;
 		this.etudiantsLicenceRepository = etudiantsLicenceRepository;
+		this.resourceLoader = resourceLoader;
 
 		try {
 			Files.createDirectories(this.fileStorageLocation);
@@ -101,7 +106,11 @@ public class ReportService {
 			switch (programme) {
 			case LICENCE:
 				filiere = etudiantsLicenceRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
-				file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAL.jrxml");
+//				file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAL.jrxml");
+				 Resource resource = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAL.jrxml");
+				 file = resource.getFile();
+				
+				
 				jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 				JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAL.jasper");
 
@@ -113,8 +122,12 @@ public class ReportService {
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 				break;
 			case MASTER:
-				filiere = etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
-				file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAM.jrxml");
+//				filiere = etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
+//				file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAM.jrxml");
+				
+				file = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAM.jrxml").getFile();
+				
+				
 				jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 				JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAM.jasper");
 
@@ -127,7 +140,9 @@ public class ReportService {
 				break;
 			case MASTER_EXECUTIF:
 				filiere = etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
-				file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAE.jrxml");
+//				file = ResourceUtils.getFile("classpath:INSCIRPTIONOSTELEAE.jrxml");
+				file = resourceLoader.getResource("classpath:INSCIRPTIONOSTELEAE.jrxml").getFile();
+
 				jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 				JRSaver.saveObject(jasperReport, "INSCIRPTIONOSTELEAE.jasper");
 
