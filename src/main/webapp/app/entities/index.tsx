@@ -27,6 +27,8 @@ import TableauDeBoard from './tableau-de-board';
 import { AUTHORITIES } from 'app/config/constants';
 import PrivateRoute from 'app/shared/auth/private-route';
 import { EmploiEtAvis } from './professeur/emploi-avis';
+import AbsenceLicence from './absence-licence';
+import AbsenceMaster from './absence-master';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -34,6 +36,9 @@ const Routes = ({ match }) => (
     <Switch>
       {/* prettier-ignore */}
       <ErrorBoundaryRoute path={`${match.url}/absence`} component={Absence} />
+      <ErrorBoundaryRoute path={`${match.url}/absence-licence`} component={AbsenceLicence} />
+      <ErrorBoundaryRoute path={`${match.url}/absence-master`} component={AbsenceMaster} />
+
       <PrivateRoute
         path={`${match.url}/affectation-module`}
         component={AffectationModule}

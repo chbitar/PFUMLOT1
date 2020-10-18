@@ -26,9 +26,8 @@ export interface IAbsenceUpdateState {
   isNew: boolean;
   userId: string;
   moduleId: string;
-  etudiantsExecutifId: string;
-  etudiantListExecutif: any[];
-  isEtudiantExecutifActive: boolean;
+  etudiantsMasterId: string;
+  etudiantListMaster: any[];
 }
 
 export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsenceUpdateState> {
@@ -37,14 +36,12 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
     this.state = {
       userId: '0',
       moduleId: '0',
-      etudiantsExecutifId: '0',
-      etudiantListExecutif: [],
-      isEtudiantExecutifActive: true,
-
+      etudiantListMaster: [],
+      etudiantsMasterId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
 
-    this.handleInputChangeExecutif = this.handleInputChangeExecutif.bind(this);
+    this.handleInputChangeMaster = this.handleInputChangeMaster.bind(this);
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -62,17 +59,17 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
 
     this.props.getUsers();
     this.props.getModules();
-    this.props.getEtudiantsExecutifs();
+    this.props.getEtudiantsMasters();
   }
 
-  handleInputChangeExecutif(event) {
+  handleInputChangeMaster(event) {
     const target = event.target;
     const value = target.value;
 
     if (target.checked) {
-      this.state.etudiantListExecutif[value] = value;
+      this.state.etudiantListMaster[value] = value;
     } else {
-      this.state.etudiantListExecutif.splice(value, 1);
+      this.state.etudiantListMaster.splice(value, 1);
     }
   }
 
@@ -85,12 +82,12 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
         ...values
       };
 
-      this.state.etudiantListExecutif.map(item => {
+      this.state.etudiantListMaster.map(item => {
         const absence: IAbsence = {
           dateSeance: entity.dateSeance,
           user: entity.user,
           module: entity.module,
-          etudiantsExecutif: {
+          etudiantsMaster: {
             id: item
           }
         };
@@ -100,11 +97,11 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/absence');
+    this.props.history.push('/entity/absence-master');
   };
 
   render() {
-    const { absenceEntity, users, modules, etudiantsExecutifs, loading, updating } = this.props;
+    const { absenceEntity, users, modules, etudiantsMasters, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -158,11 +155,11 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                       : null}
                   </AvInput>
                 </AvGroup>
-                <Label for="absence-module">Etudiants de Master exécutif </Label>
+                <Label for="absence-module">Etudiants de Master </Label>
                 <Table responsive>
                   <thead>
                     <tr>
-                      {/*    <th>
+                      {/*       <th>
                             <Translate contentKey="global.field.id">ID</Translate>
                           </th> */}
                       <th>
@@ -176,10 +173,11 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                     </tr>
                   </thead>
 
-                  {etudiantsExecutifs.map((etudiant, i) => (
+                  {etudiantsMasters.map((etudiant, i) => (
                     <tbody>
                       <tr key={`entity-${i}`}>
-                        {/* <td>{etudiant.id}</td> */}
+                        {/*                             <td>{etudiant.id}</td>
+                         */}{' '}
                         <td>{etudiant.nom}</td>
                         <td>{etudiant.prenom}</td>
                         <td>
@@ -188,14 +186,14 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                             type="checkbox"
                             name="absent"
                             value={etudiant.id}
-                            onChange={this.handleInputChangeExecutif}
+                            onChange={this.handleInputChangeMaster}
                           />
                         </td>
                       </tr>
                     </tbody>
                   ))}
                 </Table>
-                <Button tag={Link} id="cancel-save" to="/entity/absence" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/entity/absence-master" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;
                   <span className="d-none d-md-inline">
@@ -220,7 +218,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
   modules: storeState.module.entities,
-  etudiantsExecutifs: storeState.etudiantsExecutif.entities,
+  etudiantsMasters: storeState.etudiantsMaster.entities,
   absenceEntity: storeState.absence.entity,
   loading: storeState.absence.loading,
   updating: storeState.absence.updating,
@@ -230,6 +228,8 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getUsers,
   getModules,
+  getEtudiantsLicences,
+  getEtudiantsMasters,
   getEtudiantsExecutifs,
   getEntity,
   updateEntity,
