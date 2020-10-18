@@ -82,7 +82,7 @@
 	<field name="nom" class="java.lang.String"/>
 	<field name="ville" class="java.lang.String"/>
 	<field name="cin_pass" class="java.lang.String"/>
-	<field name="date_naissance" class="java.sql.Time"/>
+	<field name="date_naissance" class="java.sql.Timestamp"/>
 	<field name="nomfiliere" class="java.lang.String"/>
 	<field name="annee" class="java.lang.String"/>
 	<field name="suffixe" class="java.lang.String"/>
@@ -141,10 +141,10 @@
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font size="19" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ATTESTATION DE SCOLARITE]]></text>
+				<text><![CDATA[ATTESTATION]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="12" y="118" width="500" height="20" uuid="896fbf44-b940-4ea3-a1ae-61af7b331adf"/>
@@ -268,10 +268,10 @@
 								<jr:cell style="Table_CH" height="30" rowSpan="1">
 									<textField>
 										<reportElement x="0" y="0" width="486" height="30" uuid="9e31a1bb-f271-4ff3-918e-2a3ce0f3f7c7"/>
-										<textElement textAlignment="Center">
+										<textElement textAlignment="Left">
 											<font size="12" isBold="true"/>
 										</textElement>
-										<textFieldExpression><![CDATA[$F{semestre}]]></textFieldExpression>
+										<textFieldExpression><![CDATA[IF(EQUALS($F{semestre},"S1"),"Semestre1","Semestre2")]]></textFieldExpression>
 									</textField>
 								</jr:cell>
 							</jr:groupHeader>

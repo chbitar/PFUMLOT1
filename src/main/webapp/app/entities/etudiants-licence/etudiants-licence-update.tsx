@@ -131,10 +131,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                             <Col sm="6">
                               <AvGroup>
                                 <AvGroup>
-                                  <Label id="photoLabel" for="photo">
-                                    <Translate contentKey="pfumv10App.etudiantsLicence.photo">Photo</Translate>
-                                  </Label>
-                                  <br />
+                                  <b>Photo</b>
                                   {photo ? (
                                     <div>
                                       <a onClick={openFile(photoContentType, photo)}>
@@ -205,10 +202,10 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                                 </Label>
                                 <AvInput
                                   id="etudiants-licence-dateNaissance"
-                                  type="datetime-local"
+                                  type="date"
                                   className="form-control"
                                   name="dateNaissance"
-                                  placeholder={'YYYY-MM-DD HH:mm'}
+                                  placeholder={'YYYY-MM-DD'}
                                   value={isNew ? null : convertDateTimeFromServer(this.props.etudiantsLicenceEntity.dateNaissance)}
                                   validate={{
                                     required: { value: true, errorMessage: translate('entity.validation.required') }
@@ -368,6 +365,9 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                                   type="select"
                                   className="form-control"
                                   name="anneeInscription.id"
+                                  validate={{
+                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                  }}
                                 >
                                   <option value="" key="0" />
                                   {anneeInscriptions
@@ -559,8 +559,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                         &nbsp;
                         <Button color="primary" id="save-entity" type="submit" disabled={updating}>
                           <FontAwesomeIcon icon="save" />
-                          &nbsp;
-                          <Translate contentKey="entity.action.save">Save</Translate>
+                          &nbsp; Valider
                         </Button>
                       </Col>
                     </Row>

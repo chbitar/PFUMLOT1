@@ -101,7 +101,7 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                   <Label id="anneeLabel" for="affectation-module-annee">
                     <Translate contentKey="pfumv10App.affectationModule.annee">Annee</Translate>
                   </Label>
-                  <AvField id="affectation-module-annee" type="text" name="annee" />
+                  <AvField id="affectation-module-annee" type="text" name="annee" value="2020-2021" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="semestreLabel" for="affectation-module-semestre">

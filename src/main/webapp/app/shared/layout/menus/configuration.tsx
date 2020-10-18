@@ -19,9 +19,8 @@ export const ConfigurationMenu = props => (
       Ajouter modalité paiement
     </MenuItem>
     <MenuItem icon="asterisk" to="/entity/document">
-      <Translate contentKey="global.menu.entities.document" />
+      Ajout emploi du temps
     </MenuItem>
-
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
   </NavDropdown>
 );

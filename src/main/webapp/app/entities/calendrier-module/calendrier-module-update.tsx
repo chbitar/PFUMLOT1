@@ -89,9 +89,7 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.calendrierModule.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.calendrierModule.home.createOrEditLabel">Create or edit a CalendrierModule</Translate>
-            </h2>
+            <h2 id="pfumv10App.calendrierModule.home.createOrEditLabel">Créer ou éditer un calendrier pour les contrôles continus</h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -106,10 +104,10 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
                   </Label>
                   <AvInput
                     id="calendrier-module-dateControlContinu1"
-                    type="datetime-local"
+                    type="date"
                     className="form-control"
                     name="dateControlContinu1"
-                    placeholder={'YYYY-MM-DD HH:mm'}
+                    placeholder={'YYYY-MM-DD'}
                     value={isNew ? null : convertDateTimeFromServer(this.props.calendrierModuleEntity.dateControlContinu1)}
                   />
                 </AvGroup>
@@ -119,10 +117,10 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
                   </Label>
                   <AvInput
                     id="calendrier-module-dateControlContinu2"
-                    type="datetime-local"
+                    type="date"
                     className="form-control"
                     name="dateControlContinu2"
-                    placeholder={'YYYY-MM-DD HH:mm'}
+                    placeholder={'YYYY-MM-DD'}
                     value={isNew ? null : convertDateTimeFromServer(this.props.calendrierModuleEntity.dateControlContinu2)}
                   />
                 </AvGroup>

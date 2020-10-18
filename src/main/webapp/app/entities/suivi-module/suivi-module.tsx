@@ -10,7 +10,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getSearchEntities, getEntitiesAffectedToProf } from './suivi-module.reducer';
 import { ISuiviModule } from 'app/shared/model/suivi-module.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_DATE_FORMAT_TIMESTAMP, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface ISuiviModuleProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -82,11 +82,17 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
               <thead>
                 <tr>
                   <th>
+                    <Translate contentKey="pfumv10App.suiviModule.professeur">Professeur</Translate>
+                  </th>
+                  <th>
                     <Translate contentKey="pfumv10App.suiviModule.semestre">Semestre</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.descriptif">Descriptif</Translate>
+                    <Translate contentKey="pfumv10App.suiviModule.module">Module</Translate>
                   </th>
+                  {/*                   <th>
+                    <Translate contentKey="pfumv10App.suiviModule.descriptif">Descriptif</Translate>
+                  </th> */}
                   <th>
                     <Translate contentKey="pfumv10App.suiviModule.observations">Observations</Translate>
                   </th>
@@ -102,35 +108,29 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
                   <th>
                     <Translate contentKey="pfumv10App.suiviModule.duree">Duree</Translate>
                   </th>
-                  <th>
-                    <Translate contentKey="pfumv10App.suiviModule.module">Module</Translate>
-                  </th>
-                  <th>
-                    <Translate contentKey="pfumv10App.suiviModule.professeur">Professeur</Translate>
-                  </th>
                   <th />
                 </tr>
               </thead>
               <tbody>
                 {suiviModuleList.map((suiviModule, i) => (
                   <tr key={`entity-${i}`}>
+                    <td>{suiviModule.user ? suiviModule.user.firstName + ' ' + suiviModule.user.lastName : ''}</td>
                     <td>
                       <Translate contentKey={`pfumv10App.Semestre.${suiviModule.semestre}`} />
                     </td>
-                    <td>{suiviModule.descriptif}</td>
+                    <td>{suiviModule.module ? <Link to={`module/${suiviModule.module.id}`}>{suiviModule.module.nomModule}</Link> : ''}</td>
+                    {/* <td>{suiviModule.descriptif}</td> */}
                     <td>{suiviModule.observations}</td>
                     <td>
                       <TextFormat type="date" value={suiviModule.date} format={APP_DATE_FORMAT} />
                     </td>
                     <td>
-                      <TextFormat type="date" value={suiviModule.debutCreneau} format={APP_DATE_FORMAT} />
+                      <TextFormat type="date" value={suiviModule.debutCreneau} format={APP_DATE_FORMAT_TIMESTAMP} />
                     </td>
                     <td>
-                      <TextFormat type="date" value={suiviModule.finCreneau} format={APP_DATE_FORMAT} />
+                      <TextFormat type="date" value={suiviModule.finCreneau} format={APP_DATE_FORMAT_TIMESTAMP} />
                     </td>
                     <td>{suiviModule.duree}</td>
-                    <td>{suiviModule.module ? <Link to={`module/${suiviModule.module.id}`}>{suiviModule.module.nomModule}</Link> : ''}</td>
-                    <td>{suiviModule.user ? suiviModule.user.firstName + ' ' + suiviModule.user.lastName : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${suiviModule.id}`} color="info" size="sm">

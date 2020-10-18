@@ -47,11 +47,10 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
     return (
       <div>
         <h2 id="calendrier-module-heading">
-          Calendrier des modules
+          Calendrier contrôles continus
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="pfumv10App.calendrierModule.home.createLabel">Create new Calendrier Module</Translate>
+            &nbsp; Ajouter un calendrier pour les contrôles continus
           </Link>
         </h2>
         <Row>
@@ -83,35 +82,29 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
               <thead>
                 <tr>
                   <th>
+                    <Translate contentKey="pfumv10App.calendrierModule.module">Module</Translate>
+                  </th>
+                  <th>
                     <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
                   </th>
                   <th>
                     <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu2">Date Control Continu 2</Translate>
                   </th>
-                  <th>
-                    <Translate contentKey="pfumv10App.calendrierModule.module">Module</Translate>
-                  </th>
-                  <th>
+
+                  {/*   <th>
                     <Translate contentKey="pfumv10App.calendrierModule.anneeInscription">Annee Inscription</Translate>
-                  </th>
+                  </th> */}
                   <th />
                 </tr>
               </thead>
               <tbody>
                 {calendrierModuleList.map((calendrierModule, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
+                    {/*  <td>
                       <Button tag={Link} to={`${match.url}/${calendrierModule.id}`} color="link" size="sm">
                         {calendrierModule.id}
                       </Button>
-                    </td>
-                    <td>{calendrierModule.libelle}</td>
-                    <td>
-                      <TextFormat type="date" value={calendrierModule.dateControlContinu1} format={APP_DATE_FORMAT} />
-                    </td>
-                    <td>
-                      <TextFormat type="date" value={calendrierModule.dateControlContinu2} format={APP_DATE_FORMAT} />
-                    </td>
+                    </td> */}
                     <td>
                       {calendrierModule.module ? (
                         <Link to={`module/${calendrierModule.module.id}`}>{calendrierModule.module.nomModule}</Link>
@@ -119,7 +112,7 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
                         ''
                       )}
                     </td>
-                    <td>
+                    {/*   <td>
                       {calendrierModule.anneeInscription ? (
                         <Link to={`annee-inscription/${calendrierModule.anneeInscription.id}`}>
                           {calendrierModule.anneeInscription.annee}
@@ -127,6 +120,13 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
                       ) : (
                         ''
                       )}
+                    </td> */}
+                    {/* <td>{calendrierModule.libelle}</td> */}
+                    <td>
+                      <TextFormat type="date" value={calendrierModule.dateControlContinu1} format={APP_DATE_FORMAT} />
+                    </td>
+                    <td>
+                      <TextFormat type="date" value={calendrierModule.dateControlContinu2} format={APP_DATE_FORMAT} />
                     </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
