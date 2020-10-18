@@ -113,7 +113,7 @@ public class EtudiantsLicenceResource {
         etudiantsLicence.setUser(newUser);
         etudiantsLicence.setSuffixe(suffixe);
 
-//        etudiantsLicenceSearchRepository.save(result);
+        etudiantsLicenceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-licences/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
