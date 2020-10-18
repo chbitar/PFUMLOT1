@@ -99,26 +99,8 @@ public class EtudiantsExecutifResource {
        
         EtudiantsExecutif result = etudiantsExecutifRepository.save(etudiantsExecutif);
         
-        
-        Filiere filiere=  filiereRepository.findById(etudiantsExecutif.getFiliere().getId()).get();
-        String ecole = filiere.getEtablissement().getNomEcole();
-        
-        Calendar c = Calendar.getInstance();        
-        int fourDigYear = c.get(Calendar.YEAR);
-        
-        String suffixe = "ES"+ Integer.toString(fourDigYear).substring(2);
-
-        switch (ecole) {
-            case "ESLSCA":
-                suffixe = "ES"+ Integer.toString(fourDigYear).substring(2) + customFormat("0000", result.getId());
-                break;
-
-            case "OSTELEA":
-                suffixe = "OS"+ Integer.toString(fourDigYear).substring(2)  + customFormat("0000", result.getId());
-                break;
-            default:
-                break;
-        }
+        int fourDigYear =Calendar.getInstance().get(Calendar.YEAR);;
+        String suffixe = "OS"+ Integer.toString(fourDigYear).substring(2)  + customFormat("0000", result.getId());
         
         //Creation d'un compte USER pour se connecter
         User newUser = userService.createUserForEtudiants(etudiantsExecutif);

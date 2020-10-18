@@ -135,9 +135,10 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                             <Col sm="6">
                               <AvGroup>
                                 <AvGroup>
-                                  <Label id="photoLabel" for="photo">
+                                  {/*                                   <Label id="photoLabel" for="photo">
                                     <Translate contentKey="pfumv10App.etudiantsMaster.photo">Photo</Translate>
-                                  </Label>
+                                  </Label> */}
+                                  <b>Photo</b>
                                   <br />
                                   {photo ? (
                                     <div>
@@ -209,10 +210,10 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                                 </Label>
                                 <AvInput
                                   id="etudiants-master-dateNaissance"
-                                  type="datetime-local"
+                                  type="date"
                                   className="form-control"
                                   name="dateNaissance"
-                                  placeholder={'YYYY-MM-DD HH:mm'}
+                                  placeholder={'YYYY-MM-DD'}
                                   value={isNew ? null : convertDateTimeFromServer(this.props.etudiantsMasterEntity.dateNaissance)}
                                   validate={{
                                     required: { value: true, errorMessage: translate('entity.validation.required') }

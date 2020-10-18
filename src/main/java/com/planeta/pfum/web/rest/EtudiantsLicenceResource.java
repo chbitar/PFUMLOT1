@@ -88,25 +88,10 @@ public class EtudiantsLicenceResource {
         
         EtudiantsLicence result = etudiantsLicenceRepository.save(etudiantsLicence);
         
-        Filiere filiere=  filiereRepository.findById(etudiantsLicence.getFiliere().getId()).get();
-        String ecole = filiere.getEtablissement().getNomEcole();
         
-        Calendar c = Calendar.getInstance();        
-        int fourDigYear = c.get(Calendar.YEAR);
+        int fourDigYear =Calendar.getInstance().get(Calendar.YEAR);;
+        String suffixe = "OS"+ Integer.toString(fourDigYear).substring(2)  + customFormat("0000", result.getId());
         
-        String suffixe = "ES"+ Integer.toString(fourDigYear).substring(2);
-
-        switch (ecole) {
-            case "ESLSCA":
-                suffixe = "ES"+ Integer.toString(fourDigYear).substring(2)   + customFormat("0000", result.getId());
-                break;
-
-            case "OSTELEA":
-                suffixe = "OS"+ Integer.toString(fourDigYear).substring(2)   + customFormat("0000", result.getId());
-                break;
-            default:
-                break;
-        }
         
         //Creation d'un compte USER pour se connecter
         User newUser = userService.createUserForEtudiants(etudiantsLicence);

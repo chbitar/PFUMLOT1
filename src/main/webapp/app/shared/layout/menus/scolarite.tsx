@@ -24,7 +24,7 @@ export const ScolariteMenu = props => (
       Affectation module
     </MenuItem>
     <MenuItem icon="asterisk" to="/entity/calendrier-module">
-      Calendrier module
+      Calendrier examen
     </MenuItem>
 
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}

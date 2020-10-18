@@ -148,14 +148,14 @@
 				<textElement textAlignment="Center">
 					<font size="19" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ATTESTATION]]></text>
+				<text><![CDATA[ATTESTATION DE SCOLARITE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="12" y="118" width="500" height="20" uuid="896fbf44-b940-4ea3-a1ae-61af7b331adf"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Le Directeur Pédagogique D'ESLSCA Business Shcool , atteste que : ]]></text>
+				<text><![CDATA[Le Directeur Pédagogique D'OSTELEA School of Turism & Hospitality, atteste que : ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="162" y="147" width="168" height="15" uuid="e195827e-620d-4ba0-9ab1-5a3d4e54e7c2"/>
@@ -233,7 +233,7 @@
 				<text><![CDATA[Fait à Rabat, Le]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="386" y="211" width="110" height="17" uuid="4bfc4960-9c36-4c9c-b47b-534b3d9d1505"/>
+				<reportElement positionType="Float" x="386" y="213" width="110" height="17" uuid="4bfc4960-9c36-4c9c-b47b-534b3d9d1505"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>

@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.UrlResource;
@@ -25,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 
 import com.planeta.pfum.domain.Filiere;
-import com.planeta.pfum.domain.enumeration.Etablissement;
 import com.planeta.pfum.domain.enumeration.Programme;
 import com.planeta.pfum.report.SimpleReportExporter;
 import com.planeta.pfum.repository.EtudiantsExecutifRepository;
@@ -53,21 +51,17 @@ public class ReportService {
 	private final EtudiantsLicenceRepository etudiantsLicenceRepository;
 
 	private final FiliereRepository filiereRepository;
-	
-    private final ResourceLoader resourceLoader;
 
+	private final ResourceLoader resourceLoader;
 
 	@Autowired
 	private DataSource dataSource;
 
-	@Autowired
-	private ApplicationEventPublisher applicationEventPublisher;
-
 	private final Path fileStorageLocation;
 
 	public ReportService(EtudiantsExecutifRepository etudiantsExecutifRepository, FiliereRepository filiereRepository,
-			EtudiantsMasterRepository etudiantsMasterRepository, EtudiantsLicenceRepository etudiantsLicenceRepository, ResourceLoader resourceLoader)
-			throws Exception {
+			EtudiantsMasterRepository etudiantsMasterRepository, EtudiantsLicenceRepository etudiantsLicenceRepository,
+			ResourceLoader resourceLoader) throws Exception {
 		this.fileStorageLocation = Paths.get("Docs").toAbsolutePath().normalize();
 		this.etudiantsExecutifRepository = etudiantsExecutifRepository;
 		this.filiereRepository = filiereRepository;
@@ -108,11 +102,10 @@ public class ReportService {
 				filiere = etudiantsLicenceRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				parameters.put("FiliereId", filiere.getId());
 
-				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONL.jrxml").getInputStream());
-				 JRSaver.saveObject(jasperReport, "INSCIRPTIONL.jasper");
+				jasperReport = JasperCompileManager
+						.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONL.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "INSCIRPTIONL.jasper");
 
-				
-				
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "attestationInscription-Licence.pdf";
@@ -122,9 +115,9 @@ public class ReportService {
 				filiere = etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				parameters.put("FiliereId", filiere.getId());
 
-				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONM.jrxml").getInputStream());
-				 JRSaver.saveObject(jasperReport, "INSCIRPTIONM.jasper");
-
+				jasperReport = JasperCompileManager
+						.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONM.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "INSCIRPTIONM.jasper");
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
@@ -135,9 +128,9 @@ public class ReportService {
 				filiere = etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				parameters.put("FiliereId", filiere.getId());
 
-				 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONE.jrxml").getInputStream());
-				 JRSaver.saveObject(jasperReport, "INSCIRPTIONE.jasper");
-				
+				jasperReport = JasperCompileManager
+						.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONE.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "INSCIRPTIONE.jasper");
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
@@ -170,57 +163,28 @@ public class ReportService {
 			Map<String, Object> parameters = new HashMap<>();
 			parameters.put("EtudiantId", Long.valueOf(etudiantId));
 
-			Filiere filiere = null;
 			String fileName = "";
-			File file = null;
 			JasperReport jasperReport = null;
 			JasperPrint jasperPrint;
 			SimpleReportExporter simpleReportExporter = null;
 
 			switch (programme) {
 			case LICENCE:
-				filiere = etudiantsLicenceRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
-				
-				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.ESLSCA.toString())) {
-//					file = ResourceUtils.getFile("classpath:BADGEESLSCALICENCE.jrxml");
-//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-					
-					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEESLSCALICENCE.jrxml").getInputStream());
-					JRSaver.saveObject(jasperReport, "BADGEESLSCALICENCE.jasper");
 
-				}
-				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.OSTELEA.toString())) {
-//					file = ResourceUtils.getFile("classpath:BADGEOSTELEALICENCE.jrxml");
-					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEOSTELEALICENCE.jrxml").getInputStream());
-//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-					JRSaver.saveObject(jasperReport, "BADGEOSTELEALICENCE.jasper");
-				}
-			
+				jasperReport = JasperCompileManager.compileReport(
+						resourceLoader.getResource("classpath:BADGEOSTELEALICENCE.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "BADGEOSTELEALICENCE.jasper");
+
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "badge-Licence.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 				break;
 			case MASTER:
-				
-				
-				filiere = etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 
-				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.ESLSCA.toString())) {
-//					file = ResourceUtils.getFile("classpath:BADGEESLSCAMASTER.jrxml");
-					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEESLSCAMASTER.jrxml").getInputStream());
-//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-					JRSaver.saveObject(jasperReport, "BADGEESLSCAMASTER.jasper");
-
-				}
-				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.OSTELEA.toString())) {
-//					file = ResourceUtils.getFile("classpath:BADGEOSTELEAMASTER.jrxml");
-					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEOSTELEAMASTER.jrxml").getInputStream());
-//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-					JRSaver.saveObject(jasperReport, "BADGEOSTELEAMASTER.jasper");
-				}
-				
-
+				jasperReport = JasperCompileManager.compileReport(
+						resourceLoader.getResource("classpath:BADGEOSTELEAMASTER.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "BADGEOSTELEAMASTER.jasper");
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
@@ -228,24 +192,10 @@ public class ReportService {
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 				break;
 			case MASTER_EXECUTIF:
-				
-				filiere = etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 
-				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.ESLSCA.toString())) {
-//					file = ResourceUtils.getFile("classpath:BADGEESLSCAEXECUTIF.jrxml");
-					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEESLSCAEXECUTIF.jrxml").getInputStream());
-
-//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-					JRSaver.saveObject(jasperReport, "BADGEESLSCAEXECUTIF.jasper");
-
-				}
-				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.OSTELEA.toString())) {
-//					file = ResourceUtils.getFile("classpath:BADGEESLSCAEXECUTIF.jrxml");
-					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEOSTELEAEXECUTIF.jrxml").getInputStream());
-//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-					JRSaver.saveObject(jasperReport, "BADGEOSTELEAEXECUTIF.jasper");
-				}
-
+				jasperReport = JasperCompileManager.compileReport(
+						resourceLoader.getResource("classpath:BADGEOSTELEAEXECUTIF.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "BADGEOSTELEAEXECUTIF.jasper");
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
@@ -262,10 +212,8 @@ public class ReportService {
 		} catch (JRException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -298,7 +246,6 @@ public class ReportService {
 			case "PDF":
 			case "PRINT":
 				fileName = "example.pdf";
-//				JasperExportManager.exportReportToPdfFile(jasperPrint, this.fileStorageLocation + "/example.pdf");
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 				break;
 			case "XLSX":

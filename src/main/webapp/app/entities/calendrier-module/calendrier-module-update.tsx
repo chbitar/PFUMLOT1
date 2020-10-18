@@ -99,6 +99,21 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
             ) : (
               <AvForm model={isNew ? {} : calendrierModuleEntity} onSubmit={this.saveEntity}>
                 <AvGroup>
+                  <Label for="calendrier-module-module">
+                    <Translate contentKey="pfumv10App.calendrierModule.module">Module</Translate>
+                  </Label>
+                  <AvInput id="calendrier-module-module" type="select" className="form-control" name="module.id">
+                    <option value="" key="0" />
+                    {modules
+                      ? modules.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.nomModule}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
                   <Label id="dateControlContinu1Label" for="calendrier-module-dateControlContinu1">
                     <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
                   </Label>
@@ -125,26 +140,13 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="calendrier-module-module">
-                    <Translate contentKey="pfumv10App.calendrierModule.module">Module</Translate>
-                  </Label>
-                  <AvInput id="calendrier-module-module" type="select" className="form-control" name="module.id">
-                    <option value="" key="0" />
-                    {modules
-                      ? modules.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nomModule}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
                   <Label for="calendrier-module-anneeInscription">
-                    <Translate contentKey="pfumv10App.calendrierModule.anneeInscription">Annee Inscription</Translate>
+                    {/*                <Translate contentKey="pfumv10App.calendrierModule.anneeInscription">Année universitaire</Translate>
+                     */}
+                    Année universitaire
                   </Label>
                   <AvInput id="calendrier-module-anneeInscription" type="select" className="form-control" name="anneeInscription.id">
-                    <option value="" key="0" />
+                    <option value="2020-2021" key="0" />
                     {anneeInscriptions
                       ? anneeInscriptions.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
