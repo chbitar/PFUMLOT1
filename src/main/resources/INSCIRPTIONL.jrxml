@@ -53,19 +53,23 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
 		<parameter name="FiliereId2" class="java.lang.Long"/>
 		<queryString language="SQL">
-			<![CDATA[select  nom_module,semestre from module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
+			<![CDATA[select  nom_module,semestre,CASE WHEN semestre = 'S1' THEN "Semestre 1" ELSE "Semestre 2" END as Libelle from module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
 		</queryString>
+		<field name="nom_module" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="nom_module"/>
+			<property name="com.jaspersoft.studio.field.label" value="nom_module"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="module"/>
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
 		<field name="semestre" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="semestre"/>
 			<property name="com.jaspersoft.studio.field.label" value="semestre"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="module"/>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="nom_module" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="nom_module"/>
-			<property name="com.jaspersoft.studio.field.label" value="nom_module"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="module"/>
-			<fieldDescription><![CDATA[]]></fieldDescription>
+		<field name="Libelle" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="Libelle"/>
+			<property name="com.jaspersoft.studio.field.label" value="Libelle"/>
 		</field>
 		<sortField name="semestre"/>
 		<sortField name="nom_module"/>
@@ -271,7 +275,7 @@
 										<textElement textAlignment="Left">
 											<font size="12" isBold="true"/>
 										</textElement>
-										<textFieldExpression><![CDATA[IF(EQUALS($F{semestre},"S1"),"Semestre1","Semestre2")]]></textFieldExpression>
+										<textFieldExpression><![CDATA[$F{Libelle}]]></textFieldExpression>
 									</textField>
 								</jr:cell>
 							</jr:groupHeader>

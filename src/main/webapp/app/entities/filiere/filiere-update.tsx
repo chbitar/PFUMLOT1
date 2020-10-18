@@ -146,7 +146,7 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
                     {etablissements
                       ? etablissements.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nomEcole} {otherEntity.id}
+                            {otherEntity.nomEcole}
                           </option>
                         ))
                       : null}
