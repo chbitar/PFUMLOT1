@@ -155,7 +155,14 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                                     </div>
                                   ) : null}
                                   <input id="file_photo" type="file" onChange={this.onBlobChange(true, 'photo')} accept="image/*" />
-                                  <AvInput type="hidden" name="photo" value={photo} />
+                                  <AvInput
+                                    type="hidden"
+                                    name="photo"
+                                    value={photo}
+                                    validate={{
+                                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                                    }}
+                                  />
                                 </AvGroup>
                               </AvGroup>
                             </Col>
@@ -458,7 +465,14 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                                     onChange={this.onBlobChange(true, 'bacalaureat')}
                                     accept="image/*"
                                   />
-                                  <AvInput type="hidden" name="bacalaureat" value={bacalaureat} />
+                                  <AvInput
+                                    type="hidden"
+                                    name="bacalaureat"
+                                    value={bacalaureat}
+                                    validate={{
+                                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                                    }}
+                                  />
                                 </AvGroup>
                               </AvGroup>
                               <AvGroup>
@@ -493,7 +507,14 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                                     onChange={this.onBlobChange(true, 'cinPassport')}
                                     accept="image/*"
                                   />
-                                  <AvInput type="hidden" name="cinPassport" value={cinPassport} />
+                                  <AvInput
+                                    type="hidden"
+                                    name="cinPassport"
+                                    value={cinPassport}
+                                    validate={{
+                                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                                    }}
+                                  />
                                 </AvGroup>
                               </AvGroup>
                               <AvGroup>

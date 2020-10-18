@@ -57,7 +57,7 @@
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
 				<reportElement x="-19" y="-13" width="841" height="567" uuid="5e55877e-6bce-4b93-bf98-2022dea3e37b"/>
-				<imageExpression><![CDATA["D:/Downloads/card-identity-eslsca.png"]]></imageExpression>
+				<imageExpression><![CDATA["card-identity-eslsca.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="556" y="419" width="219" height="40" uuid="d54cbe5c-05a5-4529-843d-3c068698682d"/>

@@ -182,14 +182,17 @@ public class ReportService {
 				filiere = etudiantsLicenceRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				
 				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.ESLSCA.toString())) {
-					file = ResourceUtils.getFile("classpath:BADGEESLSCALICENCE.jrxml");
-					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//					file = ResourceUtils.getFile("classpath:BADGEESLSCALICENCE.jrxml");
+//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+					
+					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEESLSCALICENCE.jrxml").getInputStream());
 					JRSaver.saveObject(jasperReport, "BADGEESLSCALICENCE.jasper");
 
 				}
 				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.OSTELEA.toString())) {
-					file = ResourceUtils.getFile("classpath:BADGEOSTELEALICENCE.jrxml");
-					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//					file = ResourceUtils.getFile("classpath:BADGEOSTELEALICENCE.jrxml");
+					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEOSTELEALICENCE.jrxml").getInputStream());
+//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 					JRSaver.saveObject(jasperReport, "BADGEOSTELEALICENCE.jasper");
 				}
 			
@@ -204,15 +207,17 @@ public class ReportService {
 				filiere = etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 
 				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.ESLSCA.toString())) {
-					file = ResourceUtils.getFile("classpath:BADGEESLSCAMASTER.jrxml");
-					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-					JRSaver.saveObject(jasperReport, "BADGEESLSCALICENCE.jasper");
+//					file = ResourceUtils.getFile("classpath:BADGEESLSCAMASTER.jrxml");
+					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEESLSCAMASTER.jrxml").getInputStream());
+//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+					JRSaver.saveObject(jasperReport, "BADGEESLSCAMASTER.jasper");
 
 				}
 				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.OSTELEA.toString())) {
-					file = ResourceUtils.getFile("classpath:BADGEOSTELEAMASTER.jrxml");
-					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-					JRSaver.saveObject(jasperReport, "BADGEOSTELEALICENCE.jasper");
+//					file = ResourceUtils.getFile("classpath:BADGEOSTELEAMASTER.jrxml");
+					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEOSTELEAMASTER.jrxml").getInputStream());
+//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+					JRSaver.saveObject(jasperReport, "BADGEOSTELEAMASTER.jasper");
 				}
 				
 
@@ -227,19 +232,19 @@ public class ReportService {
 				filiere = etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 
 				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.ESLSCA.toString())) {
-					file = ResourceUtils.getFile("classpath:BADGEESLSCAEXECUTIF.jrxml");
-					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-					JRSaver.saveObject(jasperReport, "BADGEESLSCALICENCE.jasper");
+//					file = ResourceUtils.getFile("classpath:BADGEESLSCAEXECUTIF.jrxml");
+					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEESLSCAEXECUTIF.jrxml").getInputStream());
+
+//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+					JRSaver.saveObject(jasperReport, "BADGEESLSCAEXECUTIF.jasper");
 
 				}
 				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.OSTELEA.toString())) {
-					file = ResourceUtils.getFile("classpath:BADGEESLSCAEXECUTIF.jrxml");
-					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//					file = ResourceUtils.getFile("classpath:BADGEESLSCAEXECUTIF.jrxml");
+					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEESLSCAEXECUTIF.jrxml").getInputStream());
+//					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 					JRSaver.saveObject(jasperReport, "BADGEOSTELEALICENCE.jasper");
 				}
-				
-				
-				JRSaver.saveObject(jasperReport, "BADGEESLSCALICENCE.jasper");
 
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());

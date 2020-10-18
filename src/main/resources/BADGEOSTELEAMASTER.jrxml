@@ -57,7 +57,7 @@
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<image>
 				<reportElement x="-19" y="-13" width="841" height="567" uuid="5e55877e-6bce-4b93-bf98-2022dea3e37b"/>
-				<imageExpression><![CDATA["D:/Downloads/card-identity-ostelea.png"]]></imageExpression>
+				<imageExpression><![CDATA["card-identity-ostelea.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="556" y="419" width="219" height="40" uuid="d54cbe5c-05a5-4529-843d-3c068698682d"/>
@@ -120,12 +120,16 @@
 				<text><![CDATA[FILIERE :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="206" y="442" width="154" height="30" forecolor="#40A5C9" uuid="54054e62-d27b-4510-8480-d64e404d8fe6"/>
+				<reportElement x="153" y="504" width="154" height="30" forecolor="#40A5C9" uuid="54054e62-d27b-4510-8480-d64e404d8fe6"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{annee}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="598" y="5" width="220" height="180" uuid="a99b786c-d5fb-4f82-aee8-399f106be3fc"/>
+				<imageExpression><![CDATA["ostelea.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 </jasperReport>
