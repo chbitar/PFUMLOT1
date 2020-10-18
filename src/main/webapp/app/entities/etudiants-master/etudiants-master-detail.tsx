@@ -25,6 +25,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
 
   genererAttestationInscription = () => () => {
     const requestUrl = `/api/attestation/${this.props.match.params.id}/PDF/MASTER`;
+
     axios
       .get(requestUrl, {
         responseType: 'blob'
@@ -34,7 +35,8 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
       });
   };
   genererBadge = () => () => {
-    const requestUrl = `/api/badge/etudiant/${this.props.match.params.id}/PDF`;
+    const requestUrl = `/api/badge/etudiant/${this.props.match.params.id}/PDF/MASTER`;
+
     axios
       .get(requestUrl, {
         responseType: 'blob'

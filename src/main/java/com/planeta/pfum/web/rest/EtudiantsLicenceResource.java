@@ -112,8 +112,8 @@ public class EtudiantsLicenceResource {
         User newUser = userService.createUserForEtudiants(etudiantsLicence);
         etudiantsLicence.setUser(newUser);
         etudiantsLicence.setSuffixe(suffixe);
+        etudiantsLicenceRepository.save(etudiantsLicence);
 
-        etudiantsLicenceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-licences/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
