@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.planeta.pfum</groupId>
-    <artifactId>pfumv</artifactId>
+    <artifactId>pfum-ostelea</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Pfumv</name>
+    <name>Pfum OSTELEA</name>
 
     <repositories>
         <!-- TODO To remove after final JHipster release -->

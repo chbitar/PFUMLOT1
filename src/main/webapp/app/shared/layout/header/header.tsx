@@ -89,7 +89,7 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
           <Collapse isOpen={this.state.menuOpen} navbar>
             <Nav id="header-tabs" className="ml-auto" navbar>
               <div className="pull-left image">
-                <img src="content/images/ostelea.png" className="img-circle" alt="User Image" />
+                <img src="content/images/ostelea.jpg" className="img-circle" alt="User Image" />
               </div>
               <Home />
               {isAuthenticated && (isUser || isAdmin) && <InscriptionsMenu />}

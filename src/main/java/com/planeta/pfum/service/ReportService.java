@@ -241,9 +241,9 @@ public class ReportService {
 				}
 				if(filiere.getEtablissement().getNomEcole().equals(Etablissement.OSTELEA.toString())) {
 //					file = ResourceUtils.getFile("classpath:BADGEESLSCAEXECUTIF.jrxml");
-					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEESLSCAEXECUTIF.jrxml").getInputStream());
+					 jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource("classpath:BADGEOSTELEAEXECUTIF.jrxml").getInputStream());
 //					jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-					JRSaver.saveObject(jasperReport, "BADGEOSTELEALICENCE.jasper");
+					JRSaver.saveObject(jasperReport, "BADGEOSTELEAEXECUTIF.jasper");
 				}
 
 
