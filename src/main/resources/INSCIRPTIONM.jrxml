@@ -53,7 +53,7 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
 		<parameter name="FiliereId2" class="java.lang.Long"/>
 		<queryString language="SQL">
-			<![CDATA[select  nom_module,semestre from pfum.module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
+			<![CDATA[select  nom_module,semestre from module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
 		</queryString>
 		<field name="semestre" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="semestre"/>
