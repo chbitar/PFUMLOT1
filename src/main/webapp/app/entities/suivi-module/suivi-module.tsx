@@ -44,12 +44,8 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
   displayRemaining = (id, volume) => {
     const total = this.props.suiviModuleList
       .filter(suivi => suivi.module.id === id)
-      .map(function(suivi) {
-        return suivi.duree;
-      })
-      .reduce(function(curval, newval) {
-        return curval + newval;
-      });
+      .map(suivi => suivi.duree)
+      .reduce((curval, newval) => curval + newval);
     return '' + (volume - total);
   };
 
