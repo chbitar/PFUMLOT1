@@ -21,7 +21,7 @@ const EspaceEtudiantMenuExecutif = (
 const EspaceEtudiantMenuLicence = (
   <>
     <MenuItem icon="asterisk" to="/entity/etudiants-licence">
-      Espace Licence
+      Espace BAC+3
     </MenuItem>
   </>
 );
@@ -29,7 +29,7 @@ const EspaceEtudiantMenuLicence = (
 const EspaceEtudiantMenuMaster = (
   <>
     <MenuItem icon="asterisk" to="/entity/etudiants-master">
-      Espace Master
+      Espace MASTER ACADEMIQUE
     </MenuItem>
   </>
 );

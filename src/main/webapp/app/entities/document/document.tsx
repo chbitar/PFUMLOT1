@@ -47,11 +47,10 @@ export class Document extends React.Component<IDocumentProps, IDocumentState> {
     return (
       <div>
         <h2 id="document-heading">
-          <Translate contentKey="pfumv10App.document.home.title">Documents</Translate>
+          <Translate contentKey="pfumv10App.document.home.title">Liste des documents</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="pfumv10App.document.home.createLabel">Create new Document</Translate>
+            &nbsp; Charger un nouveau document
           </Link>
         </h2>
         <Row>

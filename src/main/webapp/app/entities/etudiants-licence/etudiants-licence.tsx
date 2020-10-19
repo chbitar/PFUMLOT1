@@ -69,7 +69,7 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
     return (
       <div>
         <h2 id="etudiants-licence-heading">
-          Liste inscrits : Licence
+          Liste inscrits : BAC+3
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Ajouter un nouvel étudiant

@@ -69,7 +69,7 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
     return (
       <div>
         <h2 id="etudiants-master-heading">
-          Liste inscrits : Master
+          Liste inscrits : MASTER ACADEMIQUE
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Ajouter un nouvel étudiant

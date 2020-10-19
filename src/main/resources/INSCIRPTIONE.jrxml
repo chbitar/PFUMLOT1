@@ -58,10 +58,6 @@
 			<property name="com.jaspersoft.studio.field.tree.path" value="module"/>
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="Libelle" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="Libelle"/>
-			<property name="com.jaspersoft.studio.field.label" value="Libelle"/>
-		</field>
 		<sortField name="semestre"/>
 		<sortField name="nom_module"/>
 		<group name="semestre">
@@ -266,7 +262,7 @@
 										<textElement textAlignment="Left">
 											<font size="12" isBold="true"/>
 										</textElement>
-										<textFieldExpression><![CDATA[$F{Libelle}]]></textFieldExpression>
+										<textFieldExpression><![CDATA["Semestre " +$F{semestre}.substring( 1, 2 )]]></textFieldExpression>
 									</textField>
 								</jr:cell>
 							</jr:groupHeader>

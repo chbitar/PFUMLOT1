@@ -8,7 +8,7 @@ import { NavDropdown } from './menu-components';
 
 export const InscriptionsLicenceMenu = props => (
   // tslint:disable-next-line:jsx-self-close
-  <NavDropdown icon="user-edit" name="Inscription Licence" id="entity-menu">
+  <NavDropdown icon="user-edit" name="Inscription BAC+3" id="entity-menu">
     <MenuItem icon="asterisk" to="/entity/etudiants-licence/new">
       Nouvelle inscription
     </MenuItem>

@@ -139,9 +139,10 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
                             type="text"
                             name="etablissement.nomEcole"
                             value={otherEntity.nomEcole}
-                            disabled
+                            required
+                            readOnly
                           />
-                          <AvField id="filiere-responsable" type="hidden" name="etablissement.id" value={otherEntity.id} />
+                          <AvField id="filiere-responsable" type="hidden" name="etablissement.id" value={otherEntity.id} required />
                         </>
                       ))
                     : null}
