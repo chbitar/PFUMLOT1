@@ -131,26 +131,20 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
                   <Label for="filiere-etablissement">
                     <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
                   </Label>
-                  <AvInput
-                    id="filiere-etablissement"
-                    type="select"
-                    className="form-control"
-                    name="etablissement.id"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') }
-                    }}
-                  >
-                    <option value="" key="0">
-                      Prière de choisir l'école
-                    </option>
-                    {etablissements
-                      ? etablissements.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nomEcole}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
+                  {etablissements
+                    ? etablissements.map(otherEntity => (
+                        <>
+                          <AvField
+                            id="filiere-responsable-label"
+                            type="text"
+                            name="etablissement.nomEcole"
+                            value={otherEntity.nomEcole}
+                            disabled
+                          />
+                          <AvField id="filiere-responsable" type="hidden" name="etablissement.id" value={otherEntity.id} />
+                        </>
+                      ))
+                    : null}
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/filiere" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />

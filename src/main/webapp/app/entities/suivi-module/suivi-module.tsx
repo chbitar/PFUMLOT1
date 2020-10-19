@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
+import { Button, InputGroup, Col, Row, Table, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { byteSize, Translate, translate, ICrudSearchAction, ICrudGetAllAction, TextFormat } from 'react-jhipster';
@@ -10,7 +10,9 @@ import { IRootState } from 'app/shared/reducers';
 import { getSearchEntities, getEntitiesAffectedToProf } from './suivi-module.reducer';
 import { ISuiviModule } from 'app/shared/model/suivi-module.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_DATE_FORMAT_TIMESTAMP, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_DATE_FORMAT_TIMESTAMP, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { Transform } from 'stream';
 
 export interface ISuiviModuleProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -39,14 +41,26 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
     });
   };
 
+  displayRemaining = (id, volume) => {
+    const total = this.props.suiviModuleList
+      .filter(suivi => suivi.module.id === id)
+      .map(function(suivi) {
+        return suivi.duree;
+      })
+      .reduce(function(curval, newval) {
+        return curval + newval;
+      });
+    return '' + (volume - total);
+  };
+
   handleSearch = event => this.setState({ search: event.target.value });
 
   render() {
-    const { suiviModuleList, match } = this.props;
+    const { suiviModuleList, match, isProfesseur } = this.props;
     return (
       <div>
         <h2 id="suivi-module-heading">
-          <Translate contentKey="pfumv10App.suiviModule.home.title">Suivi Modules</Translate>
+          <Translate contentKey="pfumv10App.suiviModule.home.title"> Suivi Modules </Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
@@ -90,6 +104,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
                   <th>
                     <Translate contentKey="pfumv10App.suiviModule.module">Module</Translate>
                   </th>
+                  <th>Reste</th>
                   {/*                   <th>
                     <Translate contentKey="pfumv10App.suiviModule.descriptif">Descriptif</Translate>
                   </th> */}
@@ -119,6 +134,9 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
                       <Translate contentKey={`pfumv10App.Semestre.${suiviModule.semestre}`} />
                     </td>
                     <td>{suiviModule.module ? <Link to={`module/${suiviModule.module.id}`}>{suiviModule.module.nomModule}</Link> : ''}</td>
+                    <td>
+                      <div className="aaa">{this.displayRemaining(suiviModule.module.id, suiviModule.module.volumeHoraire)}</div>
+                    </td>
                     {/* <td>{suiviModule.descriptif}</td> */}
                     <td>{suiviModule.observations}</td>
                     <td>
@@ -139,12 +157,16 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
-                        <Button tag={Link} to={`${match.url}/${suiviModule.id}/edit`} color="primary" size="sm">
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
+                        {isProfesseur && (
+                          <dd>
+                            <Button tag={Link} to={`${match.url}/${suiviModule.id}/edit`} color="primary" size="sm">
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.edit">Edit</Translate>
+                              </span>
+                            </Button>
+                          </dd>
+                        )}
                         <Button tag={Link} to={`${match.url}/${suiviModule.id}/delete`} color="danger" size="sm">
                           <FontAwesomeIcon icon="trash" />{' '}
                           <span className="d-none d-md-inline">
@@ -168,8 +190,9 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
   }
 }
 
-const mapStateToProps = ({ suiviModule }: IRootState) => ({
-  suiviModuleList: suiviModule.entities
+const mapStateToProps = ({ suiviModule, authentication }: IRootState) => ({
+  suiviModuleList: suiviModule.entities,
+  isProfesseur: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.PROF])
 });
 
 const mapDispatchToProps = {

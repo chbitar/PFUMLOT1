@@ -7,10 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { NavLink as Link } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
-
 import { Home, Brand } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
-import { InscriptionsMenu } from 'app/shared/layout/menus/inscriptions';
 import { ScolariteMenu } from 'app/shared/layout/menus/scolarite';
 import { EspaceProfMenu } from 'app/shared/layout/menus/espaceprofesseur';
 import { ConfigurationMenu } from 'app/shared/layout/menus/configuration';
@@ -19,6 +17,9 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { IRootState } from 'app/shared/reducers';
 import { connect } from 'react-redux';
 import { EspaceEtudiantMenu } from '../menus/espace-etudiant-executif';
+import { InscriptionsMasterMenu } from '../menus/inscriptions-master';
+import { InscriptionsLicenceMenu } from '../menus/inscriptions-licence';
+import { InscriptionsMasterExecutifMenu } from '../menus/inscriptions-master-executif';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -92,7 +93,9 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
                 <img src="content/images/OSTELEA-removebg-preview.png" className="img-circle" alt="User Image" width="210 px" />
               </div>
               <Home />
-              {isAuthenticated && (isUser || isAdmin) && <InscriptionsMenu />}
+              {isAuthenticated && (isUser || isAdmin) && <InscriptionsLicenceMenu />}
+              {isAuthenticated && (isUser || isAdmin) && <InscriptionsMasterMenu />}
+              {isAuthenticated && (isUser || isAdmin) && <InscriptionsMasterExecutifMenu />}
               {isAuthenticated && (isRespFil || isAdmin) && <ScolariteMenu />}
               {isAuthenticated && (isProf || isAdmin) && <EspaceProfMenu />}
               {isAuthenticated && (isEtudiantExecutif || isEtudiantLicence || isEtudiantMaster || isAdmin) && (
@@ -103,7 +106,7 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
                   isEtudiantMaster={isEtudiantMaster}
                 />
               )}
-              {isAuthenticated && <EntitiesMenu />}
+              {/* {isAuthenticated && <EntitiesMenu />} */}
               {isAuthenticated && isAdmin && <ConfigurationMenu />}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} showDatabase={!isInProduction} />}
               <LocaleMenu currentLocale={currentLocale} onClick={this.handleLocaleChange} />

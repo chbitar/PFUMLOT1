@@ -123,6 +123,12 @@ export class Professeur extends React.Component<IProfesseurProps, IProfesseurSta
                     <td>{professeur.email}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
+                        <Button tag={Link} to={`${match.url}/${professeur.id}`} color="info" size="sm">
+                          <FontAwesomeIcon icon="pencil-alt" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.view">View</Translate>
+                          </span>
+                        </Button>
                         <Button tag={Link} to={`${match.url}/${professeur.id}/edit`} color="primary" size="sm">
                           <FontAwesomeIcon icon="pencil-alt" />{' '}
                           <span className="d-none d-md-inline">

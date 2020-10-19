@@ -83,10 +83,10 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
       <div>
         {(isAdmin || isUser) && (
           <h2 id="etudiants-executif-heading">
-            Liste des étudiants Master executif
+            Liste inscrits : Master exécutif
             <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
               <FontAwesomeIcon icon="plus" />
-              &nbsp; Ajouter étudiant
+              &nbsp; Ajouter un nouvel étudiant
             </Link>
           </h2>
         )}

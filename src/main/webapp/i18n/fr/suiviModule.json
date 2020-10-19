@@ -2,7 +2,7 @@
   "pfumv10App": {
     "suiviModule": {
       "home": {
-        "title": "SuiviModules",
+        "title": "List des Suivis Modules",
         "createLabel": "Créer un nouveau Suivi Module",
         "createOrEditLabel": "Créer ou éditer un Suivi Module",
         "search": "Recherche pour Suivi Module",
@@ -27,8 +27,6 @@
       "user": "User",
       "module": "Module",
       "professeur": "Professeur"
-
-      
     }
   }
 }

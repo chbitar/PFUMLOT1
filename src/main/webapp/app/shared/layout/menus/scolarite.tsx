@@ -19,6 +19,12 @@ export const ScolariteMenu = props => (
     <MenuItem icon="asterisk" to="/entity/professeur">
       Ajouter Professeur
     </MenuItem>
+    <MenuItem icon="asterisk" to="/entity/document">
+      Ajouter un emploi de temps
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/entity/document">
+      Ajouer un avis
+    </MenuItem>
     <Alert variant="primary">Gestion scolarité</Alert>
     <MenuItem icon="asterisk" to="/entity/affectation-module">
       Affectation module
@@ -26,7 +32,6 @@ export const ScolariteMenu = props => (
     <MenuItem icon="asterisk" to="/entity/calendrier-module">
       Calendrier examen
     </MenuItem>
-
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
   </NavDropdown>
 );
