@@ -1,5 +1,31 @@
 package com.planeta.pfum.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.CacheManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.planeta.pfum.config.Constants;
 import com.planeta.pfum.domain.Authority;
 import com.planeta.pfum.domain.EtudiantsExecutif;
@@ -14,22 +40,9 @@ import com.planeta.pfum.security.AuthoritiesConstants;
 import com.planeta.pfum.security.SecurityUtils;
 import com.planeta.pfum.service.dto.UserDTO;
 import com.planeta.pfum.service.util.RandomUtil;
-import com.planeta.pfum.web.rest.errors.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.cache.CacheManager;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.planeta.pfum.web.rest.errors.EmailAlreadyUsedException;
+import com.planeta.pfum.web.rest.errors.InvalidPasswordException;
+import com.planeta.pfum.web.rest.errors.LoginAlreadyUsedException;
 
 /**
  * Service class for managing users.
@@ -293,6 +306,35 @@ public class UserService {
 //                userSearchRepository.delete(user);
                 this.clearUserCaches(user);
             });
+    }
+    
+    @Scheduled(cron = "0 * * * * *")
+    public void removeUnusedFile() throws IOException {
+        
+
+        Path path = Paths.get("Docs");
+
+        // read java doc, Files.walk need close the resources.
+        // try-with-resources to ensure that the stream's open directories are closed
+        try (Stream<Path> walk = Files.walk(path)) {
+            walk
+                    .sorted(Comparator.reverseOrder())
+                    .forEach(this::deleteDirectoryJava8Extract);
+        }
+        
+
+
+        //java.nio.file.Files;
+        Files.createDirectories(path);    
+    
+    }
+    
+    public  void deleteDirectoryJava8Extract(Path path) {
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            System.err.printf("Unable to delete this path : %s%n%s", path, e);
+        }
     }
 
     /**

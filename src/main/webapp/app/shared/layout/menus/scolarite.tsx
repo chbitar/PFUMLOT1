@@ -14,13 +14,13 @@ export const ScolariteMenu = props => (
       Ajouter Filiére
     </MenuItem>
     <MenuItem icon="asterisk" to="/entity/module">
-      Ajouter Modules
+      Ajouter Module
     </MenuItem>
     <MenuItem icon="asterisk" to="/entity/professeur">
       Ajouter Professeur
     </MenuItem>
     <MenuItem icon="asterisk" to="/entity/document">
-      Ajouter un emploi de temps
+      Ajouter un emploi du temps
     </MenuItem>
     <MenuItem icon="asterisk" to="/entity/document">
       Ajouer un avis
