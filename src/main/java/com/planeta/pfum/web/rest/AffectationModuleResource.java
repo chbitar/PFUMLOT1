@@ -1,29 +1,32 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.Absence;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.planeta.pfum.domain.AffectationModule;
-import com.planeta.pfum.domain.enumeration.Semestre;
 import com.planeta.pfum.repository.AffectationModuleRepository;
 import com.planeta.pfum.repository.search.AffectationModuleSearchRepository;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.AffectationModule}.
@@ -143,12 +146,6 @@ public class AffectationModuleResource {
 //            .collect(Collectors.toList());
         return new ArrayList<AffectationModule>();
 
-    }
-
-    @GetMapping("/affectation-modules/semestre/{sem}")
-    public List<AffectationModule> getAllAffectaionModulesBySemestre(@PathVariable Semestre sem) {
-        log.debug("REST request to get all AffectaionModules");
-        return affectationModuleRepository.findAllBySemestre(sem);
     }
 
 }

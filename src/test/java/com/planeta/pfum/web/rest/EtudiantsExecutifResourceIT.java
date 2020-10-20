@@ -150,19 +150,12 @@ public class EtudiantsExecutifResourceIT {
     private MockMvc restEtudiantsExecutifMockMvc;
 
     private EtudiantsExecutif etudiantsExecutif;
-    
-    @Autowired
-    private  UserService userService;
-    @Autowired
-    private  UserRepository userRepository;
-    @Autowired
-    private  FiliereRepository filiereRepository;
 
     
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final EtudiantsExecutifResource etudiantsExecutifResource = new EtudiantsExecutifResource(etudiantsExecutifRepository, mockEtudiantsExecutifSearchRepository,filiereRepository,userService,userRepository);
+        final EtudiantsExecutifResource etudiantsExecutifResource = new EtudiantsExecutifResource(etudiantsExecutifRepository, mockEtudiantsExecutifSearchRepository);
         this.restEtudiantsExecutifMockMvc = MockMvcBuilders.standaloneSetup(etudiantsExecutifResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

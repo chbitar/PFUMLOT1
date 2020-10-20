@@ -1,14 +1,10 @@
 package com.planeta.pfum.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import javax.validation.Valid;
 
@@ -26,20 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.planeta.pfum.domain.AffectationModule;
-import com.planeta.pfum.domain.Module;
-import com.planeta.pfum.domain.Professeur;
 import com.planeta.pfum.domain.SuiviModule;
-import com.planeta.pfum.domain.User;
-import com.planeta.pfum.domain.enumeration.Semestre;
-import com.planeta.pfum.repository.AffectationModuleRepository;
-import com.planeta.pfum.repository.ModuleRepository;
-import com.planeta.pfum.repository.ProfesseurRepository;
 import com.planeta.pfum.repository.SuiviModuleRepository;
-import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.repository.search.SuiviModuleSearchRepository;
-import com.planeta.pfum.security.AuthoritiesConstants;
-import com.planeta.pfum.security.SecurityUtils;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -63,24 +48,10 @@ public class SuiviModuleResource {
 
 	private final SuiviModuleSearchRepository suiviModuleSearchRepository;
 
-	private final ProfesseurRepository professeurRepository;
 
-	private final UserRepository userRepository;
-
-	private final AffectationModuleRepository affectationModuleRepository;
-	
-	private final ModuleRepository moduleRepository;
-
-	public SuiviModuleResource(SuiviModuleRepository suiviModuleRepository,
-			SuiviModuleSearchRepository suiviModuleSearchRepository, ProfesseurRepository professeurRepository,
-			UserRepository userRepository, AffectationModuleRepository affectationModuleRepository,
-			ModuleRepository moduleRepository) {
+	public SuiviModuleResource(SuiviModuleRepository suiviModuleRepository,SuiviModuleSearchRepository suiviModuleSearchRepository ) {
 		this.suiviModuleRepository = suiviModuleRepository;
 		this.suiviModuleSearchRepository = suiviModuleSearchRepository;
-		this.professeurRepository = professeurRepository;
-		this.userRepository = userRepository;
-		this.affectationModuleRepository = affectationModuleRepository;
-		this.moduleRepository = moduleRepository;
 	}
 
 	/**
@@ -96,12 +67,10 @@ public class SuiviModuleResource {
 	public ResponseEntity<SuiviModule> createSuiviModule(@Valid @RequestBody SuiviModule suiviModule)
 			throws URISyntaxException {
 		log.debug("REST request to save SuiviModule : {}", suiviModule);
+	
 		if (suiviModule.getId() != null) {
 			throw new BadRequestAlertException("A new suiviModule cannot already have an ID", ENTITY_NAME, "idexists");
 		}
-
-		Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-		suiviModule.setUser(user.get());
 
 		SuiviModule result = suiviModuleRepository.save(suiviModule);
 //		suiviModuleSearchRepository.save(result);
@@ -195,64 +164,6 @@ public class SuiviModuleResource {
 
 	}
 
-	@GetMapping("/suivi-modules/professeur")
-	public List<SuiviModule> getAllSuiviModulesAffectedToProfsseur() {
-		log.debug("REST request to get all SuiviModules By professeurs");
-
-		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-			return suiviModuleRepository.findAll();
-		} else {
-			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-			Optional<Professeur> p = professeurRepository.findOneByUserId(user.get().getId());
-			return suiviModuleRepository.findAllByUserId(user.get().getId());
-		}
-
-	}
-
-	@GetMapping("/modules/professeur/{sem}")
-	public List<com.planeta.pfum.domain.Module> getAllModulesAffectedToProfsseurBySem(@PathVariable Semestre sem) {
-		log.debug("REST request to get all SuiviModules By professeurs");
-		List<com.planeta.pfum.domain.Module> modules = new ArrayList<Module>();
-
-		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-			for (Module m : moduleRepository.findAll()) {
-				if (m.getSemestre() == sem) {
-					modules.add(m);
-				}
-			}
-		} else {
-			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-			Optional<Professeur> p = professeurRepository.findOneByUserId(user.get().getId());
-			List<AffectationModule> afm = affectationModuleRepository.findAllWithModuleByProfesseurId(p.get().getId());
-			for (AffectationModule a : afm) {
-				if (a.getModule() != null && a.getModule().getSemestre() == sem) {
-					modules.add(a.getModule());
-				}
-			}
-
-		}
-
-		return modules;
-	}
-
-	@GetMapping("/modules/professeur")
-	public List<com.planeta.pfum.domain.Module> getAllModulesAffectedToProfesseur() {
-		log.debug("REST request to get all SuiviModules By professeurs");
-		List<com.planeta.pfum.domain.Module> modules = new ArrayList<Module>();
-
-		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-			return moduleRepository.findAll();
-		} else {
-			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-			Optional<Professeur> p = professeurRepository.findOneByUserId(user.get().getId());
-			List<AffectationModule> afm = affectationModuleRepository.findAllWithModuleByProfesseurId(p.get().getId());
-			for (AffectationModule a : afm) {
-				modules.add(a.getModule());
-			}
-
-		}
-
-		return modules;
-	}
+	
 
 }

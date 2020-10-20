@@ -7,7 +7,7 @@ import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { byteSize, Translate, translate, ICrudSearchAction, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntitiesAffectedToProf } from './suivi-module.reducer';
+import { getSearchEntities, getEntitiesByUserId } from './suivi-module.reducer';
 import { ISuiviModule } from 'app/shared/model/suivi-module.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_DATE_FORMAT_TIMESTAMP, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
@@ -26,7 +26,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
   };
 
   componentDidMount() {
-    this.props.getEntitiesAffectedToProf();
+    this.props.getEntitiesByUserId();
   }
 
   search = () => {
@@ -37,7 +37,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
 
   clear = () => {
     this.setState({ search: '' }, () => {
-      this.props.getEntitiesAffectedToProf();
+      this.props.getEntitiesByUserId();
     });
   };
 
@@ -193,7 +193,7 @@ const mapStateToProps = ({ suiviModule, authentication }: IRootState) => ({
 
 const mapDispatchToProps = {
   getSearchEntities,
-  getEntitiesAffectedToProf
+  getEntitiesByUserId
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

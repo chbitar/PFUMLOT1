@@ -171,7 +171,7 @@ public class EtudiantsMasterResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final EtudiantsMasterResource etudiantsMasterResource = new EtudiantsMasterResource(etudiantsMasterRepository, mockEtudiantsMasterSearchRepository,filiereRepository,userRepository,userService);
+        final EtudiantsMasterResource etudiantsMasterResource = new EtudiantsMasterResource(etudiantsMasterRepository, mockEtudiantsMasterSearchRepository);
         this.restEtudiantsMasterMockMvc = MockMvcBuilders.standaloneSetup(etudiantsMasterResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

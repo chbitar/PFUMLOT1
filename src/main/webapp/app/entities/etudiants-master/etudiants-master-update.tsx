@@ -16,7 +16,7 @@ import { IAnneeInscription } from 'app/shared/model/annee-inscription.model';
 import { getEntities as getAnneeInscriptions } from 'app/entities/annee-inscription/annee-inscription.reducer';
 import { IModalitePaiement } from 'app/shared/model/modalite-paiement.model';
 import { getEntities as getModalitePaiements } from 'app/entities/modalite-paiement/modalite-paiement.reducer';
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './etudiants-master.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset, createExtendedEntity } from './etudiants-master.reducer';
 import { IEtudiantsMaster } from 'app/shared/model/etudiants-master.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
@@ -82,7 +82,7 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
       };
 
       if (this.state.isNew) {
-        this.props.createEntity(entity);
+        this.props.createExtendedEntity(entity);
       } else {
         this.props.updateEntity(entity);
       }
@@ -635,7 +635,8 @@ const mapDispatchToProps = {
   updateEntity,
   setBlob,
   createEntity,
-  reset
+  reset,
+  createExtendedEntity
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

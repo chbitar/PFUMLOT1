@@ -151,7 +151,7 @@ export const deleteEntity: ICrudDeleteAction<IAffectationModule> = id => async d
 };
 
 export const getEntitiesBySemestre: ICrudGetAction<IAffectationModule> = sem => {
-  const requestUrl = `${apiUrl}/semestre/${sem}`;
+  const requestUrl = `${apiUrl}/extended/semestre/${sem}`;
   return {
     type: ACTION_TYPES.FETCH_AFFECTATIONMODULE_LIST,
     payload: axios.get<IAffectationModule>(requestUrl)

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.planeta.pfum.domain.Document;
-import com.planeta.pfum.domain.Module;
 import com.planeta.pfum.domain.enumeration.TypeDocument;
 import com.planeta.pfum.repository.DocumentRepository;
 import com.planeta.pfum.service.DocumentService;

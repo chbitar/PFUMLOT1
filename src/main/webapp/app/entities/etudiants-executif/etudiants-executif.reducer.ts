@@ -122,6 +122,7 @@ export default (state: EtudiantsExecutifState = initialState, action): Etudiants
 
 const apiUrl = 'api/etudiants-executifs';
 const apiSearchUrl = 'api/_search/etudiants-executifs';
+const apiExtendedUrl = 'api/extended/etudiants-executifs';
 
 export const getSearchEntities: ICrudSearchAction<IEtudiantsExecutif> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_ETUDIANTSEXECUTIFS,
@@ -169,8 +170,21 @@ export const deleteEntity: ICrudDeleteAction<IEtudiantsExecutif> = id => async d
   return result;
 };
 
+export const createExtendedEntity: ICrudPutAction<IEtudiantsExecutif> = entity => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.CREATE_ETUDIANTSEXECUTIF,
+    payload: axios.post(apiExtendedUrl, cleanEntity(entity))
+  });
+  dispatch(getEntitiesByUserId());
+  return result;
+};
+export const getEntitiesByUserId: ICrudGetAllAction<IEtudiantsExecutif> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_ETUDIANTSEXECUTIF_LIST,
+  payload: axios.get<IEtudiantsExecutif>(`${apiExtendedUrl}?cacheBuster=${new Date().getTime()}`)
+});
+
 export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsExecutif> = fil => {
-  const requestUrl = `${apiUrl}/filiere/${fil}`;
+  const requestUrl = `${apiExtendedUrl}/filiere/${fil}`;
   return {
     type: ACTION_TYPES.FETCH_ETUDIANTSEXECUTIF_LIST,
     payload: axios.get<IEtudiantsExecutif>(requestUrl)

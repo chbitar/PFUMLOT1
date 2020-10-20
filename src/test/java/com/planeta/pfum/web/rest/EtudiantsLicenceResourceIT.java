@@ -159,7 +159,7 @@ public class EtudiantsLicenceResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final EtudiantsLicenceResource etudiantsLicenceResource = new EtudiantsLicenceResource(etudiantsLicenceRepository, mockEtudiantsLicenceSearchRepository,filiereRepository,userRepository,userService);
+        final EtudiantsLicenceResource etudiantsLicenceResource = new EtudiantsLicenceResource(etudiantsLicenceRepository, mockEtudiantsLicenceSearchRepository);
         this.restEtudiantsLicenceMockMvc = MockMvcBuilders.standaloneSetup(etudiantsLicenceResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -15,8 +15,6 @@ import java.util.Optional;
  */
 @SuppressWarnings("unused")
 @Repository
-@Where(clause = "idEtablissement=12")
 public interface ProfesseurRepository extends JpaRepository<Professeur, Long> {
 
-    Optional<Professeur> findOneByUserId(Long id);
 }

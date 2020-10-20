@@ -1,10 +1,6 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.security.jwt.JWTFilter;
-import com.planeta.pfum.security.jwt.TokenProvider;
-import com.planeta.pfum.web.rest.vm.LoginVM;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,9 +9,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.planeta.pfum.security.jwt.JWTFilter;
+import com.planeta.pfum.security.jwt.TokenProvider;
+import com.planeta.pfum.web.rest.vm.LoginVM;
 
 /**
  * Controller to authenticate users.

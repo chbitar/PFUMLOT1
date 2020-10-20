@@ -1,16 +1,10 @@
 package com.planeta.pfum.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import javax.validation.Valid;
 
@@ -28,17 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.planeta.pfum.domain.EtudiantsLicence;
 import com.planeta.pfum.domain.EtudiantsMaster;
-import com.planeta.pfum.domain.Filiere;
-import com.planeta.pfum.domain.User;
 import com.planeta.pfum.repository.EtudiantsMasterRepository;
-import com.planeta.pfum.repository.FiliereRepository;
-import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.repository.search.EtudiantsMasterSearchRepository;
-import com.planeta.pfum.security.AuthoritiesConstants;
-import com.planeta.pfum.security.SecurityUtils;
-import com.planeta.pfum.service.UserService;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -62,19 +48,10 @@ public class EtudiantsMasterResource {
 
     private final EtudiantsMasterSearchRepository etudiantsMasterSearchRepository;
 
-    private final FiliereRepository filiereRepository;
-    
-    
-    private final UserService userService;
-    
-    private final UserRepository userRepository;
 
-    public EtudiantsMasterResource(EtudiantsMasterRepository etudiantsMasterRepository, EtudiantsMasterSearchRepository etudiantsMasterSearchRepository, FiliereRepository filiereRepository,UserRepository userRepository,UserService userService) {
+    public EtudiantsMasterResource(EtudiantsMasterRepository etudiantsMasterRepository, EtudiantsMasterSearchRepository etudiantsMasterSearchRepository) {
         this.etudiantsMasterRepository = etudiantsMasterRepository;
         this.etudiantsMasterSearchRepository = etudiantsMasterSearchRepository;
-        this.filiereRepository = filiereRepository;
-        this.userRepository = userRepository;
-        this.userService = userService;
     }
 
     
@@ -92,16 +69,6 @@ public class EtudiantsMasterResource {
             throw new BadRequestAlertException("A new etudiantsMaster cannot already have an ID", ENTITY_NAME, "idexists");
         }
         EtudiantsMaster result = etudiantsMasterRepository.save(etudiantsMaster);
-
-        // formatage code etudiant
-
-        int fourDigYear =Calendar.getInstance().get(Calendar.YEAR);;
-        String suffixe = "OS"+ Integer.toString(fourDigYear).substring(2)  + customFormat("0000", result.getId());
-        
-        //Creation d'un compte USER pour se connecter
-        User newUser = userService.createUserForEtudiants(etudiantsMaster);
-        etudiantsMaster.setUser(newUser);
-        etudiantsMaster.setSuffixe(suffixe);
 
         etudiantsMasterRepository.save(etudiantsMaster);
         
@@ -133,23 +100,7 @@ public class EtudiantsMasterResource {
             .body(result);
     }
 
-    /**
-     * {@code GET  /etudiants-masters} : get all the etudiantsMasters.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of etudiantsMasters in body.
-     */
-    @GetMapping("/etudiants-masters")
-    public List<EtudiantsMaster> getAllEtudiantsMasters() {
-        log.debug("REST request to get all EtudiantsMasters");
-        
-    	if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT_MASTER)) {
-			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-			return etudiantsMasterRepository.findAllByUserId(user.get().getId());
-		} 
-    	
-        return etudiantsMasterRepository.findAll();
-
-    }
+   
 
     /**
      * {@code GET  /etudiants-masters/:id} : get the "id" etudiantsMaster.
@@ -196,15 +147,6 @@ public class EtudiantsMasterResource {
 
     }
 
-    @GetMapping("/etudiants-masters/filiere/{fil}")
-    public List<EtudiantsMaster> getAllEtudiantsMasterByFiliere(@PathVariable Filiere fil) {
-        log.debug("REST request to get all etudiants-masters");
-        return etudiantsMasterRepository.findAllByFiliere(fil);
-    }
-
-    private String customFormat(String pattern, long value ) {
-        DecimalFormat myFormatter = new DecimalFormat(pattern);
-        return myFormatter.format(value);
-     }
+   
 
 }

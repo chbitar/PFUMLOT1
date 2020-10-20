@@ -120,6 +120,7 @@ export default (state: EtudiantsMasterState = initialState, action): EtudiantsMa
 
 const apiUrl = 'api/etudiants-masters';
 const apiSearchUrl = 'api/_search/etudiants-masters';
+const apiExtendedUrl = 'api/extended/etudiants-masters';
 
 export const getSearchEntities: ICrudSearchAction<IEtudiantsMaster> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_ETUDIANTSMASTERS,
@@ -167,8 +168,13 @@ export const deleteEntity: ICrudDeleteAction<IEtudiantsMaster> = id => async dis
   return result;
 };
 
+export const getEntitiesByUserId: ICrudGetAllAction<IEtudiantsMaster> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST,
+  payload: axios.get<IEtudiantsMaster>(`${apiExtendedUrl}?cacheBuster=${new Date().getTime()}`)
+});
+
 export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsMaster> = fil => {
-  const requestUrl = `${apiUrl}/filiere/${fil}`;
+  const requestUrl = `${apiExtendedUrl}/filiere/${fil}`;
   return {
     type: ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST,
     payload: axios.get<IEtudiantsMaster>(requestUrl)
@@ -187,6 +193,15 @@ export const setBlob = (name, data, contentType?) => ({
 export const reset = () => ({
   type: ACTION_TYPES.RESET
 });
+
+export const createExtendedEntity: ICrudPutAction<IEtudiantsMaster> = entity => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.CREATE_ETUDIANTSMASTER,
+    payload: axios.post(apiExtendedUrl, cleanEntity(entity))
+  });
+  dispatch(getEntitiesByUserId());
+  return result;
+};
 
 export const envoyerMail = (objet, sujet) => ({
   type: ACTION_TYPES.ENVOYER_EMAIL,

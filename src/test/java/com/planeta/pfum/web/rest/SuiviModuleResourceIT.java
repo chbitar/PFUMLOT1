@@ -112,8 +112,7 @@ public class SuiviModuleResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SuiviModuleResource suiviModuleResource = new SuiviModuleResource(suiviModuleRepository, mockSuiviModuleSearchRepository,  professeurRepository, userRepository,  affectationModuleRepository,	 moduleRepository
-);
+        final SuiviModuleResource suiviModuleResource = new SuiviModuleResource(suiviModuleRepository, mockSuiviModuleSearchRepository);
         this.restSuiviModuleMockMvc = MockMvcBuilders.standaloneSetup(suiviModuleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

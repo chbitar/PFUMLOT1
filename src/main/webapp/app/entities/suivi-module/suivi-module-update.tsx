@@ -10,7 +10,7 @@ import { IRootState } from 'app/shared/reducers';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IModule } from 'app/shared/model/module.model';
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './suivi-module.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset, getEntitiesByUserId } from './suivi-module.reducer';
 import { ISuiviModule } from 'app/shared/model/suivi-module.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
@@ -269,7 +269,8 @@ const mapDispatchToProps = {
   updateEntity,
   setBlob,
   createEntity,
-  reset
+  reset,
+  getEntitiesByUserId
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 
-import { getSearchEntities, getEntities, updateEntity, getEntitiesByFiliere } from './etudiants-licence.reducer';
+import { getSearchEntities, getEntities, updateEntity, getEntitiesByFiliere, getEntitiesByUserId } from './etudiants-licence.reducer';
 import { IEtudiantsLicence } from 'app/shared/model/etudiants-licence.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -28,9 +28,10 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
   };
 
   componentDidMount() {
-    this.props.getEntities();
+    /* this.props.getEntities(); */
     this.props.getEtablissements();
     this.props.getFilieres();
+    this.props.getEntitiesByUserId();
   }
 
   search = () => {
@@ -41,7 +42,8 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
 
   clear = () => {
     this.setState({ search: '' }, () => {
-      this.props.getEntities();
+      /* this.props.getEntities(); */
+      this.props.getEntitiesByUserId();
     });
   };
 
@@ -283,7 +285,8 @@ const mapDispatchToProps = {
   getEtablissements,
   getFilieres,
   getEntitiesByEtab,
-  getEntitiesByFiliere
+  getEntitiesByFiliere,
+  getEntitiesByUserId
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

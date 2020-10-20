@@ -10,7 +10,7 @@ import { openFile, byteSize, Translate, translate, ICrudSearchAction, ICrudGetAl
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, updateEntity, getEntitiesByFiliere } from './etudiants-executif.reducer';
+import { getSearchEntities, getEntities, updateEntity, getEntitiesByFiliere, getEntitiesByUserId } from './etudiants-executif.reducer';
 import { IEtudiantsExecutif } from 'app/shared/model/etudiants-executif.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
@@ -31,9 +31,10 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
   };
 
   componentDidMount() {
-    this.props.getEntities();
+    /* this.props.getEntities(); */
     this.props.getEtablissements();
     this.props.getFilieres();
+    this.props.getEntitiesByUserId();
   }
 
   search = () => {
@@ -44,7 +45,8 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
 
   clear = () => {
     this.setState({ search: '' }, () => {
-      this.props.getEntities();
+      /* this.props.getEntities(); */
+      this.props.getEntitiesByUserId();
     });
   };
 
@@ -311,7 +313,8 @@ const mapDispatchToProps = {
   getEtablissements,
   getFilieres,
   getEntitiesByEtab,
-  getEntitiesByFiliere
+  getEntitiesByFiliere,
+  getEntitiesByUserId
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

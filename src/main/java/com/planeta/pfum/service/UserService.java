@@ -71,7 +71,8 @@ public class UserService {
         this.cacheManager = cacheManager;
     }
 
-    public Optional<User> activateRegistration(String key) {
+
+	public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
         return userRepository.findOneByActivationKey(key)
             .map(user -> {
@@ -351,90 +352,5 @@ public class UserService {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
     }
 
-    public User createUserForProfreur(Professeur p) {
-        User user = new User();
-        user.setLogin(p.getEmail());
-        user.setFirstName(p.getNom());
-        user.setLastName(p.getPrenom());
-       // StringBuilder mail=new StringBuilder(p.getNomPrenom());
-       // mail.append("@mail.com");
-        user.setEmail(p.getEmail());
-        user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
-        String encryptedPassword = passwordEncoder.encode("Maroc@2020");
-        user.setPassword(encryptedPassword);
-        user.setResetKey(RandomUtil.generateResetKey());
-        user.setResetDate(Instant.now());
-        user.setActivated(false);
-        Set<Authority> authorities = new HashSet<>();
-        authorityRepository.findById(AuthoritiesConstants.PROF).ifPresent(authorities::add);
-        user.setAuthorities(authorities);
-        userRepository.save(user);
-        this.clearUserCaches(user);
-        log.debug("Created Information for User: {}", user);
-        return user;
-    }
-    
-    public User createUserForEtudiants(EtudiantsExecutif p) {
-        User user = new User();
-        user.setLogin(p.getEmail());
-        user.setFirstName(p.getNom());
-        user.setLastName(p.getPrenom());
-        user.setEmail(p.getEmail());
-        user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
-        String encryptedPassword = passwordEncoder.encode("Maroc@2020");
-        user.setPassword(encryptedPassword);
-        user.setResetKey(RandomUtil.generateResetKey());
-        user.setResetDate(Instant.now());
-        user.setActivated(false);
-        Set<Authority> authorities = new HashSet<>();
-        authorityRepository.findById(AuthoritiesConstants.ETUDIANT_EXECUTIF).ifPresent(authorities::add);
-        user.setAuthorities(authorities);
-        userRepository.save(user);
-        this.clearUserCaches(user);
-        log.debug("Created Information for User: {}", user);
-        return user;
-    }
-    
-    
-    public User createUserForEtudiants(EtudiantsLicence p) {
-        User user = new User();
-        user.setLogin(p.getEmail());
-        user.setFirstName(p.getNom());
-        user.setLastName(p.getPrenom());
-        user.setEmail(p.getEmail());
-        user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
-        String encryptedPassword = passwordEncoder.encode("Maroc@2020");
-        user.setPassword(encryptedPassword);
-        user.setResetKey(RandomUtil.generateResetKey());
-        user.setResetDate(Instant.now());
-        user.setActivated(false);
-        Set<Authority> authorities = new HashSet<>();
-        authorityRepository.findById(AuthoritiesConstants.ETUDIANT_LICENCE).ifPresent(authorities::add);
-        user.setAuthorities(authorities);
-        userRepository.save(user);
-        this.clearUserCaches(user);
-        log.debug("Created Information for User: {}", user);
-        return user;
-    }
-    
-    public User createUserForEtudiants(EtudiantsMaster p) {
-        User user = new User();
-        user.setLogin(p.getEmail());
-        user.setFirstName(p.getNom());
-        user.setLastName(p.getPrenom());
-        user.setEmail(p.getEmail());
-        user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
-        String encryptedPassword = passwordEncoder.encode("Maroc@2020");
-        user.setPassword(encryptedPassword);
-        user.setResetKey(RandomUtil.generateResetKey());
-        user.setResetDate(Instant.now());
-        user.setActivated(false);
-        Set<Authority> authorities = new HashSet<>();
-        authorityRepository.findById(AuthoritiesConstants.ETUDIANT_MASTER).ifPresent(authorities::add);
-        user.setAuthorities(authorities);
-        userRepository.save(user);
-        this.clearUserCaches(user);
-        log.debug("Created Information for User: {}", user);
-        return user;
-    }
+ 
 }

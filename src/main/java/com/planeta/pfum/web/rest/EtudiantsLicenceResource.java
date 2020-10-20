@@ -1,41 +1,34 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.AffectationModule;
-import com.planeta.pfum.domain.EtudiantsExecutif;
-import com.planeta.pfum.domain.EtudiantsLicence;
-import com.planeta.pfum.domain.EtudiantsMaster;
-import com.planeta.pfum.domain.Filiere;
-import com.planeta.pfum.domain.User;
-import com.planeta.pfum.domain.enumeration.Semestre;
-import com.planeta.pfum.repository.EtudiantsLicenceRepository;
-import com.planeta.pfum.repository.FiliereRepository;
-import com.planeta.pfum.repository.UserRepository;
-import com.planeta.pfum.repository.search.EtudiantsLicenceSearchRepository;
-import com.planeta.pfum.security.AuthoritiesConstants;
-import com.planeta.pfum.security.SecurityUtils;
-import com.planeta.pfum.service.UserService;
-import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import com.planeta.pfum.domain.EtudiantsLicence;
+import com.planeta.pfum.repository.EtudiantsLicenceRepository;
+import com.planeta.pfum.repository.search.EtudiantsLicenceSearchRepository;
+import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.EtudiantsLicence}.
@@ -55,19 +48,10 @@ public class EtudiantsLicenceResource {
 
     private final EtudiantsLicenceSearchRepository etudiantsLicenceSearchRepository;
 
-    private final FiliereRepository filiereRepository;
-
-    private final UserService userService;
     
-    private final UserRepository userRepository;
-    
-    
-    public EtudiantsLicenceResource(EtudiantsLicenceRepository etudiantsLicenceRepository, EtudiantsLicenceSearchRepository etudiantsLicenceSearchRepository, FiliereRepository filiereRepository,UserRepository userRepository,UserService userService) {
+    public EtudiantsLicenceResource(EtudiantsLicenceRepository etudiantsLicenceRepository, EtudiantsLicenceSearchRepository etudiantsLicenceSearchRepository) {
         this.etudiantsLicenceRepository = etudiantsLicenceRepository;
         this.etudiantsLicenceSearchRepository = etudiantsLicenceSearchRepository;
-        this.filiereRepository = filiereRepository;
-        this.userRepository = userRepository;
-        this.userService = userService;
 
         
     }
@@ -87,17 +71,6 @@ public class EtudiantsLicenceResource {
         }
         
         EtudiantsLicence result = etudiantsLicenceRepository.save(etudiantsLicence);
-        
-        
-        int fourDigYear =Calendar.getInstance().get(Calendar.YEAR);;
-        String suffixe = "OS"+ Integer.toString(fourDigYear).substring(2)  + customFormat("0000", result.getId());
-        
-        
-        //Creation d'un compte USER pour se connecter
-        User newUser = userService.createUserForEtudiants(etudiantsLicence);
-        etudiantsLicence.setUser(newUser);
-        etudiantsLicence.setSuffixe(suffixe);
-        etudiantsLicenceRepository.save(etudiantsLicence);
 
         return ResponseEntity.created(new URI("/api/etudiants-licences/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -126,23 +99,6 @@ public class EtudiantsLicenceResource {
             .body(result);
     }
 
-    /**
-     * {@code GET  /etudiants-licences} : get all the etudiantsLicences.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of etudiantsLicences in body.
-     */
-    @GetMapping("/etudiants-licences")
-    public List<EtudiantsLicence> getAllEtudiantsLicences() {
-        log.debug("REST request to get all EtudiantsLicences");
-        
-    	if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT_LICENCE)) {
-			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-			return etudiantsLicenceRepository.findAllByUserId(user.get().getId());
-		} 
-        
-        
-        return etudiantsLicenceRepository.findAll();
-    }
 
     /**
      * {@code GET  /etudiants-licences/:id} : get the "id" etudiantsLicence.
@@ -188,13 +144,5 @@ public class EtudiantsLicenceResource {
 
     }
     
-    @GetMapping("/etudiants-licences/filiere/{fil}")
-    public List<EtudiantsLicence> getAllEtudiantsLicencesByFiliere(@PathVariable Filiere fil) {
-        log.debug("REST request to get all etudiants-licences");
-        return etudiantsLicenceRepository.findAllByFiliere(fil);
-    }
-    private String customFormat(String pattern, long value ) {
-        DecimalFormat myFormatter = new DecimalFormat(pattern);
-        return myFormatter.format(value);
-     }
+   
 }

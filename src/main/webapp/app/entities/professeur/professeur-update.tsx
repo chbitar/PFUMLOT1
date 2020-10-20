@@ -10,7 +10,7 @@ import { IRootState } from 'app/shared/reducers';
 
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './professeur.reducer';
+import { getEntity, updateEntity, createEntity, reset, createExtendedEntity } from './professeur.reducer';
 import { IProfesseur } from 'app/shared/model/professeur.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
@@ -57,7 +57,7 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
       };
 
       if (this.state.isNew) {
-        this.props.createEntity(entity);
+        this.props.createExtendedEntity(entity);
       } else {
         this.props.updateEntity(entity);
       }
@@ -176,7 +176,8 @@ const mapDispatchToProps = {
   getEntity,
   updateEntity,
   createEntity,
-  reset
+  reset,
+  createExtendedEntity
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

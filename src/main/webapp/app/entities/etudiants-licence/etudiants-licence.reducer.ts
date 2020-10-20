@@ -125,6 +125,7 @@ export default (state: EtudiantsLicenceState = initialState, action): EtudiantsL
 
 const apiUrl = 'api/etudiants-licences';
 const apiSearchUrl = 'api/_search/etudiants-licences';
+const apiExtendedUrl = 'api/extended/etudiants-licences';
 
 // Actions
 
@@ -174,12 +175,26 @@ export const deleteEntity: ICrudDeleteAction<IEtudiantsLicence> = id => async di
   return result;
 };
 
+export const getEntitiesByUserId: ICrudGetAllAction<IEtudiantsLicence> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_ETUDIANTSLICENCE_LIST,
+  payload: axios.get<IEtudiantsLicence>(`${apiExtendedUrl}?cacheBuster=${new Date().getTime()}`)
+});
+
 export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsLicence> = fil => {
-  const requestUrl = `${apiUrl}/filiere/${fil}`;
+  const requestUrl = `${apiExtendedUrl}/filiere/${fil}`;
   return {
     type: ACTION_TYPES.FETCH_ETUDIANTSLICENCE_LIST,
     payload: axios.get<IEtudiantsLicence>(requestUrl)
   };
+};
+
+export const createExtendedEntity: ICrudPutAction<IEtudiantsLicence> = entity => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.CREATE_ETUDIANTSLICENCE,
+    payload: axios.post(apiExtendedUrl, cleanEntity(entity))
+  });
+  dispatch(getEntitiesByUserId());
+  return result;
 };
 
 export const setBlob = (name, data, contentType?) => ({
