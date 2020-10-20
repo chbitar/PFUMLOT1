@@ -1,13 +1,10 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction, translate } from 'react-jhipster';
+import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Button, Row, Col, Label } from 'reactstrap';
 
 import { IEtudiantsLicence, defaultValue } from 'app/shared/model/etudiants-licence.model';
-import { IAffectationModule } from 'app/shared/model/affectation-module.model';
 
 export const ACTION_TYPES = {
   SEARCH_ETUDIANTSLICENCES: 'etudiantsLicence/SEARCH_ETUDIANTSLICENCES',
@@ -17,8 +14,7 @@ export const ACTION_TYPES = {
   UPDATE_ETUDIANTSLICENCE: 'etudiantsLicence/UPDATE_ETUDIANTSLICENCE',
   DELETE_ETUDIANTSLICENCE: 'etudiantsLicence/DELETE_ETUDIANTSLICENCE',
   SET_BLOB: 'etudiantsLicence/SET_BLOB',
-  RESET: 'etudiantsLicence/RESET',
-  ENVOYER_EMAIL: 'etudiantsExecutif/ENVOYER_EMAIL'
+  RESET: 'etudiantsLicence/RESET'
 };
 
 const initialState = {
@@ -48,7 +44,6 @@ export default (state: EtudiantsLicenceState = initialState, action): EtudiantsL
     case REQUEST(ACTION_TYPES.CREATE_ETUDIANTSLICENCE):
     case REQUEST(ACTION_TYPES.UPDATE_ETUDIANTSLICENCE):
     case REQUEST(ACTION_TYPES.DELETE_ETUDIANTSLICENCE):
-    case REQUEST(ACTION_TYPES.ENVOYER_EMAIL):
       return {
         ...state,
         errorMessage: null,
@@ -61,7 +56,6 @@ export default (state: EtudiantsLicenceState = initialState, action): EtudiantsL
     case FAILURE(ACTION_TYPES.CREATE_ETUDIANTSLICENCE):
     case FAILURE(ACTION_TYPES.UPDATE_ETUDIANTSLICENCE):
     case FAILURE(ACTION_TYPES.DELETE_ETUDIANTSLICENCE):
-    case FAILURE(ACTION_TYPES.ENVOYER_EMAIL):
       return {
         ...state,
         loading: false,
@@ -111,13 +105,6 @@ export default (state: EtudiantsLicenceState = initialState, action): EtudiantsL
       return {
         ...initialState
       };
-    case SUCCESS(ACTION_TYPES.ENVOYER_EMAIL):
-      return {
-        ...state,
-        updating: false,
-        updateSuccess: true
-      };
-
     default:
       return state;
   }
@@ -125,7 +112,6 @@ export default (state: EtudiantsLicenceState = initialState, action): EtudiantsL
 
 const apiUrl = 'api/etudiants-licences';
 const apiSearchUrl = 'api/_search/etudiants-licences';
-const apiExtendedUrl = 'api/extended/etudiants-licences';
 
 // Actions
 
@@ -175,28 +161,6 @@ export const deleteEntity: ICrudDeleteAction<IEtudiantsLicence> = id => async di
   return result;
 };
 
-export const getEntitiesByUserId: ICrudGetAllAction<IEtudiantsLicence> = (page, size, sort) => ({
-  type: ACTION_TYPES.FETCH_ETUDIANTSLICENCE_LIST,
-  payload: axios.get<IEtudiantsLicence>(`${apiExtendedUrl}?cacheBuster=${new Date().getTime()}`)
-});
-
-export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsLicence> = fil => {
-  const requestUrl = `${apiExtendedUrl}/filiere/${fil}`;
-  return {
-    type: ACTION_TYPES.FETCH_ETUDIANTSLICENCE_LIST,
-    payload: axios.get<IEtudiantsLicence>(requestUrl)
-  };
-};
-
-export const createExtendedEntity: ICrudPutAction<IEtudiantsLicence> = entity => async dispatch => {
-  const result = await dispatch({
-    type: ACTION_TYPES.CREATE_ETUDIANTSLICENCE,
-    payload: axios.post(apiExtendedUrl, cleanEntity(entity))
-  });
-  dispatch(getEntitiesByUserId());
-  return result;
-};
-
 export const setBlob = (name, data, contentType?) => ({
   type: ACTION_TYPES.SET_BLOB,
   payload: {
@@ -208,13 +172,4 @@ export const setBlob = (name, data, contentType?) => ({
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET
-});
-
-export const envoyerMail = (objet, sujet) => ({
-  type: ACTION_TYPES.ENVOYER_EMAIL,
-  payload: axios.post(`${apiUrl}/envoyer-email`, { objet, sujet }),
-  meta: {
-    successMessage: 'Le mail a été envoyé avec succès',
-    errorMessage: translate('global.email.error')
-  }
 });

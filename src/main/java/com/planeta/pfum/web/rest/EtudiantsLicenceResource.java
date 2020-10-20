@@ -1,27 +1,5 @@
 package com.planeta.pfum.web.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.planeta.pfum.domain.EtudiantsLicence;
 import com.planeta.pfum.repository.EtudiantsLicenceRepository;
 import com.planeta.pfum.repository.search.EtudiantsLicenceSearchRepository;
@@ -29,6 +7,22 @@ import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.EtudiantsLicence}.
@@ -48,12 +42,9 @@ public class EtudiantsLicenceResource {
 
     private final EtudiantsLicenceSearchRepository etudiantsLicenceSearchRepository;
 
-    
     public EtudiantsLicenceResource(EtudiantsLicenceRepository etudiantsLicenceRepository, EtudiantsLicenceSearchRepository etudiantsLicenceSearchRepository) {
         this.etudiantsLicenceRepository = etudiantsLicenceRepository;
         this.etudiantsLicenceSearchRepository = etudiantsLicenceSearchRepository;
-
-        
     }
 
     /**
@@ -69,9 +60,8 @@ public class EtudiantsLicenceResource {
         if (etudiantsLicence.getId() != null) {
             throw new BadRequestAlertException("A new etudiantsLicence cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        
         EtudiantsLicence result = etudiantsLicenceRepository.save(etudiantsLicence);
-
+        etudiantsLicenceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-licences/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -93,12 +83,22 @@ public class EtudiantsLicenceResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         EtudiantsLicence result = etudiantsLicenceRepository.save(etudiantsLicence);
-//        etudiantsLicenceSearchRepository.save(result);
+        etudiantsLicenceSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, etudiantsLicence.getId().toString()))
             .body(result);
     }
 
+    /**
+     * {@code GET  /etudiants-licences} : get all the etudiantsLicences.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of etudiantsLicences in body.
+     */
+    @GetMapping("/etudiants-licences")
+    public List<EtudiantsLicence> getAllEtudiantsLicences() {
+        log.debug("REST request to get all EtudiantsLicences");
+        return etudiantsLicenceRepository.findAll();
+    }
 
     /**
      * {@code GET  /etudiants-licences/:id} : get the "id" etudiantsLicence.
@@ -123,7 +123,7 @@ public class EtudiantsLicenceResource {
     public ResponseEntity<Void> deleteEtudiantsLicence(@PathVariable Long id) {
         log.debug("REST request to delete EtudiantsLicence : {}", id);
         etudiantsLicenceRepository.deleteById(id);
-//        etudiantsLicenceSearchRepository.deleteById(id);
+        etudiantsLicenceSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -137,12 +137,9 @@ public class EtudiantsLicenceResource {
     @GetMapping("/_search/etudiants-licences")
     public List<EtudiantsLicence> searchEtudiantsLicences(@RequestParam String query) {
         log.debug("REST request to search EtudiantsLicences for query {}", query);
-//        return StreamSupport
-//           .stream(etudiantsLicenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-//            .collect(Collectors.toList());
-        return new ArrayList<EtudiantsLicence>();
-
+        return StreamSupport
+            .stream(etudiantsLicenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
     }
-    
-   
+
 }

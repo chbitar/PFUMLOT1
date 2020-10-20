@@ -67,6 +67,8 @@ describe('EtudiantsExecutif e2e test', () => {
       expect(await etudiantsExecutifUpdatePage.getEmailInput()).to.match(/email/);
       await etudiantsExecutifUpdatePage.pjBacSelectLastOption();
       await etudiantsExecutifUpdatePage.mentionSelectLastOption();
+      await etudiantsExecutifUpdatePage.setAnneOtentionInput('anneOtention');
+      expect(await etudiantsExecutifUpdatePage.getAnneOtentionInput()).to.match(/anneOtention/);
       await etudiantsExecutifUpdatePage.setCinPassInput('cinPass');
       expect(await etudiantsExecutifUpdatePage.getCinPassInput()).to.match(/cinPass/);
       await etudiantsExecutifUpdatePage.setPaysNationaliteInput('paysNationalite');
@@ -79,6 +81,8 @@ describe('EtudiantsExecutif e2e test', () => {
       expect(await etudiantsExecutifUpdatePage.getProvinceInput()).to.match(/province/);
       await etudiantsExecutifUpdatePage.setTelInput('5');
       expect(await etudiantsExecutifUpdatePage.getTelInput()).to.eq('5');
+      await etudiantsExecutifUpdatePage.setDeuxiemeTelInput('5');
+      expect(await etudiantsExecutifUpdatePage.getDeuxiemeTelInput()).to.eq('5');
       await etudiantsExecutifUpdatePage.setPhotoInput(absolutePath);
       await etudiantsExecutifUpdatePage.setExtraitActeNaissanceInput(absolutePath);
       await etudiantsExecutifUpdatePage.setBacalaureatInput(absolutePath);

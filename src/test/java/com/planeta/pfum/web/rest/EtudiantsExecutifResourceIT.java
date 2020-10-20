@@ -3,10 +3,7 @@ package com.planeta.pfum.web.rest;
 import com.planeta.pfum.Pfumv10App;
 import com.planeta.pfum.domain.EtudiantsExecutif;
 import com.planeta.pfum.repository.EtudiantsExecutifRepository;
-import com.planeta.pfum.repository.FiliereRepository;
-import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.repository.search.EtudiantsExecutifSearchRepository;
-import com.planeta.pfum.service.UserService;
 import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -72,6 +69,9 @@ public class EtudiantsExecutifResourceIT {
     private static final Mention DEFAULT_MENTION = Mention.Passable;
     private static final Mention UPDATED_MENTION = Mention.Assez_bien;
 
+    private static final String DEFAULT_ANNE_OTENTION = "AAAAAAAAAA";
+    private static final String UPDATED_ANNE_OTENTION = "BBBBBBBBBB";
+
     private static final String DEFAULT_CIN_PASS = "AAAAAAAAAA";
     private static final String UPDATED_CIN_PASS = "BBBBBBBBBB";
 
@@ -89,6 +89,9 @@ public class EtudiantsExecutifResourceIT {
 
     private static final Integer DEFAULT_TEL = 1;
     private static final Integer UPDATED_TEL = 2;
+
+    private static final Integer DEFAULT_DEUXIEME_TEL = 1;
+    private static final Integer UPDATED_DEUXIEME_TEL = 2;
 
     private static final byte[] DEFAULT_PHOTO = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PHOTO = TestUtil.createByteArray(1, "1");
@@ -151,7 +154,6 @@ public class EtudiantsExecutifResourceIT {
 
     private EtudiantsExecutif etudiantsExecutif;
 
-    
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -181,12 +183,14 @@ public class EtudiantsExecutifResourceIT {
             .email(DEFAULT_EMAIL)
             .pjBac(DEFAULT_PJ_BAC)
             .mention(DEFAULT_MENTION)
+            .anneOtention(DEFAULT_ANNE_OTENTION)
             .cinPass(DEFAULT_CIN_PASS)
             .paysNationalite(DEFAULT_PAYS_NATIONALITE)
             .paysResidence(DEFAULT_PAYS_RESIDENCE)
             .codepostal(DEFAULT_CODEPOSTAL)
             .province(DEFAULT_PROVINCE)
             .tel(DEFAULT_TEL)
+            .deuxiemeTel(DEFAULT_DEUXIEME_TEL)
             .photo(DEFAULT_PHOTO)
             .photoContentType(DEFAULT_PHOTO_CONTENT_TYPE)
             .extraitActeNaissance(DEFAULT_EXTRAIT_ACTE_NAISSANCE)
@@ -218,12 +222,14 @@ public class EtudiantsExecutifResourceIT {
             .email(UPDATED_EMAIL)
             .pjBac(UPDATED_PJ_BAC)
             .mention(UPDATED_MENTION)
+            .anneOtention(UPDATED_ANNE_OTENTION)
             .cinPass(UPDATED_CIN_PASS)
             .paysNationalite(UPDATED_PAYS_NATIONALITE)
             .paysResidence(UPDATED_PAYS_RESIDENCE)
             .codepostal(UPDATED_CODEPOSTAL)
             .province(UPDATED_PROVINCE)
             .tel(UPDATED_TEL)
+            .deuxiemeTel(UPDATED_DEUXIEME_TEL)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE)
             .extraitActeNaissance(UPDATED_EXTRAIT_ACTE_NAISSANCE)
@@ -268,12 +274,14 @@ public class EtudiantsExecutifResourceIT {
         assertThat(testEtudiantsExecutif.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testEtudiantsExecutif.getPjBac()).isEqualTo(DEFAULT_PJ_BAC);
         assertThat(testEtudiantsExecutif.getMention()).isEqualTo(DEFAULT_MENTION);
+        assertThat(testEtudiantsExecutif.getAnneOtention()).isEqualTo(DEFAULT_ANNE_OTENTION);
         assertThat(testEtudiantsExecutif.getCinPass()).isEqualTo(DEFAULT_CIN_PASS);
         assertThat(testEtudiantsExecutif.getPaysNationalite()).isEqualTo(DEFAULT_PAYS_NATIONALITE);
         assertThat(testEtudiantsExecutif.getPaysResidence()).isEqualTo(DEFAULT_PAYS_RESIDENCE);
         assertThat(testEtudiantsExecutif.getCodepostal()).isEqualTo(DEFAULT_CODEPOSTAL);
         assertThat(testEtudiantsExecutif.getProvince()).isEqualTo(DEFAULT_PROVINCE);
         assertThat(testEtudiantsExecutif.getTel()).isEqualTo(DEFAULT_TEL);
+        assertThat(testEtudiantsExecutif.getDeuxiemeTel()).isEqualTo(DEFAULT_DEUXIEME_TEL);
         assertThat(testEtudiantsExecutif.getPhoto()).isEqualTo(DEFAULT_PHOTO);
         assertThat(testEtudiantsExecutif.getPhotoContentType()).isEqualTo(DEFAULT_PHOTO_CONTENT_TYPE);
         assertThat(testEtudiantsExecutif.getExtraitActeNaissance()).isEqualTo(DEFAULT_EXTRAIT_ACTE_NAISSANCE);
@@ -442,12 +450,14 @@ public class EtudiantsExecutifResourceIT {
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
             .andExpect(jsonPath("$.[*].pjBac").value(hasItem(DEFAULT_PJ_BAC.toString())))
             .andExpect(jsonPath("$.[*].mention").value(hasItem(DEFAULT_MENTION.toString())))
+            .andExpect(jsonPath("$.[*].anneOtention").value(hasItem(DEFAULT_ANNE_OTENTION.toString())))
             .andExpect(jsonPath("$.[*].cinPass").value(hasItem(DEFAULT_CIN_PASS.toString())))
             .andExpect(jsonPath("$.[*].paysNationalite").value(hasItem(DEFAULT_PAYS_NATIONALITE.toString())))
             .andExpect(jsonPath("$.[*].paysResidence").value(hasItem(DEFAULT_PAYS_RESIDENCE.toString())))
             .andExpect(jsonPath("$.[*].codepostal").value(hasItem(DEFAULT_CODEPOSTAL.toString())))
             .andExpect(jsonPath("$.[*].province").value(hasItem(DEFAULT_PROVINCE.toString())))
             .andExpect(jsonPath("$.[*].tel").value(hasItem(DEFAULT_TEL)))
+            .andExpect(jsonPath("$.[*].deuxiemeTel").value(hasItem(DEFAULT_DEUXIEME_TEL)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photo").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO))))
             .andExpect(jsonPath("$.[*].extraitActeNaissanceContentType").value(hasItem(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE)))
@@ -482,12 +492,14 @@ public class EtudiantsExecutifResourceIT {
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
             .andExpect(jsonPath("$.pjBac").value(DEFAULT_PJ_BAC.toString()))
             .andExpect(jsonPath("$.mention").value(DEFAULT_MENTION.toString()))
+            .andExpect(jsonPath("$.anneOtention").value(DEFAULT_ANNE_OTENTION.toString()))
             .andExpect(jsonPath("$.cinPass").value(DEFAULT_CIN_PASS.toString()))
             .andExpect(jsonPath("$.paysNationalite").value(DEFAULT_PAYS_NATIONALITE.toString()))
             .andExpect(jsonPath("$.paysResidence").value(DEFAULT_PAYS_RESIDENCE.toString()))
             .andExpect(jsonPath("$.codepostal").value(DEFAULT_CODEPOSTAL.toString()))
             .andExpect(jsonPath("$.province").value(DEFAULT_PROVINCE.toString()))
             .andExpect(jsonPath("$.tel").value(DEFAULT_TEL))
+            .andExpect(jsonPath("$.deuxiemeTel").value(DEFAULT_DEUXIEME_TEL))
             .andExpect(jsonPath("$.photoContentType").value(DEFAULT_PHOTO_CONTENT_TYPE))
             .andExpect(jsonPath("$.photo").value(Base64Utils.encodeToString(DEFAULT_PHOTO)))
             .andExpect(jsonPath("$.extraitActeNaissanceContentType").value(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE))
@@ -532,12 +544,14 @@ public class EtudiantsExecutifResourceIT {
             .email(UPDATED_EMAIL)
             .pjBac(UPDATED_PJ_BAC)
             .mention(UPDATED_MENTION)
+            .anneOtention(UPDATED_ANNE_OTENTION)
             .cinPass(UPDATED_CIN_PASS)
             .paysNationalite(UPDATED_PAYS_NATIONALITE)
             .paysResidence(UPDATED_PAYS_RESIDENCE)
             .codepostal(UPDATED_CODEPOSTAL)
             .province(UPDATED_PROVINCE)
             .tel(UPDATED_TEL)
+            .deuxiemeTel(UPDATED_DEUXIEME_TEL)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE)
             .extraitActeNaissance(UPDATED_EXTRAIT_ACTE_NAISSANCE)
@@ -569,12 +583,14 @@ public class EtudiantsExecutifResourceIT {
         assertThat(testEtudiantsExecutif.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testEtudiantsExecutif.getPjBac()).isEqualTo(UPDATED_PJ_BAC);
         assertThat(testEtudiantsExecutif.getMention()).isEqualTo(UPDATED_MENTION);
+        assertThat(testEtudiantsExecutif.getAnneOtention()).isEqualTo(UPDATED_ANNE_OTENTION);
         assertThat(testEtudiantsExecutif.getCinPass()).isEqualTo(UPDATED_CIN_PASS);
         assertThat(testEtudiantsExecutif.getPaysNationalite()).isEqualTo(UPDATED_PAYS_NATIONALITE);
         assertThat(testEtudiantsExecutif.getPaysResidence()).isEqualTo(UPDATED_PAYS_RESIDENCE);
         assertThat(testEtudiantsExecutif.getCodepostal()).isEqualTo(UPDATED_CODEPOSTAL);
         assertThat(testEtudiantsExecutif.getProvince()).isEqualTo(UPDATED_PROVINCE);
         assertThat(testEtudiantsExecutif.getTel()).isEqualTo(UPDATED_TEL);
+        assertThat(testEtudiantsExecutif.getDeuxiemeTel()).isEqualTo(UPDATED_DEUXIEME_TEL);
         assertThat(testEtudiantsExecutif.getPhoto()).isEqualTo(UPDATED_PHOTO);
         assertThat(testEtudiantsExecutif.getPhotoContentType()).isEqualTo(UPDATED_PHOTO_CONTENT_TYPE);
         assertThat(testEtudiantsExecutif.getExtraitActeNaissance()).isEqualTo(UPDATED_EXTRAIT_ACTE_NAISSANCE);
@@ -655,12 +671,14 @@ public class EtudiantsExecutifResourceIT {
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].pjBac").value(hasItem(DEFAULT_PJ_BAC.toString())))
             .andExpect(jsonPath("$.[*].mention").value(hasItem(DEFAULT_MENTION.toString())))
+            .andExpect(jsonPath("$.[*].anneOtention").value(hasItem(DEFAULT_ANNE_OTENTION)))
             .andExpect(jsonPath("$.[*].cinPass").value(hasItem(DEFAULT_CIN_PASS)))
             .andExpect(jsonPath("$.[*].paysNationalite").value(hasItem(DEFAULT_PAYS_NATIONALITE)))
             .andExpect(jsonPath("$.[*].paysResidence").value(hasItem(DEFAULT_PAYS_RESIDENCE)))
             .andExpect(jsonPath("$.[*].codepostal").value(hasItem(DEFAULT_CODEPOSTAL)))
             .andExpect(jsonPath("$.[*].province").value(hasItem(DEFAULT_PROVINCE)))
             .andExpect(jsonPath("$.[*].tel").value(hasItem(DEFAULT_TEL)))
+            .andExpect(jsonPath("$.[*].deuxiemeTel").value(hasItem(DEFAULT_DEUXIEME_TEL)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photo").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO))))
             .andExpect(jsonPath("$.[*].extraitActeNaissanceContentType").value(hasItem(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE)))

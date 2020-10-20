@@ -1,25 +1,5 @@
 package com.planeta.pfum.web.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.planeta.pfum.domain.Filiere;
 import com.planeta.pfum.repository.FiliereRepository;
 import com.planeta.pfum.repository.search.FiliereSearchRepository;
@@ -27,6 +7,21 @@ import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.Filiere}.
@@ -65,7 +60,7 @@ public class FiliereResource {
             throw new BadRequestAlertException("A new filiere cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Filiere result = filiereRepository.save(filiere);
-//        filiereSearchRepository.save(result);
+        filiereSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/filieres/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -87,7 +82,7 @@ public class FiliereResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Filiere result = filiereRepository.save(filiere);
-//        filiereSearchRepository.save(result);
+        filiereSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, filiere.getId().toString()))
             .body(result);
@@ -127,7 +122,7 @@ public class FiliereResource {
     public ResponseEntity<Void> deleteFiliere(@PathVariable Long id) {
         log.debug("REST request to delete Filiere : {}", id);
         filiereRepository.deleteById(id);
-//        filiereSearchRepository.deleteById(id);
+        filiereSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -141,18 +136,9 @@ public class FiliereResource {
     @GetMapping("/_search/filieres")
     public List<Filiere> searchFilieres(@RequestParam String query) {
         log.debug("REST request to search Filieres for query {}", query);
-//        return StreamSupport
-//            .stream(filiereSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-//            .collect(Collectors.toList());
-        
-        return new ArrayList<Filiere>();
-
-    }
-
-    @GetMapping("/filieres/etablissement/{etab}")
-    public List<Filiere> getAllFilieresByEtablissement(@PathVariable Long etab) {
-        log.debug("REST request to get all Filieres");
-        return filiereRepository.findAllByEtablissementId(etab);
+        return StreamSupport
+            .stream(filiereSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
     }
 
 }

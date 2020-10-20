@@ -7,14 +7,17 @@ import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstr
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, byteSize, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
+
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IModule } from 'app/shared/model/module.model';
-import { getEntity, updateEntity, createEntity, setBlob, reset, getEntitiesByUserId } from './suivi-module.reducer';
+import { getEntities as getModules } from 'app/entities/module/module.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './suivi-module.reducer';
 import { ISuiviModule } from 'app/shared/model/suivi-module.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
-import { getEntitiesAffectedToProf as getModules } from 'app/entities/module/module.reducer';
+import { mapIdList } from 'app/shared/util/entity-utils';
+
 export interface ISuiviModuleUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface ISuiviModuleUpdateState {
@@ -47,7 +50,7 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
     }
 
     this.props.getUsers();
-    this.props.getModules('S1');
+    this.props.getModules();
   }
 
   onBlobChange = (isAnImage, name) => event => {
@@ -82,10 +85,6 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
     this.props.history.push('/entity/suivi-module');
   };
 
-  filterModules = e => {
-    this.props.getModules(e.target.value);
-  };
-
   render() {
     const { suiviModuleEntity, users, modules, loading, updating } = this.props;
     const { isNew } = this.state;
@@ -107,12 +106,19 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
               <p>Loading...</p>
             ) : (
               <AvForm model={isNew ? {} : suiviModuleEntity} onSubmit={this.saveEntity}>
+                {!isNew ? (
+                  <AvGroup>
+                    <Label for="suivi-module-id">
+                      <Translate contentKey="global.field.id">ID</Translate>
+                    </Label>
+                    <AvInput id="suivi-module-id" type="text" className="form-control" name="id" required readOnly />
+                  </AvGroup>
+                ) : null}
                 <AvGroup>
                   <Label id="semestreLabel" for="suivi-module-semestre">
                     <Translate contentKey="pfumv10App.suiviModule.semestre">Semestre</Translate>
                   </Label>
                   <AvInput
-                    onChange={this.filterModules}
                     id="suivi-module-semestre"
                     type="select"
                     className="form-control"
@@ -217,6 +223,21 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                   />
                 </AvGroup>
                 <AvGroup>
+                  <Label for="suivi-module-user">
+                    <Translate contentKey="pfumv10App.suiviModule.user">User</Translate>
+                  </Label>
+                  <AvInput id="suivi-module-user" type="select" className="form-control" name="user.id">
+                    <option value="" key="0" />
+                    {users
+                      ? users.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
                   <Label for="suivi-module-module">
                     <Translate contentKey="pfumv10App.suiviModule.module">Module</Translate>
                   </Label>
@@ -225,7 +246,7 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                     {modules
                       ? modules.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nomModule}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}
@@ -269,8 +290,7 @@ const mapDispatchToProps = {
   updateEntity,
   setBlob,
   createEntity,
-  reset,
-  getEntitiesByUserId
+  reset
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

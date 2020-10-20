@@ -1,25 +1,5 @@
 package com.planeta.pfum.web.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.planeta.pfum.domain.Module;
 import com.planeta.pfum.repository.ModuleRepository;
 import com.planeta.pfum.repository.search.ModuleSearchRepository;
@@ -27,6 +7,21 @@ import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.Module}.
@@ -44,7 +39,7 @@ public class ModuleResource {
 
     private final ModuleRepository moduleRepository;
 
-	private final ModuleSearchRepository moduleSearchRepository;
+    private final ModuleSearchRepository moduleSearchRepository;
 
     public ModuleResource(ModuleRepository moduleRepository, ModuleSearchRepository moduleSearchRepository) {
         this.moduleRepository = moduleRepository;
@@ -65,7 +60,7 @@ public class ModuleResource {
             throw new BadRequestAlertException("A new module cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Module result = moduleRepository.save(module);
-//        moduleSearchRepository.save(result);
+        moduleSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/modules/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -87,7 +82,7 @@ public class ModuleResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Module result = moduleRepository.save(module);
-//        moduleSearchRepository.save(result);
+        moduleSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, module.getId().toString()))
             .body(result);
@@ -127,7 +122,7 @@ public class ModuleResource {
     public ResponseEntity<Void> deleteModule(@PathVariable Long id) {
         log.debug("REST request to delete Module : {}", id);
         moduleRepository.deleteById(id);
-//        moduleSearchRepository.deleteById(id);
+        moduleSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -141,12 +136,9 @@ public class ModuleResource {
     @GetMapping("/_search/modules")
     public List<Module> searchModules(@RequestParam String query) {
         log.debug("REST request to search Modules for query {}", query);
-//        return StreamSupport
-//            .stream(moduleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-//            .collect(Collectors.toList());
-        
-        return new ArrayList<Module>();
-
+        return StreamSupport
+            .stream(moduleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
     }
 
 }

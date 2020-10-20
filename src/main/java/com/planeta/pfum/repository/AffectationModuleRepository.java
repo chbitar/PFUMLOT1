@@ -1,11 +1,8 @@
 package com.planeta.pfum.repository;
 
 import com.planeta.pfum.domain.AffectationModule;
-import com.planeta.pfum.domain.enumeration.Semestre;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 
 /**
@@ -14,7 +11,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface AffectationModuleRepository extends JpaRepository<AffectationModule, Long> {
-
-
 
 }

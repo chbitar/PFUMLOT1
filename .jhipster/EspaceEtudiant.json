@@ -58,7 +58,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201020003309",
+    "changelogDate": "20201020224515",
     "entityTableName": "espace_etudiant",
     "dto": "no",
     "pagination": "no",

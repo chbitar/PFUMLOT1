@@ -67,7 +67,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201020003306",
+    "changelogDate": "20201020224512",
     "entityTableName": "suivi_module",
     "dto": "no",
     "pagination": "no",

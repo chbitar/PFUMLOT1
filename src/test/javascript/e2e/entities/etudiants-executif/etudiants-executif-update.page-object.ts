@@ -13,12 +13,14 @@ export default class EtudiantsExecutifUpdatePage {
   emailInput: ElementFinder = element(by.css('input#etudiants-executif-email'));
   pjBacSelect: ElementFinder = element(by.css('select#etudiants-executif-pjBac'));
   mentionSelect: ElementFinder = element(by.css('select#etudiants-executif-mention'));
+  anneOtentionInput: ElementFinder = element(by.css('input#etudiants-executif-anneOtention'));
   cinPassInput: ElementFinder = element(by.css('input#etudiants-executif-cinPass'));
   paysNationaliteInput: ElementFinder = element(by.css('input#etudiants-executif-paysNationalite'));
   paysResidenceInput: ElementFinder = element(by.css('input#etudiants-executif-paysResidence'));
   codepostalInput: ElementFinder = element(by.css('input#etudiants-executif-codepostal'));
   provinceInput: ElementFinder = element(by.css('input#etudiants-executif-province'));
   telInput: ElementFinder = element(by.css('input#etudiants-executif-tel'));
+  deuxiemeTelInput: ElementFinder = element(by.css('input#etudiants-executif-deuxiemeTel'));
   photoInput: ElementFinder = element(by.css('input#file_photo'));
   extraitActeNaissanceInput: ElementFinder = element(by.css('input#file_extraitActeNaissance'));
   bacalaureatInput: ElementFinder = element(by.css('input#file_bacalaureat'));
@@ -119,6 +121,14 @@ export default class EtudiantsExecutifUpdatePage {
       .last()
       .click();
   }
+  async setAnneOtentionInput(anneOtention) {
+    await this.anneOtentionInput.sendKeys(anneOtention);
+  }
+
+  async getAnneOtentionInput() {
+    return this.anneOtentionInput.getAttribute('value');
+  }
+
   async setCinPassInput(cinPass) {
     await this.cinPassInput.sendKeys(cinPass);
   }
@@ -165,6 +175,14 @@ export default class EtudiantsExecutifUpdatePage {
 
   async getTelInput() {
     return this.telInput.getAttribute('value');
+  }
+
+  async setDeuxiemeTelInput(deuxiemeTel) {
+    await this.deuxiemeTelInput.sendKeys(deuxiemeTel);
+  }
+
+  async getDeuxiemeTelInput() {
+    return this.deuxiemeTelInput.getAttribute('value');
   }
 
   async setPhotoInput(photo) {

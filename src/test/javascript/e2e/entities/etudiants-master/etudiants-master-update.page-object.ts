@@ -13,12 +13,14 @@ export default class EtudiantsMasterUpdatePage {
   emailInput: ElementFinder = element(by.css('input#etudiants-master-email'));
   typeBacSelect: ElementFinder = element(by.css('select#etudiants-master-typeBac'));
   mentionSelect: ElementFinder = element(by.css('select#etudiants-master-mention'));
+  anneOtentionInput: ElementFinder = element(by.css('input#etudiants-master-anneOtention'));
   cinPassInput: ElementFinder = element(by.css('input#etudiants-master-cinPass'));
   paysNationaliteInput: ElementFinder = element(by.css('input#etudiants-master-paysNationalite'));
   paysResidenceInput: ElementFinder = element(by.css('input#etudiants-master-paysResidence'));
   codepostalInput: ElementFinder = element(by.css('input#etudiants-master-codepostal'));
   provinceInput: ElementFinder = element(by.css('input#etudiants-master-province'));
   telInput: ElementFinder = element(by.css('input#etudiants-master-tel'));
+  deuxiemeTelInput: ElementFinder = element(by.css('input#etudiants-master-deuxiemeTel'));
   photoInput: ElementFinder = element(by.css('input#file_photo'));
   extraitActeNaissanceInput: ElementFinder = element(by.css('input#file_extraitActeNaissance'));
   bacalaureatInput: ElementFinder = element(by.css('input#file_bacalaureat'));
@@ -119,6 +121,14 @@ export default class EtudiantsMasterUpdatePage {
       .last()
       .click();
   }
+  async setAnneOtentionInput(anneOtention) {
+    await this.anneOtentionInput.sendKeys(anneOtention);
+  }
+
+  async getAnneOtentionInput() {
+    return this.anneOtentionInput.getAttribute('value');
+  }
+
   async setCinPassInput(cinPass) {
     await this.cinPassInput.sendKeys(cinPass);
   }
@@ -165,6 +175,14 @@ export default class EtudiantsMasterUpdatePage {
 
   async getTelInput() {
     return this.telInput.getAttribute('value');
+  }
+
+  async setDeuxiemeTelInput(deuxiemeTel) {
+    await this.deuxiemeTelInput.sendKeys(deuxiemeTel);
+  }
+
+  async getDeuxiemeTelInput() {
+    return this.deuxiemeTelInput.getAttribute('value');
   }
 
   async setPhotoInput(photo) {

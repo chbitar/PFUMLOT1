@@ -3,8 +3,6 @@ package com.planeta.pfum.web.rest;
 import com.planeta.pfum.Pfumv10App;
 import com.planeta.pfum.domain.Absence;
 import com.planeta.pfum.repository.AbsenceRepository;
-import com.planeta.pfum.repository.ProfesseurRepository;
-import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.repository.search.AbsenceSearchRepository;
 import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
@@ -76,20 +74,11 @@ public class AbsenceResourceIT {
     private MockMvc restAbsenceMockMvc;
 
     private Absence absence;
-    
-    @Autowired
-	private  UserRepository userRepository;
-    
-    @Autowired
-	private  ProfesseurRepository professeurRepository;
-
-
-    
 
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final AbsenceResource absenceResource = new AbsenceResource(absenceRepository, mockAbsenceSearchRepository, userRepository, professeurRepository);
+        final AbsenceResource absenceResource = new AbsenceResource(absenceRepository, mockAbsenceSearchRepository);
         this.restAbsenceMockMvc = MockMvcBuilders.standaloneSetup(absenceResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

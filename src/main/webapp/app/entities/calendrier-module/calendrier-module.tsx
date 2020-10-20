@@ -47,10 +47,11 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
     return (
       <div>
         <h2 id="calendrier-module-heading">
-          Calendrier contrôles continus
+          <Translate contentKey="pfumv10App.calendrierModule.home.title">Calendrier Modules</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Ajouter un calendrier pour les contrôles continus
+            &nbsp;
+            <Translate contentKey="pfumv10App.calendrierModule.home.createLabel">Create new Calendrier Module</Translate>
           </Link>
         </h2>
         <Row>
@@ -82,7 +83,10 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
               <thead>
                 <tr>
                   <th>
-                    <Translate contentKey="pfumv10App.calendrierModule.module">Module</Translate>
+                    <Translate contentKey="global.field.id">ID</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.calendrierModule.libelle">Libelle</Translate>
                   </th>
                   <th>
                     <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
@@ -90,46 +94,48 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
                   <th>
                     <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu2">Date Control Continu 2</Translate>
                   </th>
-
-                  {/*   <th>
+                  <th>
+                    <Translate contentKey="pfumv10App.calendrierModule.module">Module</Translate>
+                  </th>
+                  <th>
                     <Translate contentKey="pfumv10App.calendrierModule.anneeInscription">Annee Inscription</Translate>
-                  </th> */}
+                  </th>
                   <th />
                 </tr>
               </thead>
               <tbody>
                 {calendrierModuleList.map((calendrierModule, i) => (
                   <tr key={`entity-${i}`}>
-                    {/*  <td>
+                    <td>
                       <Button tag={Link} to={`${match.url}/${calendrierModule.id}`} color="link" size="sm">
                         {calendrierModule.id}
                       </Button>
-                    </td> */}
-                    <td>
-                      {calendrierModule.module ? (
-                        <Link to={`module/${calendrierModule.module.id}`}>{calendrierModule.module.nomModule}</Link>
-                      ) : (
-                        ''
-                      )}
                     </td>
-                    {/*   <td>
-                      {calendrierModule.anneeInscription ? (
-                        <Link to={`annee-inscription/${calendrierModule.anneeInscription.id}`}>
-                          {calendrierModule.anneeInscription.annee}
-                        </Link>
-                      ) : (
-                        ''
-                      )}
-                    </td> */}
-                    {/* <td>{calendrierModule.libelle}</td> */}
+                    <td>{calendrierModule.libelle}</td>
                     <td>
                       <TextFormat type="date" value={calendrierModule.dateControlContinu1} format={APP_DATE_FORMAT} />
                     </td>
                     <td>
                       <TextFormat type="date" value={calendrierModule.dateControlContinu2} format={APP_DATE_FORMAT} />
                     </td>
+                    <td>
+                      {calendrierModule.module ? <Link to={`module/${calendrierModule.module.id}`}>{calendrierModule.module.id}</Link> : ''}
+                    </td>
+                    <td>
+                      {calendrierModule.anneeInscription ? (
+                        <Link to={`annee-inscription/${calendrierModule.anneeInscription.id}`}>{calendrierModule.anneeInscription.id}</Link>
+                      ) : (
+                        ''
+                      )}
+                    </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
+                        <Button tag={Link} to={`${match.url}/${calendrierModule.id}`} color="info" size="sm">
+                          <FontAwesomeIcon icon="eye" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.view">View</Translate>
+                          </span>
+                        </Button>
                         <Button tag={Link} to={`${match.url}/${calendrierModule.id}/edit`} color="primary" size="sm">
                           <FontAwesomeIcon icon="pencil-alt" />{' '}
                           <span className="d-none d-md-inline">

@@ -31,12 +31,14 @@ export interface IEtudiantsMaster {
   email?: string;
   typeBac?: DiplomeBac;
   mention?: Mention;
+  anneOtention?: string;
   cinPass?: string;
   paysNationalite?: string;
   paysResidence?: string;
   codepostal?: string;
   province?: string;
   tel?: number;
+  deuxiemeTel?: number;
   photoContentType?: string;
   photo?: any;
   extraitActeNaissanceContentType?: string;

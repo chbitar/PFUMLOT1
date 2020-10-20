@@ -7,7 +7,6 @@ import Professeur from './professeur';
 import ProfesseurDetail from './professeur-detail';
 import ProfesseurUpdate from './professeur-update';
 import ProfesseurDeleteDialog from './professeur-delete-dialog';
-import { EmploiEtAvis } from './emploi-avis';
 
 const Routes = ({ match }) => (
   <>

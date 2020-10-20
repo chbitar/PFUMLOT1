@@ -1,12 +1,12 @@
 package com.planeta.pfum.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.planeta.pfum.domain.EtudiantsLicence;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
-import com.planeta.pfum.domain.EtudiantsLicence;
 
 /**
- * Spring Data repository for the EtudiantsLicence entity.
+ * Spring Data  repository for the EtudiantsLicence entity.
  */
 @SuppressWarnings("unused")
 @Repository

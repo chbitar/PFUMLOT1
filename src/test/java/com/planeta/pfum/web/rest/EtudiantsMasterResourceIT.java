@@ -1,26 +1,10 @@
 package com.planeta.pfum.web.rest;
 
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
-
-import javax.persistence.EntityManager;
+import com.planeta.pfum.Pfumv10App;
+import com.planeta.pfum.domain.EtudiantsMaster;
+import com.planeta.pfum.repository.EtudiantsMasterRepository;
+import com.planeta.pfum.repository.search.EtudiantsMasterSearchRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,16 +20,22 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.EtudiantsMaster;
+import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.List;
+
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import com.planeta.pfum.domain.enumeration.DiplomeBac;
 import com.planeta.pfum.domain.enumeration.Mention;
-import com.planeta.pfum.repository.EtudiantsMasterRepository;
-import com.planeta.pfum.repository.FiliereRepository;
-import com.planeta.pfum.repository.UserRepository;
-import com.planeta.pfum.repository.search.EtudiantsMasterSearchRepository;
-import com.planeta.pfum.service.UserService;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link EtudiantsMasterResource} REST controller.
  */
@@ -79,6 +69,9 @@ public class EtudiantsMasterResourceIT {
     private static final Mention DEFAULT_MENTION = Mention.Passable;
     private static final Mention UPDATED_MENTION = Mention.Assez_bien;
 
+    private static final String DEFAULT_ANNE_OTENTION = "AAAAAAAAAA";
+    private static final String UPDATED_ANNE_OTENTION = "BBBBBBBBBB";
+
     private static final String DEFAULT_CIN_PASS = "AAAAAAAAAA";
     private static final String UPDATED_CIN_PASS = "BBBBBBBBBB";
 
@@ -96,6 +89,9 @@ public class EtudiantsMasterResourceIT {
 
     private static final Integer DEFAULT_TEL = 1;
     private static final Integer UPDATED_TEL = 2;
+
+    private static final Integer DEFAULT_DEUXIEME_TEL = 1;
+    private static final Integer UPDATED_DEUXIEME_TEL = 2;
 
     private static final byte[] DEFAULT_PHOTO = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PHOTO = TestUtil.createByteArray(1, "1");
@@ -158,16 +154,6 @@ public class EtudiantsMasterResourceIT {
 
     private EtudiantsMaster etudiantsMaster;
 
-    
-
-    @Autowired
-    private  FiliereRepository filiereRepository;
-    @Autowired
-    private  UserService userService;
-    @Autowired
-    private  UserRepository userRepository;
-
-
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -179,7 +165,6 @@ public class EtudiantsMasterResourceIT {
             .setMessageConverters(jacksonMessageConverter)
             .setValidator(validator).build();
     }
-    @BeforeEach
 
     /**
      * Create an entity for this test.
@@ -198,12 +183,14 @@ public class EtudiantsMasterResourceIT {
             .email(DEFAULT_EMAIL)
             .typeBac(DEFAULT_TYPE_BAC)
             .mention(DEFAULT_MENTION)
+            .anneOtention(DEFAULT_ANNE_OTENTION)
             .cinPass(DEFAULT_CIN_PASS)
             .paysNationalite(DEFAULT_PAYS_NATIONALITE)
             .paysResidence(DEFAULT_PAYS_RESIDENCE)
             .codepostal(DEFAULT_CODEPOSTAL)
             .province(DEFAULT_PROVINCE)
             .tel(DEFAULT_TEL)
+            .deuxiemeTel(DEFAULT_DEUXIEME_TEL)
             .photo(DEFAULT_PHOTO)
             .photoContentType(DEFAULT_PHOTO_CONTENT_TYPE)
             .extraitActeNaissance(DEFAULT_EXTRAIT_ACTE_NAISSANCE)
@@ -235,12 +222,14 @@ public class EtudiantsMasterResourceIT {
             .email(UPDATED_EMAIL)
             .typeBac(UPDATED_TYPE_BAC)
             .mention(UPDATED_MENTION)
+            .anneOtention(UPDATED_ANNE_OTENTION)
             .cinPass(UPDATED_CIN_PASS)
             .paysNationalite(UPDATED_PAYS_NATIONALITE)
             .paysResidence(UPDATED_PAYS_RESIDENCE)
             .codepostal(UPDATED_CODEPOSTAL)
             .province(UPDATED_PROVINCE)
             .tel(UPDATED_TEL)
+            .deuxiemeTel(UPDATED_DEUXIEME_TEL)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE)
             .extraitActeNaissance(UPDATED_EXTRAIT_ACTE_NAISSANCE)
@@ -285,12 +274,14 @@ public class EtudiantsMasterResourceIT {
         assertThat(testEtudiantsMaster.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testEtudiantsMaster.getTypeBac()).isEqualTo(DEFAULT_TYPE_BAC);
         assertThat(testEtudiantsMaster.getMention()).isEqualTo(DEFAULT_MENTION);
+        assertThat(testEtudiantsMaster.getAnneOtention()).isEqualTo(DEFAULT_ANNE_OTENTION);
         assertThat(testEtudiantsMaster.getCinPass()).isEqualTo(DEFAULT_CIN_PASS);
         assertThat(testEtudiantsMaster.getPaysNationalite()).isEqualTo(DEFAULT_PAYS_NATIONALITE);
         assertThat(testEtudiantsMaster.getPaysResidence()).isEqualTo(DEFAULT_PAYS_RESIDENCE);
         assertThat(testEtudiantsMaster.getCodepostal()).isEqualTo(DEFAULT_CODEPOSTAL);
         assertThat(testEtudiantsMaster.getProvince()).isEqualTo(DEFAULT_PROVINCE);
         assertThat(testEtudiantsMaster.getTel()).isEqualTo(DEFAULT_TEL);
+        assertThat(testEtudiantsMaster.getDeuxiemeTel()).isEqualTo(DEFAULT_DEUXIEME_TEL);
         assertThat(testEtudiantsMaster.getPhoto()).isEqualTo(DEFAULT_PHOTO);
         assertThat(testEtudiantsMaster.getPhotoContentType()).isEqualTo(DEFAULT_PHOTO_CONTENT_TYPE);
         assertThat(testEtudiantsMaster.getExtraitActeNaissance()).isEqualTo(DEFAULT_EXTRAIT_ACTE_NAISSANCE);
@@ -459,12 +450,14 @@ public class EtudiantsMasterResourceIT {
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
             .andExpect(jsonPath("$.[*].typeBac").value(hasItem(DEFAULT_TYPE_BAC.toString())))
             .andExpect(jsonPath("$.[*].mention").value(hasItem(DEFAULT_MENTION.toString())))
+            .andExpect(jsonPath("$.[*].anneOtention").value(hasItem(DEFAULT_ANNE_OTENTION.toString())))
             .andExpect(jsonPath("$.[*].cinPass").value(hasItem(DEFAULT_CIN_PASS.toString())))
             .andExpect(jsonPath("$.[*].paysNationalite").value(hasItem(DEFAULT_PAYS_NATIONALITE.toString())))
             .andExpect(jsonPath("$.[*].paysResidence").value(hasItem(DEFAULT_PAYS_RESIDENCE.toString())))
             .andExpect(jsonPath("$.[*].codepostal").value(hasItem(DEFAULT_CODEPOSTAL.toString())))
             .andExpect(jsonPath("$.[*].province").value(hasItem(DEFAULT_PROVINCE.toString())))
             .andExpect(jsonPath("$.[*].tel").value(hasItem(DEFAULT_TEL)))
+            .andExpect(jsonPath("$.[*].deuxiemeTel").value(hasItem(DEFAULT_DEUXIEME_TEL)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photo").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO))))
             .andExpect(jsonPath("$.[*].extraitActeNaissanceContentType").value(hasItem(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE)))
@@ -499,12 +492,14 @@ public class EtudiantsMasterResourceIT {
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
             .andExpect(jsonPath("$.typeBac").value(DEFAULT_TYPE_BAC.toString()))
             .andExpect(jsonPath("$.mention").value(DEFAULT_MENTION.toString()))
+            .andExpect(jsonPath("$.anneOtention").value(DEFAULT_ANNE_OTENTION.toString()))
             .andExpect(jsonPath("$.cinPass").value(DEFAULT_CIN_PASS.toString()))
             .andExpect(jsonPath("$.paysNationalite").value(DEFAULT_PAYS_NATIONALITE.toString()))
             .andExpect(jsonPath("$.paysResidence").value(DEFAULT_PAYS_RESIDENCE.toString()))
             .andExpect(jsonPath("$.codepostal").value(DEFAULT_CODEPOSTAL.toString()))
             .andExpect(jsonPath("$.province").value(DEFAULT_PROVINCE.toString()))
             .andExpect(jsonPath("$.tel").value(DEFAULT_TEL))
+            .andExpect(jsonPath("$.deuxiemeTel").value(DEFAULT_DEUXIEME_TEL))
             .andExpect(jsonPath("$.photoContentType").value(DEFAULT_PHOTO_CONTENT_TYPE))
             .andExpect(jsonPath("$.photo").value(Base64Utils.encodeToString(DEFAULT_PHOTO)))
             .andExpect(jsonPath("$.extraitActeNaissanceContentType").value(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE))
@@ -549,12 +544,14 @@ public class EtudiantsMasterResourceIT {
             .email(UPDATED_EMAIL)
             .typeBac(UPDATED_TYPE_BAC)
             .mention(UPDATED_MENTION)
+            .anneOtention(UPDATED_ANNE_OTENTION)
             .cinPass(UPDATED_CIN_PASS)
             .paysNationalite(UPDATED_PAYS_NATIONALITE)
             .paysResidence(UPDATED_PAYS_RESIDENCE)
             .codepostal(UPDATED_CODEPOSTAL)
             .province(UPDATED_PROVINCE)
             .tel(UPDATED_TEL)
+            .deuxiemeTel(UPDATED_DEUXIEME_TEL)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE)
             .extraitActeNaissance(UPDATED_EXTRAIT_ACTE_NAISSANCE)
@@ -586,12 +583,14 @@ public class EtudiantsMasterResourceIT {
         assertThat(testEtudiantsMaster.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testEtudiantsMaster.getTypeBac()).isEqualTo(UPDATED_TYPE_BAC);
         assertThat(testEtudiantsMaster.getMention()).isEqualTo(UPDATED_MENTION);
+        assertThat(testEtudiantsMaster.getAnneOtention()).isEqualTo(UPDATED_ANNE_OTENTION);
         assertThat(testEtudiantsMaster.getCinPass()).isEqualTo(UPDATED_CIN_PASS);
         assertThat(testEtudiantsMaster.getPaysNationalite()).isEqualTo(UPDATED_PAYS_NATIONALITE);
         assertThat(testEtudiantsMaster.getPaysResidence()).isEqualTo(UPDATED_PAYS_RESIDENCE);
         assertThat(testEtudiantsMaster.getCodepostal()).isEqualTo(UPDATED_CODEPOSTAL);
         assertThat(testEtudiantsMaster.getProvince()).isEqualTo(UPDATED_PROVINCE);
         assertThat(testEtudiantsMaster.getTel()).isEqualTo(UPDATED_TEL);
+        assertThat(testEtudiantsMaster.getDeuxiemeTel()).isEqualTo(UPDATED_DEUXIEME_TEL);
         assertThat(testEtudiantsMaster.getPhoto()).isEqualTo(UPDATED_PHOTO);
         assertThat(testEtudiantsMaster.getPhotoContentType()).isEqualTo(UPDATED_PHOTO_CONTENT_TYPE);
         assertThat(testEtudiantsMaster.getExtraitActeNaissance()).isEqualTo(UPDATED_EXTRAIT_ACTE_NAISSANCE);
@@ -672,12 +671,14 @@ public class EtudiantsMasterResourceIT {
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].typeBac").value(hasItem(DEFAULT_TYPE_BAC.toString())))
             .andExpect(jsonPath("$.[*].mention").value(hasItem(DEFAULT_MENTION.toString())))
+            .andExpect(jsonPath("$.[*].anneOtention").value(hasItem(DEFAULT_ANNE_OTENTION)))
             .andExpect(jsonPath("$.[*].cinPass").value(hasItem(DEFAULT_CIN_PASS)))
             .andExpect(jsonPath("$.[*].paysNationalite").value(hasItem(DEFAULT_PAYS_NATIONALITE)))
             .andExpect(jsonPath("$.[*].paysResidence").value(hasItem(DEFAULT_PAYS_RESIDENCE)))
             .andExpect(jsonPath("$.[*].codepostal").value(hasItem(DEFAULT_CODEPOSTAL)))
             .andExpect(jsonPath("$.[*].province").value(hasItem(DEFAULT_PROVINCE)))
             .andExpect(jsonPath("$.[*].tel").value(hasItem(DEFAULT_TEL)))
+            .andExpect(jsonPath("$.[*].deuxiemeTel").value(hasItem(DEFAULT_DEUXIEME_TEL)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photo").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO))))
             .andExpect(jsonPath("$.[*].extraitActeNaissanceContentType").value(hasItem(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE)))

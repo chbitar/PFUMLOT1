@@ -16,7 +16,7 @@ import { IAnneeInscription } from 'app/shared/model/annee-inscription.model';
 import { getEntities as getAnneeInscriptions } from 'app/entities/annee-inscription/annee-inscription.reducer';
 import { IModalitePaiement } from 'app/shared/model/modalite-paiement.model';
 import { getEntities as getModalitePaiements } from 'app/entities/modalite-paiement/modalite-paiement.reducer';
-import { getEntity, updateEntity, createEntity, setBlob, reset, createExtendedEntity } from './etudiants-licence.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './etudiants-licence.reducer';
 import { IEtudiantsLicence } from 'app/shared/model/etudiants-licence.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
@@ -82,7 +82,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
       };
 
       if (this.state.isNew) {
-        this.props.createExtendedEntity(entity);
+        this.props.createEntity(entity);
       } else {
         this.props.updateEntity(entity);
       }
@@ -111,463 +111,438 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
     return (
       <div>
         <Row className="justify-content-center">
-          <Col md="auto">
-            <span className="badge badge-pill badge-info">Nouvelle inscription</span>
+          <Col md="8">
+            <h2 id="pfumv10App.etudiantsLicence.home.createOrEditLabel">
+              <Translate contentKey="pfumv10App.etudiantsLicence.home.createOrEditLabel">Create or edit a EtudiantsLicence</Translate>
+            </h2>
           </Col>
         </Row>
-        <Row>
-          <Row>
-            <Col>
-              <Row>
-                {loading ? (
-                  <p>Loading...</p>
-                ) : (
-                  <AvForm model={isNew ? {} : etudiantsLicenceEntity} onSubmit={this.saveEntity}>
-                    <div className="card border-primary">
-                      <div className="card-header">Informations personnelles</div>
-                      <div className="card-body">
+        <Row className="justify-content-center">
+          <Col md="8">
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <AvForm model={isNew ? {} : etudiantsLicenceEntity} onSubmit={this.saveEntity}>
+                {!isNew ? (
+                  <AvGroup>
+                    <Label for="etudiants-licence-id">
+                      <Translate contentKey="global.field.id">ID</Translate>
+                    </Label>
+                    <AvInput id="etudiants-licence-id" type="text" className="form-control" name="id" required readOnly />
+                  </AvGroup>
+                ) : null}
+                <AvGroup>
+                  <Label id="suffixeLabel" for="etudiants-licence-suffixe">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.suffixe">Suffixe</Translate>
+                  </Label>
+                  <AvField id="etudiants-licence-suffixe" type="text" name="suffixe" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="nomLabel" for="etudiants-licence-nom">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.nom">Nom</Translate>
+                  </Label>
+                  <AvField
+                    id="etudiants-licence-nom"
+                    type="text"
+                    name="nom"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="prenomLabel" for="etudiants-licence-prenom">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.prenom">Prenom</Translate>
+                  </Label>
+                  <AvField
+                    id="etudiants-licence-prenom"
+                    type="text"
+                    name="prenom"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="dateNaissanceLabel" for="etudiants-licence-dateNaissance">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.dateNaissance">Date Naissance</Translate>
+                  </Label>
+                  <AvInput
+                    id="etudiants-licence-dateNaissance"
+                    type="datetime-local"
+                    className="form-control"
+                    name="dateNaissance"
+                    placeholder={'YYYY-MM-DD HH:mm'}
+                    value={isNew ? null : convertDateTimeFromServer(this.props.etudiantsLicenceEntity.dateNaissance)}
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="adresseContactLabel" for="etudiants-licence-adresseContact">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.adresseContact">Adresse Contact</Translate>
+                  </Label>
+                  <AvField
+                    id="etudiants-licence-adresseContact"
+                    type="text"
+                    name="adresseContact"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="villeLabel" for="etudiants-licence-ville">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.ville">Ville</Translate>
+                  </Label>
+                  <AvField id="etudiants-licence-ville" type="text" name="ville" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="emailLabel" for="etudiants-licence-email">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.email">Email</Translate>
+                  </Label>
+                  <AvField
+                    id="etudiants-licence-email"
+                    type="text"
+                    name="email"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="pjBacLabel" for="etudiants-licence-pjBac">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.pjBac">Pj Bac</Translate>
+                  </Label>
+                  <AvInput
+                    id="etudiants-licence-pjBac"
+                    type="select"
+                    className="form-control"
+                    name="pjBac"
+                    value={(!isNew && etudiantsLicenceEntity.pjBac) || 'Sciences_De_La_Vie_Et_De_La_Terre'}
+                  >
+                    <option value="Sciences_De_La_Vie_Et_De_La_Terre">
+                      {translate('pfumv10App.DiplomeBac.Sciences_De_La_Vie_Et_De_La_Terre')}
+                    </option>
+                    <option value="Sciences_Physiques_Et_Chimiques">
+                      {translate('pfumv10App.DiplomeBac.Sciences_Physiques_Et_Chimiques')}
+                    </option>
+                    <option value="Sciences_Economiques">{translate('pfumv10App.DiplomeBac.Sciences_Economiques')}</option>
+                    <option value="Techniques_De_Gestion_Et_Comptabilite">
+                      {translate('pfumv10App.DiplomeBac.Techniques_De_Gestion_Et_Comptabilite')}
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="mentionLabel" for="etudiants-licence-mention">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.mention">Mention</Translate>
+                  </Label>
+                  <AvInput
+                    id="etudiants-licence-mention"
+                    type="select"
+                    className="form-control"
+                    name="mention"
+                    value={(!isNew && etudiantsLicenceEntity.mention) || 'Passable'}
+                  >
+                    <option value="Passable">{translate('pfumv10App.Mention.Passable')}</option>
+                    <option value="Assez_bien">{translate('pfumv10App.Mention.Assez_bien')}</option>
+                    <option value="Bien">{translate('pfumv10App.Mention.Bien')}</option>
+                    <option value="Tres_bien">{translate('pfumv10App.Mention.Tres_bien')}</option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="anneOtentionLabel" for="etudiants-licence-anneOtention">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.anneOtention">Anne Otention</Translate>
+                  </Label>
+                  <AvField id="etudiants-licence-anneOtention" type="text" name="anneOtention" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="cinPassLabel" for="etudiants-licence-cinPass">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.cinPass">Cin Pass</Translate>
+                  </Label>
+                  <AvField
+                    id="etudiants-licence-cinPass"
+                    type="text"
+                    name="cinPass"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="paysNationaliteLabel" for="etudiants-licence-paysNationalite">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.paysNationalite">Pays Nationalite</Translate>
+                  </Label>
+                  <AvField id="etudiants-licence-paysNationalite" type="text" name="paysNationalite" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="paysResidenceLabel" for="etudiants-licence-paysResidence">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.paysResidence">Pays Residence</Translate>
+                  </Label>
+                  <AvField id="etudiants-licence-paysResidence" type="text" name="paysResidence" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="codepostalLabel" for="etudiants-licence-codepostal">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.codepostal">Codepostal</Translate>
+                  </Label>
+                  <AvField id="etudiants-licence-codepostal" type="text" name="codepostal" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="provinceLabel" for="etudiants-licence-province">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.province">Province</Translate>
+                  </Label>
+                  <AvField id="etudiants-licence-province" type="text" name="province" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="telLabel" for="etudiants-licence-tel">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.tel">Tel</Translate>
+                  </Label>
+                  <AvField id="etudiants-licence-tel" type="string" className="form-control" name="tel" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="deuxiemeTelLabel" for="etudiants-licence-deuxiemeTel">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.deuxiemeTel">Deuxieme Tel</Translate>
+                  </Label>
+                  <AvField id="etudiants-licence-deuxiemeTel" type="string" className="form-control" name="deuxiemeTel" />
+                </AvGroup>
+                <AvGroup>
+                  <AvGroup>
+                    <Label id="photoLabel" for="photo">
+                      <Translate contentKey="pfumv10App.etudiantsLicence.photo">Photo</Translate>
+                    </Label>
+                    <br />
+                    {photo ? (
+                      <div>
+                        <a onClick={openFile(photoContentType, photo)}>
+                          <img src={`data:${photoContentType};base64,${photo}`} style={{ maxHeight: '100px' }} />
+                        </a>
+                        <br />
                         <Row>
-                          <Row>
-                            <Col sm="6">
-                              <AvGroup>
-                                <AvGroup>
-                                  <b>Photo</b>
-                                  {photo ? (
-                                    <div>
-                                      <a onClick={openFile(photoContentType, photo)}>
-                                        <img src={`data:${photoContentType};base64,${photo}`} style={{ maxHeight: '100px' }} />
-                                      </a>
-                                      <br />
-                                      <Row>
-                                        <Col md="1">
-                                          <Button color="danger" onClick={this.clearBlob('photo')}>
-                                            <FontAwesomeIcon icon="times-circle" />
-                                          </Button>
-                                        </Col>
-                                      </Row>
-                                    </div>
-                                  ) : null}
-                                  <input id="file_photo" type="file" onChange={this.onBlobChange(true, 'photo')} accept="image/*" />
-                                  <AvInput
-                                    type="hidden"
-                                    name="photo"
-                                    value={photo}
-                                    validate={{
-                                      required: { value: true, errorMessage: translate('entity.validation.required') }
-                                    }}
-                                  />
-                                </AvGroup>
-                              </AvGroup>
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col md="6">
-                              {!isNew ? (
-                                <AvGroup>
-                                  <Label for="etudiants-licence-id">
-                                    <Translate contentKey="global.field.id">ID</Translate>
-                                  </Label>
-                                  <AvInput id="etudiants-licence-id" type="text" className="form-control" name="id" required readOnly />
-                                </AvGroup>
-                              ) : null}
-                              <AvGroup>
-                                <Label id="nomLabel" for="etudiants-licence-nom">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.nom">Nom</Translate>
-                                </Label>
-                                <AvField
-                                  id="etudiants-licence-nom"
-                                  type="text"
-                                  name="nom"
-                                  validate={{
-                                    required: { value: true, errorMessage: translate('entity.validation.required') }
-                                  }}
-                                />
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="prenomLabel" for="etudiants-licence-prenom">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.prenom">Prenom</Translate>
-                                </Label>
-                                <AvField
-                                  id="etudiants-licence-prenom"
-                                  type="text"
-                                  name="prenom"
-                                  validate={{
-                                    required: { value: true, errorMessage: translate('entity.validation.required') }
-                                  }}
-                                />
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="dateNaissanceLabel" for="etudiants-licence-dateNaissance">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.dateNaissance">Date Naissance</Translate>
-                                </Label>
-                                <AvInput
-                                  id="etudiants-licence-dateNaissance"
-                                  type="date"
-                                  className="form-control"
-                                  name="dateNaissance"
-                                  placeholder={'YYYY-MM-DD'}
-                                  value={isNew ? null : convertDateTimeFromServer(this.props.etudiantsLicenceEntity.dateNaissance)}
-                                  validate={{
-                                    required: { value: true, errorMessage: translate('entity.validation.required') }
-                                  }}
-                                />
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="adresseContactLabel" for="etudiants-licence-adresseContact">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.adresseContact">Adresse Contact</Translate>
-                                </Label>
-                                <AvField
-                                  id="etudiants-licence-adresseContact"
-                                  type="text"
-                                  name="adresseContact"
-                                  validate={{
-                                    required: { value: true, errorMessage: translate('entity.validation.required') }
-                                  }}
-                                />
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="villeLabel" for="etudiants-licence-ville">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.ville">Ville</Translate>
-                                </Label>
-                                <AvField id="etudiants-licence-ville" type="text" name="ville" />
-                              </AvGroup>
-                            </Col>
-                            <Col md="6">
-                              <AvGroup>
-                                <Label id="emailLabel" for="etudiants-licence-email">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.email">Email</Translate>
-                                </Label>
-                                <AvField
-                                  id="etudiants-licence-email"
-                                  type="text"
-                                  name="email"
-                                  validate={{
-                                    required: { value: true, errorMessage: translate('entity.validation.required') }
-                                  }}
-                                />
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="cinPassLabel" for="etudiants-licence-cinPass">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.cinPass">Cin Pass</Translate>
-                                </Label>
-                                <AvField
-                                  id="etudiants-licence-cinPass"
-                                  type="text"
-                                  name="cinPass"
-                                  validate={{
-                                    required: { value: true, errorMessage: translate('entity.validation.required') }
-                                  }}
-                                />
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="paysNationaliteLabel" for="etudiants-licence-paysNationalite">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.paysNationalite">Pays Nationalite</Translate>
-                                </Label>
-                                <AvField id="etudiants-licence-paysNationalite" type="text" name="paysNationalite" />
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="paysResidenceLabel" for="etudiants-licence-paysResidence">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.paysResidence">Pays Residence</Translate>
-                                </Label>
-                                <AvField id="etudiants-licence-paysResidence" type="text" name="paysResidence" />
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="codepostalLabel" for="etudiants-licence-codepostal">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.codepostal">Codepostal</Translate>
-                                </Label>
-                                <AvField id="etudiants-licence-codepostal" type="text" name="codepostal" />
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="provinceLabel" for="etudiants-licence-province">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.province">Province</Translate>
-                                </Label>
-                                <AvField id="etudiants-licence-province" type="text" name="province" />
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="telLabel" for="etudiants-licence-tel">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.tel">Tel</Translate>
-                                </Label>
-                                <AvField id="etudiants-licence-tel" type="string" className="form-control" name="tel" />
-                              </AvGroup>
-                            </Col>
-                          </Row>
+                          <Col md="11">
+                            <span>
+                              {photoContentType}, {byteSize(photo)}
+                            </span>
+                          </Col>
+                          <Col md="1">
+                            <Button color="danger" onClick={this.clearBlob('photo')}>
+                              <FontAwesomeIcon icon="times-circle" />
+                            </Button>
+                          </Col>
                         </Row>
                       </div>
-                    </div>
-
-                    <div>
-                      <Row>
-                        <Col>
-                          <div className="card border-primary">
-                            <div className="card-header">Filiére</div>
-                            <div className="card-body">
-                              <AvGroup>
-                                <Label id="pjBacLabel" for="etudiants-licence-pjBac">
-                                  Type Bac
-                                </Label>
-                                <AvInput
-                                  id="etudiants-licence-pjBac"
-                                  type="select"
-                                  className="form-control"
-                                  name="pjBac"
-                                  value={(!isNew && etudiantsLicenceEntity.pjBac) || 'Sciences_De_La_Vie_Et_De_La_Terre'}
-                                >
-                                  <option value="Sciences_De_La_Vie_Et_De_La_Terre">
-                                    {translate('pfumv10App.DiplomeBac.Sciences_De_La_Vie_Et_De_La_Terre')}
-                                  </option>
-                                  <option value="Sciences_Physiques_Et_Chimiques">
-                                    {translate('pfumv10App.DiplomeBac.Sciences_Physiques_Et_Chimiques')}
-                                  </option>
-                                  <option value="Sciences_Economiques">{translate('pfumv10App.DiplomeBac.Sciences_Economiques')}</option>
-                                  <option value="Techniques_De_Gestion_Et_Comptabilite">
-                                    {translate('pfumv10App.DiplomeBac.Techniques_De_Gestion_Et_Comptabilite')}
-                                  </option>
-                                </AvInput>
-                              </AvGroup>
-                              <AvGroup>
-                                <Label id="mentionLabel" for="etudiants-licence-mention">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.mention">Mention</Translate>
-                                </Label>
-                                <AvInput
-                                  id="etudiants-licence-mention"
-                                  type="select"
-                                  className="form-control"
-                                  name="mention"
-                                  value={(!isNew && etudiantsLicenceEntity.mention) || 'Passable'}
-                                >
-                                  <option value="Passable">{translate('pfumv10App.Mention.Passable')}</option>
-                                  <option value="Assez_bien">{translate('pfumv10App.Mention.Assez_bien')}</option>
-                                  <option value="Bien">{translate('pfumv10App.Mention.Bien')}</option>
-                                  <option value="Tres_bien">{translate('pfumv10App.Mention.Tres_bien')}</option>
-                                </AvInput>
-                              </AvGroup>
-                              <AvGroup>
-                                <Label for="etudiants-licence-filiere">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.filiere">Filiere</Translate>
-                                </Label>
-                                <AvInput id="etudiants-licence-filiere" type="select" className="form-control" name="filiere.id">
-                                  <option value="" key="0" />
-                                  {filieres
-                                    ? filieres.map(otherEntity => (
-                                        <option value={otherEntity.id} key={otherEntity.id}>
-                                          {otherEntity.nomfiliere}
-                                        </option>
-                                      ))
-                                    : null}
-                                </AvInput>
-                              </AvGroup>
-                              <AvGroup>
-                                <Label for="etudiants-licence-anneeInscription">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.anneeInscription">Annee Inscription</Translate>
-                                </Label>
-                                <AvInput
-                                  id="etudiants-licence-anneeInscription"
-                                  type="select"
-                                  className="form-control"
-                                  name="anneeInscription.id"
-                                  validate={{
-                                    required: { value: true, errorMessage: translate('entity.validation.required') }
-                                  }}
-                                >
-                                  <option value="" key="0" />
-                                  {anneeInscriptions
-                                    ? anneeInscriptions.map(otherEntity => (
-                                        <option value={otherEntity.id} key={otherEntity.id}>
-                                          {otherEntity.annee}
-                                        </option>
-                                      ))
-                                    : null}
-                                </AvInput>
-                              </AvGroup>
-                            </div>
-                          </div>
-                        </Col>
-                      </Row>
-                    </div>
-
-                    <div>
-                      <Row>
-                        <Col md="6">
-                          <div className="card border-primary">
-                            <div className="card-header">Pièces jointes</div>
-                            <div className="card-body">
-                              <AvGroup>
-                                <AvGroup>
-                                  <Label id="extraitActeNaissanceLabel" for="extraitActeNaissance">
-                                    <Translate contentKey="pfumv10App.etudiantsLicence.extraitActeNaissance">
-                                      Extrait Acte Naissance
-                                    </Translate>
-                                  </Label>
-                                  <br />
-                                  {extraitActeNaissance ? (
-                                    <div>
-                                      <a onClick={openFile(extraitActeNaissanceContentType, extraitActeNaissance)}>
-                                        <img
-                                          src={`data:${extraitActeNaissanceContentType};base64,${extraitActeNaissance}`}
-                                          style={{ maxHeight: '100px' }}
-                                        />
-                                      </a>
-                                      <br />
-                                      <Row>
-                                        <Col md="11">
-                                          <span>
-                                            {extraitActeNaissanceContentType}, {byteSize(extraitActeNaissance)}
-                                          </span>
-                                        </Col>
-                                        <Col md="1">
-                                          <Button color="danger" onClick={this.clearBlob('extraitActeNaissance')}>
-                                            <FontAwesomeIcon icon="times-circle" />
-                                          </Button>
-                                        </Col>
-                                      </Row>
-                                    </div>
-                                  ) : null}
-                                  <input
-                                    id="file_extraitActeNaissance"
-                                    type="file"
-                                    onChange={this.onBlobChange(true, 'extraitActeNaissance')}
-                                    accept="image/*"
-                                  />
-                                  <AvInput type="hidden" name="extraitActeNaissance" value={extraitActeNaissance} />
-                                </AvGroup>
-                              </AvGroup>
-                              <AvGroup>
-                                <AvGroup>
-                                  <Label id="bacalaureatLabel" for="bacalaureat">
-                                    <Translate contentKey="pfumv10App.etudiantsLicence.bacalaureat">Bacalaureat</Translate>
-                                  </Label>
-                                  <br />
-                                  {bacalaureat ? (
-                                    <div>
-                                      <a onClick={openFile(bacalaureatContentType, bacalaureat)}>
-                                        <img src={`data:${bacalaureatContentType};base64,${bacalaureat}`} style={{ maxHeight: '100px' }} />
-                                      </a>
-                                      <br />
-                                      <Row>
-                                        <Col md="11">
-                                          <span>
-                                            {bacalaureatContentType}, {byteSize(bacalaureat)}
-                                          </span>
-                                        </Col>
-                                        <Col md="1">
-                                          <Button color="danger" onClick={this.clearBlob('bacalaureat')}>
-                                            <FontAwesomeIcon icon="times-circle" />
-                                          </Button>
-                                        </Col>
-                                      </Row>
-                                    </div>
-                                  ) : null}
-                                  <input
-                                    id="file_bacalaureat"
-                                    type="file"
-                                    onChange={this.onBlobChange(true, 'bacalaureat')}
-                                    accept="image/*"
-                                  />
-                                  <AvInput
-                                    type="hidden"
-                                    name="bacalaureat"
-                                    value={bacalaureat}
-                                    validate={{
-                                      required: { value: true, errorMessage: translate('entity.validation.required') }
-                                    }}
-                                  />
-                                </AvGroup>
-                              </AvGroup>
-                              <AvGroup>
-                                <AvGroup>
-                                  <Label id="cinPassportLabel" for="cinPassport">
-                                    <Translate contentKey="pfumv10App.etudiantsLicence.cinPassport">Cin Passport</Translate>
-                                  </Label>
-                                  <br />
-                                  {cinPassport ? (
-                                    <div>
-                                      <a onClick={openFile(cinPassportContentType, cinPassport)}>
-                                        <img src={`data:${cinPassportContentType};base64,${cinPassport}`} style={{ maxHeight: '100px' }} />
-                                      </a>
-                                      <br />
-                                      <Row>
-                                        <Col md="11">
-                                          <span>
-                                            {cinPassportContentType}, {byteSize(cinPassport)}
-                                          </span>
-                                        </Col>
-                                        <Col md="1">
-                                          <Button color="danger" onClick={this.clearBlob('cinPassport')}>
-                                            <FontAwesomeIcon icon="times-circle" />
-                                          </Button>
-                                        </Col>
-                                      </Row>
-                                    </div>
-                                  ) : null}
-                                  <input
-                                    id="file_cinPassport"
-                                    type="file"
-                                    onChange={this.onBlobChange(true, 'cinPassport')}
-                                    accept="image/*"
-                                  />
-                                  <AvInput
-                                    type="hidden"
-                                    name="cinPassport"
-                                    value={cinPassport}
-                                    validate={{
-                                      required: { value: true, errorMessage: translate('entity.validation.required') }
-                                    }}
-                                  />
-                                </AvGroup>
-                              </AvGroup>
-                            </div>
-                          </div>
-                        </Col>
-                      </Row>
-                    </div>
-
-                    <div>
-                      <Row>
-                        <Col>
-                          <div className="card border-primary">
-                            <div className="card-header">Modalité paiement</div>
-                            <div className="card-body">
-                              <AvGroup>
-                                <Label for="etudiants-licence-modalite">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.modalite">Modalite</Translate>
-                                </Label>
-                                <AvInput id="etudiants-licence-modalite" type="select" className="form-control" name="modalite.id">
-                                  <option value="" key="0" />
-                                  {modalitePaiements
-                                    ? modalitePaiements.map(otherEntity => (
-                                        <option value={otherEntity.id} key={otherEntity.id}>
-                                          {otherEntity.modalite}
-                                        </option>
-                                      ))
-                                    : null}
-                                </AvInput>
-                              </AvGroup>
-                            </div>
-                          </div>
-                        </Col>
-                      </Row>
-                    </div>
-                    <Row>
-                      <Col>
-                        <Button tag={Link} id="cancel-save" to="/entity/etudiants-licence" replace color="info">
-                          <FontAwesomeIcon icon="arrow-left" />
-                          &nbsp;
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.back">Back</Translate>
-                          </span>
-                        </Button>
-                        &nbsp;
-                        <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                          <FontAwesomeIcon icon="save" />
-                          &nbsp; Valider
-                        </Button>
-                      </Col>
-                    </Row>
-                  </AvForm>
-                )}
-              </Row>
-            </Col>
-          </Row>
+                    ) : null}
+                    <input id="file_photo" type="file" onChange={this.onBlobChange(true, 'photo')} accept="image/*" />
+                    <AvInput
+                      type="hidden"
+                      name="photo"
+                      value={photo}
+                      validate={{
+                        required: { value: true, errorMessage: translate('entity.validation.required') }
+                      }}
+                    />
+                  </AvGroup>
+                </AvGroup>
+                <AvGroup>
+                  <AvGroup>
+                    <Label id="extraitActeNaissanceLabel" for="extraitActeNaissance">
+                      <Translate contentKey="pfumv10App.etudiantsLicence.extraitActeNaissance">Extrait Acte Naissance</Translate>
+                    </Label>
+                    <br />
+                    {extraitActeNaissance ? (
+                      <div>
+                        <a onClick={openFile(extraitActeNaissanceContentType, extraitActeNaissance)}>
+                          <img
+                            src={`data:${extraitActeNaissanceContentType};base64,${extraitActeNaissance}`}
+                            style={{ maxHeight: '100px' }}
+                          />
+                        </a>
+                        <br />
+                        <Row>
+                          <Col md="11">
+                            <span>
+                              {extraitActeNaissanceContentType}, {byteSize(extraitActeNaissance)}
+                            </span>
+                          </Col>
+                          <Col md="1">
+                            <Button color="danger" onClick={this.clearBlob('extraitActeNaissance')}>
+                              <FontAwesomeIcon icon="times-circle" />
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
+                    ) : null}
+                    <input
+                      id="file_extraitActeNaissance"
+                      type="file"
+                      onChange={this.onBlobChange(true, 'extraitActeNaissance')}
+                      accept="image/*"
+                    />
+                    <AvInput type="hidden" name="extraitActeNaissance" value={extraitActeNaissance} />
+                  </AvGroup>
+                </AvGroup>
+                <AvGroup>
+                  <AvGroup>
+                    <Label id="bacalaureatLabel" for="bacalaureat">
+                      <Translate contentKey="pfumv10App.etudiantsLicence.bacalaureat">Bacalaureat</Translate>
+                    </Label>
+                    <br />
+                    {bacalaureat ? (
+                      <div>
+                        <a onClick={openFile(bacalaureatContentType, bacalaureat)}>
+                          <img src={`data:${bacalaureatContentType};base64,${bacalaureat}`} style={{ maxHeight: '100px' }} />
+                        </a>
+                        <br />
+                        <Row>
+                          <Col md="11">
+                            <span>
+                              {bacalaureatContentType}, {byteSize(bacalaureat)}
+                            </span>
+                          </Col>
+                          <Col md="1">
+                            <Button color="danger" onClick={this.clearBlob('bacalaureat')}>
+                              <FontAwesomeIcon icon="times-circle" />
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
+                    ) : null}
+                    <input id="file_bacalaureat" type="file" onChange={this.onBlobChange(true, 'bacalaureat')} accept="image/*" />
+                    <AvInput
+                      type="hidden"
+                      name="bacalaureat"
+                      value={bacalaureat}
+                      validate={{
+                        required: { value: true, errorMessage: translate('entity.validation.required') }
+                      }}
+                    />
+                  </AvGroup>
+                </AvGroup>
+                <AvGroup>
+                  <AvGroup>
+                    <Label id="cinPassportLabel" for="cinPassport">
+                      <Translate contentKey="pfumv10App.etudiantsLicence.cinPassport">Cin Passport</Translate>
+                    </Label>
+                    <br />
+                    {cinPassport ? (
+                      <div>
+                        <a onClick={openFile(cinPassportContentType, cinPassport)}>
+                          <img src={`data:${cinPassportContentType};base64,${cinPassport}`} style={{ maxHeight: '100px' }} />
+                        </a>
+                        <br />
+                        <Row>
+                          <Col md="11">
+                            <span>
+                              {cinPassportContentType}, {byteSize(cinPassport)}
+                            </span>
+                          </Col>
+                          <Col md="1">
+                            <Button color="danger" onClick={this.clearBlob('cinPassport')}>
+                              <FontAwesomeIcon icon="times-circle" />
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
+                    ) : null}
+                    <input id="file_cinPassport" type="file" onChange={this.onBlobChange(true, 'cinPassport')} accept="image/*" />
+                    <AvInput
+                      type="hidden"
+                      name="cinPassport"
+                      value={cinPassport}
+                      validate={{
+                        required: { value: true, errorMessage: translate('entity.validation.required') }
+                      }}
+                    />
+                  </AvGroup>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="inscriptionvalideLabel" check>
+                    <AvInput id="etudiants-licence-inscriptionvalide" type="checkbox" className="form-control" name="inscriptionvalide" />
+                    <Translate contentKey="pfumv10App.etudiantsLicence.inscriptionvalide">Inscriptionvalide</Translate>
+                  </Label>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="absentLabel" check>
+                    <AvInput id="etudiants-licence-absent" type="checkbox" className="form-control" name="absent" />
+                    <Translate contentKey="pfumv10App.etudiantsLicence.absent">Absent</Translate>
+                  </Label>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="etudiants-licence-user">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.user">User</Translate>
+                  </Label>
+                  <AvInput id="etudiants-licence-user" type="select" className="form-control" name="user.id">
+                    <option value="" key="0" />
+                    {users
+                      ? users.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="etudiants-licence-filiere">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.filiere">Filiere</Translate>
+                  </Label>
+                  <AvInput id="etudiants-licence-filiere" type="select" className="form-control" name="filiere.id">
+                    <option value="" key="0" />
+                    {filieres
+                      ? filieres.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="etudiants-licence-anneeInscription">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.anneeInscription">Annee Inscription</Translate>
+                  </Label>
+                  <AvInput id="etudiants-licence-anneeInscription" type="select" className="form-control" name="anneeInscription.id">
+                    <option value="" key="0" />
+                    {anneeInscriptions
+                      ? anneeInscriptions.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="etudiants-licence-modalite">
+                    <Translate contentKey="pfumv10App.etudiantsLicence.modalite">Modalite</Translate>
+                  </Label>
+                  <AvInput id="etudiants-licence-modalite" type="select" className="form-control" name="modalite.id">
+                    <option value="" key="0" />
+                    {modalitePaiements
+                      ? modalitePaiements.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <Button tag={Link} id="cancel-save" to="/entity/etudiants-licence" replace color="info">
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
+                  <span className="d-none d-md-inline">
+                    <Translate contentKey="entity.action.back">Back</Translate>
+                  </span>
+                </Button>
+                &nbsp;
+                <Button color="primary" id="save-entity" type="submit" disabled={updating}>
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
+                  <Translate contentKey="entity.action.save">Save</Translate>
+                </Button>
+              </AvForm>
+            )}
+          </Col>
         </Row>
       </div>
     );
@@ -594,8 +569,7 @@ const mapDispatchToProps = {
   updateEntity,
   setBlob,
   createEntity,
-  reset,
-  createExtendedEntity
+  reset
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

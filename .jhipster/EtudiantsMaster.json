@@ -55,13 +55,8 @@
             "fieldValues": "Passable,Assez_bien,Bien,Tres_bien"
         },
         {
-            "fieldName": "anneeObtentionBac",
+            "fieldName": "anneOtention",
             "fieldType": "String"
-        },
-        {
-            "fieldName": "releveeNoteBac",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
         },
         {
             "fieldName": "cinPass",
@@ -91,7 +86,7 @@
             "fieldType": "Integer"
         },
         {
-            "fieldName": "deuxiemetel",
+            "fieldName": "deuxiemeTel",
             "fieldType": "Integer"
         },
         {
@@ -103,7 +98,7 @@
             ]
         },
         {
-            "fieldName": "tesAdmission",
+            "fieldName": "extraitActeNaissance",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
         },
@@ -127,19 +122,6 @@
             "fieldName": "diplome",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
-        },
-        {
-            "fieldName": "anneeObtentionLicence",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "releveeNoteLicence",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
-        },
-        {
-            "fieldName": "etablissementObtention",
-            "fieldType": "String"
         },
         {
             "fieldName": "inscriptionvalide",
@@ -193,7 +175,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201020003302",
+    "changelogDate": "20201020224508",
     "entityTableName": "etudiants_master",
     "dto": "no",
     "pagination": "no",

@@ -63,6 +63,9 @@ public class EtudiantsLicence implements Serializable {
     @Column(name = "mention")
     private Mention mention;
 
+    @Column(name = "anne_otention")
+    private String anneOtention;
+
     @NotNull
     @Column(name = "cin_pass", nullable = false)
     private String cinPass;
@@ -82,11 +85,15 @@ public class EtudiantsLicence implements Serializable {
     @Column(name = "tel")
     private Integer tel;
 
+    @Column(name = "deuxieme_tel")
+    private Integer deuxiemeTel;
+
+    
     @Lob
-    @Column(name = "photo")
+    @Column(name = "photo", nullable = false)
     private byte[] photo;
 
-    @Column(name = "photo_content_type")
+    @Column(name = "photo_content_type", nullable = false)
     private String photoContentType;
 
     @Lob
@@ -96,18 +103,20 @@ public class EtudiantsLicence implements Serializable {
     @Column(name = "extrait_acte_naissance_content_type")
     private String extraitActeNaissanceContentType;
 
+    
     @Lob
-    @Column(name = "bacalaureat")
+    @Column(name = "bacalaureat", nullable = false)
     private byte[] bacalaureat;
 
-    @Column(name = "bacalaureat_content_type")
+    @Column(name = "bacalaureat_content_type", nullable = false)
     private String bacalaureatContentType;
 
+    
     @Lob
-    @Column(name = "cin_passport")
+    @Column(name = "cin_passport", nullable = false)
     private byte[] cinPassport;
 
-    @Column(name = "cin_passport_content_type")
+    @Column(name = "cin_passport_content_type", nullable = false)
     private String cinPassportContentType;
 
     @Column(name = "inscriptionvalide")
@@ -264,6 +273,19 @@ public class EtudiantsLicence implements Serializable {
         this.mention = mention;
     }
 
+    public String getAnneOtention() {
+        return anneOtention;
+    }
+
+    public EtudiantsLicence anneOtention(String anneOtention) {
+        this.anneOtention = anneOtention;
+        return this;
+    }
+
+    public void setAnneOtention(String anneOtention) {
+        this.anneOtention = anneOtention;
+    }
+
     public String getCinPass() {
         return cinPass;
     }
@@ -340,6 +362,19 @@ public class EtudiantsLicence implements Serializable {
 
     public void setTel(Integer tel) {
         this.tel = tel;
+    }
+
+    public Integer getDeuxiemeTel() {
+        return deuxiemeTel;
+    }
+
+    public EtudiantsLicence deuxiemeTel(Integer deuxiemeTel) {
+        this.deuxiemeTel = deuxiemeTel;
+        return this;
+    }
+
+    public void setDeuxiemeTel(Integer deuxiemeTel) {
+        this.deuxiemeTel = deuxiemeTel;
     }
 
     public byte[] getPhoto() {
@@ -604,12 +639,14 @@ public class EtudiantsLicence implements Serializable {
             ", email='" + getEmail() + "'" +
             ", pjBac='" + getPjBac() + "'" +
             ", mention='" + getMention() + "'" +
+            ", anneOtention='" + getAnneOtention() + "'" +
             ", cinPass='" + getCinPass() + "'" +
             ", paysNationalite='" + getPaysNationalite() + "'" +
             ", paysResidence='" + getPaysResidence() + "'" +
             ", codepostal='" + getCodepostal() + "'" +
             ", province='" + getProvince() + "'" +
             ", tel=" + getTel() +
+            ", deuxiemeTel=" + getDeuxiemeTel() +
             ", photo='" + getPhoto() + "'" +
             ", photoContentType='" + getPhotoContentType() + "'" +
             ", extraitActeNaissance='" + getExtraitActeNaissance() + "'" +

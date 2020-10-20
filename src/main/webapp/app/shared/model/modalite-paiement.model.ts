@@ -1,6 +1,6 @@
+import { IEtudiantsExecutif } from 'app/shared/model/etudiants-executif.model';
 import { IEtudiantsLicence } from 'app/shared/model/etudiants-licence.model';
 import { IEtudiantsMaster } from 'app/shared/model/etudiants-master.model';
-import { IEtudiantsExecutif } from 'app/shared/model/etudiants-executif.model';
 
 export const enum Devise {
   MAD = 'MAD',
@@ -15,9 +15,9 @@ export interface IModalitePaiement {
   remiseNiveau1?: number;
   remiseNiveau2?: number;
   devise?: Devise;
+  etudiantsExecutifs?: IEtudiantsExecutif[];
   etudiantsLicences?: IEtudiantsLicence[];
   etudiantsMasters?: IEtudiantsMaster[];
-  etudiantsExecutifs?: IEtudiantsExecutif[];
 }
 
 export const defaultValue: Readonly<IModalitePaiement> = {};

@@ -55,7 +55,7 @@
             "fieldValues": "Passable,Assez_bien,Bien,Tres_bien"
         },
         {
-            "fieldName": "anneeObtention",
+            "fieldName": "anneOtention",
             "fieldType": "String"
         },
         {
@@ -86,7 +86,7 @@
             "fieldType": "Integer"
         },
         {
-            "fieldName": "deuxiemetel",
+            "fieldName": "deuxiemeTel",
             "fieldType": "Integer"
         },
         {
@@ -98,12 +98,7 @@
             ]
         },
         {
-            "fieldName": "cv",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
-        },
-        {
-            "fieldName": "attestationTravail",
+            "fieldName": "extraitActeNaissance",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
         },
@@ -125,16 +120,6 @@
         },
         {
             "fieldName": "diplome",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
-        },
-        {
-            "fieldName": "testAdmission",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
-        },
-        {
-            "fieldName": "releveeNote",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
         },
@@ -169,12 +154,6 @@
             "relationshipName": "espaceEtudiant"
         },
         {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "autreDoc",
-            "otherEntityRelationshipName": "etudiantexec",
-            "relationshipName": "document"
-        },
-        {
             "relationshipType": "many-to-one",
             "otherEntityName": "filiere",
             "otherEntityRelationshipName": "etudiantsExecutif",
@@ -196,7 +175,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201020003300",
+    "changelogDate": "20201020224506",
     "entityTableName": "etudiants_executif",
     "dto": "no",
     "pagination": "no",

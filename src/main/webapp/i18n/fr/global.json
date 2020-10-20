@@ -27,6 +27,7 @@
         "noteExecutif": "Note Executif",
         "tableauDeBoard": "Tableau De Board",
         "document": "Document",
+        "emploieDuTemps": "Emploie Du Temps",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

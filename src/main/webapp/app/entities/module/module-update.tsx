@@ -87,6 +87,14 @@ export class ModuleUpdate extends React.Component<IModuleUpdateProps, IModuleUpd
               <p>Loading...</p>
             ) : (
               <AvForm model={isNew ? {} : moduleEntity} onSubmit={this.saveEntity}>
+                {!isNew ? (
+                  <AvGroup>
+                    <Label for="module-id">
+                      <Translate contentKey="global.field.id">ID</Translate>
+                    </Label>
+                    <AvInput id="module-id" type="text" className="form-control" name="id" required readOnly />
+                  </AvGroup>
+                ) : null}
                 <AvGroup>
                   <Label id="nomModuleLabel" for="module-nomModule">
                     <Translate contentKey="pfumv10App.module.nomModule">Nom Module</Translate>
@@ -119,13 +127,15 @@ export class ModuleUpdate extends React.Component<IModuleUpdateProps, IModuleUpd
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
-                  <Label for="module-filiere">Filière</Label>
+                  <Label for="module-filiere">
+                    <Translate contentKey="pfumv10App.module.filiere">Filiere</Translate>
+                  </Label>
                   <AvInput id="module-filiere" type="select" className="form-control" name="filiere.id">
                     <option value="" key="0" />
                     {filieres
                       ? filieres.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nomfiliere}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}

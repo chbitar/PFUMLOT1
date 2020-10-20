@@ -65,6 +65,8 @@ describe('EtudiantsMaster e2e test', () => {
       expect(await etudiantsMasterUpdatePage.getEmailInput()).to.match(/email/);
       await etudiantsMasterUpdatePage.typeBacSelectLastOption();
       await etudiantsMasterUpdatePage.mentionSelectLastOption();
+      await etudiantsMasterUpdatePage.setAnneOtentionInput('anneOtention');
+      expect(await etudiantsMasterUpdatePage.getAnneOtentionInput()).to.match(/anneOtention/);
       await etudiantsMasterUpdatePage.setCinPassInput('cinPass');
       expect(await etudiantsMasterUpdatePage.getCinPassInput()).to.match(/cinPass/);
       await etudiantsMasterUpdatePage.setPaysNationaliteInput('paysNationalite');
@@ -77,6 +79,8 @@ describe('EtudiantsMaster e2e test', () => {
       expect(await etudiantsMasterUpdatePage.getProvinceInput()).to.match(/province/);
       await etudiantsMasterUpdatePage.setTelInput('5');
       expect(await etudiantsMasterUpdatePage.getTelInput()).to.eq('5');
+      await etudiantsMasterUpdatePage.setDeuxiemeTelInput('5');
+      expect(await etudiantsMasterUpdatePage.getDeuxiemeTelInput()).to.eq('5');
       await etudiantsMasterUpdatePage.setPhotoInput(absolutePath);
       await etudiantsMasterUpdatePage.setExtraitActeNaissanceInput(absolutePath);
       await etudiantsMasterUpdatePage.setBacalaureatInput(absolutePath);

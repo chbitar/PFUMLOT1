@@ -1,23 +1,17 @@
-import axios from 'axios';
-import fileDownload from 'react-file-download';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table, Label } from 'reactstrap';
+import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { openFile, byteSize, Translate, translate, ICrudSearchAction, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, updateEntity, getEntitiesByFiliere, getEntitiesByUserId } from './etudiants-executif.reducer';
+import { getSearchEntities, getEntities } from './etudiants-executif.reducer';
 import { IEtudiantsExecutif } from 'app/shared/model/etudiants-executif.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
-
-import { getEntitie as getEtablissements } from 'app/entities/etablissement/etablissement.reducer';
-import { getEntitie as getFilieres, getEntitiesByEtab } from 'app/entities/filiere/filiere.reducer';
-import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface IEtudiantsExecutifProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -31,10 +25,7 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
   };
 
   componentDidMount() {
-    /* this.props.getEntities(); */
-    this.props.getEtablissements();
-    this.props.getFilieres();
-    this.props.getEntitiesByUserId();
+    this.props.getEntities();
   }
 
   search = () => {
@@ -45,201 +36,261 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
 
   clear = () => {
     this.setState({ search: '' }, () => {
-      /* this.props.getEntities(); */
-      this.props.getEntitiesByUserId();
+      this.props.getEntities();
     });
   };
 
   handleSearch = event => this.setState({ search: event.target.value });
-  toggleActive = etudiantsExecutif => () => {
-    this.props.updateEntity({
-      ...etudiantsExecutif,
-      inscriptionvalide: !etudiantsExecutif.inscriptionvalide
-    });
-  };
-
-  filtrerListFiliereEtab = e => {
-    this.props.getEntitiesByEtab(e.target.value);
-  };
-
-  filtrerListEtudiantByFiliere = e => {
-    this.props.history.push('/entity/etudiants-executif');
-    if (e.target.value === '') this.props.getEntities();
-    else this.props.getEntitiesByFiliere(e.target.value);
-  };
-
-  handlePaymentSelect = () => () => {
-    const requestUrl = `/api/etatInscrition/${this.props.etudiantsExecutifList[0].filiere.id}/PDF`;
-    axios
-      .get(requestUrl, {
-        responseType: 'blob'
-      })
-      .then(res => {
-        fileDownload(res.data, 'etatInscritionFiliere.pdf');
-      });
-  };
 
   render() {
-    const { etudiantsExecutifList, match, etablissements, filieres, isAdmin, isUser, isRespFin, isEtudiant } = this.props;
+    const { etudiantsExecutifList, match } = this.props;
     return (
       <div>
-        {(isAdmin || isUser) && (
-          <h2 id="etudiants-executif-heading">
-            Liste inscrits : Master exécutif
-            <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-              <FontAwesomeIcon icon="plus" />
-              &nbsp; Ajouter un nouvel étudiant
-            </Link>
-          </h2>
-        )}
-
-        {isEtudiant && <h2 id="etudiants-executif-heading">Détail Inscription Etudiant</h2>}
+        <h2 id="etudiants-executif-heading">
+          <Translate contentKey="pfumv10App.etudiantsExecutif.home.title">Etudiants Executifs</Translate>
+          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
+            <Translate contentKey="pfumv10App.etudiantsExecutif.home.createLabel">Create new Etudiants Executif</Translate>
+          </Link>
+        </h2>
         <Row>
-          {(isAdmin || isUser) && (
-            <Col sm="12">
-              <AvForm onSubmit={this.search}>
-                <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                  <div className="toast-header">
-                    <strong className="mr-auto">Etat d'inscription</strong>
-                  </div>
-                  <div className="toast-body">
-                    <AvGroup>
-                      <Label for="filiere-etablissement">
-                        <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
-                      </Label>
-                      <AvInput
-                        id="filiere-etablissement"
-                        type="select"
-                        className="form-control"
-                        name="etablissement.id"
-                        onChange={this.filtrerListFiliereEtab}
-                      >
-                        <option value="" key="0" />
-                        {etablissements
-                          ? etablissements.map(otherEntity => (
-                              <option value={otherEntity.id} key={otherEntity.id}>
-                                {otherEntity.nomEcole}
-                              </option>
-                            ))
-                          : null}
-                      </AvInput>
-                    </AvGroup>
-                    <AvGroup>
-                      <Label for="module-filiere">Filière</Label>
-                      <AvInput
-                        id="module-filiere"
-                        type="select"
-                        className="form-control"
-                        name="filiere.id"
-                        onChange={this.filtrerListEtudiantByFiliere}
-                      >
-                        <option value="" key="0" />
-                        {filieres
-                          ? filieres.map(otherEntity => (
-                              <option value={otherEntity.id} key={otherEntity.id}>
-                                {otherEntity.nomfiliere}
-                              </option>
-                            ))
-                          : null}
-                      </AvInput>
-                    </AvGroup>
-                    <Button color="warning" size="sm" onClick={this.handlePaymentSelect()}>
-                      <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">PDF</span>
-                    </Button>
-                    <Button color="success" size="sm">
-                      <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">XLS</span>
-                    </Button>
-                  </div>
-                </div>
-                <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                  <div className="toast-header">
-                    <strong className="mr-auto">Recherche</strong>
-                    <div className="toast-body">
-                      <AvGroup>
-                        <InputGroup>
-                          <AvInput
-                            type="text"
-                            name="search"
-                            value={this.state.search}
-                            onChange={this.handleSearch}
-                            placeholder={translate('pfumv10App.etudiantsExecutif.home.search')}
-                          />
-                          <Button className="input-group-addon">
-                            <FontAwesomeIcon icon="search" />
-                          </Button>
-                          <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                            <FontAwesomeIcon icon="trash" />
-                          </Button>
-                        </InputGroup>
-                      </AvGroup>
-                    </div>
-                  </div>
-                </div>
-              </AvForm>
-            </Col>
-          )}
+          <Col sm="12">
+            <AvForm onSubmit={this.search}>
+              <AvGroup>
+                <InputGroup>
+                  <AvInput
+                    type="text"
+                    name="search"
+                    value={this.state.search}
+                    onChange={this.handleSearch}
+                    placeholder={translate('pfumv10App.etudiantsExecutif.home.search')}
+                  />
+                  <Button className="input-group-addon">
+                    <FontAwesomeIcon icon="search" />
+                  </Button>
+                  <Button type="reset" className="input-group-addon" onClick={this.clear}>
+                    <FontAwesomeIcon icon="trash" />
+                  </Button>
+                </InputGroup>
+              </AvGroup>
+            </AvForm>
+          </Col>
         </Row>
-
         <div className="table-responsive">
           {etudiantsExecutifList && etudiantsExecutifList.length > 0 ? (
             <Table responsive>
               <thead>
                 <tr>
-                  <th>N° etudiant</th>
+                  <th>
+                    <Translate contentKey="global.field.id">ID</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.suffixe">Suffixe</Translate>
+                  </th>
                   <th>
                     <Translate contentKey="pfumv10App.etudiantsExecutif.nom">Nom</Translate>
                   </th>
                   <th>
                     <Translate contentKey="pfumv10App.etudiantsExecutif.prenom">Prenom</Translate>
                   </th>
-
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.dateNaissance">Date Naissance</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.adresseContact">Adresse Contact</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.ville">Ville</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.email">Email</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.pjBac">Pj Bac</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.mention">Mention</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.anneOtention">Anne Otention</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.cinPass">Cin Pass</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.paysNationalite">Pays Nationalite</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.paysResidence">Pays Residence</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.codepostal">Codepostal</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.province">Province</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.tel">Tel</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.deuxiemeTel">Deuxieme Tel</Translate>
+                  </th>
                   <th>
                     <Translate contentKey="pfumv10App.etudiantsExecutif.photo">Photo</Translate>
                   </th>
-                  {(isAdmin || isRespFin) && <th>Validité</th>}
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.extraitActeNaissance">Extrait Acte Naissance</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.bacalaureat">Bacalaureat</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.cinPassport">Cin Passport</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.diplome">Diplome</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.inscriptionvalide">Inscriptionvalide</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.absent">Absent</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.user">User</Translate>
+                  </th>
                   <th>
                     <Translate contentKey="pfumv10App.etudiantsExecutif.filiere">Filiere</Translate>
                   </th>
-                  <th>Année scolaire</th>
-
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.anneeInscription">Annee Inscription</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.modalite">Modalite</Translate>
+                  </th>
                   <th />
                 </tr>
               </thead>
               <tbody>
                 {etudiantsExecutifList.map((etudiantsExecutif, i) => (
                   <tr key={`entity-${i}`}>
+                    <td>
+                      <Button tag={Link} to={`${match.url}/${etudiantsExecutif.id}`} color="link" size="sm">
+                        {etudiantsExecutif.id}
+                      </Button>
+                    </td>
                     <td>{etudiantsExecutif.suffixe}</td>
                     <td>{etudiantsExecutif.nom}</td>
                     <td>{etudiantsExecutif.prenom}</td>
+                    <td>
+                      <TextFormat type="date" value={etudiantsExecutif.dateNaissance} format={APP_DATE_FORMAT} />
+                    </td>
+                    <td>{etudiantsExecutif.adresseContact}</td>
+                    <td>{etudiantsExecutif.ville}</td>
+                    <td>{etudiantsExecutif.email}</td>
+                    <td>
+                      <Translate contentKey={`pfumv10App.DiplomeBac.${etudiantsExecutif.pjBac}`} />
+                    </td>
+                    <td>
+                      <Translate contentKey={`pfumv10App.Mention.${etudiantsExecutif.mention}`} />
+                    </td>
+                    <td>{etudiantsExecutif.anneOtention}</td>
+                    <td>{etudiantsExecutif.cinPass}</td>
+                    <td>{etudiantsExecutif.paysNationalite}</td>
+                    <td>{etudiantsExecutif.paysResidence}</td>
+                    <td>{etudiantsExecutif.codepostal}</td>
+                    <td>{etudiantsExecutif.province}</td>
+                    <td>{etudiantsExecutif.tel}</td>
+                    <td>{etudiantsExecutif.deuxiemeTel}</td>
                     <td>
                       {etudiantsExecutif.photo ? (
                         <div>
                           <a onClick={openFile(etudiantsExecutif.photoContentType, etudiantsExecutif.photo)}>
                             <img
                               src={`data:${etudiantsExecutif.photoContentType};base64,${etudiantsExecutif.photo}`}
-                              style={{ maxHeight: '70px' }}
+                              style={{ maxHeight: '30px' }}
                             />
                             &nbsp;
                           </a>
+                          <span>
+                            {etudiantsExecutif.photoContentType}, {byteSize(etudiantsExecutif.photo)}
+                          </span>
                         </div>
                       ) : null}
                     </td>
-                    {(isAdmin || isRespFin) && (
-                      <td>
-                        {etudiantsExecutif.inscriptionvalide ? (
-                          <Button color="success" onClick={this.toggleActive(etudiantsExecutif)}>
-                            Validé
-                          </Button>
-                        ) : (
-                          <Button color="danger" onClick={this.toggleActive(etudiantsExecutif)}>
-                            En attente
-                          </Button>
-                        )}
-                      </td>
-                    )}
+                    <td>
+                      {etudiantsExecutif.extraitActeNaissance ? (
+                        <div>
+                          <a onClick={openFile(etudiantsExecutif.extraitActeNaissanceContentType, etudiantsExecutif.extraitActeNaissance)}>
+                            <img
+                              src={`data:${etudiantsExecutif.extraitActeNaissanceContentType};base64,${
+                                etudiantsExecutif.extraitActeNaissance
+                              }`}
+                              style={{ maxHeight: '30px' }}
+                            />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {etudiantsExecutif.extraitActeNaissanceContentType}, {byteSize(etudiantsExecutif.extraitActeNaissance)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>
+                      {etudiantsExecutif.bacalaureat ? (
+                        <div>
+                          <a onClick={openFile(etudiantsExecutif.bacalaureatContentType, etudiantsExecutif.bacalaureat)}>
+                            <img
+                              src={`data:${etudiantsExecutif.bacalaureatContentType};base64,${etudiantsExecutif.bacalaureat}`}
+                              style={{ maxHeight: '30px' }}
+                            />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {etudiantsExecutif.bacalaureatContentType}, {byteSize(etudiantsExecutif.bacalaureat)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>
+                      {etudiantsExecutif.cinPassport ? (
+                        <div>
+                          <a onClick={openFile(etudiantsExecutif.cinPassportContentType, etudiantsExecutif.cinPassport)}>
+                            <img
+                              src={`data:${etudiantsExecutif.cinPassportContentType};base64,${etudiantsExecutif.cinPassport}`}
+                              style={{ maxHeight: '30px' }}
+                            />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {etudiantsExecutif.cinPassportContentType}, {byteSize(etudiantsExecutif.cinPassport)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>
+                      {etudiantsExecutif.diplome ? (
+                        <div>
+                          <a onClick={openFile(etudiantsExecutif.diplomeContentType, etudiantsExecutif.diplome)}>
+                            <img
+                              src={`data:${etudiantsExecutif.diplomeContentType};base64,${etudiantsExecutif.diplome}`}
+                              style={{ maxHeight: '30px' }}
+                            />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {etudiantsExecutif.diplomeContentType}, {byteSize(etudiantsExecutif.diplome)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>{etudiantsExecutif.inscriptionvalide ? 'true' : 'false'}</td>
+                    <td>{etudiantsExecutif.absent ? 'true' : 'false'}</td>
+                    <td>{etudiantsExecutif.user ? etudiantsExecutif.user.id : ''}</td>
                     <td>
                       {etudiantsExecutif.filiere ? (
-                        <Link to={`filiere/${etudiantsExecutif.filiere.id}`}>{etudiantsExecutif.filiere.nomfiliere}</Link>
+                        <Link to={`filiere/${etudiantsExecutif.filiere.id}`}>{etudiantsExecutif.filiere.id}</Link>
                       ) : (
                         ''
                       )}
@@ -247,13 +298,19 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
                     <td>
                       {etudiantsExecutif.anneeInscription ? (
                         <Link to={`annee-inscription/${etudiantsExecutif.anneeInscription.id}`}>
-                          {etudiantsExecutif.anneeInscription.annee}
+                          {etudiantsExecutif.anneeInscription.id}
                         </Link>
                       ) : (
                         ''
                       )}
                     </td>
-
+                    <td>
+                      {etudiantsExecutif.modalite ? (
+                        <Link to={`modalite-paiement/${etudiantsExecutif.modalite.id}`}>{etudiantsExecutif.modalite.id}</Link>
+                      ) : (
+                        ''
+                      )}
+                    </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${etudiantsExecutif.id}`} color="info" size="sm">
@@ -262,23 +319,18 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
-
-                        {(isAdmin || isUser) && (
-                          <>
-                            <Button tag={Link} to={`${match.url}/${etudiantsExecutif.id}/edit`} color="primary" size="sm">
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.edit">Edit</Translate>
-                              </span>
-                            </Button>
-                            <Button tag={Link} to={`${match.url}/${etudiantsExecutif.id}/delete`} color="danger" size="sm">
-                              <FontAwesomeIcon icon="trash" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.delete">Delete</Translate>
-                              </span>
-                            </Button>
-                          </>
-                        )}
+                        <Button tag={Link} to={`${match.url}/${etudiantsExecutif.id}/edit`} color="primary" size="sm">
+                          <FontAwesomeIcon icon="pencil-alt" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.edit">Edit</Translate>
+                          </span>
+                        </Button>
+                        <Button tag={Link} to={`${match.url}/${etudiantsExecutif.id}/delete`} color="danger" size="sm">
+                          <FontAwesomeIcon icon="trash" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.delete">Delete</Translate>
+                          </span>
+                        </Button>
                       </div>
                     </td>
                   </tr>
@@ -296,25 +348,13 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
   }
 }
 
-const mapStateToProps = (storeState: IRootState) => ({
-  etudiantsExecutifList: storeState.etudiantsExecutif.entities,
-  etablissements: storeState.etablissement.entities,
-  filieres: storeState.filiere.entities,
-  isAdmin: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.ADMIN]),
-  isUser: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.USER]),
-  isRespFin: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.ROLE_RESP_FINANCE]),
-  isEtudiant: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.ROLE_ETUDIANT_EXECUTIF])
+const mapStateToProps = ({ etudiantsExecutif }: IRootState) => ({
+  etudiantsExecutifList: etudiantsExecutif.entities
 });
 
 const mapDispatchToProps = {
   getSearchEntities,
-  getEntities,
-  updateEntity,
-  getEtablissements,
-  getFilieres,
-  getEntitiesByEtab,
-  getEntitiesByFiliere,
-  getEntitiesByUserId
+  getEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
