@@ -92,18 +92,6 @@ import tableauDeBoard, {
 import document, {
   DocumentState
 } from 'app/entities/document/document.reducer';
-// prettier-ignore
-import autreDoc, {
-  AutreDocState
-} from 'app/entities/autre-doc/autre-doc.reducer';
-// prettier-ignore
-import content, {
-  ContentState
-} from 'app/entities/content/content.reducer';
-// prettier-ignore
-import emploieDuTemps, {
-  EmploieDuTempsState
-} from 'app/entities/emploie-du-temps/emploie-du-temps.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -138,9 +126,6 @@ export interface IRootState {
   readonly tableauDeBoard: TableauDeBoardState;
   readonly document: DocumentState;
 
-  readonly autreDoc: AutreDocState;
-  readonly content: ContentState;
-  readonly emploieDuTemps: EmploieDuTempsState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -176,9 +161,6 @@ const rootReducer = combineReducers<IRootState>({
   noteExecutif,
   tableauDeBoard,
   document,
-  autreDoc,
-  content,
-  emploieDuTemps,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

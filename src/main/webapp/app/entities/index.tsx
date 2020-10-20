@@ -28,9 +28,6 @@ import { AUTHORITIES } from 'app/config/constants';
 import PrivateRoute from 'app/shared/auth/private-route';
 import AbsenceLicence from './absence-licence';
 import AbsenceMaster from './absence-master';
-import AutreDoc from './autre-doc';
-import Content from './content';
-import EmploieDuTemps from './emploie-du-temps';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -111,25 +108,6 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/document`} component={Document} />
       <ErrorBoundaryRoute path={`${match.url}/etudiants-executif`} component={EtudiantsExecutif} />
 
-      <ErrorBoundaryRoute path={`${match.url}/affectation-module`} component={AffectationModule} />
-      <ErrorBoundaryRoute path={`${match.url}/annee-inscription`} component={AnneeInscription} />
-      <ErrorBoundaryRoute path={`${match.url}/calendrier-module`} component={CalendrierModule} />
-      <ErrorBoundaryRoute path={`${match.url}/etudiants-licence`} component={EtudiantsLicence} />
-      <ErrorBoundaryRoute path={`${match.url}/etudiants-master`} component={EtudiantsMaster} />
-      <ErrorBoundaryRoute path={`${match.url}/filiere`} component={Filiere} />
-      <ErrorBoundaryRoute path={`${match.url}/module`} component={Module} />
-      <ErrorBoundaryRoute path={`${match.url}/professeur`} component={Professeur} />
-      <ErrorBoundaryRoute path={`${match.url}/suivi-module`} component={SuiviModule} />
-      <ErrorBoundaryRoute path={`${match.url}/etablissement`} component={Etablissement} />
-      <ErrorBoundaryRoute path={`${match.url}/modalite-paiement`} component={ModalitePaiement} />
-      <ErrorBoundaryRoute path={`${match.url}/espace-etudiant`} component={EspaceEtudiant} />
-      <ErrorBoundaryRoute path={`${match.url}/annonce`} component={Annonce} />
-      <ErrorBoundaryRoute path={`${match.url}/note-licence`} component={NoteLicence} />
-      <ErrorBoundaryRoute path={`${match.url}/note-master`} component={NoteMaster} />
-      <ErrorBoundaryRoute path={`${match.url}/note-executif`} component={NoteExecutif} />
-      <ErrorBoundaryRoute path={`${match.url}/autre-doc`} component={AutreDoc} />
-      <ErrorBoundaryRoute path={`${match.url}/content`} component={Content} />
-      <ErrorBoundaryRoute path={`${match.url}/emploie-du-temps`} component={EmploieDuTemps} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

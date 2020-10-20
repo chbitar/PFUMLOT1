@@ -47,11 +47,10 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
     return (
       <div>
         <h2 id="filiere-heading">
-          <Translate contentKey="pfumv10App.filiere.home.title">Filieres</Translate>
+          Liste des filières
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="pfumv10App.filiere.home.createLabel">Create new Filiere</Translate>
+            &nbsp; Ajouter une filière
           </Link>
         </h2>
         <Row>
@@ -82,17 +81,12 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
             <Table responsive>
               <thead>
                 <tr>
-                  <th>
-                    <Translate contentKey="global.field.id">ID</Translate>
-                  </th>
-                  <th>
-                    <Translate contentKey="pfumv10App.filiere.nomfiliere">Nomfiliere</Translate>
-                  </th>
+                  <th>Nom filière</th>
                   <th>
                     <Translate contentKey="pfumv10App.filiere.responsable">Responsable</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.filiere.accreditaion">Accreditaion</Translate>
+                    <Translate contentKey="pfumv10App.filiere.accreditaion">Accreditation</Translate>
                   </th>
                   <th>
                     <Translate contentKey="pfumv10App.filiere.programme">Programme</Translate>
@@ -106,11 +100,6 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
               <tbody>
                 {filiereList.map((filiere, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${filiere.id}`} color="link" size="sm">
-                        {filiere.id}
-                      </Button>
-                    </td>
                     <td>{filiere.nomfiliere}</td>
                     <td>{filiere.responsable}</td>
                     <td>{filiere.accreditaion}</td>
@@ -119,19 +108,13 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
                     </td>
                     <td>
                       {filiere.etablissement ? (
-                        <Link to={`etablissement/${filiere.etablissement.id}`}>{filiere.etablissement.id}</Link>
+                        <Link to={`etablissement/${filiere.etablissement.id}`}>{filiere.etablissement.nomEcole}</Link>
                       ) : (
                         ''
                       )}
                     </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${filiere.id}`} color="info" size="sm">
-                          <FontAwesomeIcon icon="eye" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
                         <Button tag={Link} to={`${match.url}/${filiere.id}/edit`} color="primary" size="sm">
                           <FontAwesomeIcon icon="pencil-alt" />{' '}
                           <span className="d-none d-md-inline">

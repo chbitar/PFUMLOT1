@@ -23,9 +23,9 @@
       "remiseNiveau1": "Remise Niveau 1",
       "remiseNiveau2": "Remise Niveau 2",
       "devise": "Devise",
-      "etudiantsExecutif": "Etudiants Executif",
       "etudiantsLicence": "Etudiants Licence",
-      "etudiantsMaster": "Etudiants Master"
+      "etudiantsMaster": "Etudiants Master",
+      "etudiantsExecutif": "Etudiants Executif"
     }
   }
 }

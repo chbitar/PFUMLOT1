@@ -63,16 +63,6 @@ public class EtudiantsMaster implements Serializable {
     @Column(name = "mention")
     private Mention mention;
 
-    @Column(name = "annee_obtention_bac")
-    private String anneeObtentionBac;
-
-    @Lob
-    @Column(name = "relevee_note_bac")
-    private byte[] releveeNoteBac;
-
-    @Column(name = "relevee_note_bac_content_type")
-    private String releveeNoteBacContentType;
-
     @NotNull
     @Column(name = "cin_pass", nullable = false)
     private String cinPass;
@@ -92,38 +82,32 @@ public class EtudiantsMaster implements Serializable {
     @Column(name = "tel")
     private Integer tel;
 
-    @Column(name = "deuxiemetel")
-    private Integer deuxiemetel;
-
-    
     @Lob
-    @Column(name = "photo", nullable = false)
+    @Column(name = "photo")
     private byte[] photo;
 
-    @Column(name = "photo_content_type", nullable = false)
+    @Column(name = "photo_content_type")
     private String photoContentType;
 
     @Lob
-    @Column(name = "tes_admission")
-    private byte[] tesAdmission;
+    @Column(name = "extrait_acte_naissance")
+    private byte[] extraitActeNaissance;
 
-    @Column(name = "tes_admission_content_type")
-    private String tesAdmissionContentType;
+    @Column(name = "extrait_acte_naissance_content_type")
+    private String extraitActeNaissanceContentType;
 
-    
     @Lob
-    @Column(name = "bacalaureat", nullable = false)
+    @Column(name = "bacalaureat")
     private byte[] bacalaureat;
 
-    @Column(name = "bacalaureat_content_type", nullable = false)
+    @Column(name = "bacalaureat_content_type")
     private String bacalaureatContentType;
 
-    
     @Lob
-    @Column(name = "cin_passport", nullable = false)
+    @Column(name = "cin_passport")
     private byte[] cinPassport;
 
-    @Column(name = "cin_passport_content_type", nullable = false)
+    @Column(name = "cin_passport_content_type")
     private String cinPassportContentType;
 
     @Lob
@@ -132,19 +116,6 @@ public class EtudiantsMaster implements Serializable {
 
     @Column(name = "diplome_content_type")
     private String diplomeContentType;
-
-    @Column(name = "annee_obtention_licence")
-    private String anneeObtentionLicence;
-
-    @Lob
-    @Column(name = "relevee_note_licence")
-    private byte[] releveeNoteLicence;
-
-    @Column(name = "relevee_note_licence_content_type")
-    private String releveeNoteLicenceContentType;
-
-    @Column(name = "etablissement_obtention")
-    private String etablissementObtention;
 
     @Column(name = "inscriptionvalide")
     private Boolean inscriptionvalide;
@@ -300,45 +271,6 @@ public class EtudiantsMaster implements Serializable {
         this.mention = mention;
     }
 
-    public String getAnneeObtentionBac() {
-        return anneeObtentionBac;
-    }
-
-    public EtudiantsMaster anneeObtentionBac(String anneeObtentionBac) {
-        this.anneeObtentionBac = anneeObtentionBac;
-        return this;
-    }
-
-    public void setAnneeObtentionBac(String anneeObtentionBac) {
-        this.anneeObtentionBac = anneeObtentionBac;
-    }
-
-    public byte[] getReleveeNoteBac() {
-        return releveeNoteBac;
-    }
-
-    public EtudiantsMaster releveeNoteBac(byte[] releveeNoteBac) {
-        this.releveeNoteBac = releveeNoteBac;
-        return this;
-    }
-
-    public void setReleveeNoteBac(byte[] releveeNoteBac) {
-        this.releveeNoteBac = releveeNoteBac;
-    }
-
-    public String getReleveeNoteBacContentType() {
-        return releveeNoteBacContentType;
-    }
-
-    public EtudiantsMaster releveeNoteBacContentType(String releveeNoteBacContentType) {
-        this.releveeNoteBacContentType = releveeNoteBacContentType;
-        return this;
-    }
-
-    public void setReleveeNoteBacContentType(String releveeNoteBacContentType) {
-        this.releveeNoteBacContentType = releveeNoteBacContentType;
-    }
-
     public String getCinPass() {
         return cinPass;
     }
@@ -417,19 +349,6 @@ public class EtudiantsMaster implements Serializable {
         this.tel = tel;
     }
 
-    public Integer getDeuxiemetel() {
-        return deuxiemetel;
-    }
-
-    public EtudiantsMaster deuxiemetel(Integer deuxiemetel) {
-        this.deuxiemetel = deuxiemetel;
-        return this;
-    }
-
-    public void setDeuxiemetel(Integer deuxiemetel) {
-        this.deuxiemetel = deuxiemetel;
-    }
-
     public byte[] getPhoto() {
         return photo;
     }
@@ -456,30 +375,30 @@ public class EtudiantsMaster implements Serializable {
         this.photoContentType = photoContentType;
     }
 
-    public byte[] getTesAdmission() {
-        return tesAdmission;
+    public byte[] getExtraitActeNaissance() {
+        return extraitActeNaissance;
     }
 
-    public EtudiantsMaster tesAdmission(byte[] tesAdmission) {
-        this.tesAdmission = tesAdmission;
+    public EtudiantsMaster extraitActeNaissance(byte[] extraitActeNaissance) {
+        this.extraitActeNaissance = extraitActeNaissance;
         return this;
     }
 
-    public void setTesAdmission(byte[] tesAdmission) {
-        this.tesAdmission = tesAdmission;
+    public void setExtraitActeNaissance(byte[] extraitActeNaissance) {
+        this.extraitActeNaissance = extraitActeNaissance;
     }
 
-    public String getTesAdmissionContentType() {
-        return tesAdmissionContentType;
+    public String getExtraitActeNaissanceContentType() {
+        return extraitActeNaissanceContentType;
     }
 
-    public EtudiantsMaster tesAdmissionContentType(String tesAdmissionContentType) {
-        this.tesAdmissionContentType = tesAdmissionContentType;
+    public EtudiantsMaster extraitActeNaissanceContentType(String extraitActeNaissanceContentType) {
+        this.extraitActeNaissanceContentType = extraitActeNaissanceContentType;
         return this;
     }
 
-    public void setTesAdmissionContentType(String tesAdmissionContentType) {
-        this.tesAdmissionContentType = tesAdmissionContentType;
+    public void setExtraitActeNaissanceContentType(String extraitActeNaissanceContentType) {
+        this.extraitActeNaissanceContentType = extraitActeNaissanceContentType;
     }
 
     public byte[] getBacalaureat() {
@@ -558,58 +477,6 @@ public class EtudiantsMaster implements Serializable {
 
     public void setDiplomeContentType(String diplomeContentType) {
         this.diplomeContentType = diplomeContentType;
-    }
-
-    public String getAnneeObtentionLicence() {
-        return anneeObtentionLicence;
-    }
-
-    public EtudiantsMaster anneeObtentionLicence(String anneeObtentionLicence) {
-        this.anneeObtentionLicence = anneeObtentionLicence;
-        return this;
-    }
-
-    public void setAnneeObtentionLicence(String anneeObtentionLicence) {
-        this.anneeObtentionLicence = anneeObtentionLicence;
-    }
-
-    public byte[] getReleveeNoteLicence() {
-        return releveeNoteLicence;
-    }
-
-    public EtudiantsMaster releveeNoteLicence(byte[] releveeNoteLicence) {
-        this.releveeNoteLicence = releveeNoteLicence;
-        return this;
-    }
-
-    public void setReleveeNoteLicence(byte[] releveeNoteLicence) {
-        this.releveeNoteLicence = releveeNoteLicence;
-    }
-
-    public String getReleveeNoteLicenceContentType() {
-        return releveeNoteLicenceContentType;
-    }
-
-    public EtudiantsMaster releveeNoteLicenceContentType(String releveeNoteLicenceContentType) {
-        this.releveeNoteLicenceContentType = releveeNoteLicenceContentType;
-        return this;
-    }
-
-    public void setReleveeNoteLicenceContentType(String releveeNoteLicenceContentType) {
-        this.releveeNoteLicenceContentType = releveeNoteLicenceContentType;
-    }
-
-    public String getEtablissementObtention() {
-        return etablissementObtention;
-    }
-
-    public EtudiantsMaster etablissementObtention(String etablissementObtention) {
-        this.etablissementObtention = etablissementObtention;
-        return this;
-    }
-
-    public void setEtablissementObtention(String etablissementObtention) {
-        this.etablissementObtention = etablissementObtention;
     }
 
     public Boolean isInscriptionvalide() {
@@ -770,30 +637,22 @@ public class EtudiantsMaster implements Serializable {
             ", email='" + getEmail() + "'" +
             ", typeBac='" + getTypeBac() + "'" +
             ", mention='" + getMention() + "'" +
-            ", anneeObtentionBac='" + getAnneeObtentionBac() + "'" +
-            ", releveeNoteBac='" + getReleveeNoteBac() + "'" +
-            ", releveeNoteBacContentType='" + getReleveeNoteBacContentType() + "'" +
             ", cinPass='" + getCinPass() + "'" +
             ", paysNationalite='" + getPaysNationalite() + "'" +
             ", paysResidence='" + getPaysResidence() + "'" +
             ", codepostal='" + getCodepostal() + "'" +
             ", province='" + getProvince() + "'" +
             ", tel=" + getTel() +
-            ", deuxiemetel=" + getDeuxiemetel() +
             ", photo='" + getPhoto() + "'" +
             ", photoContentType='" + getPhotoContentType() + "'" +
-            ", tesAdmission='" + getTesAdmission() + "'" +
-            ", tesAdmissionContentType='" + getTesAdmissionContentType() + "'" +
+            ", extraitActeNaissance='" + getExtraitActeNaissance() + "'" +
+            ", extraitActeNaissanceContentType='" + getExtraitActeNaissanceContentType() + "'" +
             ", bacalaureat='" + getBacalaureat() + "'" +
             ", bacalaureatContentType='" + getBacalaureatContentType() + "'" +
             ", cinPassport='" + getCinPassport() + "'" +
             ", cinPassportContentType='" + getCinPassportContentType() + "'" +
             ", diplome='" + getDiplome() + "'" +
             ", diplomeContentType='" + getDiplomeContentType() + "'" +
-            ", anneeObtentionLicence='" + getAnneeObtentionLicence() + "'" +
-            ", releveeNoteLicence='" + getReleveeNoteLicence() + "'" +
-            ", releveeNoteLicenceContentType='" + getReleveeNoteLicenceContentType() + "'" +
-            ", etablissementObtention='" + getEtablissementObtention() + "'" +
             ", inscriptionvalide='" + isInscriptionvalide() + "'" +
             ", absent='" + isAbsent() + "'" +
             "}";

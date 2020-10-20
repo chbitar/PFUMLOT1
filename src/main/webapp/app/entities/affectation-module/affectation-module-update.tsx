@@ -7,17 +7,11 @@ import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstr
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-
-import { IModule } from 'app/shared/model/module.model';
-import { getEntities as getModules } from 'app/entities/module/module.reducer';
-import { IProfesseur } from 'app/shared/model/professeur.model';
-import { getEntities as getProfesseurs } from 'app/entities/professeur/professeur.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './affectation-module.reducer';
 import { IAffectationModule } from 'app/shared/model/affectation-module.model';
 // tslint:disable-next-line:no-unused-variable
-import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
-
+import { getEntitiesBySemestre as getModules } from 'app/entities/module/module.reducer';
+import { getEntities as getProfesseurs } from 'app/entities/professeur/professeur.reducer';
 export interface IAffectationModuleUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface IAffectationModuleUpdateState {
@@ -49,7 +43,8 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
       this.props.getEntity(this.props.match.params.id);
     }
 
-    this.props.getModules();
+    // @ts-ignore
+    this.props.getModules('S1');
     this.props.getProfesseurs();
   }
 
@@ -73,6 +68,10 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
     this.props.history.push('/entity/affectation-module');
   };
 
+  fillListModule = e => {
+    this.props.getModules(e.target.value);
+  };
+
   render() {
     const { affectationModuleEntity, modules, professeurs, loading, updating } = this.props;
     const { isNew } = this.state;
@@ -81,9 +80,7 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.affectationModule.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.affectationModule.home.createOrEditLabel">Create or edit a AffectationModule</Translate>
-            </h2>
+            <h2 id="pfumv10App.affectationModule.home.createOrEditLabel">Créer ou éditer une affectation Module/Professeur</h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -104,13 +101,14 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                   <Label id="anneeLabel" for="affectation-module-annee">
                     <Translate contentKey="pfumv10App.affectationModule.annee">Annee</Translate>
                   </Label>
-                  <AvField id="affectation-module-annee" type="text" name="annee" />
+                  <AvField id="affectation-module-annee" type="text" name="annee" value="2020-2021" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="semestreLabel" for="affectation-module-semestre">
                     <Translate contentKey="pfumv10App.affectationModule.semestre">Semestre</Translate>
                   </Label>
                   <AvInput
+                    onChange={this.fillListModule}
                     id="affectation-module-semestre"
                     type="select"
                     className="form-control"
@@ -134,7 +132,7 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                     {modules
                       ? modules.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.nomModule}
                           </option>
                         ))
                       : null}
@@ -149,7 +147,7 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                     {professeurs
                       ? professeurs.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.nom + ' ' + otherEntity.prenom}
                           </option>
                         ))
                       : null}

@@ -1,28 +1,51 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.EtudiantsExecutif;
-import com.planeta.pfum.repository.EtudiantsExecutifRepository;
-import com.planeta.pfum.repository.search.EtudiantsExecutifSearchRepository;
-import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.planeta.pfum.domain.EspaceEtudiant;
+import com.planeta.pfum.domain.EtudiantsExecutif;
+import com.planeta.pfum.domain.Filiere;
+import com.planeta.pfum.domain.User;
+import com.planeta.pfum.repository.EtudiantsExecutifRepository;
+import com.planeta.pfum.repository.FiliereRepository;
+import com.planeta.pfum.repository.UserRepository;
+import com.planeta.pfum.repository.search.EtudiantsExecutifSearchRepository;
+import com.planeta.pfum.security.AuthoritiesConstants;
+import com.planeta.pfum.security.SecurityUtils;
+import com.planeta.pfum.service.UserService;
+import com.planeta.pfum.service.dto.MessageEmail;
+import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.EtudiantsExecutif}.
@@ -42,9 +65,22 @@ public class EtudiantsExecutifResource {
 
     private final EtudiantsExecutifSearchRepository etudiantsExecutifSearchRepository;
 
-    public EtudiantsExecutifResource(EtudiantsExecutifRepository etudiantsExecutifRepository, EtudiantsExecutifSearchRepository etudiantsExecutifSearchRepository) {
+    private final FiliereRepository filiereRepository;
+    
+    private final UserService userService;
+    
+    private final UserRepository userRepository;
+
+    
+    
+
+
+    public EtudiantsExecutifResource(EtudiantsExecutifRepository etudiantsExecutifRepository, EtudiantsExecutifSearchRepository etudiantsExecutifSearchRepository, FiliereRepository filiereRepository,UserService userService,UserRepository userRepository) {
         this.etudiantsExecutifRepository = etudiantsExecutifRepository;
         this.etudiantsExecutifSearchRepository = etudiantsExecutifSearchRepository;
+        this.filiereRepository = filiereRepository;
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -59,9 +95,21 @@ public class EtudiantsExecutifResource {
         log.debug("REST request to save EtudiantsExecutif : {}", etudiantsExecutif);
         if (etudiantsExecutif.getId() != null) {
             throw new BadRequestAlertException("A new etudiantsExecutif cannot already have an ID", ENTITY_NAME, "idexists");
-        }
+       }
+       
         EtudiantsExecutif result = etudiantsExecutifRepository.save(etudiantsExecutif);
-        etudiantsExecutifSearchRepository.save(result);
+        
+        int fourDigYear =Calendar.getInstance().get(Calendar.YEAR);;
+        String suffixe = "OS"+ Integer.toString(fourDigYear).substring(2)  + customFormat("0000", result.getId());
+        
+        //Creation d'un compte USER pour se connecter
+        User newUser = userService.createUserForEtudiants(etudiantsExecutif);
+        etudiantsExecutif.setUser(newUser);
+        etudiantsExecutif.setSuffixe(suffixe);
+
+        etudiantsExecutifRepository.save(etudiantsExecutif);
+       
+//        etudiantsExecutifSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-executifs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,7 +131,7 @@ public class EtudiantsExecutifResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         EtudiantsExecutif result = etudiantsExecutifRepository.save(etudiantsExecutif);
-        etudiantsExecutifSearchRepository.save(result);
+//        etudiantsExecutifSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, etudiantsExecutif.getId().toString()))
             .body(result);
@@ -97,6 +145,12 @@ public class EtudiantsExecutifResource {
     @GetMapping("/etudiants-executifs")
     public List<EtudiantsExecutif> getAllEtudiantsExecutifs() {
         log.debug("REST request to get all EtudiantsExecutifs");
+        
+    	if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT_EXECUTIF)) {
+			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+			return etudiantsExecutifRepository.findAllByUserId(user.get().getId());
+		} 
+        
         return etudiantsExecutifRepository.findAll();
     }
 
@@ -123,7 +177,7 @@ public class EtudiantsExecutifResource {
     public ResponseEntity<Void> deleteEtudiantsExecutif(@PathVariable Long id) {
         log.debug("REST request to delete EtudiantsExecutif : {}", id);
         etudiantsExecutifRepository.deleteById(id);
-        etudiantsExecutifSearchRepository.deleteById(id);
+//        etudiantsExecutifSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -137,9 +191,25 @@ public class EtudiantsExecutifResource {
     @GetMapping("/_search/etudiants-executifs")
     public List<EtudiantsExecutif> searchEtudiantsExecutifs(@RequestParam String query) {
         log.debug("REST request to search EtudiantsExecutifs for query {}", query);
-        return StreamSupport
-            .stream(etudiantsExecutifSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(etudiantsExecutifSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        
+        return new ArrayList<EtudiantsExecutif>();
+
     }
 
+    @GetMapping("/etudiants-executifs/filiere/{fil}")
+    public List<EtudiantsExecutif> getAllEtudiantsExecutifsByFiliere(@PathVariable Filiere fil) {
+        log.debug("REST request to get all etudiants-executifs");
+        return etudiantsExecutifRepository.findAllByFiliere(fil);
+    }
+
+    
+    private String customFormat(String pattern, long value ) {
+        DecimalFormat myFormatter = new DecimalFormat(pattern);
+        return myFormatter.format(value);
+     }
+
 }
+

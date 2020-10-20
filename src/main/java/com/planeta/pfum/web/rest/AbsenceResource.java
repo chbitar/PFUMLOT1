@@ -1,8 +1,15 @@
 package com.planeta.pfum.web.rest;
 
 import com.planeta.pfum.domain.Absence;
+import com.planeta.pfum.domain.Professeur;
+import com.planeta.pfum.domain.User;
 import com.planeta.pfum.repository.AbsenceRepository;
+import com.planeta.pfum.repository.ProfesseurRepository;
+import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.repository.search.AbsenceSearchRepository;
+// absenceSearchRepository;
+import com.planeta.pfum.security.AuthoritiesConstants;
+import com.planeta.pfum.security.SecurityUtils;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -15,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,9 +48,16 @@ public class AbsenceResource {
 
     private final AbsenceSearchRepository absenceSearchRepository;
 
-    public AbsenceResource(AbsenceRepository absenceRepository, AbsenceSearchRepository absenceSearchRepository) {
+	private final UserRepository userRepository;
+
+	private final ProfesseurRepository professeurRepository;
+
+    public AbsenceResource(AbsenceRepository absenceRepository, AbsenceSearchRepository absenceSearchRepository,UserRepository userRepository,ProfesseurRepository professeurRepository) {
         this.absenceRepository = absenceRepository;
         this.absenceSearchRepository = absenceSearchRepository;
+        this.userRepository = userRepository;
+        this.professeurRepository = professeurRepository;
+
     }
 
     /**
@@ -59,8 +73,12 @@ public class AbsenceResource {
         if (absence.getId() != null) {
             throw new BadRequestAlertException("A new absence cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        
+		Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+		absence.setUser(user.get());
+		
         Absence result = absenceRepository.save(absence);
-        absenceSearchRepository.save(result);
+        // absenceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/absences/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +100,7 @@ public class AbsenceResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Absence result = absenceRepository.save(absence);
-        absenceSearchRepository.save(result);
+        // absenceSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, absence.getId().toString()))
             .body(result);
@@ -96,7 +114,15 @@ public class AbsenceResource {
     @GetMapping("/absences")
     public List<Absence> getAllAbsences() {
         log.debug("REST request to get all Absences");
-        return absenceRepository.findAll();
+//        return absenceRepository.findAll();
+        
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+			return absenceRepository.findAll();
+		} else {
+			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+			return absenceRepository.findAllByUserId(user.get().getId());
+		}
+        
     }
 
     /**
@@ -122,7 +148,7 @@ public class AbsenceResource {
     public ResponseEntity<Void> deleteAbsence(@PathVariable Long id) {
         log.debug("REST request to delete Absence : {}", id);
         absenceRepository.deleteById(id);
-        absenceSearchRepository.deleteById(id);
+        // absenceSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -136,9 +162,10 @@ public class AbsenceResource {
     @GetMapping("/_search/absences")
     public List<Absence> searchAbsences(@RequestParam String query) {
         log.debug("REST request to search Absences for query {}", query);
-        return StreamSupport
-            .stream(absenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(absenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        return new ArrayList<Absence>();
     }
 
 }

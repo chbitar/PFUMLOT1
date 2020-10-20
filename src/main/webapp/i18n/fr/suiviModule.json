@@ -2,7 +2,7 @@
   "pfumv10App": {
     "suiviModule": {
       "home": {
-        "title": "SuiviModules",
+        "title": "List des Suivis Modules",
         "createLabel": "Créer un nouveau Suivi Module",
         "createOrEditLabel": "Créer ou éditer un Suivi Module",
         "search": "Recherche pour Suivi Module",
@@ -25,7 +25,8 @@
       "finCreneau": "Fin Creneau",
       "duree": "Duree",
       "user": "User",
-      "module": "Module"
+      "module": "Module",
+      "professeur": "Professeur"
     }
   }
 }

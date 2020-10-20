@@ -4,6 +4,7 @@ import com.planeta.pfum.Pfumv10App;
 import com.planeta.pfum.domain.Professeur;
 import com.planeta.pfum.repository.ProfesseurRepository;
 import com.planeta.pfum.repository.search.ProfesseurSearchRepository;
+import com.planeta.pfum.service.UserService;
 import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -90,11 +91,14 @@ public class ProfesseurResourceIT {
     private MockMvc restProfesseurMockMvc;
 
     private Professeur professeur;
+    
+    @Autowired
+    private UserService userService;
 
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProfesseurResource professeurResource = new ProfesseurResource(professeurRepository, mockProfesseurSearchRepository);
+        final ProfesseurResource professeurResource = new ProfesseurResource(professeurRepository, mockProfesseurSearchRepository,userService);
         this.restProfesseurMockMvc = MockMvcBuilders.standaloneSetup(professeurResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -13,23 +13,17 @@ export default class EtudiantsMasterUpdatePage {
   emailInput: ElementFinder = element(by.css('input#etudiants-master-email'));
   typeBacSelect: ElementFinder = element(by.css('select#etudiants-master-typeBac'));
   mentionSelect: ElementFinder = element(by.css('select#etudiants-master-mention'));
-  anneeObtentionBacInput: ElementFinder = element(by.css('input#etudiants-master-anneeObtentionBac'));
-  releveeNoteBacInput: ElementFinder = element(by.css('input#file_releveeNoteBac'));
   cinPassInput: ElementFinder = element(by.css('input#etudiants-master-cinPass'));
   paysNationaliteInput: ElementFinder = element(by.css('input#etudiants-master-paysNationalite'));
   paysResidenceInput: ElementFinder = element(by.css('input#etudiants-master-paysResidence'));
   codepostalInput: ElementFinder = element(by.css('input#etudiants-master-codepostal'));
   provinceInput: ElementFinder = element(by.css('input#etudiants-master-province'));
   telInput: ElementFinder = element(by.css('input#etudiants-master-tel'));
-  deuxiemetelInput: ElementFinder = element(by.css('input#etudiants-master-deuxiemetel'));
   photoInput: ElementFinder = element(by.css('input#file_photo'));
-  tesAdmissionInput: ElementFinder = element(by.css('input#file_tesAdmission'));
+  extraitActeNaissanceInput: ElementFinder = element(by.css('input#file_extraitActeNaissance'));
   bacalaureatInput: ElementFinder = element(by.css('input#file_bacalaureat'));
   cinPassportInput: ElementFinder = element(by.css('input#file_cinPassport'));
   diplomeInput: ElementFinder = element(by.css('input#file_diplome'));
-  anneeObtentionLicenceInput: ElementFinder = element(by.css('input#etudiants-master-anneeObtentionLicence'));
-  releveeNoteLicenceInput: ElementFinder = element(by.css('input#file_releveeNoteLicence'));
-  etablissementObtentionInput: ElementFinder = element(by.css('input#etudiants-master-etablissementObtention'));
   inscriptionvalideInput: ElementFinder = element(by.css('input#etudiants-master-inscriptionvalide'));
   absentInput: ElementFinder = element(by.css('input#etudiants-master-absent'));
   userSelect: ElementFinder = element(by.css('select#etudiants-master-user'));
@@ -125,22 +119,6 @@ export default class EtudiantsMasterUpdatePage {
       .last()
       .click();
   }
-  async setAnneeObtentionBacInput(anneeObtentionBac) {
-    await this.anneeObtentionBacInput.sendKeys(anneeObtentionBac);
-  }
-
-  async getAnneeObtentionBacInput() {
-    return this.anneeObtentionBacInput.getAttribute('value');
-  }
-
-  async setReleveeNoteBacInput(releveeNoteBac) {
-    await this.releveeNoteBacInput.sendKeys(releveeNoteBac);
-  }
-
-  async getReleveeNoteBacInput() {
-    return this.releveeNoteBacInput.getAttribute('value');
-  }
-
   async setCinPassInput(cinPass) {
     await this.cinPassInput.sendKeys(cinPass);
   }
@@ -189,14 +167,6 @@ export default class EtudiantsMasterUpdatePage {
     return this.telInput.getAttribute('value');
   }
 
-  async setDeuxiemetelInput(deuxiemetel) {
-    await this.deuxiemetelInput.sendKeys(deuxiemetel);
-  }
-
-  async getDeuxiemetelInput() {
-    return this.deuxiemetelInput.getAttribute('value');
-  }
-
   async setPhotoInput(photo) {
     await this.photoInput.sendKeys(photo);
   }
@@ -205,12 +175,12 @@ export default class EtudiantsMasterUpdatePage {
     return this.photoInput.getAttribute('value');
   }
 
-  async setTesAdmissionInput(tesAdmission) {
-    await this.tesAdmissionInput.sendKeys(tesAdmission);
+  async setExtraitActeNaissanceInput(extraitActeNaissance) {
+    await this.extraitActeNaissanceInput.sendKeys(extraitActeNaissance);
   }
 
-  async getTesAdmissionInput() {
-    return this.tesAdmissionInput.getAttribute('value');
+  async getExtraitActeNaissanceInput() {
+    return this.extraitActeNaissanceInput.getAttribute('value');
   }
 
   async setBacalaureatInput(bacalaureat) {
@@ -235,30 +205,6 @@ export default class EtudiantsMasterUpdatePage {
 
   async getDiplomeInput() {
     return this.diplomeInput.getAttribute('value');
-  }
-
-  async setAnneeObtentionLicenceInput(anneeObtentionLicence) {
-    await this.anneeObtentionLicenceInput.sendKeys(anneeObtentionLicence);
-  }
-
-  async getAnneeObtentionLicenceInput() {
-    return this.anneeObtentionLicenceInput.getAttribute('value');
-  }
-
-  async setReleveeNoteLicenceInput(releveeNoteLicence) {
-    await this.releveeNoteLicenceInput.sendKeys(releveeNoteLicence);
-  }
-
-  async getReleveeNoteLicenceInput() {
-    return this.releveeNoteLicenceInput.getAttribute('value');
-  }
-
-  async setEtablissementObtentionInput(etablissementObtention) {
-    await this.etablissementObtentionInput.sendKeys(etablissementObtention);
-  }
-
-  async getEtablissementObtentionInput() {
-    return this.etablissementObtentionInput.getAttribute('value');
   }
 
   getInscriptionvalideInput() {

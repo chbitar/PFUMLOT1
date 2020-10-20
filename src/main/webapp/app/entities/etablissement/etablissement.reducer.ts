@@ -125,6 +125,11 @@ export const getEntities: ICrudGetAllAction<IEtablissement> = (page, size, sort)
   payload: axios.get<IEtablissement>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
+export const getEntitie: ICrudGetAllAction<IEtablissement> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_ETABLISSEMENT_LIST,
+  payload: axios.get<IEtablissement>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+});
+
 export const getEntity: ICrudGetAction<IEtablissement> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {

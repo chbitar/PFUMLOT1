@@ -5,6 +5,7 @@ import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
 import { IFiliere, defaultValue } from 'app/shared/model/filiere.model';
+import { IAffectationModule } from 'app/shared/model/affectation-module.model';
 
 export const ACTION_TYPES = {
   SEARCH_FILIERES: 'filiere/SEARCH_FILIERES',
@@ -114,6 +115,11 @@ export const getEntities: ICrudGetAllAction<IFiliere> = (page, size, sort) => ({
   payload: axios.get<IFiliere>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
+export const getEntitie: ICrudGetAllAction<IFiliere> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_FILIERE_LIST,
+  payload: axios.get<IFiliere>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+});
+
 export const getEntity: ICrudGetAction<IFiliere> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
@@ -148,6 +154,14 @@ export const deleteEntity: ICrudDeleteAction<IFiliere> = id => async dispatch =>
   });
   dispatch(getEntities());
   return result;
+};
+
+export const getEntitiesByEtab: ICrudGetAction<IFiliere> = etab => {
+  const requestUrl = `${apiUrl}/etablissement/${etab}`;
+  return {
+    type: ACTION_TYPES.FETCH_FILIERE_LIST,
+    payload: axios.get<IFiliere>(requestUrl)
+  };
 };
 
 export const reset = () => ({

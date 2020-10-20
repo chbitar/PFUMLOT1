@@ -138,7 +138,7 @@ export const createEntity: ICrudPutAction<ISuiviModule> = entity => async dispat
     type: ACTION_TYPES.CREATE_SUIVIMODULE,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getEntitiesAffectedToProf());
   return result;
 };
 
@@ -147,7 +147,7 @@ export const updateEntity: ICrudPutAction<ISuiviModule> = entity => async dispat
     type: ACTION_TYPES.UPDATE_SUIVIMODULE,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getEntitiesAffectedToProf());
   return result;
 };
 
@@ -157,8 +157,16 @@ export const deleteEntity: ICrudDeleteAction<ISuiviModule> = id => async dispatc
     type: ACTION_TYPES.DELETE_SUIVIMODULE,
     payload: axios.delete(requestUrl)
   });
-  dispatch(getEntities());
+  dispatch(getEntitiesAffectedToProf());
   return result;
+};
+
+export const getEntitiesAffectedToProf: ICrudGetAllAction<ISuiviModule> = () => {
+  const requestUrl = `${apiUrl}/professeur`;
+  return {
+    type: ACTION_TYPES.FETCH_SUIVIMODULE_LIST,
+    payload: axios.get<ISuiviModule>(requestUrl)
+  };
 };
 
 export const setBlob = (name, data, contentType?) => ({

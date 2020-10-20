@@ -1,5 +1,6 @@
 package com.planeta.pfum.web.rest;
 
+import com.planeta.pfum.domain.AnneeInscription;
 import com.planeta.pfum.domain.CalendrierModule;
 import com.planeta.pfum.repository.CalendrierModuleRepository;
 import com.planeta.pfum.repository.search.CalendrierModuleSearchRepository;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,7 +61,7 @@ public class CalendrierModuleResource {
             throw new BadRequestAlertException("A new calendrierModule cannot already have an ID", ENTITY_NAME, "idexists");
         }
         CalendrierModule result = calendrierModuleRepository.save(calendrierModule);
-        calendrierModuleSearchRepository.save(result);
+//        calendrierModuleSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/calendrier-modules/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +83,7 @@ public class CalendrierModuleResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         CalendrierModule result = calendrierModuleRepository.save(calendrierModule);
-        calendrierModuleSearchRepository.save(result);
+//        calendrierModuleSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, calendrierModule.getId().toString()))
             .body(result);
@@ -122,7 +123,7 @@ public class CalendrierModuleResource {
     public ResponseEntity<Void> deleteCalendrierModule(@PathVariable Long id) {
         log.debug("REST request to delete CalendrierModule : {}", id);
         calendrierModuleRepository.deleteById(id);
-        calendrierModuleSearchRepository.deleteById(id);
+//        calendrierModuleSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -136,9 +137,11 @@ public class CalendrierModuleResource {
     @GetMapping("/_search/calendrier-modules")
     public List<CalendrierModule> searchCalendrierModules(@RequestParam String query) {
         log.debug("REST request to search CalendrierModules for query {}", query);
-        return StreamSupport
-            .stream(calendrierModuleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(calendrierModuleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        
+        return new ArrayList<CalendrierModule>();
     }
 
 }

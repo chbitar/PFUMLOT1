@@ -1,27 +1,40 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.Professeur;
-import com.planeta.pfum.repository.ProfesseurRepository;
-import com.planeta.pfum.repository.search.ProfesseurSearchRepository;
-import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Example;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.planeta.pfum.domain.Module;
+import com.planeta.pfum.domain.Professeur;
+import com.planeta.pfum.domain.User;
+import com.planeta.pfum.repository.ProfesseurRepository;
+import com.planeta.pfum.repository.search.ProfesseurSearchRepository;
+import com.planeta.pfum.service.UserService;
+import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.Professeur}.
@@ -41,9 +54,12 @@ public class ProfesseurResource {
 
     private final ProfesseurSearchRepository professeurSearchRepository;
 
-    public ProfesseurResource(ProfesseurRepository professeurRepository, ProfesseurSearchRepository professeurSearchRepository) {
+    private final UserService userService;
+
+    public ProfesseurResource(ProfesseurRepository professeurRepository, ProfesseurSearchRepository professeurSearchRepository, UserService userService) {
         this.professeurRepository = professeurRepository;
         this.professeurSearchRepository = professeurSearchRepository;
+        this.userService = userService;
     }
 
     /**
@@ -57,10 +73,16 @@ public class ProfesseurResource {
     public ResponseEntity<Professeur> createProfesseur(@RequestBody Professeur professeur) throws URISyntaxException {
         log.debug("REST request to save Professeur : {}", professeur);
         if (professeur.getId() != null) {
-            throw new BadRequestAlertException("A new professeur cannot already have an ID", ENTITY_NAME, "idexists");
+           throw new BadRequestAlertException("A new professeur cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        //Creation d'un compte USER pour se connecter
+        User newUser = userService.createUserForProfreur(professeur);
+        professeur.setUser(newUser);
+        //
+
         Professeur result = professeurRepository.save(professeur);
-        professeurSearchRepository.save(result);
+//        professeurSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/professeurs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +104,7 @@ public class ProfesseurResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Professeur result = professeurRepository.save(professeur);
-        professeurSearchRepository.save(result);
+//        professeurSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, professeur.getId().toString()))
             .body(result);
@@ -95,7 +117,6 @@ public class ProfesseurResource {
      */
     @GetMapping("/professeurs")
     public List<Professeur> getAllProfesseurs() {
-        log.debug("REST request to get all Professeurs");
         return professeurRepository.findAll();
     }
 
@@ -122,7 +143,7 @@ public class ProfesseurResource {
     public ResponseEntity<Void> deleteProfesseur(@PathVariable Long id) {
         log.debug("REST request to delete Professeur : {}", id);
         professeurRepository.deleteById(id);
-        professeurSearchRepository.deleteById(id);
+//        professeurSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -136,9 +157,12 @@ public class ProfesseurResource {
     @GetMapping("/_search/professeurs")
     public List<Professeur> searchProfesseurs(@RequestParam String query) {
         log.debug("REST request to search Professeurs for query {}", query);
-        return StreamSupport
-            .stream(professeurSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(professeurSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        
+        return new ArrayList<Professeur>();
+
     }
 
 }

@@ -11,7 +11,9 @@ import { IRootState } from 'app/shared/reducers';
 import { getSearchEntities, getEntities } from './espace-etudiant.reducer';
 import { IEspaceEtudiant } from 'app/shared/model/espace-etudiant.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
+import authentication from 'app/shared/reducers/authentication';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IEspaceEtudiantProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -177,18 +179,6 @@ export class EspaceEtudiant extends React.Component<IEspaceEtudiantProps, IEspac
                           <FontAwesomeIcon icon="eye" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${espaceEtudiant.id}/edit`} color="primary" size="sm">
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${espaceEtudiant.id}/delete`} color="danger" size="sm">
-                          <FontAwesomeIcon icon="trash" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.delete">Delete</Translate>
                           </span>
                         </Button>
                       </div>

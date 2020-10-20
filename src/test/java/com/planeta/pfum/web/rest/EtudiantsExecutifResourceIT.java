@@ -3,7 +3,10 @@ package com.planeta.pfum.web.rest;
 import com.planeta.pfum.Pfumv10App;
 import com.planeta.pfum.domain.EtudiantsExecutif;
 import com.planeta.pfum.repository.EtudiantsExecutifRepository;
+import com.planeta.pfum.repository.FiliereRepository;
+import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.repository.search.EtudiantsExecutifSearchRepository;
+import com.planeta.pfum.service.UserService;
 import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -69,9 +72,6 @@ public class EtudiantsExecutifResourceIT {
     private static final Mention DEFAULT_MENTION = Mention.Passable;
     private static final Mention UPDATED_MENTION = Mention.Assez_bien;
 
-    private static final String DEFAULT_ANNEE_OBTENTION = "AAAAAAAAAA";
-    private static final String UPDATED_ANNEE_OBTENTION = "BBBBBBBBBB";
-
     private static final String DEFAULT_CIN_PASS = "AAAAAAAAAA";
     private static final String UPDATED_CIN_PASS = "BBBBBBBBBB";
 
@@ -90,23 +90,15 @@ public class EtudiantsExecutifResourceIT {
     private static final Integer DEFAULT_TEL = 1;
     private static final Integer UPDATED_TEL = 2;
 
-    private static final Integer DEFAULT_DEUXIEMETEL = 1;
-    private static final Integer UPDATED_DEUXIEMETEL = 2;
-
     private static final byte[] DEFAULT_PHOTO = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PHOTO = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_PHOTO_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_PHOTO_CONTENT_TYPE = "image/png";
 
-    private static final byte[] DEFAULT_CV = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_CV = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_CV_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_CV_CONTENT_TYPE = "image/png";
-
-    private static final byte[] DEFAULT_ATTESTATION_TRAVAIL = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_ATTESTATION_TRAVAIL = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_ATTESTATION_TRAVAIL_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_ATTESTATION_TRAVAIL_CONTENT_TYPE = "image/png";
+    private static final byte[] DEFAULT_EXTRAIT_ACTE_NAISSANCE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_EXTRAIT_ACTE_NAISSANCE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE = "image/png";
 
     private static final byte[] DEFAULT_BACALAUREAT = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_BACALAUREAT = TestUtil.createByteArray(1, "1");
@@ -122,16 +114,6 @@ public class EtudiantsExecutifResourceIT {
     private static final byte[] UPDATED_DIPLOME = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_DIPLOME_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_DIPLOME_CONTENT_TYPE = "image/png";
-
-    private static final byte[] DEFAULT_TEST_ADMISSION = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_TEST_ADMISSION = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_TEST_ADMISSION_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_TEST_ADMISSION_CONTENT_TYPE = "image/png";
-
-    private static final byte[] DEFAULT_RELEVEE_NOTE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_RELEVEE_NOTE = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_RELEVEE_NOTE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_RELEVEE_NOTE_CONTENT_TYPE = "image/png";
 
     private static final Boolean DEFAULT_INSCRIPTIONVALIDE = false;
     private static final Boolean UPDATED_INSCRIPTIONVALIDE = true;
@@ -168,11 +150,19 @@ public class EtudiantsExecutifResourceIT {
     private MockMvc restEtudiantsExecutifMockMvc;
 
     private EtudiantsExecutif etudiantsExecutif;
+    
+    @Autowired
+    private  UserService userService;
+    @Autowired
+    private  UserRepository userRepository;
+    @Autowired
+    private  FiliereRepository filiereRepository;
 
+    
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final EtudiantsExecutifResource etudiantsExecutifResource = new EtudiantsExecutifResource(etudiantsExecutifRepository, mockEtudiantsExecutifSearchRepository);
+        final EtudiantsExecutifResource etudiantsExecutifResource = new EtudiantsExecutifResource(etudiantsExecutifRepository, mockEtudiantsExecutifSearchRepository,filiereRepository,userService,userRepository);
         this.restEtudiantsExecutifMockMvc = MockMvcBuilders.standaloneSetup(etudiantsExecutifResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -198,30 +188,22 @@ public class EtudiantsExecutifResourceIT {
             .email(DEFAULT_EMAIL)
             .pjBac(DEFAULT_PJ_BAC)
             .mention(DEFAULT_MENTION)
-            .anneeObtention(DEFAULT_ANNEE_OBTENTION)
             .cinPass(DEFAULT_CIN_PASS)
             .paysNationalite(DEFAULT_PAYS_NATIONALITE)
             .paysResidence(DEFAULT_PAYS_RESIDENCE)
             .codepostal(DEFAULT_CODEPOSTAL)
             .province(DEFAULT_PROVINCE)
             .tel(DEFAULT_TEL)
-            .deuxiemetel(DEFAULT_DEUXIEMETEL)
             .photo(DEFAULT_PHOTO)
             .photoContentType(DEFAULT_PHOTO_CONTENT_TYPE)
-            .cv(DEFAULT_CV)
-            .cvContentType(DEFAULT_CV_CONTENT_TYPE)
-            .attestationTravail(DEFAULT_ATTESTATION_TRAVAIL)
-            .attestationTravailContentType(DEFAULT_ATTESTATION_TRAVAIL_CONTENT_TYPE)
+            .extraitActeNaissance(DEFAULT_EXTRAIT_ACTE_NAISSANCE)
+            .extraitActeNaissanceContentType(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE)
             .bacalaureat(DEFAULT_BACALAUREAT)
             .bacalaureatContentType(DEFAULT_BACALAUREAT_CONTENT_TYPE)
             .cinPassport(DEFAULT_CIN_PASSPORT)
             .cinPassportContentType(DEFAULT_CIN_PASSPORT_CONTENT_TYPE)
             .diplome(DEFAULT_DIPLOME)
             .diplomeContentType(DEFAULT_DIPLOME_CONTENT_TYPE)
-            .testAdmission(DEFAULT_TEST_ADMISSION)
-            .testAdmissionContentType(DEFAULT_TEST_ADMISSION_CONTENT_TYPE)
-            .releveeNote(DEFAULT_RELEVEE_NOTE)
-            .releveeNoteContentType(DEFAULT_RELEVEE_NOTE_CONTENT_TYPE)
             .inscriptionvalide(DEFAULT_INSCRIPTIONVALIDE)
             .absent(DEFAULT_ABSENT);
         return etudiantsExecutif;
@@ -243,30 +225,22 @@ public class EtudiantsExecutifResourceIT {
             .email(UPDATED_EMAIL)
             .pjBac(UPDATED_PJ_BAC)
             .mention(UPDATED_MENTION)
-            .anneeObtention(UPDATED_ANNEE_OBTENTION)
             .cinPass(UPDATED_CIN_PASS)
             .paysNationalite(UPDATED_PAYS_NATIONALITE)
             .paysResidence(UPDATED_PAYS_RESIDENCE)
             .codepostal(UPDATED_CODEPOSTAL)
             .province(UPDATED_PROVINCE)
             .tel(UPDATED_TEL)
-            .deuxiemetel(UPDATED_DEUXIEMETEL)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE)
-            .cv(UPDATED_CV)
-            .cvContentType(UPDATED_CV_CONTENT_TYPE)
-            .attestationTravail(UPDATED_ATTESTATION_TRAVAIL)
-            .attestationTravailContentType(UPDATED_ATTESTATION_TRAVAIL_CONTENT_TYPE)
+            .extraitActeNaissance(UPDATED_EXTRAIT_ACTE_NAISSANCE)
+            .extraitActeNaissanceContentType(UPDATED_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE)
             .bacalaureat(UPDATED_BACALAUREAT)
             .bacalaureatContentType(UPDATED_BACALAUREAT_CONTENT_TYPE)
             .cinPassport(UPDATED_CIN_PASSPORT)
             .cinPassportContentType(UPDATED_CIN_PASSPORT_CONTENT_TYPE)
             .diplome(UPDATED_DIPLOME)
             .diplomeContentType(UPDATED_DIPLOME_CONTENT_TYPE)
-            .testAdmission(UPDATED_TEST_ADMISSION)
-            .testAdmissionContentType(UPDATED_TEST_ADMISSION_CONTENT_TYPE)
-            .releveeNote(UPDATED_RELEVEE_NOTE)
-            .releveeNoteContentType(UPDATED_RELEVEE_NOTE_CONTENT_TYPE)
             .inscriptionvalide(UPDATED_INSCRIPTIONVALIDE)
             .absent(UPDATED_ABSENT);
         return etudiantsExecutif;
@@ -301,30 +275,22 @@ public class EtudiantsExecutifResourceIT {
         assertThat(testEtudiantsExecutif.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testEtudiantsExecutif.getPjBac()).isEqualTo(DEFAULT_PJ_BAC);
         assertThat(testEtudiantsExecutif.getMention()).isEqualTo(DEFAULT_MENTION);
-        assertThat(testEtudiantsExecutif.getAnneeObtention()).isEqualTo(DEFAULT_ANNEE_OBTENTION);
         assertThat(testEtudiantsExecutif.getCinPass()).isEqualTo(DEFAULT_CIN_PASS);
         assertThat(testEtudiantsExecutif.getPaysNationalite()).isEqualTo(DEFAULT_PAYS_NATIONALITE);
         assertThat(testEtudiantsExecutif.getPaysResidence()).isEqualTo(DEFAULT_PAYS_RESIDENCE);
         assertThat(testEtudiantsExecutif.getCodepostal()).isEqualTo(DEFAULT_CODEPOSTAL);
         assertThat(testEtudiantsExecutif.getProvince()).isEqualTo(DEFAULT_PROVINCE);
         assertThat(testEtudiantsExecutif.getTel()).isEqualTo(DEFAULT_TEL);
-        assertThat(testEtudiantsExecutif.getDeuxiemetel()).isEqualTo(DEFAULT_DEUXIEMETEL);
         assertThat(testEtudiantsExecutif.getPhoto()).isEqualTo(DEFAULT_PHOTO);
         assertThat(testEtudiantsExecutif.getPhotoContentType()).isEqualTo(DEFAULT_PHOTO_CONTENT_TYPE);
-        assertThat(testEtudiantsExecutif.getCv()).isEqualTo(DEFAULT_CV);
-        assertThat(testEtudiantsExecutif.getCvContentType()).isEqualTo(DEFAULT_CV_CONTENT_TYPE);
-        assertThat(testEtudiantsExecutif.getAttestationTravail()).isEqualTo(DEFAULT_ATTESTATION_TRAVAIL);
-        assertThat(testEtudiantsExecutif.getAttestationTravailContentType()).isEqualTo(DEFAULT_ATTESTATION_TRAVAIL_CONTENT_TYPE);
+        assertThat(testEtudiantsExecutif.getExtraitActeNaissance()).isEqualTo(DEFAULT_EXTRAIT_ACTE_NAISSANCE);
+        assertThat(testEtudiantsExecutif.getExtraitActeNaissanceContentType()).isEqualTo(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE);
         assertThat(testEtudiantsExecutif.getBacalaureat()).isEqualTo(DEFAULT_BACALAUREAT);
         assertThat(testEtudiantsExecutif.getBacalaureatContentType()).isEqualTo(DEFAULT_BACALAUREAT_CONTENT_TYPE);
         assertThat(testEtudiantsExecutif.getCinPassport()).isEqualTo(DEFAULT_CIN_PASSPORT);
         assertThat(testEtudiantsExecutif.getCinPassportContentType()).isEqualTo(DEFAULT_CIN_PASSPORT_CONTENT_TYPE);
         assertThat(testEtudiantsExecutif.getDiplome()).isEqualTo(DEFAULT_DIPLOME);
         assertThat(testEtudiantsExecutif.getDiplomeContentType()).isEqualTo(DEFAULT_DIPLOME_CONTENT_TYPE);
-        assertThat(testEtudiantsExecutif.getTestAdmission()).isEqualTo(DEFAULT_TEST_ADMISSION);
-        assertThat(testEtudiantsExecutif.getTestAdmissionContentType()).isEqualTo(DEFAULT_TEST_ADMISSION_CONTENT_TYPE);
-        assertThat(testEtudiantsExecutif.getReleveeNote()).isEqualTo(DEFAULT_RELEVEE_NOTE);
-        assertThat(testEtudiantsExecutif.getReleveeNoteContentType()).isEqualTo(DEFAULT_RELEVEE_NOTE_CONTENT_TYPE);
         assertThat(testEtudiantsExecutif.isInscriptionvalide()).isEqualTo(DEFAULT_INSCRIPTIONVALIDE);
         assertThat(testEtudiantsExecutif.isAbsent()).isEqualTo(DEFAULT_ABSENT);
 
@@ -483,30 +449,22 @@ public class EtudiantsExecutifResourceIT {
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
             .andExpect(jsonPath("$.[*].pjBac").value(hasItem(DEFAULT_PJ_BAC.toString())))
             .andExpect(jsonPath("$.[*].mention").value(hasItem(DEFAULT_MENTION.toString())))
-            .andExpect(jsonPath("$.[*].anneeObtention").value(hasItem(DEFAULT_ANNEE_OBTENTION.toString())))
             .andExpect(jsonPath("$.[*].cinPass").value(hasItem(DEFAULT_CIN_PASS.toString())))
             .andExpect(jsonPath("$.[*].paysNationalite").value(hasItem(DEFAULT_PAYS_NATIONALITE.toString())))
             .andExpect(jsonPath("$.[*].paysResidence").value(hasItem(DEFAULT_PAYS_RESIDENCE.toString())))
             .andExpect(jsonPath("$.[*].codepostal").value(hasItem(DEFAULT_CODEPOSTAL.toString())))
             .andExpect(jsonPath("$.[*].province").value(hasItem(DEFAULT_PROVINCE.toString())))
             .andExpect(jsonPath("$.[*].tel").value(hasItem(DEFAULT_TEL)))
-            .andExpect(jsonPath("$.[*].deuxiemetel").value(hasItem(DEFAULT_DEUXIEMETEL)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photo").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO))))
-            .andExpect(jsonPath("$.[*].cvContentType").value(hasItem(DEFAULT_CV_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].cv").value(hasItem(Base64Utils.encodeToString(DEFAULT_CV))))
-            .andExpect(jsonPath("$.[*].attestationTravailContentType").value(hasItem(DEFAULT_ATTESTATION_TRAVAIL_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].attestationTravail").value(hasItem(Base64Utils.encodeToString(DEFAULT_ATTESTATION_TRAVAIL))))
+            .andExpect(jsonPath("$.[*].extraitActeNaissanceContentType").value(hasItem(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].extraitActeNaissance").value(hasItem(Base64Utils.encodeToString(DEFAULT_EXTRAIT_ACTE_NAISSANCE))))
             .andExpect(jsonPath("$.[*].bacalaureatContentType").value(hasItem(DEFAULT_BACALAUREAT_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].bacalaureat").value(hasItem(Base64Utils.encodeToString(DEFAULT_BACALAUREAT))))
             .andExpect(jsonPath("$.[*].cinPassportContentType").value(hasItem(DEFAULT_CIN_PASSPORT_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].cinPassport").value(hasItem(Base64Utils.encodeToString(DEFAULT_CIN_PASSPORT))))
             .andExpect(jsonPath("$.[*].diplomeContentType").value(hasItem(DEFAULT_DIPLOME_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].diplome").value(hasItem(Base64Utils.encodeToString(DEFAULT_DIPLOME))))
-            .andExpect(jsonPath("$.[*].testAdmissionContentType").value(hasItem(DEFAULT_TEST_ADMISSION_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].testAdmission").value(hasItem(Base64Utils.encodeToString(DEFAULT_TEST_ADMISSION))))
-            .andExpect(jsonPath("$.[*].releveeNoteContentType").value(hasItem(DEFAULT_RELEVEE_NOTE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].releveeNote").value(hasItem(Base64Utils.encodeToString(DEFAULT_RELEVEE_NOTE))))
             .andExpect(jsonPath("$.[*].inscriptionvalide").value(hasItem(DEFAULT_INSCRIPTIONVALIDE.booleanValue())))
             .andExpect(jsonPath("$.[*].absent").value(hasItem(DEFAULT_ABSENT.booleanValue())));
     }
@@ -531,30 +489,22 @@ public class EtudiantsExecutifResourceIT {
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
             .andExpect(jsonPath("$.pjBac").value(DEFAULT_PJ_BAC.toString()))
             .andExpect(jsonPath("$.mention").value(DEFAULT_MENTION.toString()))
-            .andExpect(jsonPath("$.anneeObtention").value(DEFAULT_ANNEE_OBTENTION.toString()))
             .andExpect(jsonPath("$.cinPass").value(DEFAULT_CIN_PASS.toString()))
             .andExpect(jsonPath("$.paysNationalite").value(DEFAULT_PAYS_NATIONALITE.toString()))
             .andExpect(jsonPath("$.paysResidence").value(DEFAULT_PAYS_RESIDENCE.toString()))
             .andExpect(jsonPath("$.codepostal").value(DEFAULT_CODEPOSTAL.toString()))
             .andExpect(jsonPath("$.province").value(DEFAULT_PROVINCE.toString()))
             .andExpect(jsonPath("$.tel").value(DEFAULT_TEL))
-            .andExpect(jsonPath("$.deuxiemetel").value(DEFAULT_DEUXIEMETEL))
             .andExpect(jsonPath("$.photoContentType").value(DEFAULT_PHOTO_CONTENT_TYPE))
             .andExpect(jsonPath("$.photo").value(Base64Utils.encodeToString(DEFAULT_PHOTO)))
-            .andExpect(jsonPath("$.cvContentType").value(DEFAULT_CV_CONTENT_TYPE))
-            .andExpect(jsonPath("$.cv").value(Base64Utils.encodeToString(DEFAULT_CV)))
-            .andExpect(jsonPath("$.attestationTravailContentType").value(DEFAULT_ATTESTATION_TRAVAIL_CONTENT_TYPE))
-            .andExpect(jsonPath("$.attestationTravail").value(Base64Utils.encodeToString(DEFAULT_ATTESTATION_TRAVAIL)))
+            .andExpect(jsonPath("$.extraitActeNaissanceContentType").value(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.extraitActeNaissance").value(Base64Utils.encodeToString(DEFAULT_EXTRAIT_ACTE_NAISSANCE)))
             .andExpect(jsonPath("$.bacalaureatContentType").value(DEFAULT_BACALAUREAT_CONTENT_TYPE))
             .andExpect(jsonPath("$.bacalaureat").value(Base64Utils.encodeToString(DEFAULT_BACALAUREAT)))
             .andExpect(jsonPath("$.cinPassportContentType").value(DEFAULT_CIN_PASSPORT_CONTENT_TYPE))
             .andExpect(jsonPath("$.cinPassport").value(Base64Utils.encodeToString(DEFAULT_CIN_PASSPORT)))
             .andExpect(jsonPath("$.diplomeContentType").value(DEFAULT_DIPLOME_CONTENT_TYPE))
             .andExpect(jsonPath("$.diplome").value(Base64Utils.encodeToString(DEFAULT_DIPLOME)))
-            .andExpect(jsonPath("$.testAdmissionContentType").value(DEFAULT_TEST_ADMISSION_CONTENT_TYPE))
-            .andExpect(jsonPath("$.testAdmission").value(Base64Utils.encodeToString(DEFAULT_TEST_ADMISSION)))
-            .andExpect(jsonPath("$.releveeNoteContentType").value(DEFAULT_RELEVEE_NOTE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.releveeNote").value(Base64Utils.encodeToString(DEFAULT_RELEVEE_NOTE)))
             .andExpect(jsonPath("$.inscriptionvalide").value(DEFAULT_INSCRIPTIONVALIDE.booleanValue()))
             .andExpect(jsonPath("$.absent").value(DEFAULT_ABSENT.booleanValue()));
     }
@@ -589,30 +539,22 @@ public class EtudiantsExecutifResourceIT {
             .email(UPDATED_EMAIL)
             .pjBac(UPDATED_PJ_BAC)
             .mention(UPDATED_MENTION)
-            .anneeObtention(UPDATED_ANNEE_OBTENTION)
             .cinPass(UPDATED_CIN_PASS)
             .paysNationalite(UPDATED_PAYS_NATIONALITE)
             .paysResidence(UPDATED_PAYS_RESIDENCE)
             .codepostal(UPDATED_CODEPOSTAL)
             .province(UPDATED_PROVINCE)
             .tel(UPDATED_TEL)
-            .deuxiemetel(UPDATED_DEUXIEMETEL)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE)
-            .cv(UPDATED_CV)
-            .cvContentType(UPDATED_CV_CONTENT_TYPE)
-            .attestationTravail(UPDATED_ATTESTATION_TRAVAIL)
-            .attestationTravailContentType(UPDATED_ATTESTATION_TRAVAIL_CONTENT_TYPE)
+            .extraitActeNaissance(UPDATED_EXTRAIT_ACTE_NAISSANCE)
+            .extraitActeNaissanceContentType(UPDATED_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE)
             .bacalaureat(UPDATED_BACALAUREAT)
             .bacalaureatContentType(UPDATED_BACALAUREAT_CONTENT_TYPE)
             .cinPassport(UPDATED_CIN_PASSPORT)
             .cinPassportContentType(UPDATED_CIN_PASSPORT_CONTENT_TYPE)
             .diplome(UPDATED_DIPLOME)
             .diplomeContentType(UPDATED_DIPLOME_CONTENT_TYPE)
-            .testAdmission(UPDATED_TEST_ADMISSION)
-            .testAdmissionContentType(UPDATED_TEST_ADMISSION_CONTENT_TYPE)
-            .releveeNote(UPDATED_RELEVEE_NOTE)
-            .releveeNoteContentType(UPDATED_RELEVEE_NOTE_CONTENT_TYPE)
             .inscriptionvalide(UPDATED_INSCRIPTIONVALIDE)
             .absent(UPDATED_ABSENT);
 
@@ -634,30 +576,22 @@ public class EtudiantsExecutifResourceIT {
         assertThat(testEtudiantsExecutif.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testEtudiantsExecutif.getPjBac()).isEqualTo(UPDATED_PJ_BAC);
         assertThat(testEtudiantsExecutif.getMention()).isEqualTo(UPDATED_MENTION);
-        assertThat(testEtudiantsExecutif.getAnneeObtention()).isEqualTo(UPDATED_ANNEE_OBTENTION);
         assertThat(testEtudiantsExecutif.getCinPass()).isEqualTo(UPDATED_CIN_PASS);
         assertThat(testEtudiantsExecutif.getPaysNationalite()).isEqualTo(UPDATED_PAYS_NATIONALITE);
         assertThat(testEtudiantsExecutif.getPaysResidence()).isEqualTo(UPDATED_PAYS_RESIDENCE);
         assertThat(testEtudiantsExecutif.getCodepostal()).isEqualTo(UPDATED_CODEPOSTAL);
         assertThat(testEtudiantsExecutif.getProvince()).isEqualTo(UPDATED_PROVINCE);
         assertThat(testEtudiantsExecutif.getTel()).isEqualTo(UPDATED_TEL);
-        assertThat(testEtudiantsExecutif.getDeuxiemetel()).isEqualTo(UPDATED_DEUXIEMETEL);
         assertThat(testEtudiantsExecutif.getPhoto()).isEqualTo(UPDATED_PHOTO);
         assertThat(testEtudiantsExecutif.getPhotoContentType()).isEqualTo(UPDATED_PHOTO_CONTENT_TYPE);
-        assertThat(testEtudiantsExecutif.getCv()).isEqualTo(UPDATED_CV);
-        assertThat(testEtudiantsExecutif.getCvContentType()).isEqualTo(UPDATED_CV_CONTENT_TYPE);
-        assertThat(testEtudiantsExecutif.getAttestationTravail()).isEqualTo(UPDATED_ATTESTATION_TRAVAIL);
-        assertThat(testEtudiantsExecutif.getAttestationTravailContentType()).isEqualTo(UPDATED_ATTESTATION_TRAVAIL_CONTENT_TYPE);
+        assertThat(testEtudiantsExecutif.getExtraitActeNaissance()).isEqualTo(UPDATED_EXTRAIT_ACTE_NAISSANCE);
+        assertThat(testEtudiantsExecutif.getExtraitActeNaissanceContentType()).isEqualTo(UPDATED_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE);
         assertThat(testEtudiantsExecutif.getBacalaureat()).isEqualTo(UPDATED_BACALAUREAT);
         assertThat(testEtudiantsExecutif.getBacalaureatContentType()).isEqualTo(UPDATED_BACALAUREAT_CONTENT_TYPE);
         assertThat(testEtudiantsExecutif.getCinPassport()).isEqualTo(UPDATED_CIN_PASSPORT);
         assertThat(testEtudiantsExecutif.getCinPassportContentType()).isEqualTo(UPDATED_CIN_PASSPORT_CONTENT_TYPE);
         assertThat(testEtudiantsExecutif.getDiplome()).isEqualTo(UPDATED_DIPLOME);
         assertThat(testEtudiantsExecutif.getDiplomeContentType()).isEqualTo(UPDATED_DIPLOME_CONTENT_TYPE);
-        assertThat(testEtudiantsExecutif.getTestAdmission()).isEqualTo(UPDATED_TEST_ADMISSION);
-        assertThat(testEtudiantsExecutif.getTestAdmissionContentType()).isEqualTo(UPDATED_TEST_ADMISSION_CONTENT_TYPE);
-        assertThat(testEtudiantsExecutif.getReleveeNote()).isEqualTo(UPDATED_RELEVEE_NOTE);
-        assertThat(testEtudiantsExecutif.getReleveeNoteContentType()).isEqualTo(UPDATED_RELEVEE_NOTE_CONTENT_TYPE);
         assertThat(testEtudiantsExecutif.isInscriptionvalide()).isEqualTo(UPDATED_INSCRIPTIONVALIDE);
         assertThat(testEtudiantsExecutif.isAbsent()).isEqualTo(UPDATED_ABSENT);
 
@@ -728,30 +662,22 @@ public class EtudiantsExecutifResourceIT {
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].pjBac").value(hasItem(DEFAULT_PJ_BAC.toString())))
             .andExpect(jsonPath("$.[*].mention").value(hasItem(DEFAULT_MENTION.toString())))
-            .andExpect(jsonPath("$.[*].anneeObtention").value(hasItem(DEFAULT_ANNEE_OBTENTION)))
             .andExpect(jsonPath("$.[*].cinPass").value(hasItem(DEFAULT_CIN_PASS)))
             .andExpect(jsonPath("$.[*].paysNationalite").value(hasItem(DEFAULT_PAYS_NATIONALITE)))
             .andExpect(jsonPath("$.[*].paysResidence").value(hasItem(DEFAULT_PAYS_RESIDENCE)))
             .andExpect(jsonPath("$.[*].codepostal").value(hasItem(DEFAULT_CODEPOSTAL)))
             .andExpect(jsonPath("$.[*].province").value(hasItem(DEFAULT_PROVINCE)))
             .andExpect(jsonPath("$.[*].tel").value(hasItem(DEFAULT_TEL)))
-            .andExpect(jsonPath("$.[*].deuxiemetel").value(hasItem(DEFAULT_DEUXIEMETEL)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photo").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO))))
-            .andExpect(jsonPath("$.[*].cvContentType").value(hasItem(DEFAULT_CV_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].cv").value(hasItem(Base64Utils.encodeToString(DEFAULT_CV))))
-            .andExpect(jsonPath("$.[*].attestationTravailContentType").value(hasItem(DEFAULT_ATTESTATION_TRAVAIL_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].attestationTravail").value(hasItem(Base64Utils.encodeToString(DEFAULT_ATTESTATION_TRAVAIL))))
+            .andExpect(jsonPath("$.[*].extraitActeNaissanceContentType").value(hasItem(DEFAULT_EXTRAIT_ACTE_NAISSANCE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].extraitActeNaissance").value(hasItem(Base64Utils.encodeToString(DEFAULT_EXTRAIT_ACTE_NAISSANCE))))
             .andExpect(jsonPath("$.[*].bacalaureatContentType").value(hasItem(DEFAULT_BACALAUREAT_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].bacalaureat").value(hasItem(Base64Utils.encodeToString(DEFAULT_BACALAUREAT))))
             .andExpect(jsonPath("$.[*].cinPassportContentType").value(hasItem(DEFAULT_CIN_PASSPORT_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].cinPassport").value(hasItem(Base64Utils.encodeToString(DEFAULT_CIN_PASSPORT))))
             .andExpect(jsonPath("$.[*].diplomeContentType").value(hasItem(DEFAULT_DIPLOME_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].diplome").value(hasItem(Base64Utils.encodeToString(DEFAULT_DIPLOME))))
-            .andExpect(jsonPath("$.[*].testAdmissionContentType").value(hasItem(DEFAULT_TEST_ADMISSION_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].testAdmission").value(hasItem(Base64Utils.encodeToString(DEFAULT_TEST_ADMISSION))))
-            .andExpect(jsonPath("$.[*].releveeNoteContentType").value(hasItem(DEFAULT_RELEVEE_NOTE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].releveeNote").value(hasItem(Base64Utils.encodeToString(DEFAULT_RELEVEE_NOTE))))
             .andExpect(jsonPath("$.[*].inscriptionvalide").value(hasItem(DEFAULT_INSCRIPTIONVALIDE.booleanValue())))
             .andExpect(jsonPath("$.[*].absent").value(hasItem(DEFAULT_ABSENT.booleanValue())));
     }

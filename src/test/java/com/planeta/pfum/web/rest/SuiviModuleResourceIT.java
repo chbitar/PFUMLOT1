@@ -2,7 +2,11 @@ package com.planeta.pfum.web.rest;
 
 import com.planeta.pfum.Pfumv10App;
 import com.planeta.pfum.domain.SuiviModule;
+import com.planeta.pfum.repository.AffectationModuleRepository;
+import com.planeta.pfum.repository.ModuleRepository;
+import com.planeta.pfum.repository.ProfesseurRepository;
 import com.planeta.pfum.repository.SuiviModuleRepository;
+import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.repository.search.SuiviModuleSearchRepository;
 import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
@@ -91,11 +95,25 @@ public class SuiviModuleResourceIT {
     private MockMvc restSuiviModuleMockMvc;
 
     private SuiviModule suiviModule;
+    
+    
+    
+    @Autowired
+	private  ProfesseurRepository professeurRepository;
+    @Autowired
+	private  UserRepository userRepository;
+    @Autowired
+	private  AffectationModuleRepository affectationModuleRepository;
+    @Autowired
+	private  ModuleRepository moduleRepository;
+    @Autowired
+    
 
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SuiviModuleResource suiviModuleResource = new SuiviModuleResource(suiviModuleRepository, mockSuiviModuleSearchRepository);
+        final SuiviModuleResource suiviModuleResource = new SuiviModuleResource(suiviModuleRepository, mockSuiviModuleSearchRepository,  professeurRepository, userRepository,  affectationModuleRepository,	 moduleRepository
+);
         this.restSuiviModuleMockMvc = MockMvcBuilders.standaloneSetup(suiviModuleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

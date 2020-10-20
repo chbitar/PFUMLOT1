@@ -8,7 +8,7 @@ import { Translate, translate, ICrudSearchAction, ICrudGetAllAction } from 'reac
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities } from './affectation-module.reducer';
+import { getSearchEntities, getEntities, getEntitiesBySemestre } from './affectation-module.reducer';
 import { IAffectationModule } from 'app/shared/model/affectation-module.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -42,39 +42,36 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
 
   handleSearch = event => this.setState({ search: event.target.value });
 
+  filtrerListAffectationModule = e => {
+    this.props.history.push('/entity/affectation-module');
+
+    if (e.target.value === '') this.props.getEntities();
+    else this.props.getEntitiesBySemestre(e.target.value);
+  };
+
   render() {
     const { affectationModuleList, match } = this.props;
     return (
       <div>
         <h2 id="affectation-module-heading">
-          <Translate contentKey="pfumv10App.affectationModule.home.title">Affectation Modules</Translate>
+          Liste des affectations modules
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="pfumv10App.affectationModule.home.createLabel">Create new Affectation Module</Translate>
+            &nbsp; Créer une nouvelle affectation
           </Link>
         </h2>
         <Row>
           <Col sm="12">
-            <AvForm onSubmit={this.search}>
-              <AvGroup>
-                <InputGroup>
-                  <AvInput
-                    type="text"
-                    name="search"
-                    value={this.state.search}
-                    onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.affectationModule.home.search')}
-                  />
-                  <Button className="input-group-addon">
-                    <FontAwesomeIcon icon="search" />
-                  </Button>
-                  <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                    <FontAwesomeIcon icon="trash" />
-                  </Button>
-                </InputGroup>
-              </AvGroup>
-            </AvForm>
+            Choisissez un semestre
+            <select onChange={this.filtrerListAffectationModule}>
+              <option value="" />
+              <option value="S1">S1</option>
+              <option value="S2">S2</option>
+              <option value="S3">S3</option>
+              <option value="S4">S4</option>
+              <option value="S5">S5</option>
+              <option value="S6">S6</option>
+            </select>
           </Col>
         </Row>
         <div className="table-responsive">
@@ -82,9 +79,6 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
             <Table responsive>
               <thead>
                 <tr>
-                  <th>
-                    <Translate contentKey="global.field.id">ID</Translate>
-                  </th>
                   <th>
                     <Translate contentKey="pfumv10App.affectationModule.annee">Annee</Translate>
                   </th>
@@ -103,25 +97,22 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
               <tbody>
                 {affectationModuleList.map((affectationModule, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${affectationModule.id}`} color="link" size="sm">
-                        {affectationModule.id}
-                      </Button>
-                    </td>
                     <td>{affectationModule.annee}</td>
                     <td>
                       <Translate contentKey={`pfumv10App.Semestre.${affectationModule.semestre}`} />
                     </td>
                     <td>
                       {affectationModule.module ? (
-                        <Link to={`module/${affectationModule.module.id}`}>{affectationModule.module.id}</Link>
+                        <Link to={`module/${affectationModule.module.id}`}>{affectationModule.module.nomModule}</Link>
                       ) : (
                         ''
                       )}
                     </td>
                     <td>
                       {affectationModule.professeur ? (
-                        <Link to={`professeur/${affectationModule.professeur.id}`}>{affectationModule.professeur.id}</Link>
+                        <Link to={`professeur/${affectationModule.professeur.id}`}>
+                          {affectationModule.professeur.nom + ' ' + affectationModule.professeur.prenom}
+                        </Link>
                       ) : (
                         ''
                       )}
@@ -134,6 +125,7 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
+
                         <Button tag={Link} to={`${match.url}/${affectationModule.id}/edit`} color="primary" size="sm">
                           <FontAwesomeIcon icon="pencil-alt" />{' '}
                           <span className="d-none d-md-inline">
@@ -169,7 +161,8 @@ const mapStateToProps = ({ affectationModule }: IRootState) => ({
 
 const mapDispatchToProps = {
   getSearchEntities,
-  getEntities
+  getEntities,
+  getEntitiesBySemestre
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

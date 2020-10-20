@@ -1,6 +1,8 @@
 package com.planeta.pfum.web.rest;
 
+import com.planeta.pfum.domain.ModalitePaiement;
 import com.planeta.pfum.domain.Module;
+import com.planeta.pfum.domain.enumeration.Semestre;
 import com.planeta.pfum.repository.ModuleRepository;
 import com.planeta.pfum.repository.search.ModuleSearchRepository;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,7 +62,7 @@ public class ModuleResource {
             throw new BadRequestAlertException("A new module cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Module result = moduleRepository.save(module);
-        moduleSearchRepository.save(result);
+//        moduleSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/modules/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +84,7 @@ public class ModuleResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Module result = moduleRepository.save(module);
-        moduleSearchRepository.save(result);
+//        moduleSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, module.getId().toString()))
             .body(result);
@@ -122,7 +124,7 @@ public class ModuleResource {
     public ResponseEntity<Void> deleteModule(@PathVariable Long id) {
         log.debug("REST request to delete Module : {}", id);
         moduleRepository.deleteById(id);
-        moduleSearchRepository.deleteById(id);
+//        moduleSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -136,9 +138,20 @@ public class ModuleResource {
     @GetMapping("/_search/modules")
     public List<Module> searchModules(@RequestParam String query) {
         log.debug("REST request to search Modules for query {}", query);
-        return StreamSupport
-            .stream(moduleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(moduleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .collect(Collectors.toList());
+        
+        return new ArrayList<Module>();
+
     }
+
+
+    @GetMapping("/modules/semestre/{sem}")
+    public List<Module> getModulesBySemestre(@PathVariable Semestre sem) {
+        log.debug("REST request to get Modules : {}", sem);
+        return moduleRepository.findAllBySemestre(sem);
+    }
+
 
 }

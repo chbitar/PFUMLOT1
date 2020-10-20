@@ -47,11 +47,10 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
     return (
       <div>
         <h2 id="module-heading">
-          <Translate contentKey="pfumv10App.module.home.title">Modules</Translate>
+          liste des modules
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="pfumv10App.module.home.createLabel">Create new Module</Translate>
+            &nbsp; Ajouter un nouveau module
           </Link>
         </h2>
         <Row>
@@ -83,9 +82,6 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
               <thead>
                 <tr>
                   <th>
-                    <Translate contentKey="global.field.id">ID</Translate>
-                  </th>
-                  <th>
                     <Translate contentKey="pfumv10App.module.nomModule">Nom Module</Translate>
                   </th>
                   <th>
@@ -94,34 +90,21 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
                   <th>
                     <Translate contentKey="pfumv10App.module.semestre">Semestre</Translate>
                   </th>
-                  <th>
-                    <Translate contentKey="pfumv10App.module.filiere">Filiere</Translate>
-                  </th>
+                  <th>Filière</th>
                   <th />
                 </tr>
               </thead>
               <tbody>
                 {moduleList.map((module, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${module.id}`} color="link" size="sm">
-                        {module.id}
-                      </Button>
-                    </td>
                     <td>{module.nomModule}</td>
                     <td>{module.volumeHoraire}</td>
                     <td>
                       <Translate contentKey={`pfumv10App.Semestre.${module.semestre}`} />
                     </td>
-                    <td>{module.filiere ? <Link to={`filiere/${module.filiere.id}`}>{module.filiere.id}</Link> : ''}</td>
+                    <td>{module.filiere ? <Link to={`filiere/${module.filiere.id}`}>{module.filiere.nomfiliere}</Link> : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${module.id}`} color="info" size="sm">
-                          <FontAwesomeIcon icon="eye" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
                         <Button tag={Link} to={`${match.url}/${module.id}/edit`} color="primary" size="sm">
                           <FontAwesomeIcon icon="pencil-alt" />{' '}
                           <span className="d-none d-md-inline">

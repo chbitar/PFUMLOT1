@@ -89,9 +89,7 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.calendrierModule.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.calendrierModule.home.createOrEditLabel">Create or edit a CalendrierModule</Translate>
-            </h2>
+            <h2 id="pfumv10App.calendrierModule.home.createOrEditLabel">Créer ou éditer un calendrier pour les contrôles continus</h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -100,46 +98,6 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
               <p>Loading...</p>
             ) : (
               <AvForm model={isNew ? {} : calendrierModuleEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
-                  <AvGroup>
-                    <Label for="calendrier-module-id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="calendrier-module-id" type="text" className="form-control" name="id" required readOnly />
-                  </AvGroup>
-                ) : null}
-                <AvGroup>
-                  <Label id="libelleLabel" for="calendrier-module-libelle">
-                    <Translate contentKey="pfumv10App.calendrierModule.libelle">Libelle</Translate>
-                  </Label>
-                  <AvField id="calendrier-module-libelle" type="text" name="libelle" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="dateControlContinu1Label" for="calendrier-module-dateControlContinu1">
-                    <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
-                  </Label>
-                  <AvInput
-                    id="calendrier-module-dateControlContinu1"
-                    type="datetime-local"
-                    className="form-control"
-                    name="dateControlContinu1"
-                    placeholder={'YYYY-MM-DD HH:mm'}
-                    value={isNew ? null : convertDateTimeFromServer(this.props.calendrierModuleEntity.dateControlContinu1)}
-                  />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="dateControlContinu2Label" for="calendrier-module-dateControlContinu2">
-                    <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu2">Date Control Continu 2</Translate>
-                  </Label>
-                  <AvInput
-                    id="calendrier-module-dateControlContinu2"
-                    type="datetime-local"
-                    className="form-control"
-                    name="dateControlContinu2"
-                    placeholder={'YYYY-MM-DD HH:mm'}
-                    value={isNew ? null : convertDateTimeFromServer(this.props.calendrierModuleEntity.dateControlContinu2)}
-                  />
-                </AvGroup>
                 <AvGroup>
                   <Label for="calendrier-module-module">
                     <Translate contentKey="pfumv10App.calendrierModule.module">Module</Translate>
@@ -149,22 +107,50 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
                     {modules
                       ? modules.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.nomModule}
                           </option>
                         ))
                       : null}
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
+                  <Label id="dateControlContinu1Label" for="calendrier-module-dateControlContinu1">
+                    <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
+                  </Label>
+                  <AvInput
+                    id="calendrier-module-dateControlContinu1"
+                    type="date"
+                    className="form-control"
+                    name="dateControlContinu1"
+                    placeholder={'YYYY-MM-DD'}
+                    value={isNew ? null : convertDateTimeFromServer(this.props.calendrierModuleEntity.dateControlContinu1)}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="dateControlContinu2Label" for="calendrier-module-dateControlContinu2">
+                    <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu2">Date Control Continu 2</Translate>
+                  </Label>
+                  <AvInput
+                    id="calendrier-module-dateControlContinu2"
+                    type="date"
+                    className="form-control"
+                    name="dateControlContinu2"
+                    placeholder={'YYYY-MM-DD'}
+                    value={isNew ? null : convertDateTimeFromServer(this.props.calendrierModuleEntity.dateControlContinu2)}
+                  />
+                </AvGroup>
+                <AvGroup>
                   <Label for="calendrier-module-anneeInscription">
-                    <Translate contentKey="pfumv10App.calendrierModule.anneeInscription">Annee Inscription</Translate>
+                    {/*                <Translate contentKey="pfumv10App.calendrierModule.anneeInscription">Année universitaire</Translate>
+                     */}
+                    Année universitaire
                   </Label>
                   <AvInput id="calendrier-module-anneeInscription" type="select" className="form-control" name="anneeInscription.id">
-                    <option value="" key="0" />
+                    <option value="2020-2021" key="0" />
                     {anneeInscriptions
                       ? anneeInscriptions.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.annee}
                           </option>
                         ))
                       : null}
