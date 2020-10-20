@@ -39,7 +39,7 @@
             "relationshipName": "filiere"
         }
     ],
-    "changelogDate": "20201014002150",
+    "changelogDate": "20201020003307",
     "entityTableName": "etablissement",
     "dto": "no",
     "pagination": "no",

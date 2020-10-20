@@ -92,7 +92,7 @@ public class DocumentResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final DocumentResource documentResource = new DocumentResource(documentService,documentRepository);
+        final DocumentResource documentResource = new DocumentResource(documentService);
         this.restDocumentMockMvc = MockMvcBuilders.standaloneSetup(documentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

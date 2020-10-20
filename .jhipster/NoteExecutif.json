@@ -39,7 +39,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201014002156",
+    "changelogDate": "20201020003313",
     "entityTableName": "note_executif",
     "dto": "no",
     "pagination": "no",

@@ -60,7 +60,7 @@ public class EtablissementResource {
             throw new BadRequestAlertException("A new etablissement cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Etablissement result = etablissementRepository.save(etablissement);
-//        etablissementSearchRepository.save(result);
+        etablissementSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etablissements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +82,7 @@ public class EtablissementResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Etablissement result = etablissementRepository.save(etablissement);
-//        etablissementSearchRepository.save(result);
+        etablissementSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, etablissement.getId().toString()))
             .body(result);
@@ -122,7 +122,7 @@ public class EtablissementResource {
     public ResponseEntity<Void> deleteEtablissement(@PathVariable Long id) {
         log.debug("REST request to delete Etablissement : {}", id);
         etablissementRepository.deleteById(id);
-//        etablissementSearchRepository.deleteById(id);
+        etablissementSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 

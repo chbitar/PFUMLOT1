@@ -16,7 +16,4 @@ public interface AbsenceRepository extends JpaRepository<Absence, Long> {
     @Query("select absence from Absence absence where absence.user.login = ?#{principal.username}")
     List<Absence> findByUserIsCurrentUser();
 
-	List<Absence> findAllByUserId(Long id);
-
-
 }

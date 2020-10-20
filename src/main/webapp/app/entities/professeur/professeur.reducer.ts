@@ -102,6 +102,8 @@ export default (state: ProfesseurState = initialState, action): ProfesseurState 
 const apiUrl = 'api/professeurs';
 const apiSearchUrl = 'api/_search/professeurs';
 
+// Actions
+
 export const getSearchEntities: ICrudSearchAction<IProfesseur> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_PROFESSEURS,
   payload: axios.get<IProfesseur>(`${apiSearchUrl}?query=${query}`)

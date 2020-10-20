@@ -1,11 +1,8 @@
 package com.planeta.pfum.repository;
 
 import com.planeta.pfum.domain.EtudiantsLicence;
-import com.planeta.pfum.domain.Filiere;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 
 /**
@@ -15,7 +12,4 @@ import java.util.List;
 @Repository
 public interface EtudiantsLicenceRepository extends JpaRepository<EtudiantsLicence, Long> {
 
-    List<EtudiantsLicence> findAllByFiliere(Filiere fil);
-
-	List<EtudiantsLicence> findAllByUserId(Long id);
 }

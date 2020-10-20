@@ -1,0 +1,32 @@
+{
+    "name": "AutreDoc",
+    "fields": [
+        {
+            "fieldName": "titre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "data",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "etudiantsExecutif",
+            "otherEntityRelationshipName": "document",
+            "relationshipName": "etudiantexec",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20201020003314",
+    "entityTableName": "autre_doc",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

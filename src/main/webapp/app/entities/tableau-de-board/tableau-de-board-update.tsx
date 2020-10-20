@@ -22,7 +22,7 @@ export interface ITableauDeBoardUpdateProps extends StateProps, DispatchProps, R
 
 export interface ITableauDeBoardUpdateState {
   isNew: boolean;
-
+  idsfilier: any[];
   idscalendrier: any[];
 }
 
@@ -30,6 +30,7 @@ export class TableauDeBoardUpdate extends React.Component<ITableauDeBoardUpdateP
   constructor(props) {
     super(props);
     this.state = {
+      idsfilier: [],
       idscalendrier: [],
       isNew: !this.props.match.params || !this.props.match.params.id
     };

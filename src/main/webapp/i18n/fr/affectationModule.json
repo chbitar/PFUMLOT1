@@ -2,9 +2,9 @@
   "pfumv10App": {
     "affectationModule": {
       "home": {
-        "title": "List des Affectations Modules",
-        "createLabel": "Créer une nouvelle Affectation Module",
-        "createOrEditLabel": "Créer ou éditer une Affectation Module",
+        "title": "AffectationModules",
+        "createLabel": "Créer un nouveau Affectation Module",
+        "createOrEditLabel": "Créer ou éditer un Affectation Module",
         "search": "Recherche pour Affectation Module",
         "notFound": "Aucun Affectation Module trouvé"
       },

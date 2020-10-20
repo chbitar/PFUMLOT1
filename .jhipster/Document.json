@@ -21,12 +21,14 @@
             ]
         }
     ],
-    "changelogDate": "20201014164306",
-    "dto": "mapstruct",
+    "changelogDate": "20201020003317",
     "searchEngine": "elasticsearch",
-    "service": "serviceClass",
     "entityTableName": "document",
     "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "pagination": "no"
+    "pagination": "no",
+    "name": "Document",
+    "applications": "*",
+    "dto": "mapstruct",
+    "service": "serviceClass"
 }

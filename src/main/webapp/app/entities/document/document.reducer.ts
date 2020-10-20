@@ -133,14 +133,6 @@ export const getEntity: ICrudGetAction<IDocument> = id => {
   };
 };
 
-export const getDocumentByTypeDocument: ICrudSearchAction<IDocument> = type => {
-  const requestUrl = `${apiUrl}/typeDocument/${type}`;
-  return {
-    type: ACTION_TYPES.FETCH_DOCUMENT_LIST,
-    payload: axios.get<IDocument>(requestUrl)
-  };
-};
-
 export const createEntity: ICrudPutAction<IDocument> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_DOCUMENT,

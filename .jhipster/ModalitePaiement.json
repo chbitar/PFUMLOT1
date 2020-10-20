@@ -30,6 +30,12 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
+            "otherEntityName": "etudiantsExecutif",
+            "otherEntityRelationshipName": "modalite",
+            "relationshipName": "etudiantsExecutif"
+        },
+        {
+            "relationshipType": "one-to-many",
             "otherEntityName": "etudiantsLicence",
             "otherEntityRelationshipName": "modalite",
             "relationshipName": "etudiantsLicence"
@@ -39,15 +45,9 @@
             "otherEntityName": "etudiantsMaster",
             "otherEntityRelationshipName": "modalite",
             "relationshipName": "etudiantsMaster"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "etudiantsExecutif",
-            "otherEntityRelationshipName": "modalite",
-            "relationshipName": "etudiantsExecutif"
         }
     ],
-    "changelogDate": "20201014002151",
+    "changelogDate": "20201020003308",
     "entityTableName": "modalite_paiement",
     "dto": "no",
     "pagination": "no",

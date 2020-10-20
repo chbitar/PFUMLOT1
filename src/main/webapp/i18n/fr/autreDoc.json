@@ -1,0 +1,25 @@
+{
+  "pfumv10App": {
+    "autreDoc": {
+      "home": {
+        "title": "AutreDocs",
+        "createLabel": "Créer un nouveau Autre Doc",
+        "createOrEditLabel": "Créer ou éditer un Autre Doc",
+        "search": "Recherche pour Autre Doc",
+        "notFound": "Aucun Autre Doc trouvé"
+      },
+      "created": "Un nouveau Autre Doc a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Autre Doc avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Autre Doc avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Autre Doc {{ id }} ?"
+      },
+      "detail": {
+        "title": "Autre Doc"
+      },
+      "titre": "Titre",
+      "data": "Data",
+      "etudiantexec": "Etudiantexec"
+    }
+  }
+}

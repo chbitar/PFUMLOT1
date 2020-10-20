@@ -65,6 +65,9 @@ describe('EtudiantsMaster e2e test', () => {
       expect(await etudiantsMasterUpdatePage.getEmailInput()).to.match(/email/);
       await etudiantsMasterUpdatePage.typeBacSelectLastOption();
       await etudiantsMasterUpdatePage.mentionSelectLastOption();
+      await etudiantsMasterUpdatePage.setAnneeObtentionBacInput('anneeObtentionBac');
+      expect(await etudiantsMasterUpdatePage.getAnneeObtentionBacInput()).to.match(/anneeObtentionBac/);
+      await etudiantsMasterUpdatePage.setReleveeNoteBacInput(absolutePath);
       await etudiantsMasterUpdatePage.setCinPassInput('cinPass');
       expect(await etudiantsMasterUpdatePage.getCinPassInput()).to.match(/cinPass/);
       await etudiantsMasterUpdatePage.setPaysNationaliteInput('paysNationalite');
@@ -77,11 +80,18 @@ describe('EtudiantsMaster e2e test', () => {
       expect(await etudiantsMasterUpdatePage.getProvinceInput()).to.match(/province/);
       await etudiantsMasterUpdatePage.setTelInput('5');
       expect(await etudiantsMasterUpdatePage.getTelInput()).to.eq('5');
+      await etudiantsMasterUpdatePage.setDeuxiemetelInput('5');
+      expect(await etudiantsMasterUpdatePage.getDeuxiemetelInput()).to.eq('5');
       await etudiantsMasterUpdatePage.setPhotoInput(absolutePath);
-      await etudiantsMasterUpdatePage.setExtraitActeNaissanceInput(absolutePath);
+      await etudiantsMasterUpdatePage.setTesAdmissionInput(absolutePath);
       await etudiantsMasterUpdatePage.setBacalaureatInput(absolutePath);
       await etudiantsMasterUpdatePage.setCinPassportInput(absolutePath);
       await etudiantsMasterUpdatePage.setDiplomeInput(absolutePath);
+      await etudiantsMasterUpdatePage.setAnneeObtentionLicenceInput('anneeObtentionLicence');
+      expect(await etudiantsMasterUpdatePage.getAnneeObtentionLicenceInput()).to.match(/anneeObtentionLicence/);
+      await etudiantsMasterUpdatePage.setReleveeNoteLicenceInput(absolutePath);
+      await etudiantsMasterUpdatePage.setEtablissementObtentionInput('etablissementObtention');
+      expect(await etudiantsMasterUpdatePage.getEtablissementObtentionInput()).to.match(/etablissementObtention/);
       const selectedInscriptionvalide = await etudiantsMasterUpdatePage.getInscriptionvalideInput().isSelected();
       if (selectedInscriptionvalide) {
         await etudiantsMasterUpdatePage.getInscriptionvalideInput().click();

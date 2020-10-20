@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label, Table } from 'reactstrap';
+import { Button, Row, Col, Label } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
+
+import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getModulesAffectedToProf as getModules } from 'app/entities/module/module.reducer';
+import { IModule } from 'app/shared/model/module.model';
+import { getEntities as getModules } from 'app/entities/module/module.reducer';
 import { IEtudiantsLicence } from 'app/shared/model/etudiants-licence.model';
 import { getEntities as getEtudiantsLicences } from 'app/entities/etudiants-licence/etudiants-licence.reducer';
 import { IEtudiantsMaster } from 'app/shared/model/etudiants-master.model';
@@ -19,6 +22,7 @@ import { getEntity, updateEntity, createEntity, reset } from './absence.reducer'
 import { IAbsence } from 'app/shared/model/absence.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
+import { mapIdList } from 'app/shared/util/entity-utils';
 
 export interface IAbsenceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -26,9 +30,9 @@ export interface IAbsenceUpdateState {
   isNew: boolean;
   userId: string;
   moduleId: string;
+  etudiantsLicenceId: string;
+  etudiantsMasterId: string;
   etudiantsExecutifId: string;
-  etudiantListExecutif: any[];
-  isEtudiantExecutifActive: boolean;
 }
 
 export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsenceUpdateState> {
@@ -37,14 +41,11 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
     this.state = {
       userId: '0',
       moduleId: '0',
+      etudiantsLicenceId: '0',
+      etudiantsMasterId: '0',
       etudiantsExecutifId: '0',
-      etudiantListExecutif: [],
-      isEtudiantExecutifActive: true,
-
       isNew: !this.props.match.params || !this.props.match.params.id
     };
-
-    this.handleInputChangeExecutif = this.handleInputChangeExecutif.bind(this);
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -62,22 +63,14 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
 
     this.props.getUsers();
     this.props.getModules();
+    this.props.getEtudiantsLicences();
+    this.props.getEtudiantsMasters();
     this.props.getEtudiantsExecutifs();
-  }
-
-  handleInputChangeExecutif(event) {
-    const target = event.target;
-    const value = target.value;
-
-    if (target.checked) {
-      this.state.etudiantListExecutif[value] = value;
-    } else {
-      this.state.etudiantListExecutif.splice(value, 1);
-    }
   }
 
   saveEntity = (event, errors, values) => {
     values.dateSeance = convertDateTimeToServer(values.dateSeance);
+
     if (errors.length === 0) {
       const { absenceEntity } = this.props;
       const entity = {
@@ -85,17 +78,11 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
         ...values
       };
 
-      this.state.etudiantListExecutif.map(item => {
-        const absence: IAbsence = {
-          dateSeance: entity.dateSeance,
-          user: entity.user,
-          module: entity.module,
-          etudiantsExecutif: {
-            id: item
-          }
-        };
-        this.props.createEntity(absence);
-      });
+      if (this.state.isNew) {
+        this.props.createEntity(entity);
+      } else {
+        this.props.updateEntity(entity);
+      }
     }
   };
 
@@ -104,7 +91,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
   };
 
   render() {
-    const { absenceEntity, users, modules, etudiantsExecutifs, loading, updating } = this.props;
+    const { absenceEntity, users, modules, etudiantsLicences, etudiantsMasters, etudiantsExecutifs, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -131,6 +118,12 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                   </AvGroup>
                 ) : null}
                 <AvGroup>
+                  <Label id="absentLabel" check>
+                    <AvInput id="absence-absent" type="checkbox" className="form-control" name="absent" />
+                    <Translate contentKey="pfumv10App.absence.absent">Absent</Translate>
+                  </Label>
+                </AvGroup>
+                <AvGroup>
                   <Label id="dateSeanceLabel" for="absence-dateSeance">
                     <Translate contentKey="pfumv10App.absence.dateSeance">Date Seance</Translate>
                   </Label>
@@ -144,6 +137,21 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                   />
                 </AvGroup>
                 <AvGroup>
+                  <Label for="absence-user">
+                    <Translate contentKey="pfumv10App.absence.user">User</Translate>
+                  </Label>
+                  <AvInput id="absence-user" type="select" className="form-control" name="user.id">
+                    <option value="" key="0" />
+                    {users
+                      ? users.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
                   <Label for="absence-module">
                     <Translate contentKey="pfumv10App.absence.module">Module</Translate>
                   </Label>
@@ -152,49 +160,57 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                     {modules
                       ? modules.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.nomModule}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}
                   </AvInput>
                 </AvGroup>
-                <Label for="absence-module">Etudiants de Master exécutif </Label>
-                <Table responsive>
-                  <thead>
-                    <tr>
-                      {/*    <th>
-                            <Translate contentKey="global.field.id">ID</Translate>
-                          </th> */}
-                      <th>
-                        <Translate contentKey="pfumv10App.etudiantsLicence.nom">Nom</Translate>
-                      </th>
-                      <th>
-                        <Translate contentKey="pfumv10App.etudiantsLicence.prenom">Prenom</Translate>
-                      </th>
-
-                      <th />
-                    </tr>
-                  </thead>
-
-                  {etudiantsExecutifs.map((etudiant, i) => (
-                    <tbody>
-                      <tr key={`entity-${i}`}>
-                        {/* <td>{etudiant.id}</td> */}
-                        <td>{etudiant.nom}</td>
-                        <td>{etudiant.prenom}</td>
-                        <td>
-                          <input
-                            className="form-check-control"
-                            type="checkbox"
-                            name="absent"
-                            value={etudiant.id}
-                            onChange={this.handleInputChangeExecutif}
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  ))}
-                </Table>
+                <AvGroup>
+                  <Label for="absence-etudiantsLicence">
+                    <Translate contentKey="pfumv10App.absence.etudiantsLicence">Etudiants Licence</Translate>
+                  </Label>
+                  <AvInput id="absence-etudiantsLicence" type="select" className="form-control" name="etudiantsLicence.id">
+                    <option value="" key="0" />
+                    {etudiantsLicences
+                      ? etudiantsLicences.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="absence-etudiantsMaster">
+                    <Translate contentKey="pfumv10App.absence.etudiantsMaster">Etudiants Master</Translate>
+                  </Label>
+                  <AvInput id="absence-etudiantsMaster" type="select" className="form-control" name="etudiantsMaster.id">
+                    <option value="" key="0" />
+                    {etudiantsMasters
+                      ? etudiantsMasters.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label for="absence-etudiantsExecutif">
+                    <Translate contentKey="pfumv10App.absence.etudiantsExecutif">Etudiants Executif</Translate>
+                  </Label>
+                  <AvInput id="absence-etudiantsExecutif" type="select" className="form-control" name="etudiantsExecutif.id">
+                    <option value="" key="0" />
+                    {etudiantsExecutifs
+                      ? etudiantsExecutifs.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/absence" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;
@@ -220,6 +236,8 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
   modules: storeState.module.entities,
+  etudiantsLicences: storeState.etudiantsLicence.entities,
+  etudiantsMasters: storeState.etudiantsMaster.entities,
   etudiantsExecutifs: storeState.etudiantsExecutif.entities,
   absenceEntity: storeState.absence.entity,
   loading: storeState.absence.loading,
@@ -230,6 +248,8 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getUsers,
   getModules,
+  getEtudiantsLicences,
+  getEtudiantsMasters,
   getEtudiantsExecutifs,
   getEntity,
   updateEntity,

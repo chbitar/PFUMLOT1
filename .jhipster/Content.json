@@ -1,0 +1,28 @@
+{
+    "name": "Content",
+    "fields": [
+        {
+            "fieldName": "data",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "autreDoc",
+            "otherEntityRelationshipName": "content",
+            "relationshipName": "autredoc",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20201019225719",
+    "entityTableName": "content",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

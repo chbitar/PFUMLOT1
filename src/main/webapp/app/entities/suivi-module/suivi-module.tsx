@@ -1,18 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table, Label } from 'reactstrap';
+import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { byteSize, Translate, translate, ICrudSearchAction, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntitiesAffectedToProf } from './suivi-module.reducer';
+import { getSearchEntities, getEntities } from './suivi-module.reducer';
 import { ISuiviModule } from 'app/shared/model/suivi-module.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_DATE_FORMAT_TIMESTAMP, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
-import { hasAnyAuthority } from 'app/shared/auth/private-route';
-import { Transform } from 'stream';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface ISuiviModuleProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -26,7 +25,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
   };
 
   componentDidMount() {
-    this.props.getEntitiesAffectedToProf();
+    this.props.getEntities();
   }
 
   search = () => {
@@ -37,26 +36,18 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
 
   clear = () => {
     this.setState({ search: '' }, () => {
-      this.props.getEntitiesAffectedToProf();
+      this.props.getEntities();
     });
-  };
-
-  displayRemaining = (id, volume) => {
-    const total = this.props.suiviModuleList
-      .filter(suivi => suivi.module.id === id)
-      .map(suivi => suivi.duree)
-      .reduce((curval, newval) => curval + newval);
-    return '' + (volume - total);
   };
 
   handleSearch = event => this.setState({ search: event.target.value });
 
   render() {
-    const { suiviModuleList, match, isProfesseur } = this.props;
+    const { suiviModuleList, match } = this.props;
     return (
       <div>
         <h2 id="suivi-module-heading">
-          <Translate contentKey="pfumv10App.suiviModule.home.title"> Suivi Modules </Translate>
+          <Translate contentKey="pfumv10App.suiviModule.home.title">Suivi Modules</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
@@ -92,18 +83,14 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
               <thead>
                 <tr>
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.professeur">Professeur</Translate>
+                    <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
                     <Translate contentKey="pfumv10App.suiviModule.semestre">Semestre</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.module">Module</Translate>
-                  </th>
-                  <th>Reste</th>
-                  {/*                   <th>
                     <Translate contentKey="pfumv10App.suiviModule.descriptif">Descriptif</Translate>
-                  </th> */}
+                  </th>
                   <th>
                     <Translate contentKey="pfumv10App.suiviModule.observations">Observations</Translate>
                   </th>
@@ -119,32 +106,40 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
                   <th>
                     <Translate contentKey="pfumv10App.suiviModule.duree">Duree</Translate>
                   </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.suiviModule.user">User</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.suiviModule.module">Module</Translate>
+                  </th>
                   <th />
                 </tr>
               </thead>
               <tbody>
                 {suiviModuleList.map((suiviModule, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>{suiviModule.user ? suiviModule.user.firstName + ' ' + suiviModule.user.lastName : ''}</td>
+                    <td>
+                      <Button tag={Link} to={`${match.url}/${suiviModule.id}`} color="link" size="sm">
+                        {suiviModule.id}
+                      </Button>
+                    </td>
                     <td>
                       <Translate contentKey={`pfumv10App.Semestre.${suiviModule.semestre}`} />
                     </td>
-                    <td>{suiviModule.module ? <Link to={`module/${suiviModule.module.id}`}>{suiviModule.module.nomModule}</Link> : ''}</td>
-                    <td>
-                      <div className="aaa">{this.displayRemaining(suiviModule.module.id, suiviModule.module.volumeHoraire)}</div>
-                    </td>
-                    {/* <td>{suiviModule.descriptif}</td> */}
+                    <td>{suiviModule.descriptif}</td>
                     <td>{suiviModule.observations}</td>
                     <td>
                       <TextFormat type="date" value={suiviModule.date} format={APP_DATE_FORMAT} />
                     </td>
                     <td>
-                      <TextFormat type="date" value={suiviModule.debutCreneau} format={APP_DATE_FORMAT_TIMESTAMP} />
+                      <TextFormat type="date" value={suiviModule.debutCreneau} format={APP_DATE_FORMAT} />
                     </td>
                     <td>
-                      <TextFormat type="date" value={suiviModule.finCreneau} format={APP_DATE_FORMAT_TIMESTAMP} />
+                      <TextFormat type="date" value={suiviModule.finCreneau} format={APP_DATE_FORMAT} />
                     </td>
                     <td>{suiviModule.duree}</td>
+                    <td>{suiviModule.user ? suiviModule.user.id : ''}</td>
+                    <td>{suiviModule.module ? <Link to={`module/${suiviModule.module.id}`}>{suiviModule.module.id}</Link> : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${suiviModule.id}`} color="info" size="sm">
@@ -153,16 +148,12 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
-                        {isProfesseur && (
-                          <dd>
-                            <Button tag={Link} to={`${match.url}/${suiviModule.id}/edit`} color="primary" size="sm">
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.edit">Edit</Translate>
-                              </span>
-                            </Button>
-                          </dd>
-                        )}
+                        <Button tag={Link} to={`${match.url}/${suiviModule.id}/edit`} color="primary" size="sm">
+                          <FontAwesomeIcon icon="pencil-alt" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.edit">Edit</Translate>
+                          </span>
+                        </Button>
                         <Button tag={Link} to={`${match.url}/${suiviModule.id}/delete`} color="danger" size="sm">
                           <FontAwesomeIcon icon="trash" />{' '}
                           <span className="d-none d-md-inline">
@@ -186,14 +177,13 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
   }
 }
 
-const mapStateToProps = ({ suiviModule, authentication }: IRootState) => ({
-  suiviModuleList: suiviModule.entities,
-  isProfesseur: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.PROF])
+const mapStateToProps = ({ suiviModule }: IRootState) => ({
+  suiviModuleList: suiviModule.entities
 });
 
 const mapDispatchToProps = {
   getSearchEntities,
-  getEntitiesAffectedToProf
+  getEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

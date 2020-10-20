@@ -44,13 +44,13 @@ public class ModalitePaiement implements Serializable {
     private Devise devise;
 
     @OneToMany(mappedBy = "modalite")
+    private Set<EtudiantsExecutif> etudiantsExecutifs = new HashSet<>();
+
+    @OneToMany(mappedBy = "modalite")
     private Set<EtudiantsLicence> etudiantsLicences = new HashSet<>();
 
     @OneToMany(mappedBy = "modalite")
     private Set<EtudiantsMaster> etudiantsMasters = new HashSet<>();
-
-    @OneToMany(mappedBy = "modalite")
-    private Set<EtudiantsExecutif> etudiantsExecutifs = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -139,6 +139,31 @@ public class ModalitePaiement implements Serializable {
         this.devise = devise;
     }
 
+    public Set<EtudiantsExecutif> getEtudiantsExecutifs() {
+        return etudiantsExecutifs;
+    }
+
+    public ModalitePaiement etudiantsExecutifs(Set<EtudiantsExecutif> etudiantsExecutifs) {
+        this.etudiantsExecutifs = etudiantsExecutifs;
+        return this;
+    }
+
+    public ModalitePaiement addEtudiantsExecutif(EtudiantsExecutif etudiantsExecutif) {
+        this.etudiantsExecutifs.add(etudiantsExecutif);
+        etudiantsExecutif.setModalite(this);
+        return this;
+    }
+
+    public ModalitePaiement removeEtudiantsExecutif(EtudiantsExecutif etudiantsExecutif) {
+        this.etudiantsExecutifs.remove(etudiantsExecutif);
+        etudiantsExecutif.setModalite(null);
+        return this;
+    }
+
+    public void setEtudiantsExecutifs(Set<EtudiantsExecutif> etudiantsExecutifs) {
+        this.etudiantsExecutifs = etudiantsExecutifs;
+    }
+
     public Set<EtudiantsLicence> getEtudiantsLicences() {
         return etudiantsLicences;
     }
@@ -187,31 +212,6 @@ public class ModalitePaiement implements Serializable {
 
     public void setEtudiantsMasters(Set<EtudiantsMaster> etudiantsMasters) {
         this.etudiantsMasters = etudiantsMasters;
-    }
-
-    public Set<EtudiantsExecutif> getEtudiantsExecutifs() {
-        return etudiantsExecutifs;
-    }
-
-    public ModalitePaiement etudiantsExecutifs(Set<EtudiantsExecutif> etudiantsExecutifs) {
-        this.etudiantsExecutifs = etudiantsExecutifs;
-        return this;
-    }
-
-    public ModalitePaiement addEtudiantsExecutif(EtudiantsExecutif etudiantsExecutif) {
-        this.etudiantsExecutifs.add(etudiantsExecutif);
-        etudiantsExecutif.setModalite(this);
-        return this;
-    }
-
-    public ModalitePaiement removeEtudiantsExecutif(EtudiantsExecutif etudiantsExecutif) {
-        this.etudiantsExecutifs.remove(etudiantsExecutif);
-        etudiantsExecutif.setModalite(null);
-        return this;
-    }
-
-    public void setEtudiantsExecutifs(Set<EtudiantsExecutif> etudiantsExecutifs) {
-        this.etudiantsExecutifs = etudiantsExecutifs;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

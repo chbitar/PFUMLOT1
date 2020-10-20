@@ -13,14 +13,17 @@ export default class EtudiantsLicenceUpdatePage {
   emailInput: ElementFinder = element(by.css('input#etudiants-licence-email'));
   pjBacSelect: ElementFinder = element(by.css('select#etudiants-licence-pjBac'));
   mentionSelect: ElementFinder = element(by.css('select#etudiants-licence-mention'));
+  anneeObtentionInput: ElementFinder = element(by.css('input#etudiants-licence-anneeObtention'));
+  releveeNoteInput: ElementFinder = element(by.css('input#file_releveeNote'));
   cinPassInput: ElementFinder = element(by.css('input#etudiants-licence-cinPass'));
   paysNationaliteInput: ElementFinder = element(by.css('input#etudiants-licence-paysNationalite'));
   paysResidenceInput: ElementFinder = element(by.css('input#etudiants-licence-paysResidence'));
   codepostalInput: ElementFinder = element(by.css('input#etudiants-licence-codepostal'));
   provinceInput: ElementFinder = element(by.css('input#etudiants-licence-province'));
   telInput: ElementFinder = element(by.css('input#etudiants-licence-tel'));
+  deuxiemeTelInput: ElementFinder = element(by.css('input#etudiants-licence-deuxiemeTel'));
   photoInput: ElementFinder = element(by.css('input#file_photo'));
-  extraitActeNaissanceInput: ElementFinder = element(by.css('input#file_extraitActeNaissance'));
+  testAdmissionInput: ElementFinder = element(by.css('input#file_testAdmission'));
   bacalaureatInput: ElementFinder = element(by.css('input#file_bacalaureat'));
   cinPassportInput: ElementFinder = element(by.css('input#file_cinPassport'));
   inscriptionvalideInput: ElementFinder = element(by.css('input#etudiants-licence-inscriptionvalide'));
@@ -118,6 +121,22 @@ export default class EtudiantsLicenceUpdatePage {
       .last()
       .click();
   }
+  async setAnneeObtentionInput(anneeObtention) {
+    await this.anneeObtentionInput.sendKeys(anneeObtention);
+  }
+
+  async getAnneeObtentionInput() {
+    return this.anneeObtentionInput.getAttribute('value');
+  }
+
+  async setReleveeNoteInput(releveeNote) {
+    await this.releveeNoteInput.sendKeys(releveeNote);
+  }
+
+  async getReleveeNoteInput() {
+    return this.releveeNoteInput.getAttribute('value');
+  }
+
   async setCinPassInput(cinPass) {
     await this.cinPassInput.sendKeys(cinPass);
   }
@@ -166,6 +185,14 @@ export default class EtudiantsLicenceUpdatePage {
     return this.telInput.getAttribute('value');
   }
 
+  async setDeuxiemeTelInput(deuxiemeTel) {
+    await this.deuxiemeTelInput.sendKeys(deuxiemeTel);
+  }
+
+  async getDeuxiemeTelInput() {
+    return this.deuxiemeTelInput.getAttribute('value');
+  }
+
   async setPhotoInput(photo) {
     await this.photoInput.sendKeys(photo);
   }
@@ -174,12 +201,12 @@ export default class EtudiantsLicenceUpdatePage {
     return this.photoInput.getAttribute('value');
   }
 
-  async setExtraitActeNaissanceInput(extraitActeNaissance) {
-    await this.extraitActeNaissanceInput.sendKeys(extraitActeNaissance);
+  async setTestAdmissionInput(testAdmission) {
+    await this.testAdmissionInput.sendKeys(testAdmission);
   }
 
-  async getExtraitActeNaissanceInput() {
-    return this.extraitActeNaissanceInput.getAttribute('value');
+  async getTestAdmissionInput() {
+    return this.testAdmissionInput.getAttribute('value');
   }
 
   async setBacalaureatInput(bacalaureat) {

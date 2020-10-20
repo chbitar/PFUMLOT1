@@ -20,7 +20,7 @@
             "relationshipName": "espaceEtudiant"
         }
     ],
-    "changelogDate": "20201014002153",
+    "changelogDate": "20201020003310",
     "entityTableName": "annonce",
     "dto": "no",
     "pagination": "no",

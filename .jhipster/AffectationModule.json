@@ -27,7 +27,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201014002140",
+    "changelogDate": "20201020003257",
     "entityTableName": "affectation_module",
     "dto": "no",
     "pagination": "no",

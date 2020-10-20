@@ -1,19 +1,8 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.AffectationModule;
-import com.planeta.pfum.domain.EtudiantsExecutif;
 import com.planeta.pfum.domain.EtudiantsLicence;
-import com.planeta.pfum.domain.EtudiantsMaster;
-import com.planeta.pfum.domain.Filiere;
-import com.planeta.pfum.domain.User;
-import com.planeta.pfum.domain.enumeration.Semestre;
 import com.planeta.pfum.repository.EtudiantsLicenceRepository;
-import com.planeta.pfum.repository.FiliereRepository;
-import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.repository.search.EtudiantsLicenceSearchRepository;
-import com.planeta.pfum.security.AuthoritiesConstants;
-import com.planeta.pfum.security.SecurityUtils;
-import com.planeta.pfum.service.UserService;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -27,9 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,21 +42,9 @@ public class EtudiantsLicenceResource {
 
     private final EtudiantsLicenceSearchRepository etudiantsLicenceSearchRepository;
 
-    private final FiliereRepository filiereRepository;
-
-    private final UserService userService;
-    
-    private final UserRepository userRepository;
-    
-    
-    public EtudiantsLicenceResource(EtudiantsLicenceRepository etudiantsLicenceRepository, EtudiantsLicenceSearchRepository etudiantsLicenceSearchRepository, FiliereRepository filiereRepository,UserRepository userRepository,UserService userService) {
+    public EtudiantsLicenceResource(EtudiantsLicenceRepository etudiantsLicenceRepository, EtudiantsLicenceSearchRepository etudiantsLicenceSearchRepository) {
         this.etudiantsLicenceRepository = etudiantsLicenceRepository;
         this.etudiantsLicenceSearchRepository = etudiantsLicenceSearchRepository;
-        this.filiereRepository = filiereRepository;
-        this.userRepository = userRepository;
-        this.userService = userService;
-
-        
     }
 
     /**
@@ -85,20 +60,8 @@ public class EtudiantsLicenceResource {
         if (etudiantsLicence.getId() != null) {
             throw new BadRequestAlertException("A new etudiantsLicence cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        
         EtudiantsLicence result = etudiantsLicenceRepository.save(etudiantsLicence);
-        
-        
-        int fourDigYear =Calendar.getInstance().get(Calendar.YEAR);;
-        String suffixe = "OS"+ Integer.toString(fourDigYear).substring(2)  + customFormat("0000", result.getId());
-        
-        
-        //Creation d'un compte USER pour se connecter
-        User newUser = userService.createUserForEtudiants(etudiantsLicence);
-        etudiantsLicence.setUser(newUser);
-        etudiantsLicence.setSuffixe(suffixe);
-        etudiantsLicenceRepository.save(etudiantsLicence);
-
+        etudiantsLicenceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-licences/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -120,7 +83,7 @@ public class EtudiantsLicenceResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         EtudiantsLicence result = etudiantsLicenceRepository.save(etudiantsLicence);
-//        etudiantsLicenceSearchRepository.save(result);
+        etudiantsLicenceSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, etudiantsLicence.getId().toString()))
             .body(result);
@@ -134,13 +97,6 @@ public class EtudiantsLicenceResource {
     @GetMapping("/etudiants-licences")
     public List<EtudiantsLicence> getAllEtudiantsLicences() {
         log.debug("REST request to get all EtudiantsLicences");
-        
-    	if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT_LICENCE)) {
-			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-			return etudiantsLicenceRepository.findAllByUserId(user.get().getId());
-		} 
-        
-        
         return etudiantsLicenceRepository.findAll();
     }
 
@@ -167,7 +123,7 @@ public class EtudiantsLicenceResource {
     public ResponseEntity<Void> deleteEtudiantsLicence(@PathVariable Long id) {
         log.debug("REST request to delete EtudiantsLicence : {}", id);
         etudiantsLicenceRepository.deleteById(id);
-//        etudiantsLicenceSearchRepository.deleteById(id);
+        etudiantsLicenceSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -181,20 +137,9 @@ public class EtudiantsLicenceResource {
     @GetMapping("/_search/etudiants-licences")
     public List<EtudiantsLicence> searchEtudiantsLicences(@RequestParam String query) {
         log.debug("REST request to search EtudiantsLicences for query {}", query);
-//        return StreamSupport
-//           .stream(etudiantsLicenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-//            .collect(Collectors.toList());
-        return new ArrayList<EtudiantsLicence>();
+        return StreamSupport
+            .stream(etudiantsLicenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
+    }
 
-    }
-    
-    @GetMapping("/etudiants-licences/filiere/{fil}")
-    public List<EtudiantsLicence> getAllEtudiantsLicencesByFiliere(@PathVariable Filiere fil) {
-        log.debug("REST request to get all etudiants-licences");
-        return etudiantsLicenceRepository.findAllByFiliere(fil);
-    }
-    private String customFormat(String pattern, long value ) {
-        DecimalFormat myFormatter = new DecimalFormat(pattern);
-        return myFormatter.format(value);
-     }
 }

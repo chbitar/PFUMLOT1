@@ -55,6 +55,15 @@
             "fieldValues": "Passable,Assez_bien,Bien,Tres_bien"
         },
         {
+            "fieldName": "anneeObtention",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "releveeNote",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
             "fieldName": "cinPass",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -82,6 +91,10 @@
             "fieldType": "Integer"
         },
         {
+            "fieldName": "deuxiemeTel",
+            "fieldType": "Integer"
+        },
+        {
             "fieldName": "photo",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image",
@@ -90,7 +103,7 @@
             ]
         },
         {
-            "fieldName": "extraitActeNaissance",
+            "fieldName": "testAdmission",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
         },
@@ -162,7 +175,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201014002144",
+    "changelogDate": "20201020003301",
     "entityTableName": "etudiants_licence",
     "dto": "no",
     "pagination": "no",

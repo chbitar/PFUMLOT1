@@ -7,7 +7,6 @@ import SuiviModule from './suivi-module';
 import SuiviModuleDetail from './suivi-module-detail';
 import SuiviModuleUpdate from './suivi-module-update';
 import SuiviModuleDeleteDialog from './suivi-module-delete-dialog';
-import { EmploiEtAvis } from '../professeur/emploi-avis';
 
 const Routes = ({ match }) => (
   <>

@@ -13,17 +13,22 @@ export default class EtudiantsExecutifUpdatePage {
   emailInput: ElementFinder = element(by.css('input#etudiants-executif-email'));
   pjBacSelect: ElementFinder = element(by.css('select#etudiants-executif-pjBac'));
   mentionSelect: ElementFinder = element(by.css('select#etudiants-executif-mention'));
+  anneeObtentionInput: ElementFinder = element(by.css('input#etudiants-executif-anneeObtention'));
   cinPassInput: ElementFinder = element(by.css('input#etudiants-executif-cinPass'));
   paysNationaliteInput: ElementFinder = element(by.css('input#etudiants-executif-paysNationalite'));
   paysResidenceInput: ElementFinder = element(by.css('input#etudiants-executif-paysResidence'));
   codepostalInput: ElementFinder = element(by.css('input#etudiants-executif-codepostal'));
   provinceInput: ElementFinder = element(by.css('input#etudiants-executif-province'));
   telInput: ElementFinder = element(by.css('input#etudiants-executif-tel'));
+  deuxiemetelInput: ElementFinder = element(by.css('input#etudiants-executif-deuxiemetel'));
   photoInput: ElementFinder = element(by.css('input#file_photo'));
-  extraitActeNaissanceInput: ElementFinder = element(by.css('input#file_extraitActeNaissance'));
+  cvInput: ElementFinder = element(by.css('input#file_cv'));
+  attestationTravailInput: ElementFinder = element(by.css('input#file_attestationTravail'));
   bacalaureatInput: ElementFinder = element(by.css('input#file_bacalaureat'));
   cinPassportInput: ElementFinder = element(by.css('input#file_cinPassport'));
   diplomeInput: ElementFinder = element(by.css('input#file_diplome'));
+  testAdmissionInput: ElementFinder = element(by.css('input#file_testAdmission'));
+  releveeNoteInput: ElementFinder = element(by.css('input#file_releveeNote'));
   inscriptionvalideInput: ElementFinder = element(by.css('input#etudiants-executif-inscriptionvalide'));
   absentInput: ElementFinder = element(by.css('input#etudiants-executif-absent'));
   userSelect: ElementFinder = element(by.css('select#etudiants-executif-user'));
@@ -119,6 +124,14 @@ export default class EtudiantsExecutifUpdatePage {
       .last()
       .click();
   }
+  async setAnneeObtentionInput(anneeObtention) {
+    await this.anneeObtentionInput.sendKeys(anneeObtention);
+  }
+
+  async getAnneeObtentionInput() {
+    return this.anneeObtentionInput.getAttribute('value');
+  }
+
   async setCinPassInput(cinPass) {
     await this.cinPassInput.sendKeys(cinPass);
   }
@@ -167,6 +180,14 @@ export default class EtudiantsExecutifUpdatePage {
     return this.telInput.getAttribute('value');
   }
 
+  async setDeuxiemetelInput(deuxiemetel) {
+    await this.deuxiemetelInput.sendKeys(deuxiemetel);
+  }
+
+  async getDeuxiemetelInput() {
+    return this.deuxiemetelInput.getAttribute('value');
+  }
+
   async setPhotoInput(photo) {
     await this.photoInput.sendKeys(photo);
   }
@@ -175,12 +196,20 @@ export default class EtudiantsExecutifUpdatePage {
     return this.photoInput.getAttribute('value');
   }
 
-  async setExtraitActeNaissanceInput(extraitActeNaissance) {
-    await this.extraitActeNaissanceInput.sendKeys(extraitActeNaissance);
+  async setCvInput(cv) {
+    await this.cvInput.sendKeys(cv);
   }
 
-  async getExtraitActeNaissanceInput() {
-    return this.extraitActeNaissanceInput.getAttribute('value');
+  async getCvInput() {
+    return this.cvInput.getAttribute('value');
+  }
+
+  async setAttestationTravailInput(attestationTravail) {
+    await this.attestationTravailInput.sendKeys(attestationTravail);
+  }
+
+  async getAttestationTravailInput() {
+    return this.attestationTravailInput.getAttribute('value');
   }
 
   async setBacalaureatInput(bacalaureat) {
@@ -205,6 +234,22 @@ export default class EtudiantsExecutifUpdatePage {
 
   async getDiplomeInput() {
     return this.diplomeInput.getAttribute('value');
+  }
+
+  async setTestAdmissionInput(testAdmission) {
+    await this.testAdmissionInput.sendKeys(testAdmission);
+  }
+
+  async getTestAdmissionInput() {
+    return this.testAdmissionInput.getAttribute('value');
+  }
+
+  async setReleveeNoteInput(releveeNote) {
+    await this.releveeNoteInput.sendKeys(releveeNote);
+  }
+
+  async getReleveeNoteInput() {
+    return this.releveeNoteInput.getAttribute('value');
   }
 
   getInscriptionvalideInput() {

@@ -11,6 +11,7 @@ import com.planeta.pfum.domain.enumeration.TypeDocument;
 public class DocumentDTO implements Serializable {
 
     private Long id;
+
     private String titre;
 
     @Lob

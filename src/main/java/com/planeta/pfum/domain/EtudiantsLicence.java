@@ -63,6 +63,16 @@ public class EtudiantsLicence implements Serializable {
     @Column(name = "mention")
     private Mention mention;
 
+    @Column(name = "annee_obtention")
+    private String anneeObtention;
+
+    @Lob
+    @Column(name = "relevee_note")
+    private byte[] releveeNote;
+
+    @Column(name = "relevee_note_content_type")
+    private String releveeNoteContentType;
+
     @NotNull
     @Column(name = "cin_pass", nullable = false)
     private String cinPass;
@@ -82,32 +92,38 @@ public class EtudiantsLicence implements Serializable {
     @Column(name = "tel")
     private Integer tel;
 
+    @Column(name = "deuxieme_tel")
+    private Integer deuxiemeTel;
+
+    
     @Lob
-    @Column(name = "photo")
+    @Column(name = "photo", nullable = false)
     private byte[] photo;
 
-    @Column(name = "photo_content_type")
+    @Column(name = "photo_content_type", nullable = false)
     private String photoContentType;
 
     @Lob
-    @Column(name = "extrait_acte_naissance")
-    private byte[] extraitActeNaissance;
+    @Column(name = "test_admission")
+    private byte[] testAdmission;
 
-    @Column(name = "extrait_acte_naissance_content_type")
-    private String extraitActeNaissanceContentType;
+    @Column(name = "test_admission_content_type")
+    private String testAdmissionContentType;
 
+    
     @Lob
-    @Column(name = "bacalaureat")
+    @Column(name = "bacalaureat", nullable = false)
     private byte[] bacalaureat;
 
-    @Column(name = "bacalaureat_content_type")
+    @Column(name = "bacalaureat_content_type", nullable = false)
     private String bacalaureatContentType;
 
+    
     @Lob
-    @Column(name = "cin_passport")
+    @Column(name = "cin_passport", nullable = false)
     private byte[] cinPassport;
 
-    @Column(name = "cin_passport_content_type")
+    @Column(name = "cin_passport_content_type", nullable = false)
     private String cinPassportContentType;
 
     @Column(name = "inscriptionvalide")
@@ -264,6 +280,45 @@ public class EtudiantsLicence implements Serializable {
         this.mention = mention;
     }
 
+    public String getAnneeObtention() {
+        return anneeObtention;
+    }
+
+    public EtudiantsLicence anneeObtention(String anneeObtention) {
+        this.anneeObtention = anneeObtention;
+        return this;
+    }
+
+    public void setAnneeObtention(String anneeObtention) {
+        this.anneeObtention = anneeObtention;
+    }
+
+    public byte[] getReleveeNote() {
+        return releveeNote;
+    }
+
+    public EtudiantsLicence releveeNote(byte[] releveeNote) {
+        this.releveeNote = releveeNote;
+        return this;
+    }
+
+    public void setReleveeNote(byte[] releveeNote) {
+        this.releveeNote = releveeNote;
+    }
+
+    public String getReleveeNoteContentType() {
+        return releveeNoteContentType;
+    }
+
+    public EtudiantsLicence releveeNoteContentType(String releveeNoteContentType) {
+        this.releveeNoteContentType = releveeNoteContentType;
+        return this;
+    }
+
+    public void setReleveeNoteContentType(String releveeNoteContentType) {
+        this.releveeNoteContentType = releveeNoteContentType;
+    }
+
     public String getCinPass() {
         return cinPass;
     }
@@ -342,6 +397,19 @@ public class EtudiantsLicence implements Serializable {
         this.tel = tel;
     }
 
+    public Integer getDeuxiemeTel() {
+        return deuxiemeTel;
+    }
+
+    public EtudiantsLicence deuxiemeTel(Integer deuxiemeTel) {
+        this.deuxiemeTel = deuxiemeTel;
+        return this;
+    }
+
+    public void setDeuxiemeTel(Integer deuxiemeTel) {
+        this.deuxiemeTel = deuxiemeTel;
+    }
+
     public byte[] getPhoto() {
         return photo;
     }
@@ -368,30 +436,30 @@ public class EtudiantsLicence implements Serializable {
         this.photoContentType = photoContentType;
     }
 
-    public byte[] getExtraitActeNaissance() {
-        return extraitActeNaissance;
+    public byte[] getTestAdmission() {
+        return testAdmission;
     }
 
-    public EtudiantsLicence extraitActeNaissance(byte[] extraitActeNaissance) {
-        this.extraitActeNaissance = extraitActeNaissance;
+    public EtudiantsLicence testAdmission(byte[] testAdmission) {
+        this.testAdmission = testAdmission;
         return this;
     }
 
-    public void setExtraitActeNaissance(byte[] extraitActeNaissance) {
-        this.extraitActeNaissance = extraitActeNaissance;
+    public void setTestAdmission(byte[] testAdmission) {
+        this.testAdmission = testAdmission;
     }
 
-    public String getExtraitActeNaissanceContentType() {
-        return extraitActeNaissanceContentType;
+    public String getTestAdmissionContentType() {
+        return testAdmissionContentType;
     }
 
-    public EtudiantsLicence extraitActeNaissanceContentType(String extraitActeNaissanceContentType) {
-        this.extraitActeNaissanceContentType = extraitActeNaissanceContentType;
+    public EtudiantsLicence testAdmissionContentType(String testAdmissionContentType) {
+        this.testAdmissionContentType = testAdmissionContentType;
         return this;
     }
 
-    public void setExtraitActeNaissanceContentType(String extraitActeNaissanceContentType) {
-        this.extraitActeNaissanceContentType = extraitActeNaissanceContentType;
+    public void setTestAdmissionContentType(String testAdmissionContentType) {
+        this.testAdmissionContentType = testAdmissionContentType;
     }
 
     public byte[] getBacalaureat() {
@@ -604,16 +672,20 @@ public class EtudiantsLicence implements Serializable {
             ", email='" + getEmail() + "'" +
             ", pjBac='" + getPjBac() + "'" +
             ", mention='" + getMention() + "'" +
+            ", anneeObtention='" + getAnneeObtention() + "'" +
+            ", releveeNote='" + getReleveeNote() + "'" +
+            ", releveeNoteContentType='" + getReleveeNoteContentType() + "'" +
             ", cinPass='" + getCinPass() + "'" +
             ", paysNationalite='" + getPaysNationalite() + "'" +
             ", paysResidence='" + getPaysResidence() + "'" +
             ", codepostal='" + getCodepostal() + "'" +
             ", province='" + getProvince() + "'" +
             ", tel=" + getTel() +
+            ", deuxiemeTel=" + getDeuxiemeTel() +
             ", photo='" + getPhoto() + "'" +
             ", photoContentType='" + getPhotoContentType() + "'" +
-            ", extraitActeNaissance='" + getExtraitActeNaissance() + "'" +
-            ", extraitActeNaissanceContentType='" + getExtraitActeNaissanceContentType() + "'" +
+            ", testAdmission='" + getTestAdmission() + "'" +
+            ", testAdmissionContentType='" + getTestAdmissionContentType() + "'" +
             ", bacalaureat='" + getBacalaureat() + "'" +
             ", bacalaureatContentType='" + getBacalaureatContentType() + "'" +
             ", cinPassport='" + getCinPassport() + "'" +

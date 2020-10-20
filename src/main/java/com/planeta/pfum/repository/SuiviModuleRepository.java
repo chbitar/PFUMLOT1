@@ -16,5 +16,4 @@ public interface SuiviModuleRepository extends JpaRepository<SuiviModule, Long> 
     @Query("select suiviModule from SuiviModule suiviModule where suiviModule.user.login = ?#{principal.username}")
     List<SuiviModule> findByUserIsCurrentUser();
 
-    List<SuiviModule> findAllByUserId(Long id);
 }

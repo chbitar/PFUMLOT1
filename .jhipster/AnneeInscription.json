@@ -32,7 +32,7 @@
             "relationshipName": "etudiantsMaster"
         }
     ],
-    "changelogDate": "20201014002141",
+    "changelogDate": "20201020003258",
     "entityTableName": "annee_inscription",
     "dto": "no",
     "pagination": "no",

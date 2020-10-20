@@ -50,7 +50,7 @@
             "relationshipName": "affectationModule"
         }
     ],
-    "changelogDate": "20201014002148",
+    "changelogDate": "20201020003305",
     "entityTableName": "professeur",
     "dto": "no",
     "pagination": "no",

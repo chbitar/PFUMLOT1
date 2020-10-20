@@ -67,6 +67,8 @@ describe('EtudiantsExecutif e2e test', () => {
       expect(await etudiantsExecutifUpdatePage.getEmailInput()).to.match(/email/);
       await etudiantsExecutifUpdatePage.pjBacSelectLastOption();
       await etudiantsExecutifUpdatePage.mentionSelectLastOption();
+      await etudiantsExecutifUpdatePage.setAnneeObtentionInput('anneeObtention');
+      expect(await etudiantsExecutifUpdatePage.getAnneeObtentionInput()).to.match(/anneeObtention/);
       await etudiantsExecutifUpdatePage.setCinPassInput('cinPass');
       expect(await etudiantsExecutifUpdatePage.getCinPassInput()).to.match(/cinPass/);
       await etudiantsExecutifUpdatePage.setPaysNationaliteInput('paysNationalite');
@@ -79,11 +81,16 @@ describe('EtudiantsExecutif e2e test', () => {
       expect(await etudiantsExecutifUpdatePage.getProvinceInput()).to.match(/province/);
       await etudiantsExecutifUpdatePage.setTelInput('5');
       expect(await etudiantsExecutifUpdatePage.getTelInput()).to.eq('5');
+      await etudiantsExecutifUpdatePage.setDeuxiemetelInput('5');
+      expect(await etudiantsExecutifUpdatePage.getDeuxiemetelInput()).to.eq('5');
       await etudiantsExecutifUpdatePage.setPhotoInput(absolutePath);
-      await etudiantsExecutifUpdatePage.setExtraitActeNaissanceInput(absolutePath);
+      await etudiantsExecutifUpdatePage.setCvInput(absolutePath);
+      await etudiantsExecutifUpdatePage.setAttestationTravailInput(absolutePath);
       await etudiantsExecutifUpdatePage.setBacalaureatInput(absolutePath);
       await etudiantsExecutifUpdatePage.setCinPassportInput(absolutePath);
       await etudiantsExecutifUpdatePage.setDiplomeInput(absolutePath);
+      await etudiantsExecutifUpdatePage.setTestAdmissionInput(absolutePath);
+      await etudiantsExecutifUpdatePage.setReleveeNoteInput(absolutePath);
       const selectedInscriptionvalide = await etudiantsExecutifUpdatePage.getInscriptionvalideInput().isSelected();
       if (selectedInscriptionvalide) {
         await etudiantsExecutifUpdatePage.getInscriptionvalideInput().click();

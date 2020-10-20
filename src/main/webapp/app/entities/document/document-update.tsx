@@ -80,7 +80,9 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.document.home.createOrEditLabel">Charger ou éditer un document</h2>
+            <h2 id="pfumv10App.document.home.createOrEditLabel">
+              <Translate contentKey="pfumv10App.document.home.createOrEditLabel">Create or edit a Document</Translate>
+            </h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -89,6 +91,14 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
               <p>Loading...</p>
             ) : (
               <AvForm model={isNew ? {} : documentEntity} onSubmit={this.saveEntity}>
+                {!isNew ? (
+                  <AvGroup>
+                    <Label for="document-id">
+                      <Translate contentKey="global.field.id">ID</Translate>
+                    </Label>
+                    <AvInput id="document-id" type="text" className="form-control" name="id" required readOnly />
+                  </AvGroup>
+                ) : null}
                 <AvGroup>
                   <Label id="titreLabel" for="document-titre">
                     <Translate contentKey="pfumv10App.document.titre">Titre</Translate>
@@ -97,7 +107,9 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                 </AvGroup>
                 <AvGroup>
                   <AvGroup>
-                    <Label id="dataLabel" for="data" />
+                    <Label id="dataLabel" for="data">
+                      <Translate contentKey="pfumv10App.document.data">Data</Translate>
+                    </Label>
                     <br />
                     {data ? (
                       <div>
@@ -125,19 +137,19 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                 </AvGroup>
                 <AvGroup>
                   <Label id="typeDocumentLabel" for="document-typeDocument">
-                    <Translate contentKey="pfumv10App.document.typeDocument">Source</Translate>
+                    <Translate contentKey="pfumv10App.document.typeDocument">Type Document</Translate>
                   </Label>
                   <AvInput
-                    id="filiere-programme"
+                    id="document-typeDocument"
                     type="select"
                     className="form-control"
                     name="typeDocument"
                     value={(!isNew && documentEntity.typeDocument) || 'PROFESSEUR'}
                   >
-                    <option value="PROFESSEUR">PROFESSEUR</option>
-                    <option value="LICENCE">LICENCE</option>
-                    <option value="MASTER_EXECUTIF">MASTER_EXECUTIF</option>
-                    <option value="MASTER">MASTER</option>
+                    <option value="PROFESSEUR">{translate('pfumv10App.TypeDocument.PROFESSEUR')}</option>
+                    <option value="LICENCE">{translate('pfumv10App.TypeDocument.LICENCE')}</option>
+                    <option value="MASTER">{translate('pfumv10App.TypeDocument.MASTER')}</option>
+                    <option value="MASTER_EXECUTIF">{translate('pfumv10App.TypeDocument.MASTER_EXECUTIF')}</option>
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/document" replace color="info">

@@ -1,20 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table, Label } from 'reactstrap';
+import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { openFile, byteSize, Translate, translate, ICrudSearchAction, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, updateEntity, getEntitiesByFiliere } from './etudiants-master.reducer';
+import { getSearchEntities, getEntities } from './etudiants-master.reducer';
 import { IEtudiantsMaster } from 'app/shared/model/etudiants-master.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-
-import { getEntitie as getEtablissements } from 'app/entities/etablissement/etablissement.reducer';
-import { getEntitie as getFilieres, getEntitiesByEtab } from 'app/entities/filiere/filiere.reducer';
 
 export interface IEtudiantsMasterProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -29,8 +26,6 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
 
   componentDidMount() {
     this.props.getEntities();
-    this.props.getEtablissements();
-    this.props.getFilieres();
   }
 
   search = () => {
@@ -47,115 +42,38 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
 
   handleSearch = event => this.setState({ search: event.target.value });
 
-  toggleActive = etudiantsMaster => () => {
-    this.props.updateEntity({
-      ...etudiantsMaster,
-      inscriptionvalide: !etudiantsMaster.inscriptionvalide
-    });
-  };
-
-  filtrerListFiliereEtab = e => {
-    this.props.getEntitiesByEtab(e.target.value);
-  };
-
-  filtrerListEtudiantByFiliere = e => {
-    this.props.history.push('/entity/etudiants-master');
-    if (e.target.value === '') this.props.getEntities();
-    else this.props.getEntitiesByFiliere(e.target.value);
-  };
-
   render() {
-    const { etudiantsMasterList, match, etablissements, filieres } = this.props;
+    const { etudiantsMasterList, match } = this.props;
     return (
       <div>
         <h2 id="etudiants-master-heading">
-          Liste inscrits : MASTER ACADEMIQUE
+          <Translate contentKey="pfumv10App.etudiantsMaster.home.title">Etudiants Masters</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Ajouter un nouvel étudiant
+            &nbsp;
+            <Translate contentKey="pfumv10App.etudiantsMaster.home.createLabel">Create new Etudiants Master</Translate>
           </Link>
         </h2>
         <Row>
           <Col sm="12">
             <AvForm onSubmit={this.search}>
-              <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div className="toast-header">
-                  <strong className="mr-auto">Etat d'inscription</strong>
-                </div>
-                <div className="toast-body">
-                  <AvGroup>
-                    <Label for="filiere-etablissement">
-                      <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
-                    </Label>
-                    <AvInput
-                      id="filiere-etablissement"
-                      type="select"
-                      className="form-control"
-                      name="etablissement.id"
-                      onChange={this.filtrerListFiliereEtab}
-                    >
-                      <option value="" key="0" />
-                      {etablissements
-                        ? etablissements.map(otherEntity => (
-                            <option value={otherEntity.id} key={otherEntity.id}>
-                              {otherEntity.nomEcole}
-                            </option>
-                          ))
-                        : null}
-                    </AvInput>
-                  </AvGroup>
-                  <AvGroup>
-                    <Label for="module-filiere">Filière</Label>
-                    <AvInput
-                      id="module-filiere"
-                      type="select"
-                      className="form-control"
-                      name="filiere.id"
-                      onChange={this.filtrerListEtudiantByFiliere}
-                    >
-                      <option value="" key="0" />
-                      {filieres
-                        ? filieres.map(otherEntity => (
-                            <option value={otherEntity.id} key={otherEntity.id}>
-                              {otherEntity.nomfiliere}
-                            </option>
-                          ))
-                        : null}
-                    </AvInput>
-                  </AvGroup>
-                  <Button color="warning" size="sm">
-                    <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">PDF</span>
+              <AvGroup>
+                <InputGroup>
+                  <AvInput
+                    type="text"
+                    name="search"
+                    value={this.state.search}
+                    onChange={this.handleSearch}
+                    placeholder={translate('pfumv10App.etudiantsMaster.home.search')}
+                  />
+                  <Button className="input-group-addon">
+                    <FontAwesomeIcon icon="search" />
                   </Button>
-                  <Button color="success" size="sm">
-                    <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">XLS</span>
+                  <Button type="reset" className="input-group-addon" onClick={this.clear}>
+                    <FontAwesomeIcon icon="trash" />
                   </Button>
-                </div>
-              </div>
-
-              <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div className="toast-header">
-                  <strong className="mr-auto">Recherche</strong>
-                  <div className="toast-body">
-                    <AvGroup>
-                      <InputGroup>
-                        <AvInput
-                          type="text"
-                          name="search"
-                          value={this.state.search}
-                          onChange={this.handleSearch}
-                          placeholder={translate('pfumv10App.etudiantsMaster.home.search')}
-                        />
-                        <Button className="input-group-addon">
-                          <FontAwesomeIcon icon="search" />
-                        </Button>
-                        <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                          <FontAwesomeIcon icon="trash" />
-                        </Button>
-                      </InputGroup>
-                    </AvGroup>
-                  </div>
-                </div>
-              </div>
+                </InputGroup>
+              </AvGroup>
             </AvForm>
           </Col>
         </Row>
@@ -164,78 +82,277 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
             <Table responsive>
               <thead>
                 <tr>
-                  <th>N° étudiant</th>
+                  <th>
+                    <Translate contentKey="global.field.id">ID</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.suffixe">Suffixe</Translate>
+                  </th>
                   <th>
                     <Translate contentKey="pfumv10App.etudiantsMaster.nom">Nom</Translate>
                   </th>
                   <th>
                     <Translate contentKey="pfumv10App.etudiantsMaster.prenom">Prenom</Translate>
                   </th>
-
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.dateNaissance">Date Naissance</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.adresseContact">Adresse Contact</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.ville">Ville</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.email">Email</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.typeBac">Type Bac</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.mention">Mention</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.anneeObtentionBac">Annee Obtention Bac</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.releveeNoteBac">Relevee Note Bac</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.cinPass">Cin Pass</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.paysNationalite">Pays Nationalite</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.paysResidence">Pays Residence</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.codepostal">Codepostal</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.province">Province</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.tel">Tel</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.deuxiemetel">Deuxiemetel</Translate>
+                  </th>
                   <th>
                     <Translate contentKey="pfumv10App.etudiantsMaster.photo">Photo</Translate>
                   </th>
-
-                  <th>Validité</th>
-
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.tesAdmission">Tes Admission</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.bacalaureat">Bacalaureat</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.cinPassport">Cin Passport</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.diplome">Diplome</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.anneeObtentionLicence">Annee Obtention Licence</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.releveeNoteLicence">Relevee Note Licence</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.etablissementObtention">Etablissement Obtention</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.inscriptionvalide">Inscriptionvalide</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.absent">Absent</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.user">User</Translate>
+                  </th>
                   <th>
                     <Translate contentKey="pfumv10App.etudiantsMaster.filiere">Filiere</Translate>
                   </th>
-                  <th>Année scolaire</th>
-
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.anneeInscription">Annee Inscription</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.modalite">Modalite</Translate>
+                  </th>
                   <th />
                 </tr>
               </thead>
               <tbody>
                 {etudiantsMasterList.map((etudiantsMaster, i) => (
                   <tr key={`entity-${i}`}>
+                    <td>
+                      <Button tag={Link} to={`${match.url}/${etudiantsMaster.id}`} color="link" size="sm">
+                        {etudiantsMaster.id}
+                      </Button>
+                    </td>
                     <td>{etudiantsMaster.suffixe}</td>
                     <td>{etudiantsMaster.nom}</td>
                     <td>{etudiantsMaster.prenom}</td>
-
+                    <td>
+                      <TextFormat type="date" value={etudiantsMaster.dateNaissance} format={APP_DATE_FORMAT} />
+                    </td>
+                    <td>{etudiantsMaster.adresseContact}</td>
+                    <td>{etudiantsMaster.ville}</td>
+                    <td>{etudiantsMaster.email}</td>
+                    <td>
+                      <Translate contentKey={`pfumv10App.DiplomeBac.${etudiantsMaster.typeBac}`} />
+                    </td>
+                    <td>
+                      <Translate contentKey={`pfumv10App.Mention.${etudiantsMaster.mention}`} />
+                    </td>
+                    <td>{etudiantsMaster.anneeObtentionBac}</td>
+                    <td>
+                      {etudiantsMaster.releveeNoteBac ? (
+                        <div>
+                          <a onClick={openFile(etudiantsMaster.releveeNoteBacContentType, etudiantsMaster.releveeNoteBac)}>
+                            <img
+                              src={`data:${etudiantsMaster.releveeNoteBacContentType};base64,${etudiantsMaster.releveeNoteBac}`}
+                              style={{ maxHeight: '30px' }}
+                            />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {etudiantsMaster.releveeNoteBacContentType}, {byteSize(etudiantsMaster.releveeNoteBac)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>{etudiantsMaster.cinPass}</td>
+                    <td>{etudiantsMaster.paysNationalite}</td>
+                    <td>{etudiantsMaster.paysResidence}</td>
+                    <td>{etudiantsMaster.codepostal}</td>
+                    <td>{etudiantsMaster.province}</td>
+                    <td>{etudiantsMaster.tel}</td>
+                    <td>{etudiantsMaster.deuxiemetel}</td>
                     <td>
                       {etudiantsMaster.photo ? (
                         <div>
                           <a onClick={openFile(etudiantsMaster.photoContentType, etudiantsMaster.photo)}>
                             <img
                               src={`data:${etudiantsMaster.photoContentType};base64,${etudiantsMaster.photo}`}
-                              style={{ maxHeight: '70px' }}
+                              style={{ maxHeight: '30px' }}
                             />
                             &nbsp;
                           </a>
+                          <span>
+                            {etudiantsMaster.photoContentType}, {byteSize(etudiantsMaster.photo)}
+                          </span>
                         </div>
                       ) : null}
                     </td>
-
                     <td>
-                      {etudiantsMaster.inscriptionvalide ? (
-                        <Button color="success" onClick={this.toggleActive(etudiantsMaster)}>
-                          Validé
-                        </Button>
-                      ) : (
-                        <Button color="danger" onClick={this.toggleActive(etudiantsMaster)}>
-                          En attente
-                        </Button>
-                      )}
+                      {etudiantsMaster.tesAdmission ? (
+                        <div>
+                          <a onClick={openFile(etudiantsMaster.tesAdmissionContentType, etudiantsMaster.tesAdmission)}>
+                            <img
+                              src={`data:${etudiantsMaster.tesAdmissionContentType};base64,${etudiantsMaster.tesAdmission}`}
+                              style={{ maxHeight: '30px' }}
+                            />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {etudiantsMaster.tesAdmissionContentType}, {byteSize(etudiantsMaster.tesAdmission)}
+                          </span>
+                        </div>
+                      ) : null}
                     </td>
-
+                    <td>
+                      {etudiantsMaster.bacalaureat ? (
+                        <div>
+                          <a onClick={openFile(etudiantsMaster.bacalaureatContentType, etudiantsMaster.bacalaureat)}>
+                            <img
+                              src={`data:${etudiantsMaster.bacalaureatContentType};base64,${etudiantsMaster.bacalaureat}`}
+                              style={{ maxHeight: '30px' }}
+                            />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {etudiantsMaster.bacalaureatContentType}, {byteSize(etudiantsMaster.bacalaureat)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>
+                      {etudiantsMaster.cinPassport ? (
+                        <div>
+                          <a onClick={openFile(etudiantsMaster.cinPassportContentType, etudiantsMaster.cinPassport)}>
+                            <img
+                              src={`data:${etudiantsMaster.cinPassportContentType};base64,${etudiantsMaster.cinPassport}`}
+                              style={{ maxHeight: '30px' }}
+                            />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {etudiantsMaster.cinPassportContentType}, {byteSize(etudiantsMaster.cinPassport)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>
+                      {etudiantsMaster.diplome ? (
+                        <div>
+                          <a onClick={openFile(etudiantsMaster.diplomeContentType, etudiantsMaster.diplome)}>
+                            <img
+                              src={`data:${etudiantsMaster.diplomeContentType};base64,${etudiantsMaster.diplome}`}
+                              style={{ maxHeight: '30px' }}
+                            />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {etudiantsMaster.diplomeContentType}, {byteSize(etudiantsMaster.diplome)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>{etudiantsMaster.anneeObtentionLicence}</td>
+                    <td>
+                      {etudiantsMaster.releveeNoteLicence ? (
+                        <div>
+                          <a onClick={openFile(etudiantsMaster.releveeNoteLicenceContentType, etudiantsMaster.releveeNoteLicence)}>
+                            <img
+                              src={`data:${etudiantsMaster.releveeNoteLicenceContentType};base64,${etudiantsMaster.releveeNoteLicence}`}
+                              style={{ maxHeight: '30px' }}
+                            />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {etudiantsMaster.releveeNoteLicenceContentType}, {byteSize(etudiantsMaster.releveeNoteLicence)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>{etudiantsMaster.etablissementObtention}</td>
+                    <td>{etudiantsMaster.inscriptionvalide ? 'true' : 'false'}</td>
+                    <td>{etudiantsMaster.absent ? 'true' : 'false'}</td>
+                    <td>{etudiantsMaster.user ? etudiantsMaster.user.id : ''}</td>
                     <td>
                       {etudiantsMaster.filiere ? (
-                        <Link to={`filiere/${etudiantsMaster.filiere.id}`}>{etudiantsMaster.filiere.nomfiliere}</Link>
+                        <Link to={`filiere/${etudiantsMaster.filiere.id}`}>{etudiantsMaster.filiere.id}</Link>
                       ) : (
                         ''
                       )}
                     </td>
                     <td>
                       {etudiantsMaster.anneeInscription ? (
-                        <Link to={`annee-inscription/${etudiantsMaster.anneeInscription.id}`}>
-                          {etudiantsMaster.anneeInscription.annee}
-                        </Link>
+                        <Link to={`annee-inscription/${etudiantsMaster.anneeInscription.id}`}>{etudiantsMaster.anneeInscription.id}</Link>
                       ) : (
                         ''
                       )}
                     </td>
-
+                    <td>
+                      {etudiantsMaster.modalite ? (
+                        <Link to={`modalite-paiement/${etudiantsMaster.modalite.id}`}>{etudiantsMaster.modalite.id}</Link>
+                      ) : (
+                        ''
+                      )}
+                    </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${etudiantsMaster.id}`} color="info" size="sm">
@@ -273,20 +390,13 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
   }
 }
 
-const mapStateToProps = (storeState: IRootState) => ({
-  etudiantsMasterList: storeState.etudiantsMaster.entities,
-  etablissements: storeState.etablissement.entities,
-  filieres: storeState.filiere.entities
+const mapStateToProps = ({ etudiantsMaster }: IRootState) => ({
+  etudiantsMasterList: etudiantsMaster.entities
 });
 
 const mapDispatchToProps = {
   getSearchEntities,
-  getEntities,
-  updateEntity,
-  getEntitiesByFiliere,
-  getEtablissements,
-  getFilieres,
-  getEntitiesByEtab
+  getEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

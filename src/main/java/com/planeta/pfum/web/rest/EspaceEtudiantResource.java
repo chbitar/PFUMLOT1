@@ -1,6 +1,5 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.CalendrierModule;
 import com.planeta.pfum.domain.EspaceEtudiant;
 import com.planeta.pfum.repository.EspaceEtudiantRepository;
 import com.planeta.pfum.repository.search.EspaceEtudiantSearchRepository;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,7 +60,7 @@ public class EspaceEtudiantResource {
             throw new BadRequestAlertException("A new espaceEtudiant cannot already have an ID", ENTITY_NAME, "idexists");
         }
         EspaceEtudiant result = espaceEtudiantRepository.save(espaceEtudiant);
-//        espaceEtudiantSearchRepository.save(result);
+        espaceEtudiantSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/espace-etudiants/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,7 +82,7 @@ public class EspaceEtudiantResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         EspaceEtudiant result = espaceEtudiantRepository.save(espaceEtudiant);
-//        espaceEtudiantSearchRepository.save(result);
+        espaceEtudiantSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, espaceEtudiant.getId().toString()))
             .body(result);
@@ -123,7 +122,7 @@ public class EspaceEtudiantResource {
     public ResponseEntity<Void> deleteEspaceEtudiant(@PathVariable Long id) {
         log.debug("REST request to delete EspaceEtudiant : {}", id);
         espaceEtudiantRepository.deleteById(id);
-//        espaceEtudiantSearchRepository.deleteById(id);
+        espaceEtudiantSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -137,12 +136,9 @@ public class EspaceEtudiantResource {
     @GetMapping("/_search/espace-etudiants")
     public List<EspaceEtudiant> searchEspaceEtudiants(@RequestParam String query) {
         log.debug("REST request to search EspaceEtudiants for query {}", query);
-//        return StreamSupport
-//            .stream(espaceEtudiantSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-//            .collect(Collectors.toList());
-        
-        return new ArrayList<EspaceEtudiant>();
-
+        return StreamSupport
+            .stream(espaceEtudiantSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
     }
 
 }

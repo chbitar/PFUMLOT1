@@ -1,8 +1,6 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.Absence;
 import com.planeta.pfum.domain.AffectationModule;
-import com.planeta.pfum.domain.enumeration.Semestre;
 import com.planeta.pfum.repository.AffectationModuleRepository;
 import com.planeta.pfum.repository.search.AffectationModuleSearchRepository;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -62,7 +60,7 @@ public class AffectationModuleResource {
             throw new BadRequestAlertException("A new affectationModule cannot already have an ID", ENTITY_NAME, "idexists");
         }
         AffectationModule result = affectationModuleRepository.save(affectationModule);
-//        affectationModuleSearchRepository.save(result);
+        affectationModuleSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/affectation-modules/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -84,7 +82,7 @@ public class AffectationModuleResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         AffectationModule result = affectationModuleRepository.save(affectationModule);
-//        affectationModuleSearchRepository.save(result);
+        affectationModuleSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, affectationModule.getId().toString()))
             .body(result);
@@ -124,7 +122,7 @@ public class AffectationModuleResource {
     public ResponseEntity<Void> deleteAffectationModule(@PathVariable Long id) {
         log.debug("REST request to delete AffectationModule : {}", id);
         affectationModuleRepository.deleteById(id);
-//        affectationModuleSearchRepository.deleteById(id);
+        affectationModuleSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -138,17 +136,9 @@ public class AffectationModuleResource {
     @GetMapping("/_search/affectation-modules")
     public List<AffectationModule> searchAffectationModules(@RequestParam String query) {
         log.debug("REST request to search AffectationModules for query {}", query);
-//        return StreamSupport
-//            .stream(affectationModuleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-//            .collect(Collectors.toList());
-        return new ArrayList<AffectationModule>();
-
-    }
-
-    @GetMapping("/affectation-modules/semestre/{sem}")
-    public List<AffectationModule> getAllAffectaionModulesBySemestre(@PathVariable Semestre sem) {
-        log.debug("REST request to get all AffectaionModules");
-        return affectationModuleRepository.findAllBySemestre(sem);
+        return StreamSupport
+            .stream(affectationModuleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
     }
 
 }

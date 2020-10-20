@@ -1,6 +1,5 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.Filiere;
 import com.planeta.pfum.domain.ModalitePaiement;
 import com.planeta.pfum.repository.ModalitePaiementRepository;
 import com.planeta.pfum.repository.search.ModalitePaiementSearchRepository;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,7 +60,7 @@ public class ModalitePaiementResource {
             throw new BadRequestAlertException("A new modalitePaiement cannot already have an ID", ENTITY_NAME, "idexists");
         }
         ModalitePaiement result = modalitePaiementRepository.save(modalitePaiement);
-//        modalitePaiementSearchRepository.save(result);
+        modalitePaiementSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/modalite-paiements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,7 +82,7 @@ public class ModalitePaiementResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         ModalitePaiement result = modalitePaiementRepository.save(modalitePaiement);
-//        modalitePaiementSearchRepository.save(result);
+        modalitePaiementSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, modalitePaiement.getId().toString()))
             .body(result);
@@ -123,7 +122,7 @@ public class ModalitePaiementResource {
     public ResponseEntity<Void> deleteModalitePaiement(@PathVariable Long id) {
         log.debug("REST request to delete ModalitePaiement : {}", id);
         modalitePaiementRepository.deleteById(id);
-//        modalitePaiementSearchRepository.deleteById(id);
+        modalitePaiementSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
@@ -137,12 +136,9 @@ public class ModalitePaiementResource {
     @GetMapping("/_search/modalite-paiements")
     public List<ModalitePaiement> searchModalitePaiements(@RequestParam String query) {
         log.debug("REST request to search ModalitePaiements for query {}", query);
-//        return StreamSupport
-//            .stream(modalitePaiementSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-//            .collect(Collectors.toList());
-        
-        return new ArrayList<ModalitePaiement>();
-
+        return StreamSupport
+            .stream(modalitePaiementSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
     }
 
 }
