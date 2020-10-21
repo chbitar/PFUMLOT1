@@ -101,8 +101,7 @@ export default (state: ProfesseurState = initialState, action): ProfesseurState 
 
 const apiUrl = 'api/professeurs';
 const apiSearchUrl = 'api/_search/professeurs';
-
-// Actions
+const apiExtendedUrl = 'api/extended/professeurs';
 
 export const getSearchEntities: ICrudSearchAction<IProfesseur> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_PROFESSEURS,
@@ -150,6 +149,14 @@ export const deleteEntity: ICrudDeleteAction<IProfesseur> = id => async dispatch
   return result;
 };
 
+export const createExtendedEntity: ICrudPutAction<IProfesseur> = entity => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.CREATE_PROFESSEUR,
+    payload: axios.post(apiExtendedUrl, cleanEntity(entity))
+  });
+  dispatch(getEntities());
+  return result;
+};
 export const reset = () => ({
   type: ACTION_TYPES.RESET
 });

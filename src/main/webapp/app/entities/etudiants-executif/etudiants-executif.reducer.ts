@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction, translate } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
 import { IEtudiantsExecutif, defaultValue } from 'app/shared/model/etudiants-executif.model';
+import { IEtudiantsLicence } from 'app/shared/model/etudiants-licence.model';
 
 export const ACTION_TYPES = {
   SEARCH_ETUDIANTSEXECUTIFS: 'etudiantsExecutif/SEARCH_ETUDIANTSEXECUTIFS',
@@ -14,7 +15,8 @@ export const ACTION_TYPES = {
   UPDATE_ETUDIANTSEXECUTIF: 'etudiantsExecutif/UPDATE_ETUDIANTSEXECUTIF',
   DELETE_ETUDIANTSEXECUTIF: 'etudiantsExecutif/DELETE_ETUDIANTSEXECUTIF',
   SET_BLOB: 'etudiantsExecutif/SET_BLOB',
-  RESET: 'etudiantsExecutif/RESET'
+  RESET: 'etudiantsExecutif/RESET',
+  ENVOYER_EMAIL: 'etudiantsExecutif/ENVOYER_EMAIL'
 };
 
 const initialState = {
@@ -44,6 +46,7 @@ export default (state: EtudiantsExecutifState = initialState, action): Etudiants
     case REQUEST(ACTION_TYPES.CREATE_ETUDIANTSEXECUTIF):
     case REQUEST(ACTION_TYPES.UPDATE_ETUDIANTSEXECUTIF):
     case REQUEST(ACTION_TYPES.DELETE_ETUDIANTSEXECUTIF):
+    case REQUEST(ACTION_TYPES.ENVOYER_EMAIL):
       return {
         ...state,
         errorMessage: null,
@@ -56,6 +59,7 @@ export default (state: EtudiantsExecutifState = initialState, action): Etudiants
     case FAILURE(ACTION_TYPES.CREATE_ETUDIANTSEXECUTIF):
     case FAILURE(ACTION_TYPES.UPDATE_ETUDIANTSEXECUTIF):
     case FAILURE(ACTION_TYPES.DELETE_ETUDIANTSEXECUTIF):
+    case FAILURE(ACTION_TYPES.ENVOYER_EMAIL):
       return {
         ...state,
         loading: false,
@@ -105,6 +109,12 @@ export default (state: EtudiantsExecutifState = initialState, action): Etudiants
       return {
         ...initialState
       };
+    case SUCCESS(ACTION_TYPES.ENVOYER_EMAIL):
+      return {
+        ...state,
+        updating: false,
+        updateSuccess: true
+      };
     default:
       return state;
   }
@@ -112,8 +122,7 @@ export default (state: EtudiantsExecutifState = initialState, action): Etudiants
 
 const apiUrl = 'api/etudiants-executifs';
 const apiSearchUrl = 'api/_search/etudiants-executifs';
-
-// Actions
+const apiExtendedUrl = 'api/extended/etudiants-executifs';
 
 export const getSearchEntities: ICrudSearchAction<IEtudiantsExecutif> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_ETUDIANTSEXECUTIFS,
@@ -161,6 +170,27 @@ export const deleteEntity: ICrudDeleteAction<IEtudiantsExecutif> = id => async d
   return result;
 };
 
+export const createExtendedEntity: ICrudPutAction<IEtudiantsExecutif> = entity => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.CREATE_ETUDIANTSEXECUTIF,
+    payload: axios.post(apiExtendedUrl, cleanEntity(entity))
+  });
+  dispatch(getEntitiesByUserId());
+  return result;
+};
+export const getEntitiesByUserId: ICrudGetAllAction<IEtudiantsExecutif> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_ETUDIANTSEXECUTIF_LIST,
+  payload: axios.get<IEtudiantsExecutif>(`${apiExtendedUrl}?cacheBuster=${new Date().getTime()}`)
+});
+
+export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsExecutif> = fil => {
+  const requestUrl = `${apiExtendedUrl}/filiere/${fil}`;
+  return {
+    type: ACTION_TYPES.FETCH_ETUDIANTSEXECUTIF_LIST,
+    payload: axios.get<IEtudiantsExecutif>(requestUrl)
+  };
+};
+
 export const setBlob = (name, data, contentType?) => ({
   type: ACTION_TYPES.SET_BLOB,
   payload: {
@@ -172,4 +202,13 @@ export const setBlob = (name, data, contentType?) => ({
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET
+});
+
+export const envoyerMail = (sujet, corps) => ({
+  type: ACTION_TYPES.ENVOYER_EMAIL,
+  payload: axios.post(`api/etudiants/envoyer-email`, { sujet, corps }),
+  meta: {
+    successMessage: 'Le mail a été envoyé avec succès',
+    errorMessage: translate('global.email.error')
+  }
 });
