@@ -1,10 +1,19 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.Annonce;
-import com.planeta.pfum.repository.AnnonceRepository;
-import com.planeta.pfum.repository.search.AnnonceSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,25 +26,17 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.Annonce;
+import com.planeta.pfum.repository.AnnonceRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@Link AnnonceResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class AnnonceResourceIT {
 
     private static final String DEFAULT_ANNONCE = "AAAAAAAAAA";
@@ -46,14 +47,6 @@ public class AnnonceResourceIT {
 
     @Autowired
     private AnnonceRepository annonceRepository;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.AnnonceSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private AnnonceSearchRepository mockAnnonceSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -77,7 +70,7 @@ public class AnnonceResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final AnnonceResource annonceResource = new AnnonceResource(annonceRepository, mockAnnonceSearchRepository);
+        final AnnonceResource annonceResource = new AnnonceResource(annonceRepository);
         this.restAnnonceMockMvc = MockMvcBuilders.standaloneSetup(annonceResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -133,9 +126,6 @@ public class AnnonceResourceIT {
         Annonce testAnnonce = annonceList.get(annonceList.size() - 1);
         assertThat(testAnnonce.getAnnonce()).isEqualTo(DEFAULT_ANNONCE);
         assertThat(testAnnonce.getCommentaire()).isEqualTo(DEFAULT_COMMENTAIRE);
-
-        // Validate the Annonce in Elasticsearch
-        verify(mockAnnonceSearchRepository, times(1)).save(testAnnonce);
     }
 
     @Test
@@ -155,9 +145,6 @@ public class AnnonceResourceIT {
         // Validate the Annonce in the database
         List<Annonce> annonceList = annonceRepository.findAll();
         assertThat(annonceList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Annonce in Elasticsearch
-        verify(mockAnnonceSearchRepository, times(0)).save(annonce);
     }
 
 
@@ -226,9 +213,6 @@ public class AnnonceResourceIT {
         Annonce testAnnonce = annonceList.get(annonceList.size() - 1);
         assertThat(testAnnonce.getAnnonce()).isEqualTo(UPDATED_ANNONCE);
         assertThat(testAnnonce.getCommentaire()).isEqualTo(UPDATED_COMMENTAIRE);
-
-        // Validate the Annonce in Elasticsearch
-        verify(mockAnnonceSearchRepository, times(1)).save(testAnnonce);
     }
 
     @Test
@@ -247,9 +231,6 @@ public class AnnonceResourceIT {
         // Validate the Annonce in the database
         List<Annonce> annonceList = annonceRepository.findAll();
         assertThat(annonceList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Annonce in Elasticsearch
-        verify(mockAnnonceSearchRepository, times(0)).save(annonce);
     }
 
     @Test
@@ -268,25 +249,6 @@ public class AnnonceResourceIT {
         // Validate the database contains one less item
         List<Annonce> annonceList = annonceRepository.findAll();
         assertThat(annonceList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Annonce in Elasticsearch
-        verify(mockAnnonceSearchRepository, times(1)).deleteById(annonce.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchAnnonce() throws Exception {
-        // Initialize the database
-        annonceRepository.saveAndFlush(annonce);
-        when(mockAnnonceSearchRepository.search(queryStringQuery("id:" + annonce.getId())))
-            .thenReturn(Collections.singletonList(annonce));
-        // Search the annonce
-        restAnnonceMockMvc.perform(get("/api/_search/annonces?query=id:" + annonce.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(annonce.getId().intValue())))
-            .andExpect(jsonPath("$.[*].annonce").value(hasItem(DEFAULT_ANNONCE.toString())))
-            .andExpect(jsonPath("$.[*].commentaire").value(hasItem(DEFAULT_COMMENTAIRE.toString())));
     }
 
     @Test

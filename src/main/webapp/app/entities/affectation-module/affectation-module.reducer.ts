@@ -101,6 +101,7 @@ export default (state: AffectationModuleState = initialState, action): Affectati
 
 const apiUrl = 'api/affectation-modules';
 const apiSearchUrl = 'api/_search/affectation-modules';
+const apiExtendedUrl = 'api/extended/affectation-modules';
 
 // Actions
 
@@ -148,6 +149,14 @@ export const deleteEntity: ICrudDeleteAction<IAffectationModule> = id => async d
   });
   dispatch(getEntities());
   return result;
+};
+
+export const getEntitiesBySemestre: ICrudGetAction<IAffectationModule> = sem => {
+  const requestUrl = `${apiExtendedUrl}/semestre/${sem}`;
+  return {
+    type: ACTION_TYPES.FETCH_AFFECTATIONMODULE_LIST,
+    payload: axios.get<IAffectationModule>(requestUrl)
+  };
 };
 
 export const reset = () => ({

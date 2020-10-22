@@ -1,13 +1,19 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.Document;
-import com.planeta.pfum.repository.DocumentRepository;
-import com.planeta.pfum.repository.search.DocumentSearchRepository;
-import com.planeta.pfum.service.DocumentService;
-import com.planeta.pfum.service.dto.DocumentDTO;
-import com.planeta.pfum.service.mapper.DocumentMapper;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,23 +29,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.Document;
 import com.planeta.pfum.domain.enumeration.TypeDocument;
+import com.planeta.pfum.repository.DocumentRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link DocumentResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class DocumentResourceIT {
 
     private static final String DEFAULT_TITRE = "AAAAAAAAAA";
@@ -55,20 +53,6 @@ public class DocumentResourceIT {
 
     @Autowired
     private DocumentRepository documentRepository;
-
-    @Autowired
-    private DocumentMapper documentMapper;
-
-    @Autowired
-    private DocumentService documentService;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.DocumentSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private DocumentSearchRepository mockDocumentSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -92,7 +76,7 @@ public class DocumentResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final DocumentResource documentResource = new DocumentResource(documentService,documentRepository);
+        final DocumentResource documentResource = new DocumentResource(documentRepository);
         this.restDocumentMockMvc = MockMvcBuilders.standaloneSetup(documentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -141,10 +125,9 @@ public class DocumentResourceIT {
         int databaseSizeBeforeCreate = documentRepository.findAll().size();
 
         // Create the Document
-        DocumentDTO documentDTO = documentMapper.toDto(document);
         restDocumentMockMvc.perform(post("/api/documents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(documentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(document)))
             .andExpect(status().isCreated());
 
         // Validate the Document in the database
@@ -155,9 +138,6 @@ public class DocumentResourceIT {
         assertThat(testDocument.getData()).isEqualTo(DEFAULT_DATA);
         assertThat(testDocument.getDataContentType()).isEqualTo(DEFAULT_DATA_CONTENT_TYPE);
         assertThat(testDocument.getTypeDocument()).isEqualTo(DEFAULT_TYPE_DOCUMENT);
-
-        // Validate the Document in Elasticsearch
-        verify(mockDocumentSearchRepository, times(1)).save(testDocument);
     }
 
     @Test
@@ -167,20 +147,16 @@ public class DocumentResourceIT {
 
         // Create the Document with an existing ID
         document.setId(1L);
-        DocumentDTO documentDTO = documentMapper.toDto(document);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restDocumentMockMvc.perform(post("/api/documents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(documentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(document)))
             .andExpect(status().isBadRequest());
 
         // Validate the Document in the database
         List<Document> documentList = documentRepository.findAll();
         assertThat(documentList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Document in Elasticsearch
-        verify(mockDocumentSearchRepository, times(0)).save(document);
     }
 
 
@@ -192,11 +168,10 @@ public class DocumentResourceIT {
         document.setTypeDocument(null);
 
         // Create the Document, which fails.
-        DocumentDTO documentDTO = documentMapper.toDto(document);
 
         restDocumentMockMvc.perform(post("/api/documents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(documentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(document)))
             .andExpect(status().isBadRequest());
 
         List<Document> documentList = documentRepository.findAll();
@@ -262,11 +237,10 @@ public class DocumentResourceIT {
             .data(UPDATED_DATA)
             .dataContentType(UPDATED_DATA_CONTENT_TYPE)
             .typeDocument(UPDATED_TYPE_DOCUMENT);
-        DocumentDTO documentDTO = documentMapper.toDto(updatedDocument);
 
         restDocumentMockMvc.perform(put("/api/documents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(documentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedDocument)))
             .andExpect(status().isOk());
 
         // Validate the Document in the database
@@ -277,9 +251,6 @@ public class DocumentResourceIT {
         assertThat(testDocument.getData()).isEqualTo(UPDATED_DATA);
         assertThat(testDocument.getDataContentType()).isEqualTo(UPDATED_DATA_CONTENT_TYPE);
         assertThat(testDocument.getTypeDocument()).isEqualTo(UPDATED_TYPE_DOCUMENT);
-
-        // Validate the Document in Elasticsearch
-        verify(mockDocumentSearchRepository, times(1)).save(testDocument);
     }
 
     @Test
@@ -288,20 +259,16 @@ public class DocumentResourceIT {
         int databaseSizeBeforeUpdate = documentRepository.findAll().size();
 
         // Create the Document
-        DocumentDTO documentDTO = documentMapper.toDto(document);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restDocumentMockMvc.perform(put("/api/documents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(documentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(document)))
             .andExpect(status().isBadRequest());
 
         // Validate the Document in the database
         List<Document> documentList = documentRepository.findAll();
         assertThat(documentList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Document in Elasticsearch
-        verify(mockDocumentSearchRepository, times(0)).save(document);
     }
 
     @Test
@@ -320,27 +287,6 @@ public class DocumentResourceIT {
         // Validate the database contains one less item
         List<Document> documentList = documentRepository.findAll();
         assertThat(documentList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Document in Elasticsearch
-        verify(mockDocumentSearchRepository, times(1)).deleteById(document.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchDocument() throws Exception {
-        // Initialize the database
-        documentRepository.saveAndFlush(document);
-        when(mockDocumentSearchRepository.search(queryStringQuery("id:" + document.getId())))
-            .thenReturn(Collections.singletonList(document));
-        // Search the document
-        restDocumentMockMvc.perform(get("/api/_search/documents?query=id:" + document.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(document.getId().intValue())))
-            .andExpect(jsonPath("$.[*].titre").value(hasItem(DEFAULT_TITRE)))
-            .andExpect(jsonPath("$.[*].dataContentType").value(hasItem(DEFAULT_DATA_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].data").value(hasItem(Base64Utils.encodeToString(DEFAULT_DATA))))
-            .andExpect(jsonPath("$.[*].typeDocument").value(hasItem(DEFAULT_TYPE_DOCUMENT.toString())));
     }
 
     @Test
@@ -356,28 +302,5 @@ public class DocumentResourceIT {
         assertThat(document1).isNotEqualTo(document2);
         document1.setId(null);
         assertThat(document1).isNotEqualTo(document2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(DocumentDTO.class);
-        DocumentDTO documentDTO1 = new DocumentDTO();
-        documentDTO1.setId(1L);
-        DocumentDTO documentDTO2 = new DocumentDTO();
-        assertThat(documentDTO1).isNotEqualTo(documentDTO2);
-        documentDTO2.setId(documentDTO1.getId());
-        assertThat(documentDTO1).isEqualTo(documentDTO2);
-        documentDTO2.setId(2L);
-        assertThat(documentDTO1).isNotEqualTo(documentDTO2);
-        documentDTO1.setId(null);
-        assertThat(documentDTO1).isNotEqualTo(documentDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(documentMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(documentMapper.fromId(null)).isNull();
     }
 }

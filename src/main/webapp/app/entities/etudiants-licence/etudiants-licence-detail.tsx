@@ -135,10 +135,6 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                   ) : null}
                 </dd>
                 <dt>
-                  <Translate contentKey="pfumv10App.etudiantsLicence.anneeInscription">Annee Inscription</Translate>
-                </dt>
-                <dd>{etudiantsLicenceEntity.anneeInscription ? etudiantsLicenceEntity.anneeInscription.annee : ''}</dd>
-                <dt>
                   <span id="pjBac">Intitulé d'un bac :</span>
                 </dt>
                 <dd>{etudiantsLicenceEntity.pjBac}</dd>
@@ -153,10 +149,10 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                 </dt>
                 <dt>
                   <span id="anneOtention">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.anneOtention">Anne Otention</Translate>
+                    <Translate contentKey="pfumv10App.etudiantsLicence.anneOtention">Année d'otention</Translate>
                   </span>
                 </dt>
-                <dd>{etudiantsLicenceEntity.anneOtention}</dd>
+                <dd>{etudiantsLicenceEntity.anneeObtention}</dd>
                 <dd>{etudiantsLicenceEntity.filiere ? etudiantsLicenceEntity.filiere.nomfiliere : ''}</dd>
                 <dt>
                   <span id="paysResidence">
@@ -190,33 +186,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
             <Row>
               <Col>
                 <span className="badge badge-warning">Piéces jointes</span>
-                <dt>
-                  <span id="extraitActeNaissance">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.extraitActeNaissance">Extrait Acte Naissance</Translate>
-                  </span>
-                </dt>
-                <dd>
-                  {etudiantsLicenceEntity.extraitActeNaissance ? (
-                    <div>
-                      <a
-                        onClick={openFile(
-                          etudiantsLicenceEntity.extraitActeNaissanceContentType,
-                          etudiantsLicenceEntity.extraitActeNaissance
-                        )}
-                      >
-                        <img
-                          src={`data:${etudiantsLicenceEntity.extraitActeNaissanceContentType};base64,${
-                            etudiantsLicenceEntity.extraitActeNaissance
-                          }`}
-                          style={{ maxHeight: '30px' }}
-                        />
-                      </a>
-                      <span>
-                        {etudiantsLicenceEntity.extraitActeNaissanceContentType}, {byteSize(etudiantsLicenceEntity.extraitActeNaissance)}
-                      </span>
-                    </div>
-                  ) : null}
-                </dd>
+
                 <dt>
                   <span id="bacalaureat">
                     <Translate contentKey="pfumv10App.etudiantsLicence.bacalaureat">Bacalaureat</Translate>
@@ -233,6 +203,42 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                       </a>
                       <span>
                         {etudiantsLicenceEntity.bacalaureatContentType}, {byteSize(etudiantsLicenceEntity.bacalaureat)}
+                      </span>
+                    </div>
+                  ) : null}
+                </dd>
+                <dt>
+                  <span id="testAdmission">Test d'admission</span>
+                </dt>
+                <dd>
+                  {etudiantsLicenceEntity.testAdmission ? (
+                    <div>
+                      <a onClick={openFile(etudiantsLicenceEntity.testAdmissionContentType, etudiantsLicenceEntity.testAdmission)}>
+                        <img
+                          src={`data:${etudiantsLicenceEntity.testAdmissionContentType};base64,${etudiantsLicenceEntity.testAdmission}`}
+                          style={{ maxHeight: '30px' }}
+                        />
+                      </a>
+                      <span>
+                        {etudiantsLicenceEntity.testAdmissionContentType}, {byteSize(etudiantsLicenceEntity.testAdmission)}
+                      </span>
+                    </div>
+                  ) : null}
+                </dd>
+                <dt>
+                  <span id="relevesNotes">Relevé des Notes</span>
+                </dt>
+                <dd>
+                  {etudiantsLicenceEntity.relevesNotes ? (
+                    <div>
+                      <a onClick={openFile(etudiantsLicenceEntity.relevesNotesContentType, etudiantsLicenceEntity.relevesNotes)}>
+                        <img
+                          src={`data:${etudiantsLicenceEntity.relevesNotesContentType};base64,${etudiantsLicenceEntity.relevesNotes}`}
+                          style={{ maxHeight: '30px' }}
+                        />
+                      </a>
+                      <span>
+                        {etudiantsLicenceEntity.relevesNotesContentType}, {byteSize(etudiantsLicenceEntity.relevesNotes)}
                       </span>
                     </div>
                   ) : null}

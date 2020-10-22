@@ -151,10 +151,10 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                 <dd>{etudiantsMasterEntity.mention}</dd>
                 <dt>
                   <span id="anneOtention">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.anneOtention">Anne Otention</Translate>
+                    <Translate contentKey="pfumv10App.etudiantsMaster.anneOtention">Année Obtention</Translate>
                   </span>
                 </dt>
-                <dd>{etudiantsMasterEntity.anneOtention}</dd>
+                <dd>{etudiantsMasterEntity.anneeObtention}</dd>
                 <dt>
                   <Translate contentKey="pfumv10App.etudiantsMaster.filiere">Filiere</Translate>
                 </dt>
@@ -196,28 +196,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                     <Translate contentKey="pfumv10App.etudiantsMaster.extraitActeNaissance">Extrait Acte Naissance</Translate>
                   </span>
                 </dt>
-                <dd>
-                  {etudiantsMasterEntity.extraitActeNaissance ? (
-                    <div>
-                      <a
-                        onClick={openFile(
-                          etudiantsMasterEntity.extraitActeNaissanceContentType,
-                          etudiantsMasterEntity.extraitActeNaissance
-                        )}
-                      >
-                        <img
-                          src={`data:${etudiantsMasterEntity.extraitActeNaissanceContentType};base64,${
-                            etudiantsMasterEntity.extraitActeNaissance
-                          }`}
-                          style={{ maxHeight: '30px' }}
-                        />
-                      </a>
-                      <span>
-                        {etudiantsMasterEntity.extraitActeNaissanceContentType}, {byteSize(etudiantsMasterEntity.extraitActeNaissance)}
-                      </span>
-                    </div>
-                  ) : null}
-                </dd>
+
                 <dt>
                   <span id="bacalaureat">
                     <Translate contentKey="pfumv10App.etudiantsMaster.bacalaureat">Bacalaureat</Translate>
@@ -234,6 +213,46 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                       </a>
                       <span>
                         {etudiantsMasterEntity.bacalaureatContentType}, {byteSize(etudiantsMasterEntity.bacalaureat)}
+                      </span>
+                    </div>
+                  ) : null}
+                </dd>
+                <dt>
+                  <span id="testAdmission">
+                    <Translate contentKey="pfumApp.etudiantsMaster.testAdmission">Test Admission</Translate>
+                  </span>
+                </dt>
+                <dd>
+                  {etudiantsMasterEntity.testAdmission ? (
+                    <div>
+                      <a onClick={openFile(etudiantsMasterEntity.testAdmissionContentType, etudiantsMasterEntity.testAdmission)}>
+                        <img
+                          src={`data:${etudiantsMasterEntity.testAdmissionContentType};base64,${etudiantsMasterEntity.testAdmission}`}
+                          style={{ maxHeight: '30px' }}
+                        />
+                      </a>
+                      <span>
+                        {etudiantsMasterEntity.testAdmissionContentType}, {byteSize(etudiantsMasterEntity.testAdmission)}
+                      </span>
+                    </div>
+                  ) : null}
+                </dd>
+                <dt>
+                  <span id="relevesNotes">
+                    <Translate contentKey="pfumApp.etudiantsMaster.relevesNotes">Releves Notes</Translate>
+                  </span>
+                </dt>
+                <dd>
+                  {etudiantsMasterEntity.relevesNotes ? (
+                    <div>
+                      <a onClick={openFile(etudiantsMasterEntity.relevesNotesContentType, etudiantsMasterEntity.relevesNotes)}>
+                        <img
+                          src={`data:${etudiantsMasterEntity.relevesNotesContentType};base64,${etudiantsMasterEntity.relevesNotes}`}
+                          style={{ maxHeight: '30px' }}
+                        />
+                      </a>
+                      <span>
+                        {etudiantsMasterEntity.relevesNotesContentType}, {byteSize(etudiantsMasterEntity.relevesNotes)}
                       </span>
                     </div>
                   ) : null}

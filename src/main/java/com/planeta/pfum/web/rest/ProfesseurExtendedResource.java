@@ -58,7 +58,7 @@ public class ProfesseurExtendedResource {
 		}
 
 		// Creation d'un compte USER pour se connecter
-		User newUser = userService.createUserForActeur(professeur.getEmail(), professeur.getNom(), professeur.getPrenom(),AuthoritiesConstants.ETUDIANT_MASTER);
+		User newUser = userService.createUserForActeur(professeur.getEmail(), professeur.getNom(), professeur.getPrenom(),AuthoritiesConstants.PROF);
 
 		professeur.setUser(newUser);
 

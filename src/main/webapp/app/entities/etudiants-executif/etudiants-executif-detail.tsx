@@ -150,10 +150,10 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                 <dd>{etudiantsExecutifEntity.mention}</dd>
                 <dt>
                   <span id="anneOtention">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.anneOtention">Anne Otention</Translate>
+                    <Translate contentKey="pfumv10App.etudiantsExecutif.anneOtention">Année d'obtention</Translate>
                   </span>
                 </dt>
-                <dd>{etudiantsExecutifEntity.anneOtention}</dd>
+                <dd>{etudiantsExecutifEntity.anneeObtention}</dd>
                 <dt>
                   <Translate contentKey="pfumv10App.etudiantsExecutif.filiere">Filiere</Translate>
                 </dt>
@@ -197,28 +197,65 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
               <Col>
                 <span className="badge badge-warning">Piéces jointes</span>
                 <dt>
-                  <span id="extraitActeNaissance">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.extraitActeNaissance">Extrait Acte Naissance</Translate>
+                  <span id="cv">
+                    <Translate contentKey="pfumApp.etudiantsExecutif.cv">Cv</Translate>
                   </span>
                 </dt>
                 <dd>
-                  {etudiantsExecutifEntity.extraitActeNaissance ? (
+                  {etudiantsExecutifEntity.cv ? (
+                    <div>
+                      <a onClick={openFile(etudiantsExecutifEntity.cvContentType, etudiantsExecutifEntity.cv)}>
+                        <img
+                          src={`data:${etudiantsExecutifEntity.cvContentType};base64,${etudiantsExecutifEntity.cv}`}
+                          style={{ maxHeight: '30px' }}
+                        />
+                      </a>
+                      <span>
+                        {etudiantsExecutifEntity.cvContentType}, {byteSize(etudiantsExecutifEntity.cv)}
+                      </span>
+                    </div>
+                  ) : null}
+                </dd>
+                <dt>
+                  <span id="autreDocument">
+                    <Translate contentKey="pfumApp.etudiantsExecutif.autreDocument">Autre Document</Translate>
+                  </span>
+                </dt>
+                <dd>
+                  {etudiantsExecutifEntity.autreDocument ? (
+                    <div>
+                      <a onClick={openFile(etudiantsExecutifEntity.autreDocumentContentType, etudiantsExecutifEntity.autreDocument)}>
+                        <Translate contentKey="entity.action.open">Open</Translate>&nbsp;
+                      </a>
+                      <span>
+                        {etudiantsExecutifEntity.autreDocumentContentType}, {byteSize(etudiantsExecutifEntity.autreDocument)}
+                      </span>
+                    </div>
+                  ) : null}
+                </dd>
+                <dt>
+                  <span id="attestationDeTravail">
+                    <Translate contentKey="pfumApp.etudiantsExecutif.attestationDeTravail">Attestation De Travail</Translate>
+                  </span>
+                </dt>
+                <dd>
+                  {etudiantsExecutifEntity.attestationDeTravail ? (
                     <div>
                       <a
                         onClick={openFile(
-                          etudiantsExecutifEntity.extraitActeNaissanceContentType,
-                          etudiantsExecutifEntity.extraitActeNaissance
+                          etudiantsExecutifEntity.attestationDeTravailContentType,
+                          etudiantsExecutifEntity.attestationDeTravail
                         )}
                       >
                         <img
-                          src={`data:${etudiantsExecutifEntity.extraitActeNaissanceContentType};base64,${
-                            etudiantsExecutifEntity.extraitActeNaissance
+                          src={`data:${etudiantsExecutifEntity.attestationDeTravailContentType};base64,${
+                            etudiantsExecutifEntity.attestationDeTravail
                           }`}
                           style={{ maxHeight: '30px' }}
                         />
                       </a>
                       <span>
-                        {etudiantsExecutifEntity.extraitActeNaissanceContentType}, {byteSize(etudiantsExecutifEntity.extraitActeNaissance)}
+                        {etudiantsExecutifEntity.attestationDeTravailContentType}, {byteSize(etudiantsExecutifEntity.attestationDeTravail)}
                       </span>
                     </div>
                   ) : null}

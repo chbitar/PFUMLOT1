@@ -102,6 +102,7 @@ public class MailService {
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
     }
     
+    
     @Async
     public void envoyerDemandeEtudiant(User user, String sujet,String corps ) {
         log.debug("Sending Student request email to '{}'", user.getEmail());
@@ -117,5 +118,4 @@ public class MailService {
         String content = templateEngine.process(templateName, context);
         sendEmail("garar.jamal@gmail.com", sujet, content, false, true);
     }
-    
 }

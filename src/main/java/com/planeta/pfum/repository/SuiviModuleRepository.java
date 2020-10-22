@@ -11,7 +11,7 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface SuiviModuleRepository extends JpaRepository<SuiviModule, Long> {
+public interface SuiviModuleRepository extends JpaRepository<SuiviModule, Long>, JpaSpecificationExecutor<SuiviModule> {
 
     @Query("select suiviModule from SuiviModule suiviModule where suiviModule.user.login = ?#{principal.username}")
     List<SuiviModule> findByUserIsCurrentUser();

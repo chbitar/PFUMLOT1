@@ -1,9 +1,10 @@
 package com.planeta.pfum.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 
 import com.planeta.pfum.domain.enumeration.Semestre;
@@ -13,14 +14,13 @@ import com.planeta.pfum.domain.enumeration.Semestre;
  */
 @Entity
 @Table(name = "affectation_module")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "affectationmodule")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class AffectationModule implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "annee")

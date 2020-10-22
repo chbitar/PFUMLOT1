@@ -1,10 +1,19 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.EmploieDuTemps;
-import com.planeta.pfum.repository.EmploieDuTempsRepository;
-import com.planeta.pfum.repository.search.EmploieDuTempsSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,23 +29,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.EmploieDuTemps;
 import com.planeta.pfum.domain.enumeration.Programme;
+import com.planeta.pfum.repository.EmploieDuTempsRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link EmploieDuTempsResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class EmploieDuTempsResourceIT {
 
     private static final byte[] DEFAULT_EMPLOIE_DU_TEMPS = TestUtil.createByteArray(1, "0");
@@ -49,14 +50,6 @@ public class EmploieDuTempsResourceIT {
 
     @Autowired
     private EmploieDuTempsRepository emploieDuTempsRepository;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.EmploieDuTempsSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private EmploieDuTempsSearchRepository mockEmploieDuTempsSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -80,7 +73,7 @@ public class EmploieDuTempsResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final EmploieDuTempsResource emploieDuTempsResource = new EmploieDuTempsResource(emploieDuTempsRepository, mockEmploieDuTempsSearchRepository);
+        final EmploieDuTempsResource emploieDuTempsResource = new EmploieDuTempsResource(emploieDuTempsRepository);
         this.restEmploieDuTempsMockMvc = MockMvcBuilders.standaloneSetup(emploieDuTempsResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -139,9 +132,6 @@ public class EmploieDuTempsResourceIT {
         assertThat(testEmploieDuTemps.getEmploieDuTemps()).isEqualTo(DEFAULT_EMPLOIE_DU_TEMPS);
         assertThat(testEmploieDuTemps.getEmploieDuTempsContentType()).isEqualTo(DEFAULT_EMPLOIE_DU_TEMPS_CONTENT_TYPE);
         assertThat(testEmploieDuTemps.getProgramme()).isEqualTo(DEFAULT_PROGRAMME);
-
-        // Validate the EmploieDuTemps in Elasticsearch
-        verify(mockEmploieDuTempsSearchRepository, times(1)).save(testEmploieDuTemps);
     }
 
     @Test
@@ -161,9 +151,6 @@ public class EmploieDuTempsResourceIT {
         // Validate the EmploieDuTemps in the database
         List<EmploieDuTemps> emploieDuTempsList = emploieDuTempsRepository.findAll();
         assertThat(emploieDuTempsList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the EmploieDuTemps in Elasticsearch
-        verify(mockEmploieDuTempsSearchRepository, times(0)).save(emploieDuTemps);
     }
 
 
@@ -236,9 +223,6 @@ public class EmploieDuTempsResourceIT {
         assertThat(testEmploieDuTemps.getEmploieDuTemps()).isEqualTo(UPDATED_EMPLOIE_DU_TEMPS);
         assertThat(testEmploieDuTemps.getEmploieDuTempsContentType()).isEqualTo(UPDATED_EMPLOIE_DU_TEMPS_CONTENT_TYPE);
         assertThat(testEmploieDuTemps.getProgramme()).isEqualTo(UPDATED_PROGRAMME);
-
-        // Validate the EmploieDuTemps in Elasticsearch
-        verify(mockEmploieDuTempsSearchRepository, times(1)).save(testEmploieDuTemps);
     }
 
     @Test
@@ -257,9 +241,6 @@ public class EmploieDuTempsResourceIT {
         // Validate the EmploieDuTemps in the database
         List<EmploieDuTemps> emploieDuTempsList = emploieDuTempsRepository.findAll();
         assertThat(emploieDuTempsList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the EmploieDuTemps in Elasticsearch
-        verify(mockEmploieDuTempsSearchRepository, times(0)).save(emploieDuTemps);
     }
 
     @Test
@@ -278,26 +259,6 @@ public class EmploieDuTempsResourceIT {
         // Validate the database contains one less item
         List<EmploieDuTemps> emploieDuTempsList = emploieDuTempsRepository.findAll();
         assertThat(emploieDuTempsList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the EmploieDuTemps in Elasticsearch
-        verify(mockEmploieDuTempsSearchRepository, times(1)).deleteById(emploieDuTemps.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchEmploieDuTemps() throws Exception {
-        // Initialize the database
-        emploieDuTempsRepository.saveAndFlush(emploieDuTemps);
-        when(mockEmploieDuTempsSearchRepository.search(queryStringQuery("id:" + emploieDuTemps.getId())))
-            .thenReturn(Collections.singletonList(emploieDuTemps));
-        // Search the emploieDuTemps
-        restEmploieDuTempsMockMvc.perform(get("/api/_search/emploie-du-temps?query=id:" + emploieDuTemps.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(emploieDuTemps.getId().intValue())))
-            .andExpect(jsonPath("$.[*].emploieDuTempsContentType").value(hasItem(DEFAULT_EMPLOIE_DU_TEMPS_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].emploieDuTemps").value(hasItem(Base64Utils.encodeToString(DEFAULT_EMPLOIE_DU_TEMPS))))
-            .andExpect(jsonPath("$.[*].programme").value(hasItem(DEFAULT_PROGRAMME.toString())));
     }
 
     @Test

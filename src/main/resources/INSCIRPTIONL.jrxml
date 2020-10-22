@@ -88,9 +88,9 @@
 	<field name="suffixe" class="java.lang.String"/>
 	<field name="logo" class="java.awt.Image"/>
 	<title>
-		<band height="230" splitType="Stretch">
+		<band height="222" splitType="Stretch">
 			<staticText>
-				<reportElement x="34" y="162" width="120" height="15" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
+				<reportElement x="34" y="164" width="120" height="15" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
@@ -102,13 +102,6 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
-			<staticText>
-				<reportElement x="34" y="177" width="120" height="15" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca"/>
-				<textElement>
-					<font size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[L'étudiant(e)  N°:]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="34" y="192" width="120" height="15" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209"/>
 				<textElement>
@@ -124,7 +117,7 @@
 				<text><![CDATA[Filière :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="309" y="184" width="72" height="15" uuid="2d2f365d-7b12-4a8f-990d-ff528a2660bc"/>
+				<reportElement x="311" y="164" width="72" height="15" uuid="2d2f365d-7b12-4a8f-990d-ff528a2660bc"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
@@ -147,11 +140,11 @@
 				<text><![CDATA[ATTESTATION DE SCOLARITE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="118" width="500" height="20" uuid="896fbf44-b940-4ea3-a1ae-61af7b331adf"/>
+				<reportElement x="12" y="100" width="500" height="38" uuid="896fbf44-b940-4ea3-a1ae-61af7b331adf"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Le Directeur Pédagogique D'OSTELEA School of Turism & Hospitality, atteste que : ]]></text>
+				<text><![CDATA[Le Directeur Pédagogique D'OSTELEA School of Turism & Hospitality,établissement d'enseignement supérieur privé accrèdité par l'état sous le N° 465/18,  atteste que : ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="162" y="147" width="168" height="15" uuid="e195827e-620d-4ba0-9ab1-5a3d4e54e7c2"/>
@@ -168,14 +161,14 @@
 				<textFieldExpression><![CDATA[$F{prenom}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="162" y="164" width="100" height="15" uuid="9d3939fa-3452-4d14-bd9a-614006906418"/>
+				<reportElement x="162" y="160" width="100" height="15" uuid="9d3939fa-3452-4d14-bd9a-614006906418"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{date_naissance})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="162" y="179" width="100" height="15" uuid="e4016f1e-46bd-4daf-87e3-8051f9855a65"/>
+				<reportElement x="162" y="175" width="100" height="15" uuid="e4016f1e-46bd-4daf-87e3-8051f9855a65"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
@@ -189,7 +182,7 @@
 				<textFieldExpression><![CDATA[$F{nomfiliere}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="383" y="184" width="100" height="15" uuid="57e8390f-e9f6-4c33-8ffc-a06d29d55d56"/>
+				<reportElement x="380" y="162" width="100" height="15" uuid="57e8390f-e9f6-4c33-8ffc-a06d29d55d56"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
@@ -208,6 +201,13 @@
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[L'étudiant (e) :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="175" width="120" height="15" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Identifiant  N°:]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -298,14 +298,14 @@
 				<textElement>
 					<font size="11"/>
 				</textElement>
-				<text><![CDATA[L'inscription de l'étudiant (e) ne sera définitive qu'après dépot du dossier complet et de sa validation par le Ministère de l'Education Nationale, de la formation Professionnelle, de l'Enseignement Supérieur et de la Recherche Scientifique.]]></text>
+				<text><![CDATA[L'inscription de l'étudiant (e) ne sera définitive qu'après dépot du dossier administratif complet et de sa validation par le Ministère de l'Education Nationale, de la formation Professionnelle, de l'Enseignement Supérieur et de la Recherche Scientifique.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="34" y="0" width="151" height="27" uuid="2b2f18cf-390e-48f2-b463-cd821eedbb63"/>
+				<reportElement x="34" y="0" width="228" height="27" uuid="2b2f18cf-390e-48f2-b463-cd821eedbb63"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
-				<text><![CDATA[Les modules suivis]]></text>
+				<text><![CDATA[Les modules à suivre cette année :]]></text>
 			</staticText>
 		</band>
 	</summary>

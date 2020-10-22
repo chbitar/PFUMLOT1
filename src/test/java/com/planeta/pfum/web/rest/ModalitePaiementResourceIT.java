@@ -1,10 +1,19 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.ModalitePaiement;
-import com.planeta.pfum.repository.ModalitePaiementRepository;
-import com.planeta.pfum.repository.search.ModalitePaiementSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,23 +28,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.ModalitePaiement;
 import com.planeta.pfum.domain.enumeration.Devise;
+import com.planeta.pfum.repository.ModalitePaiementRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link ModalitePaiementResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class ModalitePaiementResourceIT {
 
     private static final String DEFAULT_MODALITE = "AAAAAAAAAA";
@@ -59,14 +60,6 @@ public class ModalitePaiementResourceIT {
     @Autowired
     private ModalitePaiementRepository modalitePaiementRepository;
 
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.ModalitePaiementSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ModalitePaiementSearchRepository mockModalitePaiementSearchRepository;
-
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
@@ -89,7 +82,7 @@ public class ModalitePaiementResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ModalitePaiementResource modalitePaiementResource = new ModalitePaiementResource(modalitePaiementRepository, mockModalitePaiementSearchRepository);
+        final ModalitePaiementResource modalitePaiementResource = new ModalitePaiementResource(modalitePaiementRepository);
         this.restModalitePaiementMockMvc = MockMvcBuilders.standaloneSetup(modalitePaiementResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -157,9 +150,6 @@ public class ModalitePaiementResourceIT {
         assertThat(testModalitePaiement.getRemiseNiveau1()).isEqualTo(DEFAULT_REMISE_NIVEAU_1);
         assertThat(testModalitePaiement.getRemiseNiveau2()).isEqualTo(DEFAULT_REMISE_NIVEAU_2);
         assertThat(testModalitePaiement.getDevise()).isEqualTo(DEFAULT_DEVISE);
-
-        // Validate the ModalitePaiement in Elasticsearch
-        verify(mockModalitePaiementSearchRepository, times(1)).save(testModalitePaiement);
     }
 
     @Test
@@ -179,9 +169,6 @@ public class ModalitePaiementResourceIT {
         // Validate the ModalitePaiement in the database
         List<ModalitePaiement> modalitePaiementList = modalitePaiementRepository.findAll();
         assertThat(modalitePaiementList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the ModalitePaiement in Elasticsearch
-        verify(mockModalitePaiementSearchRepository, times(0)).save(modalitePaiement);
     }
 
 
@@ -266,9 +253,6 @@ public class ModalitePaiementResourceIT {
         assertThat(testModalitePaiement.getRemiseNiveau1()).isEqualTo(UPDATED_REMISE_NIVEAU_1);
         assertThat(testModalitePaiement.getRemiseNiveau2()).isEqualTo(UPDATED_REMISE_NIVEAU_2);
         assertThat(testModalitePaiement.getDevise()).isEqualTo(UPDATED_DEVISE);
-
-        // Validate the ModalitePaiement in Elasticsearch
-        verify(mockModalitePaiementSearchRepository, times(1)).save(testModalitePaiement);
     }
 
     @Test
@@ -287,9 +271,6 @@ public class ModalitePaiementResourceIT {
         // Validate the ModalitePaiement in the database
         List<ModalitePaiement> modalitePaiementList = modalitePaiementRepository.findAll();
         assertThat(modalitePaiementList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the ModalitePaiement in Elasticsearch
-        verify(mockModalitePaiementSearchRepository, times(0)).save(modalitePaiement);
     }
 
     @Test
@@ -308,29 +289,6 @@ public class ModalitePaiementResourceIT {
         // Validate the database contains one less item
         List<ModalitePaiement> modalitePaiementList = modalitePaiementRepository.findAll();
         assertThat(modalitePaiementList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the ModalitePaiement in Elasticsearch
-        verify(mockModalitePaiementSearchRepository, times(1)).deleteById(modalitePaiement.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchModalitePaiement() throws Exception {
-        // Initialize the database
-        modalitePaiementRepository.saveAndFlush(modalitePaiement);
-        when(mockModalitePaiementSearchRepository.search(queryStringQuery("id:" + modalitePaiement.getId())))
-            .thenReturn(Collections.singletonList(modalitePaiement));
-        // Search the modalitePaiement
-        restModalitePaiementMockMvc.perform(get("/api/_search/modalite-paiements?query=id:" + modalitePaiement.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(modalitePaiement.getId().intValue())))
-            .andExpect(jsonPath("$.[*].modalite").value(hasItem(DEFAULT_MODALITE)))
-            .andExpect(jsonPath("$.[*].coutProgrammettc").value(hasItem(DEFAULT_COUT_PROGRAMMETTC.doubleValue())))
-            .andExpect(jsonPath("$.[*].coutProgrammettcDevise").value(hasItem(DEFAULT_COUT_PROGRAMMETTC_DEVISE.doubleValue())))
-            .andExpect(jsonPath("$.[*].remiseNiveau1").value(hasItem(DEFAULT_REMISE_NIVEAU_1)))
-            .andExpect(jsonPath("$.[*].remiseNiveau2").value(hasItem(DEFAULT_REMISE_NIVEAU_2)))
-            .andExpect(jsonPath("$.[*].devise").value(hasItem(DEFAULT_DEVISE.toString())));
     }
 
     @Test

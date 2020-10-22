@@ -31,7 +31,7 @@ export interface IEtudiantsMaster {
   email?: string;
   typeBac?: DiplomeBac;
   mention?: Mention;
-  anneOtention?: string;
+  anneeObtention?: string;
   cinPass?: string;
   paysNationalite?: string;
   paysResidence?: string;
@@ -41,8 +41,10 @@ export interface IEtudiantsMaster {
   deuxiemeTel?: number;
   photoContentType?: string;
   photo?: any;
-  extraitActeNaissanceContentType?: string;
-  extraitActeNaissance?: any;
+  testAdmission?: any;
+  testAdmissionContentType?: string;
+  relevesNotes?: any;
+  relevesNotesContentType?: string;
   bacalaureatContentType?: string;
   bacalaureat?: any;
   cinPassportContentType?: string;

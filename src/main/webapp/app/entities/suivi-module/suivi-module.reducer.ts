@@ -112,9 +112,9 @@ export default (state: SuiviModuleState = initialState, action): SuiviModuleStat
 
 const apiUrl = 'api/suivi-modules';
 const apiSearchUrl = 'api/_search/suivi-modules';
+const apiExtendedUrl = 'api/extended/suivi-modules';
 
 // Actions
-
 export const getSearchEntities: ICrudSearchAction<ISuiviModule> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_SUIVIMODULES,
   payload: axios.get<ISuiviModule>(`${apiSearchUrl}?query=${query}`)
@@ -138,7 +138,7 @@ export const createEntity: ICrudPutAction<ISuiviModule> = entity => async dispat
     type: ACTION_TYPES.CREATE_SUIVIMODULE,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getEntitiesByUserId());
   return result;
 };
 
@@ -147,7 +147,7 @@ export const updateEntity: ICrudPutAction<ISuiviModule> = entity => async dispat
     type: ACTION_TYPES.UPDATE_SUIVIMODULE,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getEntitiesByUserId());
   return result;
 };
 
@@ -157,8 +157,25 @@ export const deleteEntity: ICrudDeleteAction<ISuiviModule> = id => async dispatc
     type: ACTION_TYPES.DELETE_SUIVIMODULE,
     payload: axios.delete(requestUrl)
   });
-  dispatch(getEntities());
+  dispatch(getEntitiesByUserId());
   return result;
+};
+
+export const createExtendedEntity: ICrudPutAction<ISuiviModule> = entity => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.CREATE_SUIVIMODULE,
+    payload: axios.post(apiExtendedUrl, cleanEntity(entity))
+  });
+  dispatch(getEntitiesByUserId());
+  return result;
+};
+
+export const getEntitiesByUserId: ICrudGetAllAction<ISuiviModule> = () => {
+  const requestUrl = `${apiExtendedUrl}`;
+  return {
+    type: ACTION_TYPES.FETCH_SUIVIMODULE_LIST,
+    payload: axios.get<ISuiviModule>(requestUrl)
+  };
 };
 
 export const setBlob = (name, data, contentType?) => ({

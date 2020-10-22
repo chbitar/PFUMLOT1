@@ -1,28 +1,31 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.EtudiantsMaster;
-import com.planeta.pfum.repository.EtudiantsMasterRepository;
-import com.planeta.pfum.repository.search.EtudiantsMasterSearchRepository;
-import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.planeta.pfum.domain.EtudiantsMaster;
+import com.planeta.pfum.repository.EtudiantsMasterRepository;
+import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.EtudiantsMaster}.
@@ -40,11 +43,9 @@ public class EtudiantsMasterResource {
 
     private final EtudiantsMasterRepository etudiantsMasterRepository;
 
-    private final EtudiantsMasterSearchRepository etudiantsMasterSearchRepository;
 
-    public EtudiantsMasterResource(EtudiantsMasterRepository etudiantsMasterRepository, EtudiantsMasterSearchRepository etudiantsMasterSearchRepository) {
+    public EtudiantsMasterResource(EtudiantsMasterRepository etudiantsMasterRepository) {
         this.etudiantsMasterRepository = etudiantsMasterRepository;
-        this.etudiantsMasterSearchRepository = etudiantsMasterSearchRepository;
     }
 
     /**
@@ -61,7 +62,6 @@ public class EtudiantsMasterResource {
             throw new BadRequestAlertException("A new etudiantsMaster cannot already have an ID", ENTITY_NAME, "idexists");
         }
         EtudiantsMaster result = etudiantsMasterRepository.save(etudiantsMaster);
-        etudiantsMasterSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/etudiants-masters/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,7 +83,6 @@ public class EtudiantsMasterResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         EtudiantsMaster result = etudiantsMasterRepository.save(etudiantsMaster);
-        etudiantsMasterSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, etudiantsMaster.getId().toString()))
             .body(result);
@@ -123,23 +122,8 @@ public class EtudiantsMasterResource {
     public ResponseEntity<Void> deleteEtudiantsMaster(@PathVariable Long id) {
         log.debug("REST request to delete EtudiantsMaster : {}", id);
         etudiantsMasterRepository.deleteById(id);
-        etudiantsMasterSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/etudiants-masters?query=:query} : search for the etudiantsMaster corresponding
-     * to the query.
-     *
-     * @param query the query of the etudiantsMaster search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/etudiants-masters")
-    public List<EtudiantsMaster> searchEtudiantsMasters(@RequestParam String query) {
-        log.debug("REST request to search EtudiantsMasters for query {}", query);
-        return StreamSupport
-            .stream(etudiantsMasterSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 
 }

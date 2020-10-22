@@ -1,10 +1,11 @@
 package com.planeta.pfum.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,14 +17,13 @@ import com.planeta.pfum.domain.enumeration.Programme;
  */
 @Entity
 @Table(name = "filiere")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "filiere")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Filiere implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "nomfiliere")
@@ -40,22 +40,31 @@ public class Filiere implements Serializable {
     private Programme programme;
 
     @OneToMany(mappedBy = "filiere")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<EtudiantsExecutif> etudiantsExecutifs = new HashSet<>();
 
     @OneToMany(mappedBy = "filiere")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<EtudiantsLicence> etudiantsLicences = new HashSet<>();
 
     @OneToMany(mappedBy = "filiere")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<EtudiantsMaster> etudiantsMasters = new HashSet<>();
 
     @OneToMany(mappedBy = "filiere")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Module> modules = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("filieres")
     private Etablissement etablissement;
 
+    @ManyToOne
+    @JsonIgnoreProperties("filieres")
+    private AnneeInscription anneeInscription;
+
     @ManyToMany(mappedBy = "filiers")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
     private Set<TableauDeBoard> boards = new HashSet<>();
 
@@ -231,6 +240,19 @@ public class Filiere implements Serializable {
 
     public void setEtablissement(Etablissement etablissement) {
         this.etablissement = etablissement;
+    }
+
+    public AnneeInscription getAnneeInscription() {
+        return anneeInscription;
+    }
+
+    public Filiere anneeInscription(AnneeInscription anneeInscription) {
+        this.anneeInscription = anneeInscription;
+        return this;
+    }
+
+    public void setAnneeInscription(AnneeInscription anneeInscription) {
+        this.anneeInscription = anneeInscription;
     }
 
     public Set<TableauDeBoard> getBoards() {

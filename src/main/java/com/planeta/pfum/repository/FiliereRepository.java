@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface FiliereRepository extends JpaRepository<Filiere, Long> {
+public interface FiliereRepository extends JpaRepository<Filiere, Long>, JpaSpecificationExecutor<Filiere> {
 
 }

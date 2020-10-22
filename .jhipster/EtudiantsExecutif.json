@@ -55,7 +55,7 @@
             "fieldValues": "Passable,Assez_bien,Bien,Tres_bien"
         },
         {
-            "fieldName": "anneOtention",
+            "fieldName": "anneeObtention",
             "fieldType": "String"
         },
         {
@@ -98,7 +98,17 @@
             ]
         },
         {
-            "fieldName": "extraitActeNaissance",
+            "fieldName": "cv",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "autreDocument",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "attestationDeTravail",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
         },
@@ -175,7 +185,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201020224506",
+    "changelogDate": "20201022210047",
     "entityTableName": "etudiants_executif",
     "dto": "no",
     "pagination": "no",

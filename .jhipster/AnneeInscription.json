@@ -30,9 +30,15 @@
             "otherEntityName": "etudiantsMaster",
             "otherEntityRelationshipName": "anneeInscription",
             "relationshipName": "etudiantsMaster"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "filiere",
+            "otherEntityRelationshipName": "anneeInscription",
+            "relationshipName": "filiere"
         }
     ],
-    "changelogDate": "20201020224504",
+    "changelogDate": "20201022210045",
     "entityTableName": "annee_inscription",
     "dto": "no",
     "pagination": "no",

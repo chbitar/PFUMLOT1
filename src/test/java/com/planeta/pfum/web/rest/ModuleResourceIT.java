@@ -1,10 +1,19 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.Module;
-import com.planeta.pfum.repository.ModuleRepository;
-import com.planeta.pfum.repository.search.ModuleSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,23 +28,23 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.Absence;
+import com.planeta.pfum.domain.AffectationModule;
+import com.planeta.pfum.domain.CalendrierModule;
+import com.planeta.pfum.domain.Filiere;
+import com.planeta.pfum.domain.Module;
+import com.planeta.pfum.domain.NoteExecutif;
+import com.planeta.pfum.domain.NoteLicence;
+import com.planeta.pfum.domain.NoteMaster;
+import com.planeta.pfum.domain.SuiviModule;
 import com.planeta.pfum.domain.enumeration.Semestre;
+import com.planeta.pfum.repository.ModuleRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link ModuleResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class ModuleResourceIT {
 
     private static final String DEFAULT_NOM_MODULE = "AAAAAAAAAA";
@@ -50,13 +59,6 @@ public class ModuleResourceIT {
     @Autowired
     private ModuleRepository moduleRepository;
 
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.ModuleSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ModuleSearchRepository mockModuleSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -80,7 +82,7 @@ public class ModuleResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ModuleResource moduleResource = new ModuleResource(moduleRepository, mockModuleSearchRepository);
+        final ModuleResource moduleResource = new ModuleResource(moduleRepository);
         this.restModuleMockMvc = MockMvcBuilders.standaloneSetup(moduleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -139,9 +141,6 @@ public class ModuleResourceIT {
         assertThat(testModule.getNomModule()).isEqualTo(DEFAULT_NOM_MODULE);
         assertThat(testModule.getVolumeHoraire()).isEqualTo(DEFAULT_VOLUME_HORAIRE);
         assertThat(testModule.getSemestre()).isEqualTo(DEFAULT_SEMESTRE);
-
-        // Validate the Module in Elasticsearch
-        verify(mockModuleSearchRepository, times(1)).save(testModule);
     }
 
     @Test
@@ -161,9 +160,6 @@ public class ModuleResourceIT {
         // Validate the Module in the database
         List<Module> moduleList = moduleRepository.findAll();
         assertThat(moduleList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Module in Elasticsearch
-        verify(mockModuleSearchRepository, times(0)).save(module);
     }
 
 
@@ -201,6 +197,338 @@ public class ModuleResourceIT {
 
     @Test
     @Transactional
+    public void getAllModulesByNomModuleIsEqualToSomething() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where nomModule equals to DEFAULT_NOM_MODULE
+        defaultModuleShouldBeFound("nomModule.equals=" + DEFAULT_NOM_MODULE);
+
+        // Get all the moduleList where nomModule equals to UPDATED_NOM_MODULE
+        defaultModuleShouldNotBeFound("nomModule.equals=" + UPDATED_NOM_MODULE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllModulesByNomModuleIsInShouldWork() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where nomModule in DEFAULT_NOM_MODULE or UPDATED_NOM_MODULE
+        defaultModuleShouldBeFound("nomModule.in=" + DEFAULT_NOM_MODULE + "," + UPDATED_NOM_MODULE);
+
+        // Get all the moduleList where nomModule equals to UPDATED_NOM_MODULE
+        defaultModuleShouldNotBeFound("nomModule.in=" + UPDATED_NOM_MODULE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllModulesByNomModuleIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where nomModule is not null
+        defaultModuleShouldBeFound("nomModule.specified=true");
+
+        // Get all the moduleList where nomModule is null
+        defaultModuleShouldNotBeFound("nomModule.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllModulesByVolumeHoraireIsEqualToSomething() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where volumeHoraire equals to DEFAULT_VOLUME_HORAIRE
+        defaultModuleShouldBeFound("volumeHoraire.equals=" + DEFAULT_VOLUME_HORAIRE);
+
+        // Get all the moduleList where volumeHoraire equals to UPDATED_VOLUME_HORAIRE
+        defaultModuleShouldNotBeFound("volumeHoraire.equals=" + UPDATED_VOLUME_HORAIRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllModulesByVolumeHoraireIsInShouldWork() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where volumeHoraire in DEFAULT_VOLUME_HORAIRE or UPDATED_VOLUME_HORAIRE
+        defaultModuleShouldBeFound("volumeHoraire.in=" + DEFAULT_VOLUME_HORAIRE + "," + UPDATED_VOLUME_HORAIRE);
+
+        // Get all the moduleList where volumeHoraire equals to UPDATED_VOLUME_HORAIRE
+        defaultModuleShouldNotBeFound("volumeHoraire.in=" + UPDATED_VOLUME_HORAIRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllModulesByVolumeHoraireIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where volumeHoraire is not null
+        defaultModuleShouldBeFound("volumeHoraire.specified=true");
+
+        // Get all the moduleList where volumeHoraire is null
+        defaultModuleShouldNotBeFound("volumeHoraire.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllModulesByVolumeHoraireIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where volumeHoraire greater than or equals to DEFAULT_VOLUME_HORAIRE
+        defaultModuleShouldBeFound("volumeHoraire.greaterOrEqualThan=" + DEFAULT_VOLUME_HORAIRE);
+
+        // Get all the moduleList where volumeHoraire greater than or equals to UPDATED_VOLUME_HORAIRE
+        defaultModuleShouldNotBeFound("volumeHoraire.greaterOrEqualThan=" + UPDATED_VOLUME_HORAIRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllModulesByVolumeHoraireIsLessThanSomething() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where volumeHoraire less than or equals to DEFAULT_VOLUME_HORAIRE
+        defaultModuleShouldNotBeFound("volumeHoraire.lessThan=" + DEFAULT_VOLUME_HORAIRE);
+
+        // Get all the moduleList where volumeHoraire less than or equals to UPDATED_VOLUME_HORAIRE
+        defaultModuleShouldBeFound("volumeHoraire.lessThan=" + UPDATED_VOLUME_HORAIRE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllModulesBySemestreIsEqualToSomething() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where semestre equals to DEFAULT_SEMESTRE
+        defaultModuleShouldBeFound("semestre.equals=" + DEFAULT_SEMESTRE);
+
+        // Get all the moduleList where semestre equals to UPDATED_SEMESTRE
+        defaultModuleShouldNotBeFound("semestre.equals=" + UPDATED_SEMESTRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllModulesBySemestreIsInShouldWork() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where semestre in DEFAULT_SEMESTRE or UPDATED_SEMESTRE
+        defaultModuleShouldBeFound("semestre.in=" + DEFAULT_SEMESTRE + "," + UPDATED_SEMESTRE);
+
+        // Get all the moduleList where semestre equals to UPDATED_SEMESTRE
+        defaultModuleShouldNotBeFound("semestre.in=" + UPDATED_SEMESTRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllModulesBySemestreIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        moduleRepository.saveAndFlush(module);
+
+        // Get all the moduleList where semestre is not null
+        defaultModuleShouldBeFound("semestre.specified=true");
+
+        // Get all the moduleList where semestre is null
+        defaultModuleShouldNotBeFound("semestre.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllModulesByAbsenceIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Absence absence = AbsenceResourceIT.createEntity(em);
+        em.persist(absence);
+        em.flush();
+        module.addAbsence(absence);
+        moduleRepository.saveAndFlush(module);
+        Long absenceId = absence.getId();
+
+        // Get all the moduleList where absence equals to absenceId
+        defaultModuleShouldBeFound("absenceId.equals=" + absenceId);
+
+        // Get all the moduleList where absence equals to absenceId + 1
+        defaultModuleShouldNotBeFound("absenceId.equals=" + (absenceId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllModulesByAffectationModuleIsEqualToSomething() throws Exception {
+        // Initialize the database
+        AffectationModule affectationModule = AffectationModuleResourceIT.createEntity(em);
+        em.persist(affectationModule);
+        em.flush();
+        module.addAffectationModule(affectationModule);
+        moduleRepository.saveAndFlush(module);
+        Long affectationModuleId = affectationModule.getId();
+
+        // Get all the moduleList where affectationModule equals to affectationModuleId
+        defaultModuleShouldBeFound("affectationModuleId.equals=" + affectationModuleId);
+
+        // Get all the moduleList where affectationModule equals to affectationModuleId + 1
+        defaultModuleShouldNotBeFound("affectationModuleId.equals=" + (affectationModuleId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllModulesByCalendrierModuleIsEqualToSomething() throws Exception {
+        // Initialize the database
+        CalendrierModule calendrierModule = CalendrierModuleResourceIT.createEntity(em);
+        em.persist(calendrierModule);
+        em.flush();
+        module.addCalendrierModule(calendrierModule);
+        moduleRepository.saveAndFlush(module);
+        Long calendrierModuleId = calendrierModule.getId();
+
+        // Get all the moduleList where calendrierModule equals to calendrierModuleId
+        defaultModuleShouldBeFound("calendrierModuleId.equals=" + calendrierModuleId);
+
+        // Get all the moduleList where calendrierModule equals to calendrierModuleId + 1
+        defaultModuleShouldNotBeFound("calendrierModuleId.equals=" + (calendrierModuleId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllModulesBySuiviModuleIsEqualToSomething() throws Exception {
+        // Initialize the database
+        SuiviModule suiviModule = SuiviModuleResourceIT.createEntity(em);
+        em.persist(suiviModule);
+        em.flush();
+        module.addSuiviModule(suiviModule);
+        moduleRepository.saveAndFlush(module);
+        Long suiviModuleId = suiviModule.getId();
+
+        // Get all the moduleList where suiviModule equals to suiviModuleId
+        defaultModuleShouldBeFound("suiviModuleId.equals=" + suiviModuleId);
+
+        // Get all the moduleList where suiviModule equals to suiviModuleId + 1
+        defaultModuleShouldNotBeFound("suiviModuleId.equals=" + (suiviModuleId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllModulesByNoteLicenceIsEqualToSomething() throws Exception {
+        // Initialize the database
+        NoteLicence noteLicence = NoteLicenceResourceIT.createEntity(em);
+        em.persist(noteLicence);
+        em.flush();
+        module.addNoteLicence(noteLicence);
+        moduleRepository.saveAndFlush(module);
+        Long noteLicenceId = noteLicence.getId();
+
+        // Get all the moduleList where noteLicence equals to noteLicenceId
+        defaultModuleShouldBeFound("noteLicenceId.equals=" + noteLicenceId);
+
+        // Get all the moduleList where noteLicence equals to noteLicenceId + 1
+        defaultModuleShouldNotBeFound("noteLicenceId.equals=" + (noteLicenceId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllModulesByNoteMasterIsEqualToSomething() throws Exception {
+        // Initialize the database
+        NoteMaster noteMaster = NoteMasterResourceIT.createEntity(em);
+        em.persist(noteMaster);
+        em.flush();
+        module.addNoteMaster(noteMaster);
+        moduleRepository.saveAndFlush(module);
+        Long noteMasterId = noteMaster.getId();
+
+        // Get all the moduleList where noteMaster equals to noteMasterId
+        defaultModuleShouldBeFound("noteMasterId.equals=" + noteMasterId);
+
+        // Get all the moduleList where noteMaster equals to noteMasterId + 1
+        defaultModuleShouldNotBeFound("noteMasterId.equals=" + (noteMasterId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllModulesByNoteExecutifIsEqualToSomething() throws Exception {
+        // Initialize the database
+        NoteExecutif noteExecutif = NoteExecutifResourceIT.createEntity(em);
+        em.persist(noteExecutif);
+        em.flush();
+        module.addNoteExecutif(noteExecutif);
+        moduleRepository.saveAndFlush(module);
+        Long noteExecutifId = noteExecutif.getId();
+
+        // Get all the moduleList where noteExecutif equals to noteExecutifId
+        defaultModuleShouldBeFound("noteExecutifId.equals=" + noteExecutifId);
+
+        // Get all the moduleList where noteExecutif equals to noteExecutifId + 1
+        defaultModuleShouldNotBeFound("noteExecutifId.equals=" + (noteExecutifId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllModulesByFiliereIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Filiere filiere = FiliereResourceIT.createEntity(em);
+        em.persist(filiere);
+        em.flush();
+        module.setFiliere(filiere);
+        moduleRepository.saveAndFlush(module);
+        Long filiereId = filiere.getId();
+
+        // Get all the moduleList where filiere equals to filiereId
+        defaultModuleShouldBeFound("filiereId.equals=" + filiereId);
+
+        // Get all the moduleList where filiere equals to filiereId + 1
+        defaultModuleShouldNotBeFound("filiereId.equals=" + (filiereId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned.
+     */
+    private void defaultModuleShouldBeFound(String filter) throws Exception {
+        restModuleMockMvc.perform(get("/api/modules?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(module.getId().intValue())))
+            .andExpect(jsonPath("$.[*].nomModule").value(hasItem(DEFAULT_NOM_MODULE)))
+            .andExpect(jsonPath("$.[*].volumeHoraire").value(hasItem(DEFAULT_VOLUME_HORAIRE)))
+            .andExpect(jsonPath("$.[*].semestre").value(hasItem(DEFAULT_SEMESTRE.toString())));
+
+        // Check, that the count call also returns 1
+        restModuleMockMvc.perform(get("/api/modules/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned.
+     */
+    private void defaultModuleShouldNotBeFound(String filter) throws Exception {
+        restModuleMockMvc.perform(get("/api/modules?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restModuleMockMvc.perform(get("/api/modules/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().string("0"));
+    }
+
+
+    @Test
+    @Transactional
     public void getNonExistingModule() throws Exception {
         // Get the module
         restModuleMockMvc.perform(get("/api/modules/{id}", Long.MAX_VALUE))
@@ -211,7 +539,7 @@ public class ModuleResourceIT {
     @Transactional
     public void updateModule() throws Exception {
         // Initialize the database
-        moduleRepository.saveAndFlush(module);
+    	moduleRepository.save(module);
 
         int databaseSizeBeforeUpdate = moduleRepository.findAll().size();
 
@@ -236,9 +564,6 @@ public class ModuleResourceIT {
         assertThat(testModule.getNomModule()).isEqualTo(UPDATED_NOM_MODULE);
         assertThat(testModule.getVolumeHoraire()).isEqualTo(UPDATED_VOLUME_HORAIRE);
         assertThat(testModule.getSemestre()).isEqualTo(UPDATED_SEMESTRE);
-
-        // Validate the Module in Elasticsearch
-        verify(mockModuleSearchRepository, times(1)).save(testModule);
     }
 
     @Test
@@ -257,16 +582,13 @@ public class ModuleResourceIT {
         // Validate the Module in the database
         List<Module> moduleList = moduleRepository.findAll();
         assertThat(moduleList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Module in Elasticsearch
-        verify(mockModuleSearchRepository, times(0)).save(module);
     }
 
     @Test
     @Transactional
     public void deleteModule() throws Exception {
         // Initialize the database
-        moduleRepository.saveAndFlush(module);
+    	moduleRepository.save(module);
 
         int databaseSizeBeforeDelete = moduleRepository.findAll().size();
 
@@ -278,26 +600,6 @@ public class ModuleResourceIT {
         // Validate the database contains one less item
         List<Module> moduleList = moduleRepository.findAll();
         assertThat(moduleList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Module in Elasticsearch
-        verify(mockModuleSearchRepository, times(1)).deleteById(module.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchModule() throws Exception {
-        // Initialize the database
-        moduleRepository.saveAndFlush(module);
-        when(mockModuleSearchRepository.search(queryStringQuery("id:" + module.getId())))
-            .thenReturn(Collections.singletonList(module));
-        // Search the module
-        restModuleMockMvc.perform(get("/api/_search/modules?query=id:" + module.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(module.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nomModule").value(hasItem(DEFAULT_NOM_MODULE)))
-            .andExpect(jsonPath("$.[*].volumeHoraire").value(hasItem(DEFAULT_VOLUME_HORAIRE)))
-            .andExpect(jsonPath("$.[*].semestre").value(hasItem(DEFAULT_SEMESTRE.toString())));
     }
 
     @Test

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.planeta.pfum.domain.Module;
 import com.planeta.pfum.domain.enumeration.Semestre;
 import com.planeta.pfum.repository.ModuleExtendedRepository;
-import com.planeta.pfum.repository.search.ModuleSearchRepository;
 
 
 @RestController
@@ -29,16 +28,14 @@ public class ModuleExtendedResource {
 
     private final ModuleExtendedRepository moduleRepository;
 
-	private final ModuleSearchRepository moduleSearchRepository;
 
-    public ModuleExtendedResource(ModuleExtendedRepository moduleRepository, ModuleSearchRepository moduleSearchRepository) {
+    public ModuleExtendedResource(ModuleExtendedRepository moduleRepository ) {
         this.moduleRepository = moduleRepository;
-        this.moduleSearchRepository = moduleSearchRepository;
     }
     @GetMapping("/extended/modules/semestre/{sem}")
     public List<Module> getModulesBySemestre(@PathVariable Semestre sem) {
         log.debug("REST request to get Modules : {}", sem);
         return moduleRepository.findAllBySemestre(sem);
     }
-
+    
 }

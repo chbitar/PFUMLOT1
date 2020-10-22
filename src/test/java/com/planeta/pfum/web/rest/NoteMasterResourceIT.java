@@ -1,10 +1,21 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.NoteMaster;
-import com.planeta.pfum.repository.NoteMasterRepository;
-import com.planeta.pfum.repository.search.NoteMasterSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,25 +30,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.NoteMaster;
 import com.planeta.pfum.domain.enumeration.Semestre;
+import com.planeta.pfum.repository.NoteMasterRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link NoteMasterResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class NoteMasterResourceIT {
 
     private static final Semestre DEFAULT_SEMESTRE = Semestre.S1;
@@ -57,14 +58,6 @@ public class NoteMasterResourceIT {
 
     @Autowired
     private NoteMasterRepository noteMasterRepository;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.NoteMasterSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private NoteMasterSearchRepository mockNoteMasterSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -88,7 +81,7 @@ public class NoteMasterResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final NoteMasterResource noteMasterResource = new NoteMasterResource(noteMasterRepository, mockNoteMasterSearchRepository);
+        final NoteMasterResource noteMasterResource = new NoteMasterResource(noteMasterRepository);
         this.restNoteMasterMockMvc = MockMvcBuilders.standaloneSetup(noteMasterResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -153,9 +146,6 @@ public class NoteMasterResourceIT {
         assertThat(testNoteMaster.getNoteCC2()).isEqualTo(DEFAULT_NOTE_CC_2);
         assertThat(testNoteMaster.getNoteFinal()).isEqualTo(DEFAULT_NOTE_FINAL);
         assertThat(testNoteMaster.getDate()).isEqualTo(DEFAULT_DATE);
-
-        // Validate the NoteMaster in Elasticsearch
-        verify(mockNoteMasterSearchRepository, times(1)).save(testNoteMaster);
     }
 
     @Test
@@ -175,9 +165,6 @@ public class NoteMasterResourceIT {
         // Validate the NoteMaster in the database
         List<NoteMaster> noteMasterList = noteMasterRepository.findAll();
         assertThat(noteMasterList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the NoteMaster in Elasticsearch
-        verify(mockNoteMasterSearchRepository, times(0)).save(noteMaster);
     }
 
 
@@ -258,9 +245,6 @@ public class NoteMasterResourceIT {
         assertThat(testNoteMaster.getNoteCC2()).isEqualTo(UPDATED_NOTE_CC_2);
         assertThat(testNoteMaster.getNoteFinal()).isEqualTo(UPDATED_NOTE_FINAL);
         assertThat(testNoteMaster.getDate()).isEqualTo(UPDATED_DATE);
-
-        // Validate the NoteMaster in Elasticsearch
-        verify(mockNoteMasterSearchRepository, times(1)).save(testNoteMaster);
     }
 
     @Test
@@ -279,9 +263,6 @@ public class NoteMasterResourceIT {
         // Validate the NoteMaster in the database
         List<NoteMaster> noteMasterList = noteMasterRepository.findAll();
         assertThat(noteMasterList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the NoteMaster in Elasticsearch
-        verify(mockNoteMasterSearchRepository, times(0)).save(noteMaster);
     }
 
     @Test
@@ -300,28 +281,6 @@ public class NoteMasterResourceIT {
         // Validate the database contains one less item
         List<NoteMaster> noteMasterList = noteMasterRepository.findAll();
         assertThat(noteMasterList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the NoteMaster in Elasticsearch
-        verify(mockNoteMasterSearchRepository, times(1)).deleteById(noteMaster.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchNoteMaster() throws Exception {
-        // Initialize the database
-        noteMasterRepository.saveAndFlush(noteMaster);
-        when(mockNoteMasterSearchRepository.search(queryStringQuery("id:" + noteMaster.getId())))
-            .thenReturn(Collections.singletonList(noteMaster));
-        // Search the noteMaster
-        restNoteMasterMockMvc.perform(get("/api/_search/note-masters?query=id:" + noteMaster.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(noteMaster.getId().intValue())))
-            .andExpect(jsonPath("$.[*].semestre").value(hasItem(DEFAULT_SEMESTRE.toString())))
-            .andExpect(jsonPath("$.[*].noteCC1").value(hasItem(DEFAULT_NOTE_CC_1.doubleValue())))
-            .andExpect(jsonPath("$.[*].noteCC2").value(hasItem(DEFAULT_NOTE_CC_2.doubleValue())))
-            .andExpect(jsonPath("$.[*].noteFinal").value(hasItem(DEFAULT_NOTE_FINAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
 
     @Test

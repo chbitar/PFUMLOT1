@@ -11,6 +11,7 @@ export interface IProfesseur {
   cin?: string;
   rib?: string;
   email?: string;
+  telephone?: string;
   user?: IUser;
   affectationModules?: IAffectationModule[];
 }

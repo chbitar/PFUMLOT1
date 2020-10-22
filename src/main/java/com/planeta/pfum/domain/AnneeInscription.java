@@ -1,8 +1,9 @@
 package com.planeta.pfum.domain;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,30 +13,37 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "annee_inscription")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "anneeinscription")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class AnneeInscription implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "annee")
     private String annee;
 
     @OneToMany(mappedBy = "anneeInscription")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CalendrierModule> calendrierModules = new HashSet<>();
 
     @OneToMany(mappedBy = "anneeInscription")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<EtudiantsExecutif> etudiantsExecutifs = new HashSet<>();
 
     @OneToMany(mappedBy = "anneeInscription")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<EtudiantsLicence> etudiantsLicences = new HashSet<>();
 
     @OneToMany(mappedBy = "anneeInscription")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<EtudiantsMaster> etudiantsMasters = new HashSet<>();
+
+    @OneToMany(mappedBy = "anneeInscription")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Filiere> filieres = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -157,6 +165,31 @@ public class AnneeInscription implements Serializable {
 
     public void setEtudiantsMasters(Set<EtudiantsMaster> etudiantsMasters) {
         this.etudiantsMasters = etudiantsMasters;
+    }
+
+    public Set<Filiere> getFilieres() {
+        return filieres;
+    }
+
+    public AnneeInscription filieres(Set<Filiere> filieres) {
+        this.filieres = filieres;
+        return this;
+    }
+
+    public AnneeInscription addFiliere(Filiere filiere) {
+        this.filieres.add(filiere);
+        filiere.setAnneeInscription(this);
+        return this;
+    }
+
+    public AnneeInscription removeFiliere(Filiere filiere) {
+        this.filieres.remove(filiere);
+        filiere.setAnneeInscription(null);
+        return this;
+    }
+
+    public void setFilieres(Set<Filiere> filieres) {
+        this.filieres = filieres;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

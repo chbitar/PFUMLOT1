@@ -67,12 +67,12 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201020224512",
+    "changelogDate": "20201022210053",
     "entityTableName": "suivi_module",
     "dto": "no",
     "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
     "fluentMethods": true,
     "clientRootFolder": "",
     "applications": "*"

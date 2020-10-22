@@ -1,9 +1,10 @@
 package com.planeta.pfum.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,14 +16,13 @@ import com.planeta.pfum.domain.enumeration.Semestre;
  */
 @Entity
 @Table(name = "module")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "module")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Module implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "nom_module")
@@ -36,24 +36,31 @@ public class Module implements Serializable {
     private Semestre semestre;
 
     @OneToMany(mappedBy = "module")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Absence> absences = new HashSet<>();
 
     @OneToMany(mappedBy = "module")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AffectationModule> affectationModules = new HashSet<>();
 
     @OneToMany(mappedBy = "module")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CalendrierModule> calendrierModules = new HashSet<>();
 
     @OneToMany(mappedBy = "module")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<SuiviModule> suiviModules = new HashSet<>();
 
     @OneToMany(mappedBy = "module")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<NoteLicence> noteLicences = new HashSet<>();
 
     @OneToMany(mappedBy = "module")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<NoteMaster> noteMasters = new HashSet<>();
 
     @OneToMany(mappedBy = "module")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<NoteExecutif> noteExecutifs = new HashSet<>();
 
     @ManyToOne

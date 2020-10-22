@@ -1,28 +1,31 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.SuiviModule;
-import com.planeta.pfum.repository.SuiviModuleRepository;
-import com.planeta.pfum.repository.search.SuiviModuleSearchRepository;
-import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.planeta.pfum.domain.SuiviModule;
+import com.planeta.pfum.repository.SuiviModuleRepository;
+import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.SuiviModule}.
@@ -40,11 +43,9 @@ public class SuiviModuleResource {
 
     private final SuiviModuleRepository suiviModuleRepository;
 
-    private final SuiviModuleSearchRepository suiviModuleSearchRepository;
 
-    public SuiviModuleResource(SuiviModuleRepository suiviModuleRepository, SuiviModuleSearchRepository suiviModuleSearchRepository) {
+    public SuiviModuleResource(SuiviModuleRepository suiviModuleRepository) {
         this.suiviModuleRepository = suiviModuleRepository;
-        this.suiviModuleSearchRepository = suiviModuleSearchRepository;
     }
 
     /**
@@ -61,7 +62,6 @@ public class SuiviModuleResource {
             throw new BadRequestAlertException("A new suiviModule cannot already have an ID", ENTITY_NAME, "idexists");
         }
         SuiviModule result = suiviModuleRepository.save(suiviModule);
-        suiviModuleSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/suivi-modules/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,7 +83,6 @@ public class SuiviModuleResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         SuiviModule result = suiviModuleRepository.save(suiviModule);
-        suiviModuleSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, suiviModule.getId().toString()))
             .body(result);
@@ -123,23 +122,8 @@ public class SuiviModuleResource {
     public ResponseEntity<Void> deleteSuiviModule(@PathVariable Long id) {
         log.debug("REST request to delete SuiviModule : {}", id);
         suiviModuleRepository.deleteById(id);
-        suiviModuleSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/suivi-modules?query=:query} : search for the suiviModule corresponding
-     * to the query.
-     *
-     * @param query the query of the suiviModule search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/suivi-modules")
-    public List<SuiviModule> searchSuiviModules(@RequestParam String query) {
-        log.debug("REST request to search SuiviModules for query {}", query);
-        return StreamSupport
-            .stream(suiviModuleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 
 }

@@ -45,23 +45,26 @@ export class AbsenceDetail extends React.Component<IAbsenceDetailProps> {
             <dt>
               <Translate contentKey="pfumv10App.absence.user">User</Translate>
             </dt>
-            <dd>{absenceEntity.user ? absenceEntity.user.id : ''}</dd>
+            <dd>{absenceEntity.user ? absenceEntity.user.firstName + ' ' + absenceEntity.user.lastName : ''}</dd>
             <dt>
               <Translate contentKey="pfumv10App.absence.module">Module</Translate>
             </dt>
-            <dd>{absenceEntity.module ? absenceEntity.module.id : ''}</dd>
+            <dd>{absenceEntity.module ? absenceEntity.module.nomModule : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.absence.etudiantsLicence">Etudiants Licence</Translate>
+              Etudiants
+              {absenceEntity.etudiantsLicence ? ' Licence' : ''}
+              {absenceEntity.etudiantsMaster ? ' Master' : ''}
+              {absenceEntity.etudiantsExecutif ? ' Master Exécutif' : ''}
             </dt>
-            <dd>{absenceEntity.etudiantsLicence ? absenceEntity.etudiantsLicence.id : ''}</dd>
-            <dt>
-              <Translate contentKey="pfumv10App.absence.etudiantsMaster">Etudiants Master</Translate>
-            </dt>
-            <dd>{absenceEntity.etudiantsMaster ? absenceEntity.etudiantsMaster.id : ''}</dd>
-            <dt>
-              <Translate contentKey="pfumv10App.absence.etudiantsExecutif">Etudiants Executif</Translate>
-            </dt>
-            <dd>{absenceEntity.etudiantsExecutif ? absenceEntity.etudiantsExecutif.id : ''}</dd>
+            <dd>
+              {absenceEntity.etudiantsLicence ? absenceEntity.etudiantsLicence.nom + ' ' + absenceEntity.etudiantsLicence.prenom : ''}
+            </dd>
+
+            <dd>{absenceEntity.etudiantsMaster ? absenceEntity.etudiantsMaster.nom + ' ' + absenceEntity.etudiantsMaster.prenom : ''}</dd>
+
+            <dd>
+              {absenceEntity.etudiantsExecutif ? absenceEntity.etudiantsExecutif.nom + ' ' + absenceEntity.etudiantsExecutif.prenom : ''}
+            </dd>
           </dl>
           <Button tag={Link} to="/entity/absence" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

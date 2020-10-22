@@ -1,7 +1,6 @@
 package com.planeta.pfum.repository;
 
 import com.planeta.pfum.domain.Document;
-import com.planeta.pfum.domain.Module;
 import com.planeta.pfum.domain.enumeration.TypeDocument;
 
 import java.util.List;

@@ -41,6 +41,18 @@ export class ProfesseurDetail extends React.Component<IProfesseurDetailProps> {
             </dt>
             <dd>{professeurEntity.prenom}</dd>
             <dt>
+              <span id="telephone">
+                <Translate contentKey="pfumv10App.professeur.telephone">Telephone</Translate>
+              </span>
+            </dt>
+            <dd>{professeurEntity.telephone}</dd>
+            <dt>
+              <span id="email">
+                <Translate contentKey="pfumv10App.professeur.email">Email</Translate>
+              </span>
+            </dt>
+            <dd>{professeurEntity.email}</dd>
+            <dt>
               <span id="etablissement">
                 <Translate contentKey="pfumv10App.professeur.etablissement">Etablissement</Translate>
               </span>
@@ -70,12 +82,6 @@ export class ProfesseurDetail extends React.Component<IProfesseurDetailProps> {
               </span>
             </dt>
             <dd>{professeurEntity.rib}</dd>
-            <dt>
-              <span id="email">
-                <Translate contentKey="pfumv10App.professeur.email">Email</Translate>
-              </span>
-            </dt>
-            <dd>{professeurEntity.email}</dd>
             <dt>
               <Translate contentKey="pfumv10App.professeur.user">User</Translate>
             </dt>

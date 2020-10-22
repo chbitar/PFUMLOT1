@@ -1,10 +1,11 @@
 package com.planeta.pfum.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -19,14 +20,13 @@ import com.planeta.pfum.domain.enumeration.Mention;
  */
 @Entity
 @Table(name = "etudiants_executif")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "etudiantsexecutif")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class EtudiantsExecutif implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "suffixe")
@@ -63,8 +63,8 @@ public class EtudiantsExecutif implements Serializable {
     @Column(name = "mention")
     private Mention mention;
 
-    @Column(name = "anne_otention")
-    private String anneOtention;
+    @Column(name = "annee_obtention")
+    private String anneeObtention;
 
     @NotNull
     @Column(name = "cin_pass", nullable = false)
@@ -97,11 +97,25 @@ public class EtudiantsExecutif implements Serializable {
     private String photoContentType;
 
     @Lob
-    @Column(name = "extrait_acte_naissance")
-    private byte[] extraitActeNaissance;
+    @Column(name = "cv")
+    private byte[] cv;
 
-    @Column(name = "extrait_acte_naissance_content_type")
-    private String extraitActeNaissanceContentType;
+    @Column(name = "cv_content_type")
+    private String cvContentType;
+
+    @Lob
+    @Column(name = "autre_document")
+    private byte[] autreDocument;
+
+    @Column(name = "autre_document_content_type")
+    private String autreDocumentContentType;
+
+    @Lob
+    @Column(name = "attestation_de_travail")
+    private byte[] attestationDeTravail;
+
+    @Column(name = "attestation_de_travail_content_type")
+    private String attestationDeTravailContentType;
 
     
     @Lob
@@ -137,9 +151,11 @@ public class EtudiantsExecutif implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "etudiantsExecutif")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Absence> absences = new HashSet<>();
 
     @OneToMany(mappedBy = "etudiantExecutif")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<EspaceEtudiant> espaceEtudiants = new HashSet<>();
 
     @ManyToOne
@@ -280,17 +296,17 @@ public class EtudiantsExecutif implements Serializable {
         this.mention = mention;
     }
 
-    public String getAnneOtention() {
-        return anneOtention;
+    public String getAnneeObtention() {
+        return anneeObtention;
     }
 
-    public EtudiantsExecutif anneOtention(String anneOtention) {
-        this.anneOtention = anneOtention;
+    public EtudiantsExecutif anneeObtention(String anneeObtention) {
+        this.anneeObtention = anneeObtention;
         return this;
     }
 
-    public void setAnneOtention(String anneOtention) {
-        this.anneOtention = anneOtention;
+    public void setAnneeObtention(String anneeObtention) {
+        this.anneeObtention = anneeObtention;
     }
 
     public String getCinPass() {
@@ -410,30 +426,82 @@ public class EtudiantsExecutif implements Serializable {
         this.photoContentType = photoContentType;
     }
 
-    public byte[] getExtraitActeNaissance() {
-        return extraitActeNaissance;
+    public byte[] getCv() {
+        return cv;
     }
 
-    public EtudiantsExecutif extraitActeNaissance(byte[] extraitActeNaissance) {
-        this.extraitActeNaissance = extraitActeNaissance;
+    public EtudiantsExecutif cv(byte[] cv) {
+        this.cv = cv;
         return this;
     }
 
-    public void setExtraitActeNaissance(byte[] extraitActeNaissance) {
-        this.extraitActeNaissance = extraitActeNaissance;
+    public void setCv(byte[] cv) {
+        this.cv = cv;
     }
 
-    public String getExtraitActeNaissanceContentType() {
-        return extraitActeNaissanceContentType;
+    public String getCvContentType() {
+        return cvContentType;
     }
 
-    public EtudiantsExecutif extraitActeNaissanceContentType(String extraitActeNaissanceContentType) {
-        this.extraitActeNaissanceContentType = extraitActeNaissanceContentType;
+    public EtudiantsExecutif cvContentType(String cvContentType) {
+        this.cvContentType = cvContentType;
         return this;
     }
 
-    public void setExtraitActeNaissanceContentType(String extraitActeNaissanceContentType) {
-        this.extraitActeNaissanceContentType = extraitActeNaissanceContentType;
+    public void setCvContentType(String cvContentType) {
+        this.cvContentType = cvContentType;
+    }
+
+    public byte[] getAutreDocument() {
+        return autreDocument;
+    }
+
+    public EtudiantsExecutif autreDocument(byte[] autreDocument) {
+        this.autreDocument = autreDocument;
+        return this;
+    }
+
+    public void setAutreDocument(byte[] autreDocument) {
+        this.autreDocument = autreDocument;
+    }
+
+    public String getAutreDocumentContentType() {
+        return autreDocumentContentType;
+    }
+
+    public EtudiantsExecutif autreDocumentContentType(String autreDocumentContentType) {
+        this.autreDocumentContentType = autreDocumentContentType;
+        return this;
+    }
+
+    public void setAutreDocumentContentType(String autreDocumentContentType) {
+        this.autreDocumentContentType = autreDocumentContentType;
+    }
+
+    public byte[] getAttestationDeTravail() {
+        return attestationDeTravail;
+    }
+
+    public EtudiantsExecutif attestationDeTravail(byte[] attestationDeTravail) {
+        this.attestationDeTravail = attestationDeTravail;
+        return this;
+    }
+
+    public void setAttestationDeTravail(byte[] attestationDeTravail) {
+        this.attestationDeTravail = attestationDeTravail;
+    }
+
+    public String getAttestationDeTravailContentType() {
+        return attestationDeTravailContentType;
+    }
+
+    public EtudiantsExecutif attestationDeTravailContentType(String attestationDeTravailContentType) {
+        this.attestationDeTravailContentType = attestationDeTravailContentType;
+        return this;
+    }
+
+    public void setAttestationDeTravailContentType(String attestationDeTravailContentType) {
+        this.attestationDeTravailContentType = attestationDeTravailContentType;
     }
 
     public byte[] getBacalaureat() {
@@ -672,7 +740,7 @@ public class EtudiantsExecutif implements Serializable {
             ", email='" + getEmail() + "'" +
             ", pjBac='" + getPjBac() + "'" +
             ", mention='" + getMention() + "'" +
-            ", anneOtention='" + getAnneOtention() + "'" +
+            ", anneeObtention='" + getAnneeObtention() + "'" +
             ", cinPass='" + getCinPass() + "'" +
             ", paysNationalite='" + getPaysNationalite() + "'" +
             ", paysResidence='" + getPaysResidence() + "'" +
@@ -682,8 +750,12 @@ public class EtudiantsExecutif implements Serializable {
             ", deuxiemeTel=" + getDeuxiemeTel() +
             ", photo='" + getPhoto() + "'" +
             ", photoContentType='" + getPhotoContentType() + "'" +
-            ", extraitActeNaissance='" + getExtraitActeNaissance() + "'" +
-            ", extraitActeNaissanceContentType='" + getExtraitActeNaissanceContentType() + "'" +
+            ", cv='" + getCv() + "'" +
+            ", cvContentType='" + getCvContentType() + "'" +
+            ", autreDocument='" + getAutreDocument() + "'" +
+            ", autreDocumentContentType='" + getAutreDocumentContentType() + "'" +
+            ", attestationDeTravail='" + getAttestationDeTravail() + "'" +
+            ", attestationDeTravailContentType='" + getAttestationDeTravailContentType() + "'" +
             ", bacalaureat='" + getBacalaureat() + "'" +
             ", bacalaureatContentType='" + getBacalaureatContentType() + "'" +
             ", cinPassport='" + getCinPassport() + "'" +

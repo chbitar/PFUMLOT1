@@ -1,9 +1,10 @@
 package com.planeta.pfum.domain;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 
 import com.planeta.pfum.domain.enumeration.TypeDocument;
@@ -13,14 +14,13 @@ import com.planeta.pfum.domain.enumeration.TypeDocument;
  */
 @Entity
 @Table(name = "document")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "document")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Document implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "titre")

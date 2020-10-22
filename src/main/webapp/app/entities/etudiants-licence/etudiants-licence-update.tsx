@@ -100,8 +100,10 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
     const {
       photo,
       photoContentType,
-      extraitActeNaissance,
-      extraitActeNaissanceContentType,
+      testAdmission,
+      testAdmissionContentType,
+      relevesNotes,
+      relevesNotesContentType,
       bacalaureat,
       bacalaureatContentType,
       cinPassport,
@@ -162,14 +164,6 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                           </Row>
                           <Row>
                             <Col md="6">
-                              {!isNew ? (
-                                <AvGroup>
-                                  <Label for="etudiants-licence-id">
-                                    <Translate contentKey="global.field.id">ID</Translate>
-                                  </Label>
-                                  <AvInput id="etudiants-licence-id" type="text" className="form-control" name="id" required readOnly />
-                                </AvGroup>
-                              ) : null}
                               <AvGroup>
                                 <Label id="nomLabel" for="etudiants-licence-nom">
                                   <Translate contentKey="pfumv10App.etudiantsLicence.nom">Nom</Translate>
@@ -349,9 +343,9 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                               </AvGroup>
                               <AvGroup>
                                 <Label id="anneOtentionLabel" for="etudiants-licence-anneOtention">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.anneOtention">Anne Otention</Translate>
+                                  <Translate contentKey="pfumv10App.etudiantsLicence.anneOtention">Année Obtention</Translate>
                                 </Label>
-                                <AvField id="etudiants-licence-anneOtention" type="text" name="anneOtention" />
+                                <AvField id="etudiants-licence-anneOtention" type="text" name="anneeObtention" />
                               </AvGroup>
                               <AvGroup>
                                 <Label for="etudiants-licence-filiere">
@@ -405,46 +399,6 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                             <div className="card-body">
                               <AvGroup>
                                 <AvGroup>
-                                  <Label id="extraitActeNaissanceLabel" for="extraitActeNaissance">
-                                    <Translate contentKey="pfumv10App.etudiantsLicence.extraitActeNaissance">
-                                      Extrait Acte Naissance
-                                    </Translate>
-                                  </Label>
-                                  <br />
-                                  {extraitActeNaissance ? (
-                                    <div>
-                                      <a onClick={openFile(extraitActeNaissanceContentType, extraitActeNaissance)}>
-                                        <img
-                                          src={`data:${extraitActeNaissanceContentType};base64,${extraitActeNaissance}`}
-                                          style={{ maxHeight: '100px' }}
-                                        />
-                                      </a>
-                                      <br />
-                                      <Row>
-                                        <Col md="11">
-                                          <span>
-                                            {extraitActeNaissanceContentType}, {byteSize(extraitActeNaissance)}
-                                          </span>
-                                        </Col>
-                                        <Col md="1">
-                                          <Button color="danger" onClick={this.clearBlob('extraitActeNaissance')}>
-                                            <FontAwesomeIcon icon="times-circle" />
-                                          </Button>
-                                        </Col>
-                                      </Row>
-                                    </div>
-                                  ) : null}
-                                  <input
-                                    id="file_extraitActeNaissance"
-                                    type="file"
-                                    onChange={this.onBlobChange(true, 'extraitActeNaissance')}
-                                    accept="image/*"
-                                  />
-                                  <AvInput type="hidden" name="extraitActeNaissance" value={extraitActeNaissance} />
-                                </AvGroup>
-                              </AvGroup>
-                              <AvGroup>
-                                <AvGroup>
                                   <Label id="bacalaureatLabel" for="bacalaureat">
                                     <Translate contentKey="pfumv10App.etudiantsLicence.bacalaureat">Bacalaureat</Translate>
                                   </Label>
@@ -485,6 +439,84 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                                   />
                                 </AvGroup>
                               </AvGroup>
+                              <AvGroup>
+                                <AvGroup>
+                                  <Label id="testAdmissionLabel" for="testAdmission">
+                                    Test d'admission
+                                  </Label>
+                                  <br />
+                                  {testAdmission ? (
+                                    <div>
+                                      <a onClick={openFile(testAdmissionContentType, testAdmission)}>
+                                        <img
+                                          src={`data:${testAdmissionContentType};base64,${testAdmission}`}
+                                          style={{ maxHeight: '100px' }}
+                                        />
+                                      </a>
+                                      <br />
+                                      <Row>
+                                        <Col md="11">
+                                          <span>
+                                            {testAdmissionContentType}, {byteSize(testAdmission)}
+                                          </span>
+                                        </Col>
+                                        <Col md="1">
+                                          <Button color="danger" onClick={this.clearBlob('testAdmission')}>
+                                            <FontAwesomeIcon icon="times-circle" />
+                                          </Button>
+                                        </Col>
+                                      </Row>
+                                    </div>
+                                  ) : null}
+                                  <input
+                                    id="file_testAdmission"
+                                    type="file"
+                                    onChange={this.onBlobChange(true, 'testAdmission')}
+                                    accept="image/*"
+                                  />
+                                  <AvInput type="hidden" name="testAdmission" value={testAdmission} />
+                                </AvGroup>
+                              </AvGroup>
+
+                              <AvGroup>
+                                <AvGroup>
+                                  <Label id="relevesNotesLabel" for="relevesNotes">
+                                    Relevé des Notes
+                                  </Label>
+                                  <br />
+                                  {relevesNotes ? (
+                                    <div>
+                                      <a onClick={openFile(relevesNotesContentType, relevesNotes)}>
+                                        <img
+                                          src={`data:${relevesNotesContentType};base64,${relevesNotes}`}
+                                          style={{ maxHeight: '100px' }}
+                                        />
+                                      </a>
+                                      <br />
+                                      <Row>
+                                        <Col md="11">
+                                          <span>
+                                            {relevesNotesContentType}, {byteSize(relevesNotes)}
+                                          </span>
+                                        </Col>
+                                        <Col md="1">
+                                          <Button color="danger" onClick={this.clearBlob('relevesNotes')}>
+                                            <FontAwesomeIcon icon="times-circle" />
+                                          </Button>
+                                        </Col>
+                                      </Row>
+                                    </div>
+                                  ) : null}
+                                  <input
+                                    id="file_relevesNotes"
+                                    type="file"
+                                    onChange={this.onBlobChange(true, 'relevesNotes')}
+                                    accept="image/*"
+                                  />
+                                  <AvInput type="hidden" name="relevesNotes" value={relevesNotes} />
+                                </AvGroup>
+                              </AvGroup>
+
                               <AvGroup>
                                 <AvGroup>
                                   <Label id="cinPassportLabel" for="cinPassport">

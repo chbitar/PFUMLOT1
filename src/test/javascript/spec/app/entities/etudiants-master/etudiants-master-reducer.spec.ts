@@ -4,13 +4,13 @@ import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
+import { parseHeaderForLinks } from 'react-jhipster';
 
 import reducer, {
   ACTION_TYPES,
   createEntity,
   deleteEntity,
   getEntities,
-  getSearchEntities,
   getEntity,
   updateEntity,
   reset
@@ -33,6 +33,10 @@ describe('Entities reducer tests', () => {
     errorMessage: null,
     entities: [] as ReadonlyArray<IEtudiantsMaster>,
     entity: defaultValue,
+    links: {
+      next: 0
+    },
+    totalItems: 0,
     updating: false,
     updateSuccess: false
   };
@@ -62,21 +66,13 @@ describe('Entities reducer tests', () => {
 
   describe('Requests', () => {
     it('should set state to loading', () => {
-      testMultipleTypes(
-        [
-          REQUEST(ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST),
-          REQUEST(ACTION_TYPES.SEARCH_ETUDIANTSMASTERS),
-          REQUEST(ACTION_TYPES.FETCH_ETUDIANTSMASTER)
-        ],
-        {},
-        state => {
-          expect(state).toMatchObject({
-            errorMessage: null,
-            updateSuccess: false,
-            loading: true
-          });
-        }
-      );
+      testMultipleTypes([REQUEST(ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST), REQUEST(ACTION_TYPES.FETCH_ETUDIANTSMASTER)], {}, state => {
+        expect(state).toMatchObject({
+          errorMessage: null,
+          updateSuccess: false,
+          loading: true
+        });
+      });
     });
 
     it('should set state to updating', () => {
@@ -116,7 +112,6 @@ describe('Entities reducer tests', () => {
       testMultipleTypes(
         [
           FAILURE(ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST),
-          FAILURE(ACTION_TYPES.SEARCH_ETUDIANTSMASTERS),
           FAILURE(ACTION_TYPES.FETCH_ETUDIANTSMASTER),
           FAILURE(ACTION_TYPES.CREATE_ETUDIANTSMASTER),
           FAILURE(ACTION_TYPES.UPDATE_ETUDIANTSMASTER),
@@ -136,7 +131,8 @@ describe('Entities reducer tests', () => {
 
   describe('Successes', () => {
     it('should fetch all entities', () => {
-      const payload = { data: [{ 1: 'fake1' }, { 2: 'fake2' }] };
+      const payload = { data: [{ 1: 'fake1' }, { 2: 'fake2' }], headers: { 'x-total-count': 123, link: ';' } };
+      const links = parseHeaderForLinks(payload.headers.link);
       expect(
         reducer(undefined, {
           type: SUCCESS(ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST),
@@ -144,20 +140,9 @@ describe('Entities reducer tests', () => {
         })
       ).toEqual({
         ...initialState,
+        links,
         loading: false,
-        entities: payload.data
-      });
-    });
-    it('should search all entities', () => {
-      const payload = { data: [{ 1: 'fake1' }, { 2: 'fake2' }] };
-      expect(
-        reducer(undefined, {
-          type: SUCCESS(ACTION_TYPES.SEARCH_ETUDIANTSMASTERS),
-          payload
-        })
-      ).toEqual({
-        ...initialState,
-        loading: false,
+        totalItems: payload.headers['x-total-count'],
         entities: payload.data
       });
     });
@@ -229,18 +214,6 @@ describe('Entities reducer tests', () => {
       ];
       await store.dispatch(getEntities()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
-    it('dispatches ACTION_TYPES.SEARCH_ETUDIANTSMASTERS actions', async () => {
-      const expectedActions = [
-        {
-          type: REQUEST(ACTION_TYPES.SEARCH_ETUDIANTSMASTERS)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.SEARCH_ETUDIANTSMASTERS),
-          payload: resolvedObject
-        }
-      ];
-      await store.dispatch(getSearchEntities()).then(() => expect(store.getActions()).toEqual(expectedActions));
-    });
 
     it('dispatches ACTION_TYPES.FETCH_ETUDIANTSMASTER actions', async () => {
       const expectedActions = [
@@ -263,13 +236,6 @@ describe('Entities reducer tests', () => {
         {
           type: SUCCESS(ACTION_TYPES.CREATE_ETUDIANTSMASTER),
           payload: resolvedObject
-        },
-        {
-          type: REQUEST(ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST),
-          payload: resolvedObject
         }
       ];
       await store.dispatch(createEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
@@ -283,13 +249,6 @@ describe('Entities reducer tests', () => {
         {
           type: SUCCESS(ACTION_TYPES.UPDATE_ETUDIANTSMASTER),
           payload: resolvedObject
-        },
-        {
-          type: REQUEST(ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST),
-          payload: resolvedObject
         }
       ];
       await store.dispatch(updateEntity({ id: 1 })).then(() => expect(store.getActions()).toEqual(expectedActions));
@@ -302,13 +261,6 @@ describe('Entities reducer tests', () => {
         },
         {
           type: SUCCESS(ACTION_TYPES.DELETE_ETUDIANTSMASTER),
-          payload: resolvedObject
-        },
-        {
-          type: REQUEST(ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST),
           payload: resolvedObject
         }
       ];

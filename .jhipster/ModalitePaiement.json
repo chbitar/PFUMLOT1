@@ -47,7 +47,7 @@
             "relationshipName": "etudiantsMaster"
         }
     ],
-    "changelogDate": "20201020224514",
+    "changelogDate": "20201022210055",
     "entityTableName": "modalite_paiement",
     "dto": "no",
     "pagination": "no",

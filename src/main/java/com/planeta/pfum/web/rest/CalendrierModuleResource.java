@@ -1,27 +1,29 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.CalendrierModule;
-import com.planeta.pfum.repository.CalendrierModuleRepository;
-import com.planeta.pfum.repository.search.CalendrierModuleSearchRepository;
-import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.planeta.pfum.domain.CalendrierModule;
+import com.planeta.pfum.repository.CalendrierModuleRepository;
+import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.CalendrierModule}.
@@ -39,11 +41,9 @@ public class CalendrierModuleResource {
 
     private final CalendrierModuleRepository calendrierModuleRepository;
 
-    private final CalendrierModuleSearchRepository calendrierModuleSearchRepository;
 
-    public CalendrierModuleResource(CalendrierModuleRepository calendrierModuleRepository, CalendrierModuleSearchRepository calendrierModuleSearchRepository) {
+    public CalendrierModuleResource(CalendrierModuleRepository calendrierModuleRepository) {
         this.calendrierModuleRepository = calendrierModuleRepository;
-        this.calendrierModuleSearchRepository = calendrierModuleSearchRepository;
     }
 
     /**
@@ -60,7 +60,6 @@ public class CalendrierModuleResource {
             throw new BadRequestAlertException("A new calendrierModule cannot already have an ID", ENTITY_NAME, "idexists");
         }
         CalendrierModule result = calendrierModuleRepository.save(calendrierModule);
-        calendrierModuleSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/calendrier-modules/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +81,6 @@ public class CalendrierModuleResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         CalendrierModule result = calendrierModuleRepository.save(calendrierModule);
-        calendrierModuleSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, calendrierModule.getId().toString()))
             .body(result);
@@ -122,23 +120,8 @@ public class CalendrierModuleResource {
     public ResponseEntity<Void> deleteCalendrierModule(@PathVariable Long id) {
         log.debug("REST request to delete CalendrierModule : {}", id);
         calendrierModuleRepository.deleteById(id);
-        calendrierModuleSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/calendrier-modules?query=:query} : search for the calendrierModule corresponding
-     * to the query.
-     *
-     * @param query the query of the calendrierModule search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/calendrier-modules")
-    public List<CalendrierModule> searchCalendrierModules(@RequestParam String query) {
-        log.debug("REST request to search CalendrierModules for query {}", query);
-        return StreamSupport
-            .stream(calendrierModuleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 
 }

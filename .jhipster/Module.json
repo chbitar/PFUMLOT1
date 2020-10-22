@@ -66,12 +66,12 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201020224510",
+    "changelogDate": "20201022210051",
     "entityTableName": "module",
     "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
     "fluentMethods": true,
     "clientRootFolder": "",
     "applications": "*"

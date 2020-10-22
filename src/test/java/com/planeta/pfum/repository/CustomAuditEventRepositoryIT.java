@@ -1,9 +1,16 @@
 package com.planeta.pfum.repository;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.config.Constants;
-import com.planeta.pfum.config.audit.AuditEventConverter;
-import com.planeta.pfum.domain.PersistentAuditEvent;
+import static com.planeta.pfum.repository.CustomAuditEventRepository.EVENT_DATA_COLUMN_MAX_LENGTH;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +21,15 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static com.planeta.pfum.repository.CustomAuditEventRepository.EVENT_DATA_COLUMN_MAX_LENGTH;
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.config.Constants;
+import com.planeta.pfum.config.audit.AuditEventConverter;
+import com.planeta.pfum.domain.PersistentAuditEvent;
 
 /**
  * Integration tests for {@link CustomAuditEventRepository}.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 @Transactional
 public class CustomAuditEventRepositoryIT {
 

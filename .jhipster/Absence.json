@@ -53,7 +53,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201020224502",
+    "changelogDate": "20201022210043",
     "entityTableName": "absence",
     "dto": "no",
     "pagination": "no",

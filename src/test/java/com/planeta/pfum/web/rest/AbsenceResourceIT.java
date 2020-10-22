@@ -1,10 +1,21 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.Absence;
-import com.planeta.pfum.repository.AbsenceRepository;
-import com.planeta.pfum.repository.search.AbsenceSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,24 +30,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.Absence;
+import com.planeta.pfum.repository.AbsenceRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@Link AbsenceResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class AbsenceResourceIT {
 
     private static final Boolean DEFAULT_ABSENT = false;
@@ -47,14 +49,6 @@ public class AbsenceResourceIT {
 
     @Autowired
     private AbsenceRepository absenceRepository;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.AbsenceSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private AbsenceSearchRepository mockAbsenceSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -78,7 +72,7 @@ public class AbsenceResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final AbsenceResource absenceResource = new AbsenceResource(absenceRepository, mockAbsenceSearchRepository);
+        final AbsenceResource absenceResource = new AbsenceResource(absenceRepository);
         this.restAbsenceMockMvc = MockMvcBuilders.standaloneSetup(absenceResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -134,9 +128,6 @@ public class AbsenceResourceIT {
         Absence testAbsence = absenceList.get(absenceList.size() - 1);
         assertThat(testAbsence.isAbsent()).isEqualTo(DEFAULT_ABSENT);
         assertThat(testAbsence.getDateSeance()).isEqualTo(DEFAULT_DATE_SEANCE);
-
-        // Validate the Absence in Elasticsearch
-        verify(mockAbsenceSearchRepository, times(1)).save(testAbsence);
     }
 
     @Test
@@ -156,9 +147,6 @@ public class AbsenceResourceIT {
         // Validate the Absence in the database
         List<Absence> absenceList = absenceRepository.findAll();
         assertThat(absenceList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Absence in Elasticsearch
-        verify(mockAbsenceSearchRepository, times(0)).save(absence);
     }
 
 
@@ -227,9 +215,6 @@ public class AbsenceResourceIT {
         Absence testAbsence = absenceList.get(absenceList.size() - 1);
         assertThat(testAbsence.isAbsent()).isEqualTo(UPDATED_ABSENT);
         assertThat(testAbsence.getDateSeance()).isEqualTo(UPDATED_DATE_SEANCE);
-
-        // Validate the Absence in Elasticsearch
-        verify(mockAbsenceSearchRepository, times(1)).save(testAbsence);
     }
 
     @Test
@@ -248,9 +233,6 @@ public class AbsenceResourceIT {
         // Validate the Absence in the database
         List<Absence> absenceList = absenceRepository.findAll();
         assertThat(absenceList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Absence in Elasticsearch
-        verify(mockAbsenceSearchRepository, times(0)).save(absence);
     }
 
     @Test
@@ -269,25 +251,6 @@ public class AbsenceResourceIT {
         // Validate the database contains one less item
         List<Absence> absenceList = absenceRepository.findAll();
         assertThat(absenceList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Absence in Elasticsearch
-        verify(mockAbsenceSearchRepository, times(1)).deleteById(absence.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchAbsence() throws Exception {
-        // Initialize the database
-        absenceRepository.saveAndFlush(absence);
-        when(mockAbsenceSearchRepository.search(queryStringQuery("id:" + absence.getId())))
-            .thenReturn(Collections.singletonList(absence));
-        // Search the absence
-        restAbsenceMockMvc.perform(get("/api/_search/absences?query=id:" + absence.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(absence.getId().intValue())))
-            .andExpect(jsonPath("$.[*].absent").value(hasItem(DEFAULT_ABSENT.booleanValue())))
-            .andExpect(jsonPath("$.[*].dateSeance").value(hasItem(DEFAULT_DATE_SEANCE.toString())));
     }
 
     @Test

@@ -52,6 +52,13 @@
             "otherEntityField": "id"
         },
         {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "anneeInscription",
+            "otherEntityRelationshipName": "filiere",
+            "relationshipName": "anneeInscription",
+            "otherEntityField": "id"
+        },
+        {
             "relationshipType": "many-to-many",
             "otherEntityName": "tableauDeBoard",
             "otherEntityRelationshipName": "filier",
@@ -60,12 +67,12 @@
             "ownerSide": false
         }
     ],
-    "changelogDate": "20201020224509",
+    "changelogDate": "20201022210050",
     "entityTableName": "filiere",
     "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
     "fluentMethods": true,
     "clientRootFolder": "",
     "applications": "*"

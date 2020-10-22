@@ -1,21 +1,16 @@
 package com.planeta.pfum.service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.planeta.pfum.config.Constants;
+import com.planeta.pfum.domain.Authority;
+import com.planeta.pfum.domain.User;
+import com.planeta.pfum.repository.AuthorityRepository;
+import com.planeta.pfum.repository.UserRepository;
+import com.planeta.pfum.security.AuthoritiesConstants;
+import com.planeta.pfum.security.SecurityUtils;
+import com.planeta.pfum.service.dto.UserDTO;
+import com.planeta.pfum.service.util.RandomUtil;
+import com.planeta.pfum.web.rest.errors.*;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -26,23 +21,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.planeta.pfum.config.Constants;
-import com.planeta.pfum.domain.Authority;
-import com.planeta.pfum.domain.EtudiantsExecutif;
-import com.planeta.pfum.domain.EtudiantsLicence;
-import com.planeta.pfum.domain.EtudiantsMaster;
-import com.planeta.pfum.domain.Professeur;
-import com.planeta.pfum.domain.User;
-import com.planeta.pfum.repository.AuthorityRepository;
-import com.planeta.pfum.repository.UserRepository;
-import com.planeta.pfum.repository.search.UserSearchRepository;
-import com.planeta.pfum.security.AuthoritiesConstants;
-import com.planeta.pfum.security.SecurityUtils;
-import com.planeta.pfum.service.dto.UserDTO;
-import com.planeta.pfum.service.util.RandomUtil;
-import com.planeta.pfum.web.rest.errors.EmailAlreadyUsedException;
-import com.planeta.pfum.web.rest.errors.InvalidPasswordException;
-import com.planeta.pfum.web.rest.errors.LoginAlreadyUsedException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Service class for managing users.
@@ -57,29 +39,24 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final UserSearchRepository userSearchRepository;
-
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userSearchRepository = userSearchRepository;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
     }
 
-
-	public Optional<User> activateRegistration(String key) {
+    public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
         return userRepository.findOneByActivationKey(key)
             .map(user -> {
                 // activate given user for the registration key.
                 user.setActivated(true);
                 user.setActivationKey(null);
-//                userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Activated user: {}", user);
                 return user;
@@ -141,7 +118,6 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
-//        userSearchRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -183,7 +159,6 @@ public class UserService {
             user.setAuthorities(authorities);
         }
         userRepository.save(user);
-//        userSearchRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -207,7 +182,6 @@ public class UserService {
                 user.setEmail(email.toLowerCase());
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
-//                userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });
@@ -240,7 +214,6 @@ public class UserService {
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .forEach(managedAuthorities::add);
-//                userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
                 return user;
@@ -251,7 +224,6 @@ public class UserService {
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
             userRepository.delete(user);
-//            userSearchRepository.delete(user);
             this.clearUserCaches(user);
             log.debug("Deleted User: {}", user);
         });
@@ -304,38 +276,8 @@ public class UserService {
             .forEach(user -> {
                 log.debug("Deleting not activated user {}", user.getLogin());
                 userRepository.delete(user);
-//                userSearchRepository.delete(user);
                 this.clearUserCaches(user);
             });
-    }
-    
-    @Scheduled(cron = "0 * * * * *")
-    public void removeUnusedFile() throws IOException {
-        
-
-        Path path = Paths.get("Docs");
-
-        // read java doc, Files.walk need close the resources.
-        // try-with-resources to ensure that the stream's open directories are closed
-        try (Stream<Path> walk = Files.walk(path)) {
-            walk
-                    .sorted(Comparator.reverseOrder())
-                    .forEach(this::deleteDirectoryJava8Extract);
-        }
-        
-
-
-        //java.nio.file.Files;
-        Files.createDirectories(path);    
-    
-    }
-    
-    public  void deleteDirectoryJava8Extract(Path path) {
-        try {
-            Files.delete(path);
-        } catch (IOException e) {
-            System.err.printf("Unable to delete this path : %s%n%s", path, e);
-        }
     }
 
     /**
@@ -351,6 +293,4 @@ public class UserService {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
     }
-
- 
 }

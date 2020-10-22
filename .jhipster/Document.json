@@ -1,7 +1,5 @@
 {
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "relationships": [],
+    "name": "Document",
     "fields": [
         {
             "fieldName": "titre",
@@ -21,14 +19,14 @@
             ]
         }
     ],
-    "changelogDate": "20201020003317",
-    "searchEngine": "elasticsearch",
+    "relationships": [],
+    "changelogDate": "20201022210042",
     "entityTableName": "document",
-    "databaseType": "sql",
-    "jpaMetamodelFiltering": false,
+    "dto": "no",
     "pagination": "no",
-    "name": "Document",
-    "applications": "*",
-    "dto": "mapstruct",
-    "service": "serviceClass"
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
 }

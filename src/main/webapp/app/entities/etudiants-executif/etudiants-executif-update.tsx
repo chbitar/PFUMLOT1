@@ -113,8 +113,12 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
     const {
       photo,
       photoContentType,
-      extraitActeNaissance,
-      extraitActeNaissanceContentType,
+      cv,
+      cvContentType,
+      autreDocument,
+      autreDocumentContentType,
+      attestationDeTravail,
+      attestationDeTravailContentType,
       bacalaureat,
       bacalaureatContentType,
       cinPassport,
@@ -371,7 +375,7 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                                 <Label id="anneOtentionLabel" for="etudiants-licence-anneOtention">
                                   <Translate contentKey="pfumv10App.etudiantsLicence.anneOtention">Anne Otention</Translate>
                                 </Label>
-                                <AvField id="etudiants-licence-anneOtention" type="text" name="anneOtention" />
+                                <AvField id="etudiants-licence-anneOtention" type="text" name="anneeObtention" />
                               </AvGroup>
                               <AvGroup>
                                 <Label for="etudiants-executif-filiere">
@@ -433,46 +437,6 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                             <div className="card-body">
                               <AvGroup>
                                 <AvGroup>
-                                  <Label id="extraitActeNaissanceLabel" for="extraitActeNaissance">
-                                    <Translate contentKey="pfumv10App.etudiantsExecutif.extraitActeNaissance">
-                                      Extrait Acte Naissance
-                                    </Translate>
-                                  </Label>
-                                  <br />
-                                  {extraitActeNaissance ? (
-                                    <div>
-                                      <a onClick={openFile(extraitActeNaissanceContentType, extraitActeNaissance)}>
-                                        <img
-                                          src={`data:${extraitActeNaissanceContentType};base64,${extraitActeNaissance}`}
-                                          style={{ maxHeight: '100px' }}
-                                        />
-                                      </a>
-                                      <br />
-                                      <Row>
-                                        <Col md="11">
-                                          <span>
-                                            {extraitActeNaissanceContentType}, {byteSize(extraitActeNaissance)}
-                                          </span>
-                                        </Col>
-                                        <Col md="1">
-                                          <Button color="danger" onClick={this.clearBlob('extraitActeNaissance')}>
-                                            <FontAwesomeIcon icon="times-circle" />
-                                          </Button>
-                                        </Col>
-                                      </Row>
-                                    </div>
-                                  ) : null}
-                                  <input
-                                    id="file_extraitActeNaissance"
-                                    type="file"
-                                    onChange={this.onBlobChange(true, 'extraitActeNaissance')}
-                                    accept="image/*"
-                                  />
-                                  <AvInput type="hidden" name="extraitActeNaissance" value={extraitActeNaissance} />
-                                </AvGroup>
-                              </AvGroup>
-                              <AvGroup>
-                                <AvGroup>
                                   <Label id="bacalaureatLabel" for="bacalaureat">
                                     <Translate contentKey="pfumv10App.etudiantsExecutif.bacalaureat">Bacalaureat</Translate>
                                   </Label>
@@ -511,6 +475,106 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                                       required: { value: true, errorMessage: translate('entity.validation.required') }
                                     }}
                                   />
+                                </AvGroup>
+                              </AvGroup>
+                              <AvGroup>
+                                <AvGroup>
+                                  <Label id="cvLabel" for="cv">
+                                    <Translate contentKey="pfumApp.etudiantsExecutif.cv">Cv</Translate>
+                                  </Label>
+                                  <br />
+                                  {cv ? (
+                                    <div>
+                                      <a onClick={openFile(cvContentType, cv)}>
+                                        <img src={`data:${cvContentType};base64,${cv}`} style={{ maxHeight: '100px' }} />
+                                      </a>
+                                      <br />
+                                      <Row>
+                                        <Col md="11">
+                                          <span>
+                                            {cvContentType}, {byteSize(cv)}
+                                          </span>
+                                        </Col>
+                                        <Col md="1">
+                                          <Button color="danger" onClick={this.clearBlob('cv')}>
+                                            <FontAwesomeIcon icon="times-circle" />
+                                          </Button>
+                                        </Col>
+                                      </Row>
+                                    </div>
+                                  ) : null}
+                                  <input id="file_cv" type="file" onChange={this.onBlobChange(true, 'cv')} accept="image/*" />
+                                  <AvInput type="hidden" name="cv" value={cv} />
+                                </AvGroup>
+                              </AvGroup>
+                              <AvGroup>
+                                <AvGroup>
+                                  <Label id="autreDocumentLabel" for="autreDocument">
+                                    <Translate contentKey="pfumApp.etudiantsExecutif.autreDocument">Autre Document</Translate>
+                                  </Label>
+                                  <br />
+                                  {autreDocument ? (
+                                    <div>
+                                      <a onClick={openFile(autreDocumentContentType, autreDocument)}>
+                                        <Translate contentKey="entity.action.open">Open</Translate>
+                                      </a>
+                                      <br />
+                                      <Row>
+                                        <Col md="11">
+                                          <span>
+                                            {autreDocumentContentType}, {byteSize(autreDocument)}
+                                          </span>
+                                        </Col>
+                                        <Col md="1">
+                                          <Button color="danger" onClick={this.clearBlob('autreDocument')}>
+                                            <FontAwesomeIcon icon="times-circle" />
+                                          </Button>
+                                        </Col>
+                                      </Row>
+                                    </div>
+                                  ) : null}
+                                  <input id="file_autreDocument" type="file" onChange={this.onBlobChange(false, 'autreDocument')} />
+                                  <AvInput type="hidden" name="autreDocument" value={autreDocument} />
+                                </AvGroup>
+                              </AvGroup>
+                              <AvGroup>
+                                <AvGroup>
+                                  <Label id="attestationDeTravailLabel" for="attestationDeTravail">
+                                    <Translate contentKey="pfumApp.etudiantsExecutif.attestationDeTravail">
+                                      Attestation De Travail
+                                    </Translate>
+                                  </Label>
+                                  <br />
+                                  {attestationDeTravail ? (
+                                    <div>
+                                      <a onClick={openFile(attestationDeTravailContentType, attestationDeTravail)}>
+                                        <img
+                                          src={`data:${attestationDeTravailContentType};base64,${attestationDeTravail}`}
+                                          style={{ maxHeight: '100px' }}
+                                        />
+                                      </a>
+                                      <br />
+                                      <Row>
+                                        <Col md="11">
+                                          <span>
+                                            {attestationDeTravailContentType}, {byteSize(attestationDeTravail)}
+                                          </span>
+                                        </Col>
+                                        <Col md="1">
+                                          <Button color="danger" onClick={this.clearBlob('attestationDeTravail')}>
+                                            <FontAwesomeIcon icon="times-circle" />
+                                          </Button>
+                                        </Col>
+                                      </Row>
+                                    </div>
+                                  ) : null}
+                                  <input
+                                    id="file_attestationDeTravail"
+                                    type="file"
+                                    onChange={this.onBlobChange(true, 'attestationDeTravail')}
+                                    accept="image/*"
+                                  />
+                                  <AvInput type="hidden" name="attestationDeTravail" value={attestationDeTravail} />
                                 </AvGroup>
                               </AvGroup>
                               <AvGroup>

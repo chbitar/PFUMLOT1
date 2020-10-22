@@ -1,10 +1,11 @@
 package com.planeta.pfum.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -15,14 +16,13 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "calendrier_module")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "calendriermodule")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class CalendrierModule implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "libelle")
@@ -35,6 +35,7 @@ public class CalendrierModule implements Serializable {
     private Instant dateControlContinu2;
 
     @OneToMany(mappedBy = "calendrier")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<EspaceEtudiant> espaceEtudiants = new HashSet<>();
 
     @ManyToOne
@@ -46,6 +47,7 @@ public class CalendrierModule implements Serializable {
     private AnneeInscription anneeInscription;
 
     @ManyToMany(mappedBy = "calendriers")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
     private Set<TableauDeBoard> boards = new HashSet<>();
 

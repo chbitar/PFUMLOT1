@@ -1,8 +1,9 @@
 package com.planeta.pfum.domain;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,14 +13,13 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "professeur")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "professeur")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Professeur implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "nom")
@@ -51,6 +51,7 @@ public class Professeur implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "professeur")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AffectationModule> affectationModules = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

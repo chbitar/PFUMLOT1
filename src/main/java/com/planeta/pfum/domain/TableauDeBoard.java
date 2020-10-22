@@ -1,8 +1,9 @@
 package com.planeta.pfum.domain;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,26 +13,27 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "tableau_de_board")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "tableaudeboard")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class TableauDeBoard implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "tableau_de_board")
     private String tableauDeBoard;
 
     @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "tableau_de_board_filier",
                joinColumns = @JoinColumn(name = "tableau_de_board_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "filier_id", referencedColumnName = "id"))
     private Set<Filiere> filiers = new HashSet<>();
 
     @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "tableau_de_board_calendrier",
                joinColumns = @JoinColumn(name = "tableau_de_board_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "calendrier_id", referencedColumnName = "id"))

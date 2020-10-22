@@ -30,7 +30,6 @@ import com.planeta.pfum.repository.ModuleRepository;
 import com.planeta.pfum.repository.ProfesseurExtendedRepository;
 import com.planeta.pfum.repository.SuiviModuleExtendedRepository;
 import com.planeta.pfum.repository.UserRepository;
-import com.planeta.pfum.repository.search.SuiviModuleSearchRepository;
 import com.planeta.pfum.security.AuthoritiesConstants;
 import com.planeta.pfum.security.SecurityUtils;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
@@ -53,7 +52,6 @@ public class SuiviModuleExtendedResource {
 
 	private final SuiviModuleExtendedRepository suiviModuleRepository;
 
-	private final SuiviModuleSearchRepository suiviModuleSearchRepository;
 
 	private final ProfesseurExtendedRepository professeurRepository;
 
@@ -64,11 +62,10 @@ public class SuiviModuleExtendedResource {
 	private final ModuleRepository moduleRepository;
 
 	public SuiviModuleExtendedResource(SuiviModuleExtendedRepository suiviModuleRepository,
-			SuiviModuleSearchRepository suiviModuleSearchRepository, ProfesseurExtendedRepository professeurRepository,
+			 ProfesseurExtendedRepository professeurRepository,
 			UserRepository userRepository, AffectationModuleExtendedRepository affectationModuleRepository,
 			ModuleRepository moduleRepository) {
 		this.suiviModuleRepository = suiviModuleRepository;
-		this.suiviModuleSearchRepository = suiviModuleSearchRepository;
 		this.professeurRepository = professeurRepository;
 		this.userRepository = userRepository;
 		this.affectationModuleRepository = affectationModuleRepository;
@@ -111,7 +108,7 @@ public class SuiviModuleExtendedResource {
 			return suiviModuleRepository.findAll();
 		} else {
 			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-			Optional<Professeur> p = professeurRepository.findOneByUserId(user.get().getId());
+//			Optional<Professeur> p = professeurRepository.findOneByUserId(user.get().getId());
 			return suiviModuleRepository.findAllByUserId(user.get().getId());
 		}
 

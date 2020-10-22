@@ -1,21 +1,22 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.config.Constants;
-import com.planeta.pfum.domain.Authority;
-import com.planeta.pfum.domain.User;
-import com.planeta.pfum.repository.AuthorityRepository;
-import com.planeta.pfum.repository.UserRepository;
-import com.planeta.pfum.security.AuthoritiesConstants;
-import com.planeta.pfum.service.MailService;
-import com.planeta.pfum.service.UserService;
-import com.planeta.pfum.service.dto.PasswordChangeDTO;
-import com.planeta.pfum.service.dto.UserDTO;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
-import com.planeta.pfum.web.rest.vm.KeyAndPasswordVM;
-import com.planeta.pfum.web.rest.vm.ManagedUserVM;
-import org.apache.commons.lang3.RandomStringUtils;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.Instant;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -30,20 +31,25 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.util.*;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.config.Constants;
+import com.planeta.pfum.domain.Authority;
+import com.planeta.pfum.domain.User;
+import com.planeta.pfum.repository.AuthorityRepository;
+import com.planeta.pfum.repository.UserRepository;
+import com.planeta.pfum.security.AuthoritiesConstants;
+import com.planeta.pfum.service.MailService;
+import com.planeta.pfum.service.UserService;
+import com.planeta.pfum.service.dto.PasswordChangeDTO;
+import com.planeta.pfum.service.dto.UserDTO;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import com.planeta.pfum.web.rest.vm.KeyAndPasswordVM;
+import com.planeta.pfum.web.rest.vm.ManagedUserVM;
 
 /**
  * Integration tests for the {@link AccountResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class AccountResourceIT {
 
     @Autowired

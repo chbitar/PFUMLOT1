@@ -1,27 +1,29 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.domain.NoteLicence;
-import com.planeta.pfum.repository.NoteLicenceRepository;
-import com.planeta.pfum.repository.search.NoteLicenceSearchRepository;
-import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.planeta.pfum.domain.NoteLicence;
+import com.planeta.pfum.repository.NoteLicenceRepository;
+import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.planeta.pfum.domain.NoteLicence}.
@@ -39,11 +41,9 @@ public class NoteLicenceResource {
 
     private final NoteLicenceRepository noteLicenceRepository;
 
-    private final NoteLicenceSearchRepository noteLicenceSearchRepository;
 
-    public NoteLicenceResource(NoteLicenceRepository noteLicenceRepository, NoteLicenceSearchRepository noteLicenceSearchRepository) {
+    public NoteLicenceResource(NoteLicenceRepository noteLicenceRepository ) {
         this.noteLicenceRepository = noteLicenceRepository;
-        this.noteLicenceSearchRepository = noteLicenceSearchRepository;
     }
 
     /**
@@ -60,7 +60,6 @@ public class NoteLicenceResource {
             throw new BadRequestAlertException("A new noteLicence cannot already have an ID", ENTITY_NAME, "idexists");
         }
         NoteLicence result = noteLicenceRepository.save(noteLicence);
-        noteLicenceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/note-licences/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +81,6 @@ public class NoteLicenceResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         NoteLicence result = noteLicenceRepository.save(noteLicence);
-        noteLicenceSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, noteLicence.getId().toString()))
             .body(result);
@@ -122,23 +120,8 @@ public class NoteLicenceResource {
     public ResponseEntity<Void> deleteNoteLicence(@PathVariable Long id) {
         log.debug("REST request to delete NoteLicence : {}", id);
         noteLicenceRepository.deleteById(id);
-        noteLicenceSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/note-licences?query=:query} : search for the noteLicence corresponding
-     * to the query.
-     *
-     * @param query the query of the noteLicence search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/note-licences")
-    public List<NoteLicence> searchNoteLicences(@RequestParam String query) {
-        log.debug("REST request to search NoteLicences for query {}", query);
-        return StreamSupport
-            .stream(noteLicenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 
 }

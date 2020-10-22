@@ -1,8 +1,9 @@
 package com.planeta.pfum.security;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.User;
-import com.planeta.pfum.repository.UserRepository;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
+import java.util.Locale;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,15 +15,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Locale;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.User;
+import com.planeta.pfum.repository.UserRepository;
 
 /**
  * Integrations tests for {@link DomainUserDetailsService}.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 @Transactional
 public class DomainUserDetailsServiceIT {
 

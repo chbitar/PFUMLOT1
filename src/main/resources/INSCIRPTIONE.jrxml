@@ -44,7 +44,7 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
 		<parameter name="FiliereId2" class="java.lang.Long"/>
 		<queryString language="SQL">
-			<![CDATA[select  nom_module,semestre,CASE WHEN semestre = 'S1' THEN "Semestre 1" ELSE "Semestre 2" END as Libelle  from module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
+			<![CDATA[select  nom_module,semestre from module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
 		</queryString>
 		<field name="nom_module" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="nom_module"/>
@@ -138,11 +138,11 @@
 				<text><![CDATA[ATTESTATION DE SCOLARITE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="118" width="500" height="20" uuid="896fbf44-b940-4ea3-a1ae-61af7b331adf"/>
+				<reportElement x="12" y="100" width="500" height="38" uuid="896fbf44-b940-4ea3-a1ae-61af7b331adf"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Le Directeur Pédagogique D'OSTELEA School of Turism & Hospitality, atteste que : ]]></text>
+				<text><![CDATA[Le Directeur Pédagogique D'OSTELEA School of Turism & Hospitality, établissement d'enseignement supérieur privé accrèdité par l'état sous le N° 465/18,atteste que : ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="162" y="147" width="168" height="15" uuid="e195827e-620d-4ba0-9ab1-5a3d4e54e7c2"/>
@@ -220,14 +220,14 @@
 				<text><![CDATA[Fait à Rabat, Le]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="386" y="213" width="110" height="17" uuid="4bfc4960-9c36-4c9c-b47b-534b3d9d1505"/>
+				<reportElement positionType="Float" x="386" y="213" width="110" height="21" uuid="4bfc4960-9c36-4c9c-b47b-534b3d9d1505"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="380" y="236" width="120" height="17" uuid="825cc115-ff79-4b65-9f2d-03e7055fdb37"/>
+				<reportElement positionType="Float" x="382" y="243" width="120" height="17" uuid="825cc115-ff79-4b65-9f2d-03e7055fdb37"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -289,14 +289,14 @@
 				<textElement>
 					<font size="11"/>
 				</textElement>
-				<text><![CDATA[L'inscription de l'étudiant (e) ne sera définitive qu'après dépot du dossier complet et de sa validation par le Ministère de l'Education Nationale, de la formation Professionnelle, de l'Enseignement Supérieur et de la Recherche Scientifique.]]></text>
+				<text><![CDATA[L'inscription de l'étudiant (e) ne sera définitive qu'après dépot du dossier administratif complet et de sa validation par le Ministère de l'Education Nationale, de la formation Professionnelle, de l'Enseignement Supérieur et de la Recherche Scientifique.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="34" y="0" width="151" height="27" uuid="2b2f18cf-390e-48f2-b463-cd821eedbb63"/>
+				<reportElement x="34" y="0" width="228" height="27" uuid="3646ac9e-e499-4db7-928e-d53f226a56a0"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
-				<text><![CDATA[Les modules suivis]]></text>
+				<text><![CDATA[Les modules à suivre cette année :]]></text>
 			</staticText>
 		</band>
 	</summary>

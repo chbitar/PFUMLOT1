@@ -10,7 +10,7 @@ import { IRootState } from 'app/shared/reducers';
 
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './professeur.reducer';
+import { getEntity, updateEntity, createEntity, reset, createExtendedEntity } from './professeur.reducer';
 import { IProfesseur } from 'app/shared/model/professeur.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
@@ -57,7 +57,7 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
       };
 
       if (this.state.isNew) {
-        this.props.createEntity(entity);
+        this.props.createExtendedEntity(entity);
       } else {
         this.props.updateEntity(entity);
       }
@@ -87,14 +87,6 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
               <p>Loading...</p>
             ) : (
               <AvForm model={isNew ? {} : professeurEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
-                  <AvGroup>
-                    <Label for="professeur-id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="professeur-id" type="text" className="form-control" name="id" required readOnly />
-                  </AvGroup>
-                ) : null}
                 <AvGroup>
                   <Label id="nomLabel" for="professeur-nom">
                     <Translate contentKey="pfumv10App.professeur.nom">Nom</Translate>
@@ -106,6 +98,18 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
                     <Translate contentKey="pfumv10App.professeur.prenom">Prenom</Translate>
                   </Label>
                   <AvField id="professeur-prenom" type="text" name="prenom" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="emailLabel" for="professeur-email">
+                    <Translate contentKey="pfumv10App.professeur.email">Email</Translate>
+                  </Label>
+                  <AvField id="professeur-email" type="text" name="email" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="telephoneLabel" for="professeur-telephone">
+                    <Translate contentKey="pfumv10App.professeur.telephone">Telephone</Translate>
+                  </Label>
+                  <AvField id="professeur-telephone" type="text" name="telephone" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="etablissementLabel" for="professeur-etablissement">
@@ -136,27 +140,6 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
                     <Translate contentKey="pfumv10App.professeur.rib">Rib</Translate>
                   </Label>
                   <AvField id="professeur-rib" type="text" name="rib" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="emailLabel" for="professeur-email">
-                    <Translate contentKey="pfumv10App.professeur.email">Email</Translate>
-                  </Label>
-                  <AvField id="professeur-email" type="text" name="email" />
-                </AvGroup>
-                <AvGroup>
-                  <Label for="professeur-user">
-                    <Translate contentKey="pfumv10App.professeur.user">User</Translate>
-                  </Label>
-                  <AvInput id="professeur-user" type="select" className="form-control" name="user.id">
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/professeur" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
@@ -193,7 +176,8 @@ const mapDispatchToProps = {
   getEntity,
   updateEntity,
   createEntity,
-  reset
+  reset,
+  createExtendedEntity
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -1,10 +1,11 @@
 package com.planeta.pfum.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -19,14 +20,13 @@ import com.planeta.pfum.domain.enumeration.Mention;
  */
 @Entity
 @Table(name = "etudiants_licence")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "etudiantslicence")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class EtudiantsLicence implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "suffixe")
@@ -63,8 +63,8 @@ public class EtudiantsLicence implements Serializable {
     @Column(name = "mention")
     private Mention mention;
 
-    @Column(name = "anne_otention")
-    private String anneOtention;
+    @Column(name = "annee_obtention")
+    private String anneeObtention;
 
     @NotNull
     @Column(name = "cin_pass", nullable = false)
@@ -97,11 +97,18 @@ public class EtudiantsLicence implements Serializable {
     private String photoContentType;
 
     @Lob
-    @Column(name = "extrait_acte_naissance")
-    private byte[] extraitActeNaissance;
+    @Column(name = "test_admission")
+    private byte[] testAdmission;
 
-    @Column(name = "extrait_acte_naissance_content_type")
-    private String extraitActeNaissanceContentType;
+    @Column(name = "test_admission_content_type")
+    private String testAdmissionContentType;
+
+    @Lob
+    @Column(name = "releves_notes")
+    private byte[] relevesNotes;
+
+    @Column(name = "releves_notes_content_type")
+    private String relevesNotesContentType;
 
     
     @Lob
@@ -130,9 +137,11 @@ public class EtudiantsLicence implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "etudiantsLicence")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Absence> absences = new HashSet<>();
 
     @OneToMany(mappedBy = "etudiantLicence")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<EspaceEtudiant> espaceEtudiants = new HashSet<>();
 
     @ManyToOne
@@ -273,17 +282,17 @@ public class EtudiantsLicence implements Serializable {
         this.mention = mention;
     }
 
-    public String getAnneOtention() {
-        return anneOtention;
+    public String getAnneeObtention() {
+        return anneeObtention;
     }
 
-    public EtudiantsLicence anneOtention(String anneOtention) {
-        this.anneOtention = anneOtention;
+    public EtudiantsLicence anneeObtention(String anneeObtention) {
+        this.anneeObtention = anneeObtention;
         return this;
     }
 
-    public void setAnneOtention(String anneOtention) {
-        this.anneOtention = anneOtention;
+    public void setAnneeObtention(String anneeObtention) {
+        this.anneeObtention = anneeObtention;
     }
 
     public String getCinPass() {
@@ -403,30 +412,56 @@ public class EtudiantsLicence implements Serializable {
         this.photoContentType = photoContentType;
     }
 
-    public byte[] getExtraitActeNaissance() {
-        return extraitActeNaissance;
+    public byte[] getTestAdmission() {
+        return testAdmission;
     }
 
-    public EtudiantsLicence extraitActeNaissance(byte[] extraitActeNaissance) {
-        this.extraitActeNaissance = extraitActeNaissance;
+    public EtudiantsLicence testAdmission(byte[] testAdmission) {
+        this.testAdmission = testAdmission;
         return this;
     }
 
-    public void setExtraitActeNaissance(byte[] extraitActeNaissance) {
-        this.extraitActeNaissance = extraitActeNaissance;
+    public void setTestAdmission(byte[] testAdmission) {
+        this.testAdmission = testAdmission;
     }
 
-    public String getExtraitActeNaissanceContentType() {
-        return extraitActeNaissanceContentType;
+    public String getTestAdmissionContentType() {
+        return testAdmissionContentType;
     }
 
-    public EtudiantsLicence extraitActeNaissanceContentType(String extraitActeNaissanceContentType) {
-        this.extraitActeNaissanceContentType = extraitActeNaissanceContentType;
+    public EtudiantsLicence testAdmissionContentType(String testAdmissionContentType) {
+        this.testAdmissionContentType = testAdmissionContentType;
         return this;
     }
 
-    public void setExtraitActeNaissanceContentType(String extraitActeNaissanceContentType) {
-        this.extraitActeNaissanceContentType = extraitActeNaissanceContentType;
+    public void setTestAdmissionContentType(String testAdmissionContentType) {
+        this.testAdmissionContentType = testAdmissionContentType;
+    }
+
+    public byte[] getRelevesNotes() {
+        return relevesNotes;
+    }
+
+    public EtudiantsLicence relevesNotes(byte[] relevesNotes) {
+        this.relevesNotes = relevesNotes;
+        return this;
+    }
+
+    public void setRelevesNotes(byte[] relevesNotes) {
+        this.relevesNotes = relevesNotes;
+    }
+
+    public String getRelevesNotesContentType() {
+        return relevesNotesContentType;
+    }
+
+    public EtudiantsLicence relevesNotesContentType(String relevesNotesContentType) {
+        this.relevesNotesContentType = relevesNotesContentType;
+        return this;
+    }
+
+    public void setRelevesNotesContentType(String relevesNotesContentType) {
+        this.relevesNotesContentType = relevesNotesContentType;
     }
 
     public byte[] getBacalaureat() {
@@ -639,7 +674,7 @@ public class EtudiantsLicence implements Serializable {
             ", email='" + getEmail() + "'" +
             ", pjBac='" + getPjBac() + "'" +
             ", mention='" + getMention() + "'" +
-            ", anneOtention='" + getAnneOtention() + "'" +
+            ", anneeObtention='" + getAnneeObtention() + "'" +
             ", cinPass='" + getCinPass() + "'" +
             ", paysNationalite='" + getPaysNationalite() + "'" +
             ", paysResidence='" + getPaysResidence() + "'" +
@@ -649,8 +684,10 @@ public class EtudiantsLicence implements Serializable {
             ", deuxiemeTel=" + getDeuxiemeTel() +
             ", photo='" + getPhoto() + "'" +
             ", photoContentType='" + getPhotoContentType() + "'" +
-            ", extraitActeNaissance='" + getExtraitActeNaissance() + "'" +
-            ", extraitActeNaissanceContentType='" + getExtraitActeNaissanceContentType() + "'" +
+            ", testAdmission='" + getTestAdmission() + "'" +
+            ", testAdmissionContentType='" + getTestAdmissionContentType() + "'" +
+            ", relevesNotes='" + getRelevesNotes() + "'" +
+            ", relevesNotesContentType='" + getRelevesNotesContentType() + "'" +
             ", bacalaureat='" + getBacalaureat() + "'" +
             ", bacalaureatContentType='" + getBacalaureatContentType() + "'" +
             ", cinPassport='" + getCinPassport() + "'" +

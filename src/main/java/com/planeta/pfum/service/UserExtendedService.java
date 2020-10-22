@@ -17,8 +17,6 @@ import com.planeta.pfum.domain.Authority;
 import com.planeta.pfum.domain.User;
 import com.planeta.pfum.repository.AuthorityRepository;
 import com.planeta.pfum.repository.UserRepository;
-import com.planeta.pfum.repository.search.UserSearchRepository;
-import com.planeta.pfum.security.AuthoritiesConstants;
 import com.planeta.pfum.service.util.RandomUtil;
 
 @Service
@@ -31,19 +29,17 @@ public class UserExtendedService extends UserService {
 
 	private final PasswordEncoder passwordEncoder;
 
-	private final UserSearchRepository userSearchRepository;
 
 	private final AuthorityRepository authorityRepository;
 
 	private final CacheManager cacheManager;
 
 	public UserExtendedService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-			UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository,
+		 AuthorityRepository authorityRepository,
 			CacheManager cacheManager) {
-		super(userRepository, passwordEncoder, userSearchRepository, authorityRepository, cacheManager);
+		super(userRepository, passwordEncoder, authorityRepository, cacheManager);
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
-		this.userSearchRepository = userSearchRepository;
 		this.authorityRepository = authorityRepository;
 		this.cacheManager = cacheManager;
 	}

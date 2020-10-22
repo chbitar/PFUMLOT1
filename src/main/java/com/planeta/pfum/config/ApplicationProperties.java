@@ -3,7 +3,7 @@ package com.planeta.pfum.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Properties specific to Pfumv 10.
+ * Properties specific to Pfum.
  * <p>
  * Properties are configured in the {@code application.yml} file.
  * See {@link io.github.jhipster.config.JHipsterProperties} for a good example.

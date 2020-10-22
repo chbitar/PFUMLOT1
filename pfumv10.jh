@@ -1,5 +1,14 @@
 // JDL definition for application 'pfumv10' generated with command 'jhipster export-jdl'
 
+entity AutreDocument {
+  titre String,
+  data AnyBlob
+}
+entity Document {
+  titre String,
+  data AnyBlob,
+  typeDocument TypeDocument required
+}
 entity Absence {
   absent Boolean,
   dateSeance Instant
@@ -26,14 +35,18 @@ entity EtudiantsExecutif {
   email String required,
   pjBac DiplomeBac,
   mention Mention,
+  anneeObtention String,
   cinPass String required,
   paysNationalite String,
   paysResidence String,
   codepostal String,
   province String,
   tel Integer,
+  deuxiemeTel Integer,
   photo ImageBlob required,
-  extraitActeNaissance ImageBlob,
+  cv ImageBlob,
+  autreDocument AnyBlob,
+  attestationDeTravail ImageBlob,
   bacalaureat ImageBlob required,
   cinPassport ImageBlob required,
   diplome ImageBlob,
@@ -50,14 +63,17 @@ entity EtudiantsLicence {
   email String required,
   pjBac DiplomeBac,
   mention Mention,
+  anneeObtention String,
   cinPass String required,
   paysNationalite String,
   paysResidence String,
   codepostal String,
   province String,
   tel Integer,
+  deuxiemeTel Integer,
   photo ImageBlob required,
-  extraitActeNaissance ImageBlob,
+  testAdmission ImageBlob,
+  relevesNotes ImageBlob,
   bacalaureat ImageBlob required,
   cinPassport ImageBlob required,
   inscriptionvalide Boolean,
@@ -73,19 +89,23 @@ entity EtudiantsMaster {
   email String required,
   typeBac DiplomeBac,
   mention Mention,
+  anneeObtention String,
   cinPass String required,
   paysNationalite String,
   paysResidence String,
   codepostal String,
   province String,
   tel Integer,
+  deuxiemeTel Integer,
   photo ImageBlob required,
-  extraitActeNaissance ImageBlob,
+  testAdmission ImageBlob,
+  relevesNotes ImageBlob,
   bacalaureat ImageBlob required,
   cinPassport ImageBlob required,
   diplome ImageBlob,
   inscriptionvalide Boolean,
-  absent Boolean
+  absent Boolean,
+  etablissementObtention String
 }
 entity Filiere {
   nomfiliere String,
@@ -169,10 +189,11 @@ entity EmploieDuTemps {
   emploieDuTemps AnyBlob,
   programme Programme
 }
-entity Document {
-  titre String,
-  data AnyBlob,
-  typeDocument TypeDocument required
+enum TypeDocument {
+  PROFESSEUR,
+  LICENCE,
+  MASTER,
+  MASTER_EXECUTIF
 }
 enum Semestre {
   S1,
@@ -203,12 +224,6 @@ enum Devise {
   MAD,
   USD
 }
-enum TypeDocument {
-  PROFESSEUR,
-  LICENCE,
-  MASTER,
-  MASTER_EXECUTIF
-}
 
 relationship OneToOne {
   EtudiantsExecutif{user} to User,
@@ -235,6 +250,7 @@ relationship OneToMany {
   AnneeInscription{etudiantsMaster} to EtudiantsMaster{anneeInscription},
   ModalitePaiement{etudiantsMaster} to EtudiantsMaster{modalite},
   Etablissement{filiere} to Filiere{etablissement},
+  AnneeInscription{filiere} to Filiere{anneeInscription},
   Filiere{module} to Module{filiere},
   Module{suiviModule} to SuiviModule{module},
   EtudiantsLicence{espaceEtudiant} to EspaceEtudiant{etudiantLicence},
@@ -260,6 +276,7 @@ relationship ManyToMany {
   TableauDeBoard{calendrier(libelle)} to CalendrierModule{board}
 }
 
-dto Document with mapstruct
-service Document with serviceClass
-search Document with elasticsearch
+paginate EtudiantsLicence, EtudiantsMaster with infinite-scroll
+paginate Filiere, Module, Professeur with pagination
+service EtudiantsLicence, EtudiantsMaster, Filiere, Module, Professeur, SuiviModule with serviceClass
+filter EtudiantsLicence, EtudiantsMaster, Filiere, Module, Professeur, SuiviModule

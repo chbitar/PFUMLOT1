@@ -50,12 +50,12 @@
             "relationshipName": "affectationModule"
         }
     ],
-    "changelogDate": "20201020224511",
+    "changelogDate": "20201022210052",
     "entityTableName": "professeur",
     "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
     "fluentMethods": true,
     "clientRootFolder": "",
     "applications": "*"

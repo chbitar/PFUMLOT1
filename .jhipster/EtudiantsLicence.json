@@ -55,7 +55,7 @@
             "fieldValues": "Passable,Assez_bien,Bien,Tres_bien"
         },
         {
-            "fieldName": "anneOtention",
+            "fieldName": "anneeObtention",
             "fieldType": "String"
         },
         {
@@ -98,7 +98,12 @@
             ]
         },
         {
-            "fieldName": "extraitActeNaissance",
+            "fieldName": "testAdmission",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "relevesNotes",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
         },
@@ -170,12 +175,12 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201020224507",
+    "changelogDate": "20201022210048",
     "entityTableName": "etudiants_licence",
     "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
     "fluentMethods": true,
     "clientRootFolder": "",
     "applications": "*"

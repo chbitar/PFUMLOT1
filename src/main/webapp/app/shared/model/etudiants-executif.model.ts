@@ -31,7 +31,7 @@ export interface IEtudiantsExecutif {
   email?: string;
   pjBac?: DiplomeBac;
   mention?: Mention;
-  anneOtention?: string;
+  anneeObtention?: string;
   cinPass?: string;
   paysNationalite?: string;
   paysResidence?: string;
@@ -41,8 +41,12 @@ export interface IEtudiantsExecutif {
   deuxiemeTel?: number;
   photoContentType?: string;
   photo?: any;
-  extraitActeNaissanceContentType?: string;
-  extraitActeNaissance?: any;
+  cv?: any;
+  cvContentType?: string;
+  autreDocument?: any;
+  autreDocumentContentType?: string;
+  attestationDeTravail?: any;
+  attestationDeTravailContentType?: string;
   bacalaureatContentType?: string;
   bacalaureat?: any;
   cinPassportContentType?: string;

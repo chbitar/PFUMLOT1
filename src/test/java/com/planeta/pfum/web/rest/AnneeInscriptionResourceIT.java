@@ -1,10 +1,19 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.AnneeInscription;
-import com.planeta.pfum.repository.AnneeInscriptionRepository;
-import com.planeta.pfum.repository.search.AnneeInscriptionSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,22 +28,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.AnneeInscription;
+import com.planeta.pfum.repository.AnneeInscriptionRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@Link AnneeInscriptionResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class AnneeInscriptionResourceIT {
 
     private static final String DEFAULT_ANNEE = "AAAAAAAAAA";
@@ -42,14 +44,6 @@ public class AnneeInscriptionResourceIT {
 
     @Autowired
     private AnneeInscriptionRepository anneeInscriptionRepository;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.AnneeInscriptionSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private AnneeInscriptionSearchRepository mockAnneeInscriptionSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -73,7 +67,7 @@ public class AnneeInscriptionResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final AnneeInscriptionResource anneeInscriptionResource = new AnneeInscriptionResource(anneeInscriptionRepository, mockAnneeInscriptionSearchRepository);
+        final AnneeInscriptionResource anneeInscriptionResource = new AnneeInscriptionResource(anneeInscriptionRepository);
         this.restAnneeInscriptionMockMvc = MockMvcBuilders.standaloneSetup(anneeInscriptionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -126,9 +120,6 @@ public class AnneeInscriptionResourceIT {
         assertThat(anneeInscriptionList).hasSize(databaseSizeBeforeCreate + 1);
         AnneeInscription testAnneeInscription = anneeInscriptionList.get(anneeInscriptionList.size() - 1);
         assertThat(testAnneeInscription.getAnnee()).isEqualTo(DEFAULT_ANNEE);
-
-        // Validate the AnneeInscription in Elasticsearch
-        verify(mockAnneeInscriptionSearchRepository, times(1)).save(testAnneeInscription);
     }
 
     @Test
@@ -148,9 +139,6 @@ public class AnneeInscriptionResourceIT {
         // Validate the AnneeInscription in the database
         List<AnneeInscription> anneeInscriptionList = anneeInscriptionRepository.findAll();
         assertThat(anneeInscriptionList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the AnneeInscription in Elasticsearch
-        verify(mockAnneeInscriptionSearchRepository, times(0)).save(anneeInscription);
     }
 
 
@@ -215,9 +203,6 @@ public class AnneeInscriptionResourceIT {
         assertThat(anneeInscriptionList).hasSize(databaseSizeBeforeUpdate);
         AnneeInscription testAnneeInscription = anneeInscriptionList.get(anneeInscriptionList.size() - 1);
         assertThat(testAnneeInscription.getAnnee()).isEqualTo(UPDATED_ANNEE);
-
-        // Validate the AnneeInscription in Elasticsearch
-        verify(mockAnneeInscriptionSearchRepository, times(1)).save(testAnneeInscription);
     }
 
     @Test
@@ -236,9 +221,6 @@ public class AnneeInscriptionResourceIT {
         // Validate the AnneeInscription in the database
         List<AnneeInscription> anneeInscriptionList = anneeInscriptionRepository.findAll();
         assertThat(anneeInscriptionList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the AnneeInscription in Elasticsearch
-        verify(mockAnneeInscriptionSearchRepository, times(0)).save(anneeInscription);
     }
 
     @Test
@@ -257,24 +239,6 @@ public class AnneeInscriptionResourceIT {
         // Validate the database contains one less item
         List<AnneeInscription> anneeInscriptionList = anneeInscriptionRepository.findAll();
         assertThat(anneeInscriptionList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the AnneeInscription in Elasticsearch
-        verify(mockAnneeInscriptionSearchRepository, times(1)).deleteById(anneeInscription.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchAnneeInscription() throws Exception {
-        // Initialize the database
-        anneeInscriptionRepository.saveAndFlush(anneeInscription);
-        when(mockAnneeInscriptionSearchRepository.search(queryStringQuery("id:" + anneeInscription.getId())))
-            .thenReturn(Collections.singletonList(anneeInscription));
-        // Search the anneeInscription
-        restAnneeInscriptionMockMvc.perform(get("/api/_search/annee-inscriptions?query=id:" + anneeInscription.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(anneeInscription.getId().intValue())))
-            .andExpect(jsonPath("$.[*].annee").value(hasItem(DEFAULT_ANNEE)));
     }
 
     @Test

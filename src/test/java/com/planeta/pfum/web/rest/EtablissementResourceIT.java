@@ -1,10 +1,19 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.Etablissement;
-import com.planeta.pfum.repository.EtablissementRepository;
-import com.planeta.pfum.repository.search.EtablissementSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,22 +29,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.Etablissement;
+import com.planeta.pfum.repository.EtablissementRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@Link EtablissementResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class EtablissementResourceIT {
 
     private static final String DEFAULT_NOM_ECOLE = "AAAAAAAAAA";
@@ -64,14 +66,6 @@ public class EtablissementResourceIT {
     @Autowired
     private EtablissementRepository etablissementRepository;
 
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.EtablissementSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private EtablissementSearchRepository mockEtablissementSearchRepository;
-
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
@@ -94,7 +88,7 @@ public class EtablissementResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final EtablissementResource etablissementResource = new EtablissementResource(etablissementRepository, mockEtablissementSearchRepository);
+        final EtablissementResource etablissementResource = new EtablissementResource(etablissementRepository);
         this.restEtablissementMockMvc = MockMvcBuilders.standaloneSetup(etablissementResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -168,9 +162,6 @@ public class EtablissementResourceIT {
         assertThat(testEtablissement.getIdentiteFiche()).isEqualTo(DEFAULT_IDENTITE_FICHE);
         assertThat(testEtablissement.getLogo()).isEqualTo(DEFAULT_LOGO);
         assertThat(testEtablissement.getLogoContentType()).isEqualTo(DEFAULT_LOGO_CONTENT_TYPE);
-
-        // Validate the Etablissement in Elasticsearch
-        verify(mockEtablissementSearchRepository, times(1)).save(testEtablissement);
     }
 
     @Test
@@ -190,9 +181,6 @@ public class EtablissementResourceIT {
         // Validate the Etablissement in the database
         List<Etablissement> etablissementList = etablissementRepository.findAll();
         assertThat(etablissementList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Etablissement in Elasticsearch
-        verify(mockEtablissementSearchRepository, times(0)).save(etablissement);
     }
 
 
@@ -285,9 +273,6 @@ public class EtablissementResourceIT {
         assertThat(testEtablissement.getIdentiteFiche()).isEqualTo(UPDATED_IDENTITE_FICHE);
         assertThat(testEtablissement.getLogo()).isEqualTo(UPDATED_LOGO);
         assertThat(testEtablissement.getLogoContentType()).isEqualTo(UPDATED_LOGO_CONTENT_TYPE);
-
-        // Validate the Etablissement in Elasticsearch
-        verify(mockEtablissementSearchRepository, times(1)).save(testEtablissement);
     }
 
     @Test
@@ -306,9 +291,6 @@ public class EtablissementResourceIT {
         // Validate the Etablissement in the database
         List<Etablissement> etablissementList = etablissementRepository.findAll();
         assertThat(etablissementList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Etablissement in Elasticsearch
-        verify(mockEtablissementSearchRepository, times(0)).save(etablissement);
     }
 
     @Test
@@ -327,31 +309,6 @@ public class EtablissementResourceIT {
         // Validate the database contains one less item
         List<Etablissement> etablissementList = etablissementRepository.findAll();
         assertThat(etablissementList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Etablissement in Elasticsearch
-        verify(mockEtablissementSearchRepository, times(1)).deleteById(etablissement.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchEtablissement() throws Exception {
-        // Initialize the database
-        etablissementRepository.saveAndFlush(etablissement);
-        when(mockEtablissementSearchRepository.search(queryStringQuery("id:" + etablissement.getId())))
-            .thenReturn(Collections.singletonList(etablissement));
-        // Search the etablissement
-        restEtablissementMockMvc.perform(get("/api/_search/etablissements?query=id:" + etablissement.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(etablissement.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nomEcole").value(hasItem(DEFAULT_NOM_ECOLE)))
-            .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE)))
-            .andExpect(jsonPath("$.[*].rc").value(hasItem(DEFAULT_RC)))
-            .andExpect(jsonPath("$.[*].ice").value(hasItem(DEFAULT_ICE)))
-            .andExpect(jsonPath("$.[*].tp").value(hasItem(DEFAULT_TP)))
-            .andExpect(jsonPath("$.[*].identiteFiche").value(hasItem(DEFAULT_IDENTITE_FICHE)))
-            .andExpect(jsonPath("$.[*].logoContentType").value(hasItem(DEFAULT_LOGO_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].logo").value(hasItem(Base64Utils.encodeToString(DEFAULT_LOGO))));
     }
 
     @Test

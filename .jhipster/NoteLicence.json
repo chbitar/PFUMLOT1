@@ -39,7 +39,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20201020224517",
+    "changelogDate": "20201022210058",
     "entityTableName": "note_licence",
     "dto": "no",
     "pagination": "no",

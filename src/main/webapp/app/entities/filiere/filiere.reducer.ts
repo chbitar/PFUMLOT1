@@ -115,11 +115,6 @@ export const getEntities: ICrudGetAllAction<IFiliere> = (page, size, sort) => ({
   payload: axios.get<IFiliere>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
-export const getEntitie: ICrudGetAllAction<IFiliere> = (page, size, sort) => ({
-  type: ACTION_TYPES.FETCH_FILIERE_LIST,
-  payload: axios.get<IFiliere>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
-});
-
 export const getEntity: ICrudGetAction<IFiliere> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {

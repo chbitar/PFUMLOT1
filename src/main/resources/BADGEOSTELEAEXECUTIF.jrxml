@@ -78,42 +78,42 @@
 				<imageExpression><![CDATA[$F{photo}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="218" y="250" width="273" height="30" forecolor="#FFFFFF" uuid="7458625f-dca2-4139-a9de-553894f0e4d2"/>
+				<reportElement x="155" y="250" width="355" height="30" forecolor="#FFFFFF" uuid="7458625f-dca2-4139-a9de-553894f0e4d2"/>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cin_pass}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="249" width="189" height="30" forecolor="#FFFFFF" uuid="18182d5e-8c41-4b38-a062-3c77a0592096"/>
+				<reportElement x="-16" y="249" width="166" height="30" forecolor="#FFFFFF" uuid="18182d5e-8c41-4b38-a062-3c77a0592096"/>
 				<textElement textAlignment="Right">
 					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CIN :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="218" y="281" width="273" height="30" forecolor="#FFFFFF" uuid="f398ec53-8e3c-4e5c-a76d-eb491eee775e"/>
+				<reportElement x="155" y="281" width="355" height="30" forecolor="#FFFFFF" uuid="f398ec53-8e3c-4e5c-a76d-eb491eee775e"/>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{suffixe}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="280" width="189" height="30" forecolor="#FFFFFF" uuid="47a4a8c5-3cc7-4609-869b-e9a97efc936c"/>
+				<reportElement x="-16" y="280" width="166" height="30" forecolor="#FFFFFF" uuid="47a4a8c5-3cc7-4609-869b-e9a97efc936c"/>
 				<textElement textAlignment="Right">
 					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CODE ETUDIANT :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="218" y="310" width="273" height="30" forecolor="#FFFFFF" uuid="0548affd-28c3-478d-a872-1eba379a6b1f"/>
+				<reportElement x="155" y="310" width="355" height="30" forecolor="#FFFFFF" uuid="0548affd-28c3-478d-a872-1eba379a6b1f"/>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nomfiliere}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="309" width="189" height="30" forecolor="#FFFFFF" uuid="26a5c7b8-b2f8-4286-a161-9278d0a29364"/>
+				<reportElement x="-16" y="309" width="166" height="30" forecolor="#FFFFFF" uuid="26a5c7b8-b2f8-4286-a161-9278d0a29364"/>
 				<textElement textAlignment="Right">
 					<font size="18" isBold="true"/>
 				</textElement>
@@ -126,9 +126,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{annee}]]></textFieldExpression>
 			</textField>
+			<rectangle>
+				<reportElement x="620" y="0" width="172" height="161" uuid="a5e930c2-a581-4d6a-ab31-1e562f085ad4"/>
+			</rectangle>
 			<image>
-				<reportElement x="598" y="5" width="220" height="180" uuid="feb24113-02e5-4f0b-b76a-19e140317e5e"/>
-				<imageExpression><![CDATA["ostelea.jpg"]]></imageExpression>
+				<reportElement x="596" y="-10" width="220" height="180" uuid="feb24113-02e5-4f0b-b76a-19e140317e5e"/>
+				<imageExpression><![CDATA["logo-ostelea-ma.png"]]></imageExpression>
 			</image>
 		</band>
 	</detail>

@@ -1,10 +1,24 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.TableauDeBoard;
-import com.planeta.pfum.repository.TableauDeBoardRepository;
-import com.planeta.pfum.repository.search.TableauDeBoardSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +27,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -22,23 +35,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.TableauDeBoard;
+import com.planeta.pfum.repository.TableauDeBoardRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@Link TableauDeBoardResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class TableauDeBoardResourceIT {
 
     private static final String DEFAULT_TABLEAU_DE_BOARD = "AAAAAAAAAA";
@@ -49,14 +54,6 @@ public class TableauDeBoardResourceIT {
 
     @Mock
     private TableauDeBoardRepository tableauDeBoardRepositoryMock;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.TableauDeBoardSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private TableauDeBoardSearchRepository mockTableauDeBoardSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -80,7 +77,7 @@ public class TableauDeBoardResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TableauDeBoardResource tableauDeBoardResource = new TableauDeBoardResource(tableauDeBoardRepository, mockTableauDeBoardSearchRepository);
+        final TableauDeBoardResource tableauDeBoardResource = new TableauDeBoardResource(tableauDeBoardRepository);
         this.restTableauDeBoardMockMvc = MockMvcBuilders.standaloneSetup(tableauDeBoardResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -133,9 +130,6 @@ public class TableauDeBoardResourceIT {
         assertThat(tableauDeBoardList).hasSize(databaseSizeBeforeCreate + 1);
         TableauDeBoard testTableauDeBoard = tableauDeBoardList.get(tableauDeBoardList.size() - 1);
         assertThat(testTableauDeBoard.getTableauDeBoard()).isEqualTo(DEFAULT_TABLEAU_DE_BOARD);
-
-        // Validate the TableauDeBoard in Elasticsearch
-        verify(mockTableauDeBoardSearchRepository, times(1)).save(testTableauDeBoard);
     }
 
     @Test
@@ -155,9 +149,6 @@ public class TableauDeBoardResourceIT {
         // Validate the TableauDeBoard in the database
         List<TableauDeBoard> tableauDeBoardList = tableauDeBoardRepository.findAll();
         assertThat(tableauDeBoardList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the TableauDeBoard in Elasticsearch
-        verify(mockTableauDeBoardSearchRepository, times(0)).save(tableauDeBoard);
     }
 
 
@@ -177,7 +168,7 @@ public class TableauDeBoardResourceIT {
     
     @SuppressWarnings({"unchecked"})
     public void getAllTableauDeBoardsWithEagerRelationshipsIsEnabled() throws Exception {
-        TableauDeBoardResource tableauDeBoardResource = new TableauDeBoardResource(tableauDeBoardRepositoryMock, mockTableauDeBoardSearchRepository);
+        TableauDeBoardResource tableauDeBoardResource = new TableauDeBoardResource(tableauDeBoardRepositoryMock);
         when(tableauDeBoardRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restTableauDeBoardMockMvc = MockMvcBuilders.standaloneSetup(tableauDeBoardResource)
@@ -194,7 +185,7 @@ public class TableauDeBoardResourceIT {
 
     @SuppressWarnings({"unchecked"})
     public void getAllTableauDeBoardsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        TableauDeBoardResource tableauDeBoardResource = new TableauDeBoardResource(tableauDeBoardRepositoryMock, mockTableauDeBoardSearchRepository);
+        TableauDeBoardResource tableauDeBoardResource = new TableauDeBoardResource(tableauDeBoardRepositoryMock);
             when(tableauDeBoardRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restTableauDeBoardMockMvc = MockMvcBuilders.standaloneSetup(tableauDeBoardResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -255,9 +246,6 @@ public class TableauDeBoardResourceIT {
         assertThat(tableauDeBoardList).hasSize(databaseSizeBeforeUpdate);
         TableauDeBoard testTableauDeBoard = tableauDeBoardList.get(tableauDeBoardList.size() - 1);
         assertThat(testTableauDeBoard.getTableauDeBoard()).isEqualTo(UPDATED_TABLEAU_DE_BOARD);
-
-        // Validate the TableauDeBoard in Elasticsearch
-        verify(mockTableauDeBoardSearchRepository, times(1)).save(testTableauDeBoard);
     }
 
     @Test
@@ -276,9 +264,6 @@ public class TableauDeBoardResourceIT {
         // Validate the TableauDeBoard in the database
         List<TableauDeBoard> tableauDeBoardList = tableauDeBoardRepository.findAll();
         assertThat(tableauDeBoardList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the TableauDeBoard in Elasticsearch
-        verify(mockTableauDeBoardSearchRepository, times(0)).save(tableauDeBoard);
     }
 
     @Test
@@ -297,24 +282,6 @@ public class TableauDeBoardResourceIT {
         // Validate the database contains one less item
         List<TableauDeBoard> tableauDeBoardList = tableauDeBoardRepository.findAll();
         assertThat(tableauDeBoardList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the TableauDeBoard in Elasticsearch
-        verify(mockTableauDeBoardSearchRepository, times(1)).deleteById(tableauDeBoard.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchTableauDeBoard() throws Exception {
-        // Initialize the database
-        tableauDeBoardRepository.saveAndFlush(tableauDeBoard);
-        when(mockTableauDeBoardSearchRepository.search(queryStringQuery("id:" + tableauDeBoard.getId())))
-            .thenReturn(Collections.singletonList(tableauDeBoard));
-        // Search the tableauDeBoard
-        restTableauDeBoardMockMvc.perform(get("/api/_search/tableau-de-boards?query=id:" + tableauDeBoard.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(tableauDeBoard.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tableauDeBoard").value(hasItem(DEFAULT_TABLEAU_DE_BOARD)));
     }
 
     @Test

@@ -1,10 +1,21 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.SuiviModule;
-import com.planeta.pfum.repository.SuiviModuleRepository;
-import com.planeta.pfum.repository.search.SuiviModuleSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,28 +28,19 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.Module;
+import com.planeta.pfum.domain.SuiviModule;
+import com.planeta.pfum.domain.User;
 import com.planeta.pfum.domain.enumeration.Semestre;
+import com.planeta.pfum.repository.SuiviModuleRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link SuiviModuleResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class SuiviModuleResourceIT {
 
     private static final Semestre DEFAULT_SEMESTRE = Semestre.S1;
@@ -65,13 +67,6 @@ public class SuiviModuleResourceIT {
     @Autowired
     private SuiviModuleRepository suiviModuleRepository;
 
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.SuiviModuleSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private SuiviModuleSearchRepository mockSuiviModuleSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -95,7 +90,7 @@ public class SuiviModuleResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SuiviModuleResource suiviModuleResource = new SuiviModuleResource(suiviModuleRepository, mockSuiviModuleSearchRepository);
+        final SuiviModuleResource suiviModuleResource = new SuiviModuleResource(suiviModuleRepository);
         this.restSuiviModuleMockMvc = MockMvcBuilders.standaloneSetup(suiviModuleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -166,9 +161,6 @@ public class SuiviModuleResourceIT {
         assertThat(testSuiviModule.getDebutCreneau()).isEqualTo(DEFAULT_DEBUT_CRENEAU);
         assertThat(testSuiviModule.getFinCreneau()).isEqualTo(DEFAULT_FIN_CRENEAU);
         assertThat(testSuiviModule.getDuree()).isEqualTo(DEFAULT_DUREE);
-
-        // Validate the SuiviModule in Elasticsearch
-        verify(mockSuiviModuleSearchRepository, times(1)).save(testSuiviModule);
     }
 
     @Test
@@ -188,9 +180,6 @@ public class SuiviModuleResourceIT {
         // Validate the SuiviModule in the database
         List<SuiviModule> suiviModuleList = suiviModuleRepository.findAll();
         assertThat(suiviModuleList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the SuiviModule in Elasticsearch
-        verify(mockSuiviModuleSearchRepository, times(0)).save(suiviModule);
     }
 
 
@@ -308,6 +297,306 @@ public class SuiviModuleResourceIT {
 
     @Test
     @Transactional
+    public void getAllSuiviModulesBySemestreIsEqualToSomething() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where semestre equals to DEFAULT_SEMESTRE
+        defaultSuiviModuleShouldBeFound("semestre.equals=" + DEFAULT_SEMESTRE);
+
+        // Get all the suiviModuleList where semestre equals to UPDATED_SEMESTRE
+        defaultSuiviModuleShouldNotBeFound("semestre.equals=" + UPDATED_SEMESTRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesBySemestreIsInShouldWork() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where semestre in DEFAULT_SEMESTRE or UPDATED_SEMESTRE
+        defaultSuiviModuleShouldBeFound("semestre.in=" + DEFAULT_SEMESTRE + "," + UPDATED_SEMESTRE);
+
+        // Get all the suiviModuleList where semestre equals to UPDATED_SEMESTRE
+        defaultSuiviModuleShouldNotBeFound("semestre.in=" + UPDATED_SEMESTRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesBySemestreIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where semestre is not null
+        defaultSuiviModuleShouldBeFound("semestre.specified=true");
+
+        // Get all the suiviModuleList where semestre is null
+        defaultSuiviModuleShouldNotBeFound("semestre.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDateIsEqualToSomething() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where date equals to DEFAULT_DATE
+        defaultSuiviModuleShouldBeFound("date.equals=" + DEFAULT_DATE);
+
+        // Get all the suiviModuleList where date equals to UPDATED_DATE
+        defaultSuiviModuleShouldNotBeFound("date.equals=" + UPDATED_DATE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDateIsInShouldWork() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where date in DEFAULT_DATE or UPDATED_DATE
+        defaultSuiviModuleShouldBeFound("date.in=" + DEFAULT_DATE + "," + UPDATED_DATE);
+
+        // Get all the suiviModuleList where date equals to UPDATED_DATE
+        defaultSuiviModuleShouldNotBeFound("date.in=" + UPDATED_DATE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDateIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where date is not null
+        defaultSuiviModuleShouldBeFound("date.specified=true");
+
+        // Get all the suiviModuleList where date is null
+        defaultSuiviModuleShouldNotBeFound("date.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDebutCreneauIsEqualToSomething() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where debutCreneau equals to DEFAULT_DEBUT_CRENEAU
+        defaultSuiviModuleShouldBeFound("debutCreneau.equals=" + DEFAULT_DEBUT_CRENEAU);
+
+        // Get all the suiviModuleList where debutCreneau equals to UPDATED_DEBUT_CRENEAU
+        defaultSuiviModuleShouldNotBeFound("debutCreneau.equals=" + UPDATED_DEBUT_CRENEAU);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDebutCreneauIsInShouldWork() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where debutCreneau in DEFAULT_DEBUT_CRENEAU or UPDATED_DEBUT_CRENEAU
+        defaultSuiviModuleShouldBeFound("debutCreneau.in=" + DEFAULT_DEBUT_CRENEAU + "," + UPDATED_DEBUT_CRENEAU);
+
+        // Get all the suiviModuleList where debutCreneau equals to UPDATED_DEBUT_CRENEAU
+        defaultSuiviModuleShouldNotBeFound("debutCreneau.in=" + UPDATED_DEBUT_CRENEAU);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDebutCreneauIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where debutCreneau is not null
+        defaultSuiviModuleShouldBeFound("debutCreneau.specified=true");
+
+        // Get all the suiviModuleList where debutCreneau is null
+        defaultSuiviModuleShouldNotBeFound("debutCreneau.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByFinCreneauIsEqualToSomething() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where finCreneau equals to DEFAULT_FIN_CRENEAU
+        defaultSuiviModuleShouldBeFound("finCreneau.equals=" + DEFAULT_FIN_CRENEAU);
+
+        // Get all the suiviModuleList where finCreneau equals to UPDATED_FIN_CRENEAU
+        defaultSuiviModuleShouldNotBeFound("finCreneau.equals=" + UPDATED_FIN_CRENEAU);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByFinCreneauIsInShouldWork() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where finCreneau in DEFAULT_FIN_CRENEAU or UPDATED_FIN_CRENEAU
+        defaultSuiviModuleShouldBeFound("finCreneau.in=" + DEFAULT_FIN_CRENEAU + "," + UPDATED_FIN_CRENEAU);
+
+        // Get all the suiviModuleList where finCreneau equals to UPDATED_FIN_CRENEAU
+        defaultSuiviModuleShouldNotBeFound("finCreneau.in=" + UPDATED_FIN_CRENEAU);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByFinCreneauIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where finCreneau is not null
+        defaultSuiviModuleShouldBeFound("finCreneau.specified=true");
+
+        // Get all the suiviModuleList where finCreneau is null
+        defaultSuiviModuleShouldNotBeFound("finCreneau.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDureeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where duree equals to DEFAULT_DUREE
+        defaultSuiviModuleShouldBeFound("duree.equals=" + DEFAULT_DUREE);
+
+        // Get all the suiviModuleList where duree equals to UPDATED_DUREE
+        defaultSuiviModuleShouldNotBeFound("duree.equals=" + UPDATED_DUREE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDureeIsInShouldWork() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where duree in DEFAULT_DUREE or UPDATED_DUREE
+        defaultSuiviModuleShouldBeFound("duree.in=" + DEFAULT_DUREE + "," + UPDATED_DUREE);
+
+        // Get all the suiviModuleList where duree equals to UPDATED_DUREE
+        defaultSuiviModuleShouldNotBeFound("duree.in=" + UPDATED_DUREE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDureeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where duree is not null
+        defaultSuiviModuleShouldBeFound("duree.specified=true");
+
+        // Get all the suiviModuleList where duree is null
+        defaultSuiviModuleShouldNotBeFound("duree.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDureeIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where duree greater than or equals to DEFAULT_DUREE
+        defaultSuiviModuleShouldBeFound("duree.greaterOrEqualThan=" + DEFAULT_DUREE);
+
+        // Get all the suiviModuleList where duree greater than or equals to UPDATED_DUREE
+        defaultSuiviModuleShouldNotBeFound("duree.greaterOrEqualThan=" + UPDATED_DUREE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByDureeIsLessThanSomething() throws Exception {
+        // Initialize the database
+        suiviModuleRepository.saveAndFlush(suiviModule);
+
+        // Get all the suiviModuleList where duree less than or equals to DEFAULT_DUREE
+        defaultSuiviModuleShouldNotBeFound("duree.lessThan=" + DEFAULT_DUREE);
+
+        // Get all the suiviModuleList where duree less than or equals to UPDATED_DUREE
+        defaultSuiviModuleShouldBeFound("duree.lessThan=" + UPDATED_DUREE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByUserIsEqualToSomething() throws Exception {
+        // Initialize the database
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        suiviModule.setUser(user);
+        suiviModuleRepository.saveAndFlush(suiviModule);
+        Long userId = user.getId();
+
+        // Get all the suiviModuleList where user equals to userId
+        defaultSuiviModuleShouldBeFound("userId.equals=" + userId);
+
+        // Get all the suiviModuleList where user equals to userId + 1
+        defaultSuiviModuleShouldNotBeFound("userId.equals=" + (userId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllSuiviModulesByModuleIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Module module = ModuleResourceIT.createEntity(em);
+        em.persist(module);
+        em.flush();
+        suiviModule.setModule(module);
+        suiviModuleRepository.saveAndFlush(suiviModule);
+        Long moduleId = module.getId();
+
+        // Get all the suiviModuleList where module equals to moduleId
+        defaultSuiviModuleShouldBeFound("moduleId.equals=" + moduleId);
+
+        // Get all the suiviModuleList where module equals to moduleId + 1
+        defaultSuiviModuleShouldNotBeFound("moduleId.equals=" + (moduleId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned.
+     */
+    private void defaultSuiviModuleShouldBeFound(String filter) throws Exception {
+        restSuiviModuleMockMvc.perform(get("/api/suivi-modules?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(suiviModule.getId().intValue())))
+            .andExpect(jsonPath("$.[*].semestre").value(hasItem(DEFAULT_SEMESTRE.toString())))
+            .andExpect(jsonPath("$.[*].descriptif").value(hasItem(DEFAULT_DESCRIPTIF.toString())))
+            .andExpect(jsonPath("$.[*].observations").value(hasItem(DEFAULT_OBSERVATIONS.toString())))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].debutCreneau").value(hasItem(DEFAULT_DEBUT_CRENEAU.toString())))
+            .andExpect(jsonPath("$.[*].finCreneau").value(hasItem(DEFAULT_FIN_CRENEAU.toString())))
+            .andExpect(jsonPath("$.[*].duree").value(hasItem(DEFAULT_DUREE)));
+
+        // Check, that the count call also returns 1
+        restSuiviModuleMockMvc.perform(get("/api/suivi-modules/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned.
+     */
+    private void defaultSuiviModuleShouldNotBeFound(String filter) throws Exception {
+        restSuiviModuleMockMvc.perform(get("/api/suivi-modules?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restSuiviModuleMockMvc.perform(get("/api/suivi-modules/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().string("0"));
+    }
+
+
+    @Test
+    @Transactional
     public void getNonExistingSuiviModule() throws Exception {
         // Get the suiviModule
         restSuiviModuleMockMvc.perform(get("/api/suivi-modules/{id}", Long.MAX_VALUE))
@@ -318,7 +607,7 @@ public class SuiviModuleResourceIT {
     @Transactional
     public void updateSuiviModule() throws Exception {
         // Initialize the database
-        suiviModuleRepository.saveAndFlush(suiviModule);
+    	suiviModuleRepository.save(suiviModule);
 
         int databaseSizeBeforeUpdate = suiviModuleRepository.findAll().size();
 
@@ -351,9 +640,6 @@ public class SuiviModuleResourceIT {
         assertThat(testSuiviModule.getDebutCreneau()).isEqualTo(UPDATED_DEBUT_CRENEAU);
         assertThat(testSuiviModule.getFinCreneau()).isEqualTo(UPDATED_FIN_CRENEAU);
         assertThat(testSuiviModule.getDuree()).isEqualTo(UPDATED_DUREE);
-
-        // Validate the SuiviModule in Elasticsearch
-        verify(mockSuiviModuleSearchRepository, times(1)).save(testSuiviModule);
     }
 
     @Test
@@ -372,16 +658,13 @@ public class SuiviModuleResourceIT {
         // Validate the SuiviModule in the database
         List<SuiviModule> suiviModuleList = suiviModuleRepository.findAll();
         assertThat(suiviModuleList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the SuiviModule in Elasticsearch
-        verify(mockSuiviModuleSearchRepository, times(0)).save(suiviModule);
     }
 
     @Test
     @Transactional
     public void deleteSuiviModule() throws Exception {
         // Initialize the database
-        suiviModuleRepository.saveAndFlush(suiviModule);
+    	suiviModuleRepository.save(suiviModule);
 
         int databaseSizeBeforeDelete = suiviModuleRepository.findAll().size();
 
@@ -393,30 +676,6 @@ public class SuiviModuleResourceIT {
         // Validate the database contains one less item
         List<SuiviModule> suiviModuleList = suiviModuleRepository.findAll();
         assertThat(suiviModuleList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the SuiviModule in Elasticsearch
-        verify(mockSuiviModuleSearchRepository, times(1)).deleteById(suiviModule.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchSuiviModule() throws Exception {
-        // Initialize the database
-        suiviModuleRepository.saveAndFlush(suiviModule);
-        when(mockSuiviModuleSearchRepository.search(queryStringQuery("id:" + suiviModule.getId())))
-            .thenReturn(Collections.singletonList(suiviModule));
-        // Search the suiviModule
-        restSuiviModuleMockMvc.perform(get("/api/_search/suivi-modules?query=id:" + suiviModule.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(suiviModule.getId().intValue())))
-            .andExpect(jsonPath("$.[*].semestre").value(hasItem(DEFAULT_SEMESTRE.toString())))
-            .andExpect(jsonPath("$.[*].descriptif").value(hasItem(DEFAULT_DESCRIPTIF.toString())))
-            .andExpect(jsonPath("$.[*].observations").value(hasItem(DEFAULT_OBSERVATIONS.toString())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
-            .andExpect(jsonPath("$.[*].debutCreneau").value(hasItem(DEFAULT_DEBUT_CRENEAU.toString())))
-            .andExpect(jsonPath("$.[*].finCreneau").value(hasItem(DEFAULT_FIN_CRENEAU.toString())))
-            .andExpect(jsonPath("$.[*].duree").value(hasItem(DEFAULT_DUREE)));
     }
 
     @Test

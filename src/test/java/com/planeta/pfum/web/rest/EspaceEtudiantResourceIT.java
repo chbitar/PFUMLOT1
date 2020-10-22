@@ -1,10 +1,19 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.EspaceEtudiant;
-import com.planeta.pfum.repository.EspaceEtudiantRepository;
-import com.planeta.pfum.repository.search.EspaceEtudiantSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,22 +29,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.EspaceEtudiant;
+import com.planeta.pfum.repository.EspaceEtudiantRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@Link EspaceEtudiantResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class EspaceEtudiantResourceIT {
 
     private static final byte[] DEFAULT_EMPLOI_DU_TEMPS = TestUtil.createByteArray(1, "0");
@@ -45,14 +47,6 @@ public class EspaceEtudiantResourceIT {
 
     @Autowired
     private EspaceEtudiantRepository espaceEtudiantRepository;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.EspaceEtudiantSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private EspaceEtudiantSearchRepository mockEspaceEtudiantSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -76,7 +70,7 @@ public class EspaceEtudiantResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final EspaceEtudiantResource espaceEtudiantResource = new EspaceEtudiantResource(espaceEtudiantRepository, mockEspaceEtudiantSearchRepository);
+        final EspaceEtudiantResource espaceEtudiantResource = new EspaceEtudiantResource(espaceEtudiantRepository);
         this.restEspaceEtudiantMockMvc = MockMvcBuilders.standaloneSetup(espaceEtudiantResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -132,9 +126,6 @@ public class EspaceEtudiantResourceIT {
         EspaceEtudiant testEspaceEtudiant = espaceEtudiantList.get(espaceEtudiantList.size() - 1);
         assertThat(testEspaceEtudiant.getEmploiDuTemps()).isEqualTo(DEFAULT_EMPLOI_DU_TEMPS);
         assertThat(testEspaceEtudiant.getEmploiDuTempsContentType()).isEqualTo(DEFAULT_EMPLOI_DU_TEMPS_CONTENT_TYPE);
-
-        // Validate the EspaceEtudiant in Elasticsearch
-        verify(mockEspaceEtudiantSearchRepository, times(1)).save(testEspaceEtudiant);
     }
 
     @Test
@@ -154,9 +145,6 @@ public class EspaceEtudiantResourceIT {
         // Validate the EspaceEtudiant in the database
         List<EspaceEtudiant> espaceEtudiantList = espaceEtudiantRepository.findAll();
         assertThat(espaceEtudiantList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the EspaceEtudiant in Elasticsearch
-        verify(mockEspaceEtudiantSearchRepository, times(0)).save(espaceEtudiant);
     }
 
 
@@ -225,9 +213,6 @@ public class EspaceEtudiantResourceIT {
         EspaceEtudiant testEspaceEtudiant = espaceEtudiantList.get(espaceEtudiantList.size() - 1);
         assertThat(testEspaceEtudiant.getEmploiDuTemps()).isEqualTo(UPDATED_EMPLOI_DU_TEMPS);
         assertThat(testEspaceEtudiant.getEmploiDuTempsContentType()).isEqualTo(UPDATED_EMPLOI_DU_TEMPS_CONTENT_TYPE);
-
-        // Validate the EspaceEtudiant in Elasticsearch
-        verify(mockEspaceEtudiantSearchRepository, times(1)).save(testEspaceEtudiant);
     }
 
     @Test
@@ -246,9 +231,6 @@ public class EspaceEtudiantResourceIT {
         // Validate the EspaceEtudiant in the database
         List<EspaceEtudiant> espaceEtudiantList = espaceEtudiantRepository.findAll();
         assertThat(espaceEtudiantList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the EspaceEtudiant in Elasticsearch
-        verify(mockEspaceEtudiantSearchRepository, times(0)).save(espaceEtudiant);
     }
 
     @Test
@@ -267,25 +249,6 @@ public class EspaceEtudiantResourceIT {
         // Validate the database contains one less item
         List<EspaceEtudiant> espaceEtudiantList = espaceEtudiantRepository.findAll();
         assertThat(espaceEtudiantList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the EspaceEtudiant in Elasticsearch
-        verify(mockEspaceEtudiantSearchRepository, times(1)).deleteById(espaceEtudiant.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchEspaceEtudiant() throws Exception {
-        // Initialize the database
-        espaceEtudiantRepository.saveAndFlush(espaceEtudiant);
-        when(mockEspaceEtudiantSearchRepository.search(queryStringQuery("id:" + espaceEtudiant.getId())))
-            .thenReturn(Collections.singletonList(espaceEtudiant));
-        // Search the espaceEtudiant
-        restEspaceEtudiantMockMvc.perform(get("/api/_search/espace-etudiants?query=id:" + espaceEtudiant.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(espaceEtudiant.getId().intValue())))
-            .andExpect(jsonPath("$.[*].emploiDuTempsContentType").value(hasItem(DEFAULT_EMPLOI_DU_TEMPS_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].emploiDuTemps").value(hasItem(Base64Utils.encodeToString(DEFAULT_EMPLOI_DU_TEMPS))));
     }
 
     @Test

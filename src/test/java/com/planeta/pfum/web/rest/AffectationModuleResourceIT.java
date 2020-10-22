@@ -1,10 +1,19 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.AffectationModule;
-import com.planeta.pfum.repository.AffectationModuleRepository;
-import com.planeta.pfum.repository.search.AffectationModuleSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,23 +28,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.AffectationModule;
 import com.planeta.pfum.domain.enumeration.Semestre;
+import com.planeta.pfum.repository.AffectationModuleRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link AffectationModuleResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class AffectationModuleResourceIT {
 
     private static final String DEFAULT_ANNEE = "AAAAAAAAAA";
@@ -46,14 +47,6 @@ public class AffectationModuleResourceIT {
 
     @Autowired
     private AffectationModuleRepository affectationModuleRepository;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.AffectationModuleSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private AffectationModuleSearchRepository mockAffectationModuleSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -77,7 +70,7 @@ public class AffectationModuleResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final AffectationModuleResource affectationModuleResource = new AffectationModuleResource(affectationModuleRepository, mockAffectationModuleSearchRepository);
+        final AffectationModuleResource affectationModuleResource = new AffectationModuleResource(affectationModuleRepository);
         this.restAffectationModuleMockMvc = MockMvcBuilders.standaloneSetup(affectationModuleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -133,9 +126,6 @@ public class AffectationModuleResourceIT {
         AffectationModule testAffectationModule = affectationModuleList.get(affectationModuleList.size() - 1);
         assertThat(testAffectationModule.getAnnee()).isEqualTo(DEFAULT_ANNEE);
         assertThat(testAffectationModule.getSemestre()).isEqualTo(DEFAULT_SEMESTRE);
-
-        // Validate the AffectationModule in Elasticsearch
-        verify(mockAffectationModuleSearchRepository, times(1)).save(testAffectationModule);
     }
 
     @Test
@@ -155,9 +145,6 @@ public class AffectationModuleResourceIT {
         // Validate the AffectationModule in the database
         List<AffectationModule> affectationModuleList = affectationModuleRepository.findAll();
         assertThat(affectationModuleList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the AffectationModule in Elasticsearch
-        verify(mockAffectationModuleSearchRepository, times(0)).save(affectationModule);
     }
 
 
@@ -226,9 +213,6 @@ public class AffectationModuleResourceIT {
         AffectationModule testAffectationModule = affectationModuleList.get(affectationModuleList.size() - 1);
         assertThat(testAffectationModule.getAnnee()).isEqualTo(UPDATED_ANNEE);
         assertThat(testAffectationModule.getSemestre()).isEqualTo(UPDATED_SEMESTRE);
-
-        // Validate the AffectationModule in Elasticsearch
-        verify(mockAffectationModuleSearchRepository, times(1)).save(testAffectationModule);
     }
 
     @Test
@@ -247,9 +231,6 @@ public class AffectationModuleResourceIT {
         // Validate the AffectationModule in the database
         List<AffectationModule> affectationModuleList = affectationModuleRepository.findAll();
         assertThat(affectationModuleList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the AffectationModule in Elasticsearch
-        verify(mockAffectationModuleSearchRepository, times(0)).save(affectationModule);
     }
 
     @Test
@@ -268,25 +249,6 @@ public class AffectationModuleResourceIT {
         // Validate the database contains one less item
         List<AffectationModule> affectationModuleList = affectationModuleRepository.findAll();
         assertThat(affectationModuleList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the AffectationModule in Elasticsearch
-        verify(mockAffectationModuleSearchRepository, times(1)).deleteById(affectationModule.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchAffectationModule() throws Exception {
-        // Initialize the database
-        affectationModuleRepository.saveAndFlush(affectationModule);
-        when(mockAffectationModuleSearchRepository.search(queryStringQuery("id:" + affectationModule.getId())))
-            .thenReturn(Collections.singletonList(affectationModule));
-        // Search the affectationModule
-        restAffectationModuleMockMvc.perform(get("/api/_search/affectation-modules?query=id:" + affectationModule.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(affectationModule.getId().intValue())))
-            .andExpect(jsonPath("$.[*].annee").value(hasItem(DEFAULT_ANNEE)))
-            .andExpect(jsonPath("$.[*].semestre").value(hasItem(DEFAULT_SEMESTRE.toString())));
     }
 
     @Test

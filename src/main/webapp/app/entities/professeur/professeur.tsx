@@ -47,7 +47,7 @@ export class Professeur extends React.Component<IProfesseurProps, IProfesseurSta
     return (
       <div>
         <h2 id="professeur-heading">
-          <Translate contentKey="pfumv10App.professeur.home.title">Professeurs</Translate>
+          Liste des professeurs
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
@@ -83,9 +83,6 @@ export class Professeur extends React.Component<IProfesseurProps, IProfesseurSta
               <thead>
                 <tr>
                   <th>
-                    <Translate contentKey="global.field.id">ID</Translate>
-                  </th>
-                  <th>
                     <Translate contentKey="pfumv10App.professeur.nom">Nom</Translate>
                   </th>
                   <th>
@@ -109,20 +106,13 @@ export class Professeur extends React.Component<IProfesseurProps, IProfesseurSta
                   <th>
                     <Translate contentKey="pfumv10App.professeur.email">Email</Translate>
                   </th>
-                  <th>
-                    <Translate contentKey="pfumv10App.professeur.user">User</Translate>
-                  </th>
+
                   <th />
                 </tr>
               </thead>
               <tbody>
                 {professeurList.map((professeur, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${professeur.id}`} color="link" size="sm">
-                        {professeur.id}
-                      </Button>
-                    </td>
                     <td>{professeur.nom}</td>
                     <td>{professeur.prenom}</td>
                     <td>{professeur.etablissement}</td>
@@ -131,11 +121,10 @@ export class Professeur extends React.Component<IProfesseurProps, IProfesseurSta
                     <td>{professeur.cin}</td>
                     <td>{professeur.rib}</td>
                     <td>{professeur.email}</td>
-                    <td>{professeur.user ? professeur.user.id : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${professeur.id}`} color="info" size="sm">
-                          <FontAwesomeIcon icon="eye" />{' '}
+                          <FontAwesomeIcon icon="pencil-alt" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>

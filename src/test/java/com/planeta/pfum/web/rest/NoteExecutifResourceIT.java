@@ -1,10 +1,21 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.NoteExecutif;
-import com.planeta.pfum.repository.NoteExecutifRepository;
-import com.planeta.pfum.repository.search.NoteExecutifSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,25 +30,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.NoteExecutif;
 import com.planeta.pfum.domain.enumeration.Semestre;
+import com.planeta.pfum.repository.NoteExecutifRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link NoteExecutifResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class NoteExecutifResourceIT {
 
     private static final Semestre DEFAULT_SEMESTRE = Semestre.S1;
@@ -57,14 +58,6 @@ public class NoteExecutifResourceIT {
 
     @Autowired
     private NoteExecutifRepository noteExecutifRepository;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.NoteExecutifSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private NoteExecutifSearchRepository mockNoteExecutifSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -88,7 +81,7 @@ public class NoteExecutifResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final NoteExecutifResource noteExecutifResource = new NoteExecutifResource(noteExecutifRepository, mockNoteExecutifSearchRepository);
+        final NoteExecutifResource noteExecutifResource = new NoteExecutifResource(noteExecutifRepository);
         this.restNoteExecutifMockMvc = MockMvcBuilders.standaloneSetup(noteExecutifResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -153,9 +146,6 @@ public class NoteExecutifResourceIT {
         assertThat(testNoteExecutif.getNoteCC2()).isEqualTo(DEFAULT_NOTE_CC_2);
         assertThat(testNoteExecutif.getNoteFinal()).isEqualTo(DEFAULT_NOTE_FINAL);
         assertThat(testNoteExecutif.getDate()).isEqualTo(DEFAULT_DATE);
-
-        // Validate the NoteExecutif in Elasticsearch
-        verify(mockNoteExecutifSearchRepository, times(1)).save(testNoteExecutif);
     }
 
     @Test
@@ -175,9 +165,6 @@ public class NoteExecutifResourceIT {
         // Validate the NoteExecutif in the database
         List<NoteExecutif> noteExecutifList = noteExecutifRepository.findAll();
         assertThat(noteExecutifList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the NoteExecutif in Elasticsearch
-        verify(mockNoteExecutifSearchRepository, times(0)).save(noteExecutif);
     }
 
 
@@ -258,9 +245,6 @@ public class NoteExecutifResourceIT {
         assertThat(testNoteExecutif.getNoteCC2()).isEqualTo(UPDATED_NOTE_CC_2);
         assertThat(testNoteExecutif.getNoteFinal()).isEqualTo(UPDATED_NOTE_FINAL);
         assertThat(testNoteExecutif.getDate()).isEqualTo(UPDATED_DATE);
-
-        // Validate the NoteExecutif in Elasticsearch
-        verify(mockNoteExecutifSearchRepository, times(1)).save(testNoteExecutif);
     }
 
     @Test
@@ -279,9 +263,6 @@ public class NoteExecutifResourceIT {
         // Validate the NoteExecutif in the database
         List<NoteExecutif> noteExecutifList = noteExecutifRepository.findAll();
         assertThat(noteExecutifList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the NoteExecutif in Elasticsearch
-        verify(mockNoteExecutifSearchRepository, times(0)).save(noteExecutif);
     }
 
     @Test
@@ -300,28 +281,6 @@ public class NoteExecutifResourceIT {
         // Validate the database contains one less item
         List<NoteExecutif> noteExecutifList = noteExecutifRepository.findAll();
         assertThat(noteExecutifList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the NoteExecutif in Elasticsearch
-        verify(mockNoteExecutifSearchRepository, times(1)).deleteById(noteExecutif.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchNoteExecutif() throws Exception {
-        // Initialize the database
-        noteExecutifRepository.saveAndFlush(noteExecutif);
-        when(mockNoteExecutifSearchRepository.search(queryStringQuery("id:" + noteExecutif.getId())))
-            .thenReturn(Collections.singletonList(noteExecutif));
-        // Search the noteExecutif
-        restNoteExecutifMockMvc.perform(get("/api/_search/note-executifs?query=id:" + noteExecutif.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(noteExecutif.getId().intValue())))
-            .andExpect(jsonPath("$.[*].semestre").value(hasItem(DEFAULT_SEMESTRE.toString())))
-            .andExpect(jsonPath("$.[*].noteCC1").value(hasItem(DEFAULT_NOTE_CC_1.doubleValue())))
-            .andExpect(jsonPath("$.[*].noteCC2").value(hasItem(DEFAULT_NOTE_CC_2.doubleValue())))
-            .andExpect(jsonPath("$.[*].noteFinal").value(hasItem(DEFAULT_NOTE_FINAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
 
     @Test

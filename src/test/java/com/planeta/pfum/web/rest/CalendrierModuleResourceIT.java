@@ -1,10 +1,21 @@
 package com.planeta.pfum.web.rest;
 
-import com.planeta.pfum.Pfumv10App;
-import com.planeta.pfum.domain.CalendrierModule;
-import com.planeta.pfum.repository.CalendrierModuleRepository;
-import com.planeta.pfum.repository.search.CalendrierModuleSearchRepository;
-import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
+import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,24 +30,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
-
-import static com.planeta.pfum.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.planeta.pfum.PfumApp;
+import com.planeta.pfum.domain.CalendrierModule;
+import com.planeta.pfum.repository.CalendrierModuleRepository;
+import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@Link CalendrierModuleResource} REST controller.
  */
-@SpringBootTest(classes = Pfumv10App.class)
+@SpringBootTest(classes = PfumApp.class)
 public class CalendrierModuleResourceIT {
 
     private static final String DEFAULT_LIBELLE = "AAAAAAAAAA";
@@ -50,14 +52,6 @@ public class CalendrierModuleResourceIT {
 
     @Autowired
     private CalendrierModuleRepository calendrierModuleRepository;
-
-    /**
-     * This repository is mocked in the com.planeta.pfum.repository.search test package.
-     *
-     * @see com.planeta.pfum.repository.search.CalendrierModuleSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private CalendrierModuleSearchRepository mockCalendrierModuleSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -81,7 +75,7 @@ public class CalendrierModuleResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CalendrierModuleResource calendrierModuleResource = new CalendrierModuleResource(calendrierModuleRepository, mockCalendrierModuleSearchRepository);
+        final CalendrierModuleResource calendrierModuleResource = new CalendrierModuleResource(calendrierModuleRepository);
         this.restCalendrierModuleMockMvc = MockMvcBuilders.standaloneSetup(calendrierModuleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -140,9 +134,6 @@ public class CalendrierModuleResourceIT {
         assertThat(testCalendrierModule.getLibelle()).isEqualTo(DEFAULT_LIBELLE);
         assertThat(testCalendrierModule.getDateControlContinu1()).isEqualTo(DEFAULT_DATE_CONTROL_CONTINU_1);
         assertThat(testCalendrierModule.getDateControlContinu2()).isEqualTo(DEFAULT_DATE_CONTROL_CONTINU_2);
-
-        // Validate the CalendrierModule in Elasticsearch
-        verify(mockCalendrierModuleSearchRepository, times(1)).save(testCalendrierModule);
     }
 
     @Test
@@ -162,9 +153,6 @@ public class CalendrierModuleResourceIT {
         // Validate the CalendrierModule in the database
         List<CalendrierModule> calendrierModuleList = calendrierModuleRepository.findAll();
         assertThat(calendrierModuleList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the CalendrierModule in Elasticsearch
-        verify(mockCalendrierModuleSearchRepository, times(0)).save(calendrierModule);
     }
 
 
@@ -237,9 +225,6 @@ public class CalendrierModuleResourceIT {
         assertThat(testCalendrierModule.getLibelle()).isEqualTo(UPDATED_LIBELLE);
         assertThat(testCalendrierModule.getDateControlContinu1()).isEqualTo(UPDATED_DATE_CONTROL_CONTINU_1);
         assertThat(testCalendrierModule.getDateControlContinu2()).isEqualTo(UPDATED_DATE_CONTROL_CONTINU_2);
-
-        // Validate the CalendrierModule in Elasticsearch
-        verify(mockCalendrierModuleSearchRepository, times(1)).save(testCalendrierModule);
     }
 
     @Test
@@ -258,9 +243,6 @@ public class CalendrierModuleResourceIT {
         // Validate the CalendrierModule in the database
         List<CalendrierModule> calendrierModuleList = calendrierModuleRepository.findAll();
         assertThat(calendrierModuleList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the CalendrierModule in Elasticsearch
-        verify(mockCalendrierModuleSearchRepository, times(0)).save(calendrierModule);
     }
 
     @Test
@@ -279,26 +261,6 @@ public class CalendrierModuleResourceIT {
         // Validate the database contains one less item
         List<CalendrierModule> calendrierModuleList = calendrierModuleRepository.findAll();
         assertThat(calendrierModuleList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the CalendrierModule in Elasticsearch
-        verify(mockCalendrierModuleSearchRepository, times(1)).deleteById(calendrierModule.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchCalendrierModule() throws Exception {
-        // Initialize the database
-        calendrierModuleRepository.saveAndFlush(calendrierModule);
-        when(mockCalendrierModuleSearchRepository.search(queryStringQuery("id:" + calendrierModule.getId())))
-            .thenReturn(Collections.singletonList(calendrierModule));
-        // Search the calendrierModule
-        restCalendrierModuleMockMvc.perform(get("/api/_search/calendrier-modules?query=id:" + calendrierModule.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(calendrierModule.getId().intValue())))
-            .andExpect(jsonPath("$.[*].libelle").value(hasItem(DEFAULT_LIBELLE)))
-            .andExpect(jsonPath("$.[*].dateControlContinu1").value(hasItem(DEFAULT_DATE_CONTROL_CONTINU_1.toString())))
-            .andExpect(jsonPath("$.[*].dateControlContinu2").value(hasItem(DEFAULT_DATE_CONTROL_CONTINU_2.toString())));
     }
 
     @Test
