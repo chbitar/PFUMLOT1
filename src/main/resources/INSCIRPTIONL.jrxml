@@ -21,7 +21,7 @@
 			<rightPen lineWidth="1.0" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table_TH" mode="Opaque" backcolor="#000000">
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -53,7 +53,7 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
 		<parameter name="FiliereId2" class="java.lang.Long"/>
 		<queryString language="SQL">
-			<![CDATA[select  nom_module,semestre,CASE WHEN semestre = 'S1' THEN "Semestre 1" ELSE "Semestre 2" END as Libelle from module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
+			<![CDATA[select  nom_module,semestre from module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
 		</queryString>
 		<field name="nom_module" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="nom_module"/>
@@ -76,7 +76,7 @@
 	<parameter name="FiliereId" class="java.lang.Long"/>
 	<parameter name="EtudiantId" class="java.lang.Long"/>
 	<queryString>
-		<![CDATA[select e.ville , e.nom,e.prenom,e.cin_pass,e.date_naissance,e.suffixe,f.nomfiliere,a.annee,et.logo from  etudiants_licence e , filiere f,annee_inscription  a ,etablissement et where  e.filiere_id=f.id  and e.annee_inscription_id=a.id and f.etablissement_id=et.id and e.id=$P{EtudiantId}]]>
+		<![CDATA[select e.ville , e.nom,e.prenom,e.cin_pass,e.date_naissance,e.suffixe,f.nomfiliere,a.annee,et.logo from   etudiants_licence e , filiere f,annee_inscription  a,etablissement et where  e.filiere_id=f.id  and e.annee_inscription_id=a.id and f.etablissement_id=et.id and e.id=$P{EtudiantId}]]>
 	</queryString>
 	<field name="prenom" class="java.lang.String"/>
 	<field name="nom" class="java.lang.String"/>
@@ -88,9 +88,9 @@
 	<field name="suffixe" class="java.lang.String"/>
 	<field name="logo" class="java.awt.Image"/>
 	<title>
-		<band height="222" splitType="Stretch">
+		<band height="230" splitType="Stretch">
 			<staticText>
-				<reportElement x="34" y="179" width="120" height="15" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
+				<reportElement x="34" y="172" width="120" height="15" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
@@ -103,25 +103,25 @@
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="34" y="192" width="120" height="15" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209"/>
+				<reportElement x="34" y="187" width="120" height="15" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Est inscrit(e) pour l'année universitaire :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="34" y="207" width="120" height="15" uuid="665f25c2-8663-4951-b699-1ab863bdeb76"/>
+				<reportElement x="34" y="206" width="120" height="15" uuid="665f25c2-8663-4951-b699-1ab863bdeb76"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Filière :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="311" y="164" width="72" height="15" uuid="2d2f365d-7b12-4a8f-990d-ff528a2660bc"/>
+				<reportElement x="308" y="159" width="89" height="15" uuid="2d2f365d-7b12-4a8f-990d-ff528a2660bc"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[CIN/PASS]]></text>
+				<text><![CDATA[CINE/Passeport :]]></text>
 			</staticText>
 			<image hAlign="Center">
 				<reportElement stretchType="ContainerHeight" x="0" y="0" width="160" height="55" uuid="94883631-a913-43e2-b182-ab8d77d0181e">
@@ -130,7 +130,7 @@
 				<imageExpression><![CDATA[$F{logo}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="60" y="55" width="440" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
+				<reportElement x="29" y="55" width="511" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -144,75 +144,75 @@
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Le Directeur Pédagogique D'OSTELEA School of Turism & Hospitality,établissement d'enseignement supérieur privé accrèdité par l'état sous le N° 465/18,  atteste que : ]]></text>
+				<text><![CDATA[Le Directeur Pédagogique D'OSTELEA School of Turism & Hospitality, établissement d'enseignement supérieur privé accrèdité par l'état sous le N° 465/18,atteste que : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="162" y="147" width="168" height="15" uuid="e195827e-620d-4ba0-9ab1-5a3d4e54e7c2"/>
+				<reportElement x="162" y="142" width="168" height="15" uuid="e195827e-620d-4ba0-9ab1-5a3d4e54e7c2"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nom}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="356" y="147" width="140" height="15" uuid="fe1aee84-1b30-4293-a321-4bcddc01428e"/>
+				<reportElement x="356" y="142" width="140" height="15" uuid="fe1aee84-1b30-4293-a321-4bcddc01428e"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prenom}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="162" y="179" width="100" height="15" uuid="9d3939fa-3452-4d14-bd9a-614006906418"/>
+				<reportElement x="162" y="172" width="100" height="15" uuid="9d3939fa-3452-4d14-bd9a-614006906418"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{date_naissance})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="162" y="164" width="100" height="15" uuid="e4016f1e-46bd-4daf-87e3-8051f9855a65"/>
-				<textElement>
-					<font size="11" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{suffixe}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="162" y="207" width="334" height="15" uuid="c80bbcaa-3d44-4435-9095-f9c45f9c6765"/>
+				<reportElement x="162" y="206" width="334" height="15" uuid="c80bbcaa-3d44-4435-9095-f9c45f9c6765"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nomfiliere}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="162" width="100" height="15" uuid="57e8390f-e9f6-4c33-8ffc-a06d29d55d56"/>
+				<reportElement x="397" y="159" width="100" height="15" uuid="57e8390f-e9f6-4c33-8ffc-a06d29d55d56"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cin_pass}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="162" y="193" width="100" height="15" uuid="290c2618-26f0-4a11-acf8-210e2a335c63"/>
+				<reportElement x="162" y="188" width="100" height="15" uuid="290c2618-26f0-4a11-acf8-210e2a335c63"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{annee}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="34" y="147" width="120" height="15" uuid="f28a5bcc-c36d-4c7b-8833-40d82148ab37"/>
+				<reportElement x="34" y="142" width="120" height="15" uuid="f28a5bcc-c36d-4c7b-8833-40d82148ab37"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[L'étudiant (e) :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="34" y="162" width="120" height="15" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca"/>
+				<reportElement x="34" y="159" width="120" height="15" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Identifiant  N°:]]></text>
+				<text><![CDATA[Identifiant N°:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="162" y="157" width="100" height="15" uuid="e4016f1e-46bd-4daf-87e3-8051f9855a65"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{suffixe}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<summary>
-		<band height="342" splitType="Stretch">
+		<band height="253" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<staticText>
 				<reportElement positionType="Float" x="29" y="179" width="500" height="31" uuid="9757045c-6090-46b2-81d3-2d03486257c3"/>
@@ -267,9 +267,12 @@
 							<jr:groupHeader groupName="semestre">
 								<jr:cell style="Table_CH" height="30" rowSpan="1">
 									<textField>
-										<reportElement x="0" y="0" width="486" height="30" uuid="9e31a1bb-f271-4ff3-918e-2a3ce0f3f7c7"/>
+										<reportElement x="0" y="0" width="486" height="30" uuid="9e31a1bb-f271-4ff3-918e-2a3ce0f3f7c7">
+											<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+										</reportElement>
 										<textElement textAlignment="Left">
 											<font size="12" isBold="true"/>
+											<paragraph leftIndent="10"/>
 										</textElement>
 										<textFieldExpression><![CDATA["Semestre " +$F{semestre}.substring( 1, 2 )]]></textFieldExpression>
 									</textField>
@@ -284,7 +287,7 @@
 									</reportElement>
 									<textElement textAlignment="Left">
 										<font size="11"/>
-										<paragraph leftIndent="10"/>
+										<paragraph leftIndent="20"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{nom_module}]]></textFieldExpression>
 								</textField>
@@ -301,7 +304,7 @@
 				<text><![CDATA[L'inscription de l'étudiant (e) ne sera définitive qu'après dépot du dossier administratif complet et de sa validation par le Ministère de l'Education Nationale, de la formation Professionnelle, de l'Enseignement Supérieur et de la Recherche Scientifique.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="34" y="0" width="228" height="27" uuid="2b2f18cf-390e-48f2-b463-cd821eedbb63"/>
+				<reportElement x="34" y="-1" width="286" height="27" uuid="2b2f18cf-390e-48f2-b463-cd821eedbb63"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
