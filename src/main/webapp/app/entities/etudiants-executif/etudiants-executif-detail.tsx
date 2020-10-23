@@ -134,10 +134,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                     </div>
                   ) : null}
                 </dd>
-                <dt>
-                  <Translate contentKey="pfumv10App.etudiantsExecutif.anneeInscription">Annee Inscription</Translate>
-                </dt>
-                <dd>{etudiantsExecutifEntity.anneeInscription ? etudiantsExecutifEntity.anneeInscription.annee : ''}</dd>
+
                 <dt>
                   <span id="pjBac">Intitulé d'un bac :</span>
                 </dt>

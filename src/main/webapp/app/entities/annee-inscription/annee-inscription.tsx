@@ -47,11 +47,10 @@ export class AnneeInscription extends React.Component<IAnneeInscriptionProps, IA
     return (
       <div>
         <h2 id="annee-inscription-heading">
-          <Translate contentKey="pfumv10App.anneeInscription.home.title">Annee Inscriptions</Translate>
+          Configurer annee d'inscription
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="pfumv10App.anneeInscription.home.createLabel">Create new Annee Inscription</Translate>
+            &nbsp; Ajouter année de scolarite
           </Link>
         </h2>
         <Row>

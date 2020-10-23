@@ -44,7 +44,7 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
 		<parameter name="FiliereId2" class="java.lang.Long"/>
 		<queryString language="SQL">
-			<![CDATA[select  nom_module,semestre from module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
+			<![CDATA[select  nom_module,semestre,CASE WHEN semestre = 'S1' THEN "Semestre 1" ELSE "Semestre 2" END as Libelle  from module where filiere_id=$P{FiliereId2} group by semestre,nom_module]]>
 		</queryString>
 		<field name="nom_module" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="nom_module"/>
@@ -81,7 +81,7 @@
 	<title>
 		<band height="230" splitType="Stretch">
 			<staticText>
-				<reportElement x="34" y="162" width="120" height="15" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
+				<reportElement x="34" y="177" width="120" height="15" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
@@ -93,13 +93,6 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
-			<staticText>
-				<reportElement x="34" y="177" width="120" height="15" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca"/>
-				<textElement>
-					<font size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[L'étudiant(e)  N°:]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="34" y="192" width="120" height="15" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209"/>
 				<textElement>
@@ -115,7 +108,7 @@
 				<text><![CDATA[Filière :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="309" y="184" width="72" height="15" uuid="2d2f365d-7b12-4a8f-990d-ff528a2660bc"/>
+				<reportElement x="308" y="164" width="72" height="15" uuid="2d2f365d-7b12-4a8f-990d-ff528a2660bc"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
@@ -159,18 +152,11 @@
 				<textFieldExpression><![CDATA[$F{prenom}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="162" y="164" width="100" height="15" uuid="9d3939fa-3452-4d14-bd9a-614006906418"/>
+				<reportElement x="162" y="177" width="100" height="15" uuid="9d3939fa-3452-4d14-bd9a-614006906418"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{date_naissance})]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="162" y="179" width="100" height="15" uuid="e4016f1e-46bd-4daf-87e3-8051f9855a65"/>
-				<textElement>
-					<font size="11" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{suffixe}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="162" y="207" width="334" height="15" uuid="c80bbcaa-3d44-4435-9095-f9c45f9c6765"/>
@@ -180,7 +166,7 @@
 				<textFieldExpression><![CDATA[$F{nomfiliere}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="383" y="184" width="100" height="15" uuid="57e8390f-e9f6-4c33-8ffc-a06d29d55d56"/>
+				<reportElement x="380" y="164" width="100" height="15" uuid="57e8390f-e9f6-4c33-8ffc-a06d29d55d56"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
@@ -200,6 +186,20 @@
 				</textElement>
 				<text><![CDATA[L'étudiant (e) :]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="34" y="164" width="120" height="15" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[L'étudiant(e)  N°:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="162" y="162" width="100" height="15" uuid="e4016f1e-46bd-4daf-87e3-8051f9855a65"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{suffixe}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<summary>
@@ -220,14 +220,14 @@
 				<text><![CDATA[Fait à Rabat, Le]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="386" y="213" width="110" height="21" uuid="4bfc4960-9c36-4c9c-b47b-534b3d9d1505"/>
+				<reportElement positionType="Float" x="386" y="213" width="110" height="17" uuid="4bfc4960-9c36-4c9c-b47b-534b3d9d1505"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="382" y="243" width="120" height="17" uuid="825cc115-ff79-4b65-9f2d-03e7055fdb37"/>
+				<reportElement positionType="Float" x="380" y="236" width="120" height="17" uuid="825cc115-ff79-4b65-9f2d-03e7055fdb37"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -292,11 +292,11 @@
 				<text><![CDATA[L'inscription de l'étudiant (e) ne sera définitive qu'après dépot du dossier administratif complet et de sa validation par le Ministère de l'Education Nationale, de la formation Professionnelle, de l'Enseignement Supérieur et de la Recherche Scientifique.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="34" y="0" width="228" height="27" uuid="3646ac9e-e499-4db7-928e-d53f226a56a0"/>
+				<reportElement x="34" y="0" width="151" height="27" uuid="2b2f18cf-390e-48f2-b463-cd821eedbb63"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
-				<text><![CDATA[Les modules à suivre cette année :]]></text>
+				<text><![CDATA[Les modules suivis]]></text>
 			</staticText>
 		</band>
 	</summary>

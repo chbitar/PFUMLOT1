@@ -136,10 +136,6 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                   ) : null}
                 </dd>
                 <dt>
-                  <Translate contentKey="pfumv10App.etudiantsMaster.anneeInscription">Annee Inscription</Translate>
-                </dt>
-                <dd>{etudiantsMasterEntity.anneeInscription ? etudiantsMasterEntity.anneeInscription.annee : ''}</dd>
-                <dt>
                   <span id="pjBac">Intitulé d'un bac :</span>
                 </dt>
                 <dd>{etudiantsMasterEntity.typeBac}</dd>

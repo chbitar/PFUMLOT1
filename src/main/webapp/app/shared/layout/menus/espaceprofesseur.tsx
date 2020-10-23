@@ -10,7 +10,7 @@ export const EspaceProfMenu = props => (
   // tslint:disable-next-line:jsx-self-close
   <NavDropdown name="Espace professeur" id="entity-menu">
     <MenuItem icon="asterisk" to="/entity/absence">
-      Fiche d’absence executif
+      Fiche d’absence Executif
     </MenuItem>
 
     <MenuItem icon="asterisk" to="/entity/absence-licence">
@@ -18,7 +18,7 @@ export const EspaceProfMenu = props => (
     </MenuItem>
 
     <MenuItem icon="asterisk" to="/entity/absence-master">
-      Fiche d’absence MASTER ACADEMIQUE
+      Fiche d’absence MASTER
     </MenuItem>
 
     <MenuItem icon="asterisk" to="/entity/suivi-module">

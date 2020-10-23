@@ -70,9 +70,7 @@ export class AnneeInscriptionUpdate extends React.Component<IAnneeInscriptionUpd
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.anneeInscription.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.anneeInscription.home.createOrEditLabel">Create or edit a AnneeInscription</Translate>
-            </h2>
+            <h2 id="pfumv10App.anneeInscription.home.createOrEditLabel">Ajouter ou éditer une année de scolarite</h2>
           </Col>
         </Row>
         <Row className="justify-content-center">

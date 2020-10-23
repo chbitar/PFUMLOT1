@@ -12,9 +12,10 @@ import { IRootState } from 'app/shared/reducers';
 import { getSearchEntities, getEntities, updateEntity, getEntitiesByFiliere, getEntitiesByUserId } from './etudiants-licence.reducer';
 import { IEtudiantsLicence } from 'app/shared/model/etudiants-licence.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
 import { getEntities as getEtablissements } from 'app/entities/etablissement/etablissement.reducer';
 import { getEntities as getFilieres, getEntitiesByEtab } from 'app/entities/filiere/filiere.reducer';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
 
 export interface IEtudiantsLicenceProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -67,98 +68,103 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
   };
 
   render() {
-    const { etudiantsLicenceList, match, etablissements, filieres } = this.props;
+    const { etudiantsLicenceList, match, etablissements, filieres, isAdmin, isUser, isRespFin, isEtudiant } = this.props;
     return (
       <div>
-        <h2 id="etudiants-licence-heading">
-          Liste inscrits : BAC+3
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp; Ajouter un nouvel étudiant
-          </Link>
-        </h2>
+        {(isAdmin || isUser) && (
+          <h2 id="etudiants-licence-heading">
+            Liste inscrits : BAC+3
+            <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+              <FontAwesomeIcon icon="plus" />
+              &nbsp; Ajouter un nouvel étudiant
+            </Link>
+          </h2>
+        )}
+        {isEtudiant && <h2 id="etudiants-executif-heading">Détail Inscription Etudiant</h2>}
         <Row>
-          <Col sm="12">
-            <AvForm onSubmit={this.search}>
-              <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div className="toast-header">
-                  <strong className="mr-auto">Etat d'inscription</strong>
-                </div>
-                <div className="toast-body">
-                  <AvGroup>
-                    <Label for="filiere-etablissement">
-                      <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
-                    </Label>
-                    <AvInput
-                      id="filiere-etablissement"
-                      type="select"
-                      className="form-control"
-                      name="etablissement.id"
-                      onChange={this.filtrerListFiliereEtab}
-                    >
-                      <option value="" key="0" />
-                      {etablissements
-                        ? etablissements.map(otherEntity => (
-                            <option value={otherEntity.id} key={otherEntity.id}>
-                              {otherEntity.nomEcole}
-                            </option>
-                          ))
-                        : null}
-                    </AvInput>
-                  </AvGroup>
-                  <AvGroup>
-                    <Label for="module-filiere">Filière</Label>
-                    <AvInput
-                      id="module-filiere"
-                      type="select"
-                      className="form-control"
-                      name="filiere.id"
-                      onChange={this.filtrerListEtudiantByFiliere}
-                    >
-                      <option value="" key="0" />
-                      {filieres
-                        ? filieres.map(otherEntity => (
-                            <option value={otherEntity.id} key={otherEntity.id}>
-                              {otherEntity.nomfiliere}
-                            </option>
-                          ))
-                        : null}
-                    </AvInput>
-                  </AvGroup>
-                  <Button color="warning" size="sm">
-                    <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">PDF</span>
-                  </Button>
-                  <Button color="success" size="sm">
-                    <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">XLS</span>
-                  </Button>
-                </div>
-              </div>
-              <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div className="toast-header">
-                  <strong className="mr-auto">Recherche</strong>
-                </div>
-                <div className="toast-body">
-                  <AvGroup>
-                    <InputGroup>
+          {(isAdmin || isUser) && (
+            <Col sm="12">
+              <AvForm onSubmit={this.search}>
+                <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div className="toast-header">
+                    <strong className="mr-auto">Etat d'inscription</strong>
+                  </div>
+                  <div className="toast-body">
+                    <AvGroup>
+                      <Label for="filiere-etablissement">
+                        <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
+                      </Label>
                       <AvInput
-                        type="text"
-                        name="search"
-                        value={this.state.search}
-                        onChange={this.handleSearch}
-                        placeholder={translate('pfumv10App.etudiantsLicence.home.search')}
-                      />
-                      <Button className="input-group-addon">
-                        <FontAwesomeIcon icon="search" />
-                      </Button>
-                      <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                        <FontAwesomeIcon icon="trash" />
-                      </Button>
-                    </InputGroup>
-                  </AvGroup>
+                        id="filiere-etablissement"
+                        type="select"
+                        className="form-control"
+                        name="etablissement.id"
+                        onChange={this.filtrerListFiliereEtab}
+                      >
+                        <option value="" key="0" />
+                        {etablissements
+                          ? etablissements.map(otherEntity => (
+                              <option value={otherEntity.id} key={otherEntity.id}>
+                                {otherEntity.nomEcole}
+                              </option>
+                            ))
+                          : null}
+                      </AvInput>
+                    </AvGroup>
+                    <AvGroup>
+                      <Label for="module-filiere">Filière</Label>
+                      <AvInput
+                        id="module-filiere"
+                        type="select"
+                        className="form-control"
+                        name="filiere.id"
+                        onChange={this.filtrerListEtudiantByFiliere}
+                      >
+                        <option value="" key="0" />
+                        {filieres
+                          ? filieres.map(otherEntity => (
+                              <option value={otherEntity.id} key={otherEntity.id}>
+                                {otherEntity.nomfiliere}
+                              </option>
+                            ))
+                          : null}
+                      </AvInput>
+                    </AvGroup>
+                    <Button color="warning" size="sm">
+                      <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">PDF</span>
+                    </Button>
+                    <Button color="success" size="sm">
+                      <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">XLS</span>
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </AvForm>
-          </Col>
+                <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div className="toast-header">
+                    <strong className="mr-auto">Recherche</strong>
+                  </div>
+                  <div className="toast-body">
+                    <AvGroup>
+                      <InputGroup>
+                        <AvInput
+                          type="text"
+                          name="search"
+                          value={this.state.search}
+                          onChange={this.handleSearch}
+                          placeholder={translate('pfumv10App.etudiantsLicence.home.search')}
+                        />
+                        <Button className="input-group-addon">
+                          <FontAwesomeIcon icon="search" />
+                        </Button>
+                        <Button type="reset" className="input-group-addon" onClick={this.clear}>
+                          <FontAwesomeIcon icon="trash" />
+                        </Button>
+                      </InputGroup>
+                    </AvGroup>
+                  </div>
+                </div>
+              </AvForm>
+            </Col>
+          )}
         </Row>
         <div className="table-responsive">
           {etudiantsLicenceList && etudiantsLicenceList.length > 0 ? (
@@ -177,7 +183,7 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
                     <Translate contentKey="pfumv10App.etudiantsLicence.photo">Photo</Translate>
                   </th>
 
-                  <th>Validité</th>
+                  {(isAdmin || isRespFin) && <th>Validité</th>}
 
                   <th>
                     <Translate contentKey="pfumv10App.etudiantsLicence.filiere">Filiere</Translate>
@@ -206,18 +212,19 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
                         </div>
                       ) : null}
                     </td>
-                    <td>
-                      {etudiantsLicence.inscriptionvalide ? (
-                        <Button color="success" onClick={this.toggleActive(etudiantsLicence)}>
-                          Validé
-                        </Button>
-                      ) : (
-                        <Button color="danger" onClick={this.toggleActive(etudiantsLicence)}>
-                          En attente
-                        </Button>
-                      )}
-                    </td>
-
+                    {(isAdmin || isRespFin) && (
+                      <td>
+                        {etudiantsLicence.inscriptionvalide ? (
+                          <Button color="success" onClick={this.toggleActive(etudiantsLicence)}>
+                            Validé
+                          </Button>
+                        ) : (
+                          <Button color="danger" onClick={this.toggleActive(etudiantsLicence)}>
+                            En attente
+                          </Button>
+                        )}
+                      </td>
+                    )}
                     <td>
                       {etudiantsLicence.filiere ? (
                         <Link to={`filiere/${etudiantsLicence.filiere.id}`}>{etudiantsLicence.filiere.nomfiliere}</Link>
@@ -243,18 +250,22 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
-                        <Button tag={Link} to={`${match.url}/${etudiantsLicence.id}/edit`} color="primary" size="sm">
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${etudiantsLicence.id}/delete`} color="danger" size="sm">
-                          <FontAwesomeIcon icon="trash" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.delete">Delete</Translate>
-                          </span>
-                        </Button>
+                        {(isAdmin || isUser) && (
+                          <>
+                            <Button tag={Link} to={`${match.url}/${etudiantsLicence.id}/edit`} color="primary" size="sm">
+                              <FontAwesomeIcon icon="pencil-alt" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.edit">Edit</Translate>
+                              </span>
+                            </Button>
+                            <Button tag={Link} to={`${match.url}/${etudiantsLicence.id}/delete`} color="danger" size="sm">
+                              <FontAwesomeIcon icon="trash" />{' '}
+                              <span className="d-none d-md-inline">
+                                <Translate contentKey="entity.action.delete">Delete</Translate>
+                              </span>
+                            </Button>
+                          </>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -275,7 +286,11 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
 const mapStateToProps = (storeState: IRootState) => ({
   etudiantsLicenceList: storeState.etudiantsLicence.entities,
   etablissements: storeState.etablissement.entities,
-  filieres: storeState.filiere.entities
+  filieres: storeState.filiere.entities,
+  isAdmin: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isUser: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.USER]),
+  isRespFin: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.ROLE_RESP_FINANCE]),
+  isEtudiant: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.ROLE_ETUDIANT_EXECUTIF])
 });
 
 const mapDispatchToProps = {

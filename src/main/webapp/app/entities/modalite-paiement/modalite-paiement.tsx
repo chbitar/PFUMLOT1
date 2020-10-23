@@ -47,11 +47,10 @@ export class ModalitePaiement extends React.Component<IModalitePaiementProps, IM
     return (
       <div>
         <h2 id="modalite-paiement-heading">
-          <Translate contentKey="pfumv10App.modalitePaiement.home.title">Modalite Paiements</Translate>
+          Parametrage modalité de paiement scolarité
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="pfumv10App.modalitePaiement.home.createLabel">Create new Modalite Paiement</Translate>
+            &nbsp; Créer ou éditer une modalité
           </Link>
         </h2>
         <Row>
