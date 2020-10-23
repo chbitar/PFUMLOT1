@@ -102,8 +102,7 @@ export default (state: FiliereState = initialState, action): FiliereState => {
 
 const apiUrl = 'api/filieres';
 const apiSearchUrl = 'api/_search/filieres';
-
-// Actions
+const apiExtendedUrl = 'api/extended/filieres';
 
 export const getSearchEntities: ICrudSearchAction<IFiliere> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_FILIERES,
@@ -152,7 +151,7 @@ export const deleteEntity: ICrudDeleteAction<IFiliere> = id => async dispatch =>
 };
 
 export const getEntitiesByEtab: ICrudGetAction<IFiliere> = etab => {
-  const requestUrl = `${apiUrl}/etablissement/${etab}`;
+  const requestUrl = `${apiExtendedUrl}/etablissement/${etab}`;
   return {
     type: ACTION_TYPES.FETCH_FILIERE_LIST,
     payload: axios.get<IFiliere>(requestUrl)
