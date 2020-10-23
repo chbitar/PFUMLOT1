@@ -480,7 +480,7 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                               <AvGroup>
                                 <AvGroup>
                                   <Label id="cvLabel" for="cv">
-                                    <Translate contentKey="pfumApp.etudiantsExecutif.cv">Cv</Translate>
+                                    CV
                                   </Label>
                                   <br />
                                   {cv ? (
@@ -510,7 +510,7 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                               <AvGroup>
                                 <AvGroup>
                                   <Label id="autreDocumentLabel" for="autreDocument">
-                                    <Translate contentKey="pfumApp.etudiantsExecutif.autreDocument">Autre Document</Translate>
+                                    Autre Document
                                   </Label>
                                   <br />
                                   {autreDocument ? (
@@ -540,9 +540,7 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                               <AvGroup>
                                 <AvGroup>
                                   <Label id="attestationDeTravailLabel" for="attestationDeTravail">
-                                    <Translate contentKey="pfumApp.etudiantsExecutif.attestationDeTravail">
-                                      Attestation De Travail
-                                    </Translate>
+                                    Attestation De Travail
                                   </Label>
                                   <br />
                                   {attestationDeTravail ? (

@@ -453,7 +453,7 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                               <AvGroup>
                                 <AvGroup>
                                   <Label id="testAdmissionLabel" for="testAdmission">
-                                    <Translate contentKey="pfumApp.etudiantsMaster.testAdmission">Test Admission</Translate>
+                                    Test Admission
                                   </Label>
                                   <br />
                                   {testAdmission ? (
@@ -491,7 +491,7 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                               <AvGroup>
                                 <AvGroup>
                                   <Label id="relevesNotesLabel" for="relevesNotes">
-                                    <Translate contentKey="pfumApp.etudiantsMaster.relevesNotes">Releves Notes</Translate>
+                                    Releves Notes
                                   </Label>
                                   <br />
                                   {relevesNotes ? (
