@@ -148,9 +148,7 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
                     : null}
                 </AvGroup>
                 <AvGroup>
-                  <Label for="filiere-anneeInscription">
-                    <Translate contentKey="pfumApp.filiere.anneeInscription">Annee académique</Translate>
-                  </Label>
+                  <Label for="filiere-anneeInscription">Annee académique</Label>
                   <AvInput id="filiere-anneeInscription" type="select" className="form-control" name="anneeInscription.id">
                     <option value="" key="0" />
                     {anneeInscriptions

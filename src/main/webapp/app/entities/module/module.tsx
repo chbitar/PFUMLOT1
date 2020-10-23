@@ -42,7 +42,7 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
   handleSearch = event => this.setState({ search: event.target.value });
 
   filtrerListModuleBySemestre = e => {
-    this.props.history.push('/entity/ module');
+    this.props.history.push('/entity/module');
 
     if (e.target.value === '') this.props.getEntities();
     else this.props.getEntitiesBySemestre(e.target.value);
