@@ -6,6 +6,7 @@ class PageNotFound extends React.Component {
   render() {
     return (
       <div>
+        The page does not exist
         <Alert color="danger">
           <Translate contentKey="error.http.404">The page does not exist.</Translate>
         </Alert>

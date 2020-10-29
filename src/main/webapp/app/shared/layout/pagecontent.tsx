@@ -39,8 +39,6 @@ export class PageContent extends React.Component<IPageContentProps> {
   }
 
   fullScreenClick() {
-    var element = document.documentElement;
-
     const docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
       mozRequestFullScreen(): Promise<void>;
       webkitRequestFullscreen(): Promise<void>;
@@ -117,7 +115,11 @@ export class PageContent extends React.Component<IPageContentProps> {
         </div>
 
         <div className="page-body">
-          <Filiere />
+          {/* <Filiere />  */}
+
+          <ErrorBoundary>
+            <AppRoutes />
+          </ErrorBoundary>
         </div>
       </div>
     );

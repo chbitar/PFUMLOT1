@@ -35,7 +35,7 @@ export class NavbarBrand extends React.Component<INavbarBrandProps> {
       <div className="navbar-header pull-left">
         <a href="#" className="navbar-brand">
           <small>
-            <img src="assets/img/logo.png" alt="" />
+            <img src="content/assets/img/logo.png" alt="" />
           </small>
         </a>
       </div>

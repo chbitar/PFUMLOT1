@@ -28,37 +28,23 @@ const Admin = Loadable({
 // tslint:enable
 
 const Routes = () => (
-  <div className="view-routes">
-    <Switch>
-      <ErrorBoundaryRoute path="/login" component={Login} />
-      <ErrorBoundaryRoute path="/logout" component={Logout} />
-      <ErrorBoundaryRoute path="/register" component={Register} />
-      <ErrorBoundaryRoute path="/activate/:key?" component={Activate} />
-      <ErrorBoundaryRoute path="/reset/request" component={PasswordResetInit} />
-      <ErrorBoundaryRoute path="/reset/finish/:key?" component={PasswordResetFinish} />
-      <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
-      <PrivateRoute
-        path="/account"
-        component={Account}
-        hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER, AUTHORITIES.ROLE_RESP_FINANCE, AUTHORITIES.PROF]}
-      />
-      <PrivateRoute
-        path="/entity"
-        component={Entities}
-        hasAnyAuthorities={[
-          AUTHORITIES.ADMIN,
-          AUTHORITIES.USER,
-          AUTHORITIES.ROLE_RESP_FINANCE,
-          AUTHORITIES.PROF,
-          AUTHORITIES.ROLE_ETUDIANT_EXECUTIF,
-          AUTHORITIES.ROLE_ETUDIANT_LICENCE,
-          AUTHORITIES.ROLE_ETUDIANT_MASTER
-        ]}
-      />
-      <ErrorBoundaryRoute path="/" exact component={Home} />
-      <ErrorBoundaryRoute component={PageNotFound} />
-    </Switch>
-  </div>
+  <Switch>
+    <ErrorBoundaryRoute path="/login" component={Login} />
+    <ErrorBoundaryRoute path="/logout" component={Logout} />
+    <ErrorBoundaryRoute path="/register" component={Register} />
+    <ErrorBoundaryRoute path="/activate/:key?" component={Activate} />
+    <ErrorBoundaryRoute path="/reset/request" component={PasswordResetInit} />
+    <ErrorBoundaryRoute path="/reset/finish/:key?" component={PasswordResetFinish} />
+    <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
+    <PrivateRoute
+      path="/account"
+      component={Account}
+      hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER, AUTHORITIES.ROLE_RESP_FINANCE, AUTHORITIES.PROF]}
+    />
+    <ErrorBoundaryRoute path="/entity" component={Entities} />
+    <ErrorBoundaryRoute path="/" exact component={Home} />
+    <ErrorBoundaryRoute component={PageNotFound} />
+  </Switch>
 );
 
 export default Routes;

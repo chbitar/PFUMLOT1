@@ -69,7 +69,7 @@ const Routes = ({ match }) => (
         component={EtudiantsMaster}
         hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER, AUTHORITIES.ROLE_ETUDIANT_MASTER]}
       />
-      <PrivateRoute path={`${match.url}/filiere`} component={Filiere} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
+      <ErrorBoundaryRoute path={`${match.url}/filiere`} component={Filiere} />
       <PrivateRoute path={`${match.url}/module`} component={Module} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path={`${match.url}/professeur`} component={Professeur} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path={`${match.url}/suivi-module`} component={SuiviModule} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.PROF]} />

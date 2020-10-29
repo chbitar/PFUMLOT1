@@ -18,6 +18,7 @@ import '../../../static/assets/js/datatable/ZeroClipboard.js';
 import '../../../static/assets/js/datatable/dataTables.tableTools.min.js';
 import '../../../static/assets/js/datatable/dataTables.bootstrap.min.js';
 import '../../../static/assets/js/datatable/datatables-init.js';
+import ReactDOM from 'react-dom';
 
 export interface IFiliereProps extends StateProps, DispatchProps {}
 
@@ -32,11 +33,7 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
 
   componentDidMount() {
     this.props.getEntities();
-
-    InitiateSimpleDataTable.init();
     InitiateEditableDataTable.init();
-    InitiateExpandableDataTable.init();
-    InitiateSearchableDataTable.init();
   }
 
   search = () => {
@@ -51,10 +48,15 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
     });
   };
 
+  rootEl = document.getElementById('page-body');
+
+  render2 = Component => ReactDOM.render(<Component />, this.rootEl);
+
   handleSearch = event => this.setState({ search: event.target.value });
 
   render() {
     const { filiereList } = this.props;
+
     return (
       <div className="row">
         <div className="col-xs-12 col-md-12">
