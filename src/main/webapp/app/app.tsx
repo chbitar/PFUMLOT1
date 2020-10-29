@@ -1,5 +1,6 @@
-import 'react-toastify/dist/ReactToastify.css';
-import './app.scss';
+import '../static/assets/css/beyond.min.css';
+import '../static/assets/css/demo.min.css';
+import '../static/assets/css/demo.min.css';
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -18,6 +19,10 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
+import Navbar from './shared/layout/Navbar/navbar';
+import PageSidebar from './shared/layout/pagesidebar';
+import ChatBar from './shared/layout/chatbar';
+import PageContent from './shared/layout/pagecontent';
 
 const baseHref = document
   .querySelector('base')
@@ -28,34 +33,25 @@ export interface IAppProps extends StateProps, DispatchProps {}
 
 export class App extends React.Component<IAppProps> {
   componentDidMount() {
-    this.props.getSession();
-    this.props.getProfile();
+    /*     this.props.getSession();
+    this.props.getProfile(); */
   }
 
   render() {
     const paddingTop = '60px';
     return (
       <Router basename={baseHref}>
-        <div className="app-container" style={{ paddingTop }}>
-          <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
-          <ErrorBoundary>
-            <Header
-              isAuthenticated={this.props.isAuthenticated}
-              isAdmin={this.props.isAdmin}
-              currentLocale={this.props.currentLocale}
-              onLocaleChange={this.props.setLocale}
-              ribbonEnv={this.props.ribbonEnv}
-              isInProduction={this.props.isInProduction}
-              isSwaggerEnabled={this.props.isSwaggerEnabled}
-            />
-          </ErrorBoundary>
-          <div className="container-fluid view-container" id="app-view-container">
-            <Card className="jh-card">
-              <ErrorBoundary>
-                <AppRoutes />
-              </ErrorBoundary>
-            </Card>
-            <Footer />
+        <div>
+          <div className="loading-container">
+            <div className="loader" />
+          </div>
+          <Navbar />
+          <div className="main-container container-fluid">
+            <div className="page-container">
+              <PageSidebar />
+              <ChatBar />
+              <PageContent />
+            </div>
           </div>
         </div>
       </Router>
