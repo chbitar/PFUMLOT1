@@ -40,7 +40,7 @@ export class MessageItem extends React.Component<IMessageItemProps> {
     return (
       <li>
         <a href="#">
-          <img src="assets/img/avatars/divyia.jpg" className="message-avatar" alt="Divyia Austin" />
+          <img src="content/assets/img/avatars/divyia.jpg" className="message-avatar" alt="Divyia Austin" />
           <div className="message">
             <span className="message-sender">{this.props.sender}</span>
             <span className="message-time">{this.props.time}</span>

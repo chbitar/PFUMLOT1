@@ -115,8 +115,6 @@ export class PageContent extends React.Component<IPageContentProps> {
         </div>
 
         <div className="page-body">
-          {/* <Filiere />  */}
-
           <ErrorBoundary>
             <AppRoutes />
           </ErrorBoundary>

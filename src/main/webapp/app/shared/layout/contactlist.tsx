@@ -20,6 +20,7 @@ import MenuItem from './menuitem';
 import ContactSearch from './contactsearch';
 import Contact from './contact';
 import $ from 'jquery';
+// tslint:disable
 import '../../../static/assets/js/slimscroll/jquery.slimscroll.min.js';
 
 const baseHref = document

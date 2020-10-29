@@ -1,6 +1,4 @@
 import '../static/assets/css/beyond.min.css';
-import '../static/assets/css/demo.min.css';
-import '../static/assets/css/demo.min.css';
 
 import React from 'react';
 import { connect } from 'react-redux';
