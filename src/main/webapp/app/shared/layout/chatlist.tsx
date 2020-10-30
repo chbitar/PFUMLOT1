@@ -22,6 +22,7 @@ import ChatBarContact from './chatbarcontact';
 import ChatMessage from './chatmessage';
 import ChatReply from './chatreply';
 import $ from 'jquery';
+import slimscroll from 'jquery-slimscroll';
 
 const baseHref = document
   .querySelector('base')
@@ -32,9 +33,7 @@ export interface IChatListProps extends StateProps, DispatchProps {}
 
 export class ChatList extends React.Component<IChatListProps> {
   componentDidMount() {
-    /*     this.props.getSession();
-    this.props.getProfile(); */
-    /*    var position = (this.readCookie("rtl-support") || location.pathname == "/index-rtl-fa.html" || location.pathname == "/index-rtl-ar.html") ? 'right' : 'left';
+    /*   var position = (this.readCookie("rtl-support") || location.pathname == "/index-rtl-fa.html" || location.pathname == "/index-rtl-ar.html") ? 'right' : 'left';
     var additionalHeight = 0;
     if ($(window).width() < 531)
       additionalHeight = 45;
@@ -43,7 +42,7 @@ export class ChatList extends React.Component<IChatListProps> {
       size: '4px',
       color: themeprimary,
       height: $(window).height() - (250 + additionalHeight),
-    });   */
+    });  */
   }
 
   readCookie = e => {

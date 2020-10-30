@@ -1,3 +1,4 @@
+/* tslint:disable */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -39,5 +40,5 @@ const render = Component =>
     rootEl
   );
 
-/* render (AppComponent);*/
-render(Login);
+render(AppComponent);
+/* render(Login);*/

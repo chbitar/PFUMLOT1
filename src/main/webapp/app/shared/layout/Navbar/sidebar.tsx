@@ -52,12 +52,12 @@ export class SideBar extends React.Component<ISideBarProps> {
           this.readCookie('rtl-support') || location.pathname == '/index-rtl-fa.html' || location.pathname == '/index-rtl-ar.html'
             ? 'right'
             : 'left';
-        /*     $('.sidebar-menu').slimscroll({
+        $('.sidebar-menu').slimscroll({
           height: 'auto',
           position: position,
           size: '3px',
           color: themeprimary
-        }); */
+        });
       }
     }
   };

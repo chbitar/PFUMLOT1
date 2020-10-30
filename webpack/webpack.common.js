@@ -74,12 +74,12 @@ module.exports = options => ({
         test: /\.jsx?$/,
         loader: 'source-map-loader'
       },
-      {
+     /*  {
         test: /\.tsx?$/,
         enforce: 'pre',
         loader: 'tslint-loader',
         exclude: [utils.root('node_modules')]
-      }
+      } */
     ]
   },
   stats: {
@@ -110,7 +110,7 @@ module.exports = options => ({
         SERVER_API_URL: `''`
       }
     }),
-    new ForkTsCheckerWebpackPlugin({ tslint: true }),
+    new ForkTsCheckerWebpackPlugin({ tslint: false }),
     new CopyWebpackPlugin([
       { from: './node_modules/swagger-ui/dist/css', to: 'swagger-ui/dist/css' },
       { from: './node_modules/swagger-ui/dist/lib', to: 'swagger-ui/dist/lib' },

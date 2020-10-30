@@ -1,4 +1,4 @@
-// tslint:disable
+/* tslint:disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
@@ -14,11 +14,9 @@ import { IFiliere } from 'app/shared/model/filiere.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import '../../../static/assets/css/dataTables.bootstrap.css';
-import '../../../static/assets/js/datatable/jquery.dataTables.min.js';
-import '../../../static/assets/js/datatable/ZeroClipboard.js';
-import '../../../static/assets/js/datatable/dataTables.tableTools.min.js';
-import '../../../static/assets/js/datatable/dataTables.bootstrap.min.js';
 import '../../../static/assets/js/datatable/datatables-init.js';
+import * as $ from 'jquery';
+
 import ReactDOM from 'react-dom';
 
 export interface IFiliereProps extends StateProps, DispatchProps {}
@@ -34,7 +32,6 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
 
   componentDidMount() {
     this.props.getEntities();
-    InitiateEditableDataTable.init();
   }
 
   search = () => {
@@ -48,10 +45,6 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
       this.props.getEntities();
     });
   };
-
-  rootEl = document.getElementById('page-body');
-
-  render2 = Component => ReactDOM.render(<Component />, this.rootEl);
 
   handleSearch = event => this.setState({ search: event.target.value });
 
@@ -109,7 +102,6 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
                 <thead>
                   <tr role="row">
                     <th>Nom filière</th>
-
                     <th>
                       <Translate contentKey="pfumv10App.filiere.responsable">Responsable</Translate>
                     </th>
@@ -123,37 +115,35 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
                       <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
                     </th>
                     <th />
-                    <th />
                   </tr>
                 </thead>
                 <tbody>
                   {filiereList.map((filiere, i) => (
-                    <tr key={`entity-${i}`}>
-                      <td>{filiere.nomfiliere}</td>
-                      <td>{filiere.responsable}</td>
-                      <td>{filiere.accreditaion}</td>
-                      <td>
-                        <Translate contentKey={`pfumv10App.Programme.${filiere.programme}`} />
-                      </td>
-                      <td>
-                        {filiere.etablissement ? (
-                          <Link to={`etablissement/${filiere.etablissement.id}`}>{filiere.etablissement.nomEcole}</Link>
-                        ) : (
-                          ''
-                        )}
-                      </td>
-                      <td className="text-right">
-                        <div className="btn-group flex-btn-group-container" />
-                      </td>
-                      <td>
-                        <a href="#" className="btn btn-info btn-xs edit">
-                          <i className="fa fa-edit" /> Edit
-                        </a>
-                        <a href="#" className="btn btn-danger btn-xs delete">
-                          <i className="fa fa-trash-o" /> Delete
-                        </a>
-                      </td>
-                    </tr>
+                    <>
+                      <tr>
+                        <td>{filiere.nomfiliere}</td>
+                        <td>{filiere.responsable}</td>
+                        <td>{filiere.accreditaion}</td>
+                        <td>
+                          <Translate contentKey={`pfumv10App.Programme.${filiere.programme}`} />
+                        </td>
+                        <td>
+                          {filiere.etablissement ? (
+                            <Link to={`etablissement/${filiere.etablissement.id}`}>{filiere.etablissement.nomEcole}</Link>
+                          ) : (
+                            ''
+                          )}
+                        </td>
+                        <td>
+                          <a href="#" className="btn btn-info btn-xs edit">
+                            <i className="fa fa-edit" /> Edit
+                          </a>
+                          <a href="#" className="btn btn-danger btn-xs delete">
+                            <i className="fa fa-trash-o" /> Delete
+                          </a>
+                        </td>
+                      </tr>
+                    </>
                   ))}
                 </tbody>
               </table>
