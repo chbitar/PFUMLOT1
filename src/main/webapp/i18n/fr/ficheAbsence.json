@@ -1,0 +1,26 @@
+{
+  "pfumApp": {
+    "ficheAbsence": {
+      "home": {
+        "title": "La liste des Fiches d'absence",
+        "createLabel": "Créer une nouvelle Fiche Absence",
+        "createOrEditLabel": "Créer ou éditer une Fiche Absence",
+        "search": "Recherche pour Fiche Absence",
+        "notFound": "Aucune Fiche Absence trouvée"
+      },
+      "created": "Une nouvelle Fiche Absence a été créé avec l'identifiant {{ param }}",
+      "updated": "La Fiche Absence avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Fiche Absence avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer la Fiche Absence {{ id }} ?"
+      },
+      "detail": {
+        "title": "Fiche Absence"
+      },
+      "dateSeance": "Date de Séance",
+      "module": "Module",
+      "absence": "Absence",
+      "programme": "Programme"
+    }
+  }
+}

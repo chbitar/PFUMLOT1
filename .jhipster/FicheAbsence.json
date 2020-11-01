@@ -1,0 +1,38 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "module",
+            "otherEntityName": "module",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "nomModule",
+            "ownerSide": true,
+            "useJPADerivedIdentifier": false,
+            "otherEntityRelationshipName": "ficheAbsence"
+        },
+        {
+            "relationshipName": "absence",
+            "otherEntityName": "absence",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "ficheAbsence"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "dateSeance",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20201101004326",
+    "dto": "no",
+    "searchEngine": "elasticsearch",
+    "service": "no",
+    "entityTableName": "fiche_absence",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}
