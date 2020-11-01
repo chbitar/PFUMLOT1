@@ -33,8 +33,8 @@ export class AffectationModuleDeleteDialog extends React.Component<IAffectationM
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.affectationModule.delete.question">
-          <Translate contentKey="pfumv10App.affectationModule.delete.question" interpolate={{ id: affectationModuleEntity.id }}>
+        <ModalBody id="pfumApp.affectationModule.delete.question">
+          <Translate contentKey="pfumApp.affectationModule.delete.question" interpolate={{ id: affectationModuleEntity.id }}>
             Are you sure you want to delete this AffectationModule?
           </Translate>
         </ModalBody>

@@ -93,7 +93,7 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
                   <div className="toast-body">
                     <AvGroup>
                       <Label for="filiere-etablissement">
-                        <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
+                        <Translate contentKey="pfumApp.filiere.etablissement">Etablissement</Translate>
                       </Label>
                       <AvInput
                         id="filiere-etablissement"
@@ -151,7 +151,7 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
                             name="search"
                             value={this.state.search}
                             onChange={this.handleSearch}
-                            placeholder={translate('pfumv10App.etudiantsMaster.home.search')}
+                            placeholder={translate('pfumApp.etudiantsMaster.home.search')}
                           />
                           <Button className="input-group-addon">
                             <FontAwesomeIcon icon="search" />
@@ -175,20 +175,20 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
                 <tr>
                   <th>N° étudiant</th>
                   <th>
-                    <Translate contentKey="pfumv10App.etudiantsMaster.nom">Nom</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.nom">Nom</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.etudiantsMaster.prenom">Prenom</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.prenom">Prenom</Translate>
                   </th>
 
                   <th>
-                    <Translate contentKey="pfumv10App.etudiantsMaster.photo">Photo</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.photo">Photo</Translate>
                   </th>
 
                   {(isAdmin || isRespFin) && <th>Validité</th>}
 
                   <th>
-                    <Translate contentKey="pfumv10App.etudiantsMaster.filiere">Filiere</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.filiere">Filiere</Translate>
                   </th>
                   <th>Année scolaire</th>
 
@@ -277,7 +277,7 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.etudiantsMaster.home.notFound">No Etudiants Masters found</Translate>
+              <Translate contentKey="pfumApp.etudiantsMaster.home.notFound">No Etudiants Masters found</Translate>
             </div>
           )}
         </div>

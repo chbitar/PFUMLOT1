@@ -83,8 +83,8 @@ export class NoteExecutifUpdate extends React.Component<INoteExecutifUpdateProps
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.noteExecutif.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.noteExecutif.home.createOrEditLabel">Create or edit a NoteExecutif</Translate>
+            <h2 id="pfumApp.noteExecutif.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.noteExecutif.home.createOrEditLabel">Create or edit a NoteExecutif</Translate>
             </h2>
           </Col>
         </Row>
@@ -104,7 +104,7 @@ export class NoteExecutifUpdate extends React.Component<INoteExecutifUpdateProps
                 ) : null}
                 <AvGroup>
                   <Label id="semestreLabel" for="note-executif-semestre">
-                    <Translate contentKey="pfumv10App.noteExecutif.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.semestre">Semestre</Translate>
                   </Label>
                   <AvInput
                     id="note-executif-semestre"
@@ -113,35 +113,35 @@ export class NoteExecutifUpdate extends React.Component<INoteExecutifUpdateProps
                     name="semestre"
                     value={(!isNew && noteExecutifEntity.semestre) || 'S1'}
                   >
-                    <option value="S1">{translate('pfumv10App.Semestre.S1')}</option>
-                    <option value="S2">{translate('pfumv10App.Semestre.S2')}</option>
-                    <option value="S3">{translate('pfumv10App.Semestre.S3')}</option>
-                    <option value="S4">{translate('pfumv10App.Semestre.S4')}</option>
-                    <option value="S5">{translate('pfumv10App.Semestre.S5')}</option>
-                    <option value="S6">{translate('pfumv10App.Semestre.S6')}</option>
+                    <option value="S1">{translate('pfumApp.Semestre.S1')}</option>
+                    <option value="S2">{translate('pfumApp.Semestre.S2')}</option>
+                    <option value="S3">{translate('pfumApp.Semestre.S3')}</option>
+                    <option value="S4">{translate('pfumApp.Semestre.S4')}</option>
+                    <option value="S5">{translate('pfumApp.Semestre.S5')}</option>
+                    <option value="S6">{translate('pfumApp.Semestre.S6')}</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label id="noteCC1Label" for="note-executif-noteCC1">
-                    <Translate contentKey="pfumv10App.noteExecutif.noteCC1">Note CC 1</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.noteCC1">Note CC 1</Translate>
                   </Label>
                   <AvField id="note-executif-noteCC1" type="string" className="form-control" name="noteCC1" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="noteCC2Label" for="note-executif-noteCC2">
-                    <Translate contentKey="pfumv10App.noteExecutif.noteCC2">Note CC 2</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.noteCC2">Note CC 2</Translate>
                   </Label>
                   <AvField id="note-executif-noteCC2" type="string" className="form-control" name="noteCC2" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="noteFinalLabel" for="note-executif-noteFinal">
-                    <Translate contentKey="pfumv10App.noteExecutif.noteFinal">Note Final</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.noteFinal">Note Final</Translate>
                   </Label>
                   <AvField id="note-executif-noteFinal" type="string" className="form-control" name="noteFinal" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="dateLabel" for="note-executif-date">
-                    <Translate contentKey="pfumv10App.noteExecutif.date">Date</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.date">Date</Translate>
                   </Label>
                   <AvInput
                     id="note-executif-date"
@@ -154,7 +154,7 @@ export class NoteExecutifUpdate extends React.Component<INoteExecutifUpdateProps
                 </AvGroup>
                 <AvGroup>
                   <Label for="note-executif-user">
-                    <Translate contentKey="pfumv10App.noteExecutif.user">User</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.user">User</Translate>
                   </Label>
                   <AvInput id="note-executif-user" type="select" className="form-control" name="user.id">
                     <option value="" key="0" />
@@ -169,7 +169,7 @@ export class NoteExecutifUpdate extends React.Component<INoteExecutifUpdateProps
                 </AvGroup>
                 <AvGroup>
                   <Label for="note-executif-module">
-                    <Translate contentKey="pfumv10App.noteExecutif.module">Module</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.module">Module</Translate>
                   </Label>
                   <AvInput id="note-executif-module" type="select" className="form-control" name="module.id">
                     <option value="" key="0" />

@@ -80,7 +80,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.document.home.createOrEditLabel">Charger ou éditer un document</h2>
+            <h2 id="pfumApp.document.home.createOrEditLabel">Charger ou éditer un document</h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -91,7 +91,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
               <AvForm model={isNew ? {} : documentEntity} onSubmit={this.saveEntity}>
                 <AvGroup>
                   <Label id="titreLabel" for="document-titre">
-                    <Translate contentKey="pfumv10App.document.titre">Titre</Translate>
+                    <Translate contentKey="pfumApp.document.titre">Titre</Translate>
                   </Label>
                   <AvField id="document-titre" type="text" name="titre" />
                 </AvGroup>
@@ -125,7 +125,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                 </AvGroup>
                 <AvGroup>
                   <Label id="typeDocumentLabel" for="document-typeDocument">
-                    <Translate contentKey="pfumv10App.document.typeDocument">Source</Translate>
+                    <Translate contentKey="pfumApp.document.typeDocument">Source</Translate>
                   </Label>
                   <AvInput
                     id="filiere-programme"

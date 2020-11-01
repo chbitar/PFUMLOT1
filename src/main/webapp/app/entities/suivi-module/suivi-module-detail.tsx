@@ -25,30 +25,30 @@ export class SuiviModuleDetail extends React.Component<ISuiviModuleDetailProps> 
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.suiviModule.detail.title">SuiviModule</Translate> [<b>{suiviModuleEntity.id}</b>]
+            <Translate contentKey="pfumApp.suiviModule.detail.title">SuiviModule</Translate> [<b>{suiviModuleEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="semestre">
-                <Translate contentKey="pfumv10App.suiviModule.semestre">Semestre</Translate>
+                <Translate contentKey="pfumApp.suiviModule.semestre">Semestre</Translate>
               </span>
             </dt>
             <dd>{suiviModuleEntity.semestre}</dd>
             <dt>
               <span id="descriptif">
-                <Translate contentKey="pfumv10App.suiviModule.descriptif">Descriptif</Translate>
+                <Translate contentKey="pfumApp.suiviModule.descriptif">Descriptif</Translate>
               </span>
             </dt>
             <dd>{suiviModuleEntity.descriptif}</dd>
             <dt>
               <span id="observations">
-                <Translate contentKey="pfumv10App.suiviModule.observations">Observations</Translate>
+                <Translate contentKey="pfumApp.suiviModule.observations">Observations</Translate>
               </span>
             </dt>
             <dd>{suiviModuleEntity.observations}</dd>
             <dt>
               <span id="date">
-                <Translate contentKey="pfumv10App.suiviModule.date">Date</Translate>
+                <Translate contentKey="pfumApp.suiviModule.date">Date</Translate>
               </span>
             </dt>
             <dd>
@@ -56,7 +56,7 @@ export class SuiviModuleDetail extends React.Component<ISuiviModuleDetailProps> 
             </dd>
             <dt>
               <span id="debutCreneau">
-                <Translate contentKey="pfumv10App.suiviModule.debutCreneau">Debut Creneau</Translate>
+                <Translate contentKey="pfumApp.suiviModule.debutCreneau">Debut Creneau</Translate>
               </span>
             </dt>
             <dd>
@@ -64,7 +64,7 @@ export class SuiviModuleDetail extends React.Component<ISuiviModuleDetailProps> 
             </dd>
             <dt>
               <span id="finCreneau">
-                <Translate contentKey="pfumv10App.suiviModule.finCreneau">Fin Creneau</Translate>
+                <Translate contentKey="pfumApp.suiviModule.finCreneau">Fin Creneau</Translate>
               </span>
             </dt>
             <dd>
@@ -72,16 +72,16 @@ export class SuiviModuleDetail extends React.Component<ISuiviModuleDetailProps> 
             </dd>
             <dt>
               <span id="duree">
-                <Translate contentKey="pfumv10App.suiviModule.duree">Duree</Translate>
+                <Translate contentKey="pfumApp.suiviModule.duree">Duree</Translate>
               </span>
             </dt>
             <dd>{suiviModuleEntity.duree}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.suiviModule.professeur">Professeur</Translate>
+              <Translate contentKey="pfumApp.suiviModule.professeur">Professeur</Translate>
             </dt>
             <dd>{suiviModuleEntity.user ? suiviModuleEntity.user.firstName + ' ' + suiviModuleEntity.user.lastName : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.suiviModule.module">Module</Translate>
+              <Translate contentKey="pfumApp.suiviModule.module">Module</Translate>
             </dt>
             <dd>{suiviModuleEntity.module ? suiviModuleEntity.module.nomModule : ''}</dd>
           </dl>

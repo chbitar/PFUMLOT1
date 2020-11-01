@@ -10,6 +10,7 @@ import { IRootState } from 'app/shared/reducers';
 
 import { IEtablissement } from 'app/shared/model/etablissement.model';
 import { getEntities as getEtablissements } from 'app/entities/etablissement/etablissement.reducer';
+import { getEntities as getAnneesInscription } from 'app/entities/annee-inscription/annee-inscription.reducer';
 import { ITableauDeBoard } from 'app/shared/model/tableau-de-board.model';
 import { getEntities as getTableauDeBoards } from 'app/entities/tableau-de-board/tableau-de-board.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './filiere.reducer';
@@ -50,6 +51,8 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
     }
 
     this.props.getEtablissements();
+    this.props.getAnneesInscription();
+
     this.props.getTableauDeBoards();
   }
 
@@ -81,7 +84,7 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.filiere.home.createOrEditLabel">Ajouter pu éditer une filière</h2>
+            <h2 id="pfumApp.filiere.home.createOrEditLabel">Ajouter ou éditer une filière</h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -94,23 +97,44 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
                   <Label id="nomfiliereLabel" for="filiere-nomfiliere">
                     Nom filière
                   </Label>
-                  <AvField id="filiere-nomfiliere" type="text" name="nomfiliere" />
+                  <AvField
+                    id="filiere-nomfiliere"
+                    type="text"
+                    name="nomfiliere"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="responsableLabel" for="filiere-responsable">
-                    <Translate contentKey="pfumv10App.filiere.responsable">Responsable</Translate>
+                    <Translate contentKey="pfumApp.filiere.responsable">Responsable</Translate>
                   </Label>
-                  <AvField id="filiere-responsable" type="text" name="responsable" />
+                  <AvField
+                    id="filiere-responsable"
+                    type="text"
+                    name="responsable"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="accreditaionLabel" for="filiere-accreditaion">
                     Accréditation
                   </Label>
-                  <AvField id="filiere-accreditaion" type="text" name="accreditaion" />
+                  <AvField
+                    id="filiere-accreditaion"
+                    type="text"
+                    name="accreditaion"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="programmeLabel" for="filiere-programme">
-                    <Translate contentKey="pfumv10App.filiere.programme">Programme</Translate>
+                    <Translate contentKey="pfumApp.filiere.programme">Programme</Translate>
                   </Label>
                   <AvInput
                     id="filiere-programme"
@@ -122,14 +146,14 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
                       required: { value: true, errorMessage: translate('entity.validation.required') }
                     }}
                   >
-                    <option value="LICENCE">{translate('pfumv10App.Programme.LICENCE')}</option>
-                    <option value="MASTER">{translate('pfumv10App.Programme.MASTER')}</option>
-                    <option value="MASTER_EXECUTIF">{translate('pfumv10App.Programme.MASTER_EXECUTIF')}</option>
+                    <option value="LICENCE">{translate('pfumApp.Programme.LICENCE')}</option>
+                    <option value="MASTER">{translate('pfumApp.Programme.MASTER')}</option>
+                    <option value="MASTER_EXECUTIF">{translate('pfumApp.Programme.MASTER_EXECUTIF')}</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label for="filiere-etablissement">
-                    <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
+                    <Translate contentKey="pfumApp.filiere.etablissement">Etablissement</Translate>
                   </Label>
                   {etablissements
                     ? etablissements.map(otherEntity => (
@@ -148,13 +172,21 @@ export class FiliereUpdate extends React.Component<IFiliereUpdateProps, IFiliere
                     : null}
                 </AvGroup>
                 <AvGroup>
-                  <Label for="filiere-anneeInscription">Annee académique</Label>
-                  <AvInput id="filiere-anneeInscription" type="select" className="form-control" name="anneeInscription.id">
+                  <Label for="filiere-anneeInscription">Année académique</Label>
+                  <AvInput
+                    id="filiere-anneeInscription"
+                    type="select"
+                    className="form-control"
+                    name="anneeInscription.id"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  >
                     <option value="" key="0" />
                     {anneeInscriptions
                       ? anneeInscriptions.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.annee}
                           </option>
                         ))
                       : null}
@@ -195,6 +227,8 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getEtablissements,
   getTableauDeBoards,
+  getAnneesInscription,
+
   getEntity,
   updateEntity,
   createEntity,

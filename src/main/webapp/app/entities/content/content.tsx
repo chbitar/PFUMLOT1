@@ -47,11 +47,11 @@ export class Content extends React.Component<IContentProps, IContentState> {
     return (
       <div>
         <h2 id="content-heading">
-          <Translate contentKey="pfumv10App.content.home.title">Contents</Translate>
+          <Translate contentKey="pfumApp.content.home.title">Contents</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.content.home.createLabel">Create new Content</Translate>
+            <Translate contentKey="pfumApp.content.home.createLabel">Create new Content</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class Content extends React.Component<IContentProps, IContentState> {
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.content.home.search')}
+                    placeholder={translate('pfumApp.content.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,7 +86,7 @@ export class Content extends React.Component<IContentProps, IContentState> {
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.content.data">Data</Translate>
+                    <Translate contentKey="pfumApp.content.data">Data</Translate>
                   </th>
                   <th />
                 </tr>
@@ -140,7 +140,7 @@ export class Content extends React.Component<IContentProps, IContentState> {
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.content.home.notFound">No Contents found</Translate>
+              <Translate contentKey="pfumApp.content.home.notFound">No Contents found</Translate>
             </div>
           )}
         </div>

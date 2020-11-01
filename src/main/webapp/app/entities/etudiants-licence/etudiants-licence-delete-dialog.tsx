@@ -33,8 +33,8 @@ export class EtudiantsLicenceDeleteDialog extends React.Component<IEtudiantsLice
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.etudiantsLicence.delete.question">
-          <Translate contentKey="pfumv10App.etudiantsLicence.delete.question" interpolate={{ id: etudiantsLicenceEntity.id }}>
+        <ModalBody id="pfumApp.etudiantsLicence.delete.question">
+          <Translate contentKey="pfumApp.etudiantsLicence.delete.question" interpolate={{ id: etudiantsLicenceEntity.id }}>
             Are you sure you want to delete this EtudiantsLicence?
           </Translate>
         </ModalBody>

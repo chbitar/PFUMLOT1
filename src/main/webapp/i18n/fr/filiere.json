@@ -1,27 +1,27 @@
 {
-  "pfumv10App": {
+  "pfumApp": {
     "filiere": {
       "home": {
         "title": "Filieres",
-        "createLabel": "Créer un nouveau Filiere",
+        "createLabel": "Créer une nouvelle Filière",
         "createOrEditLabel": "Créer ou éditer un Filiere",
         "search": "Recherche pour Filiere",
         "notFound": "Aucun Filiere trouvé"
       },
-      "created": "Un nouveau Filiere a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Filiere avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Filiere avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Filiere a été créé avec l'identifiant {{ param }}",
+      "updated": "La Filiere avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La Filiere a été supprimée",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Filiere {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer la Filière :{{ id }} ?"
       },
       "detail": {
-        "title": "Filiere"
+        "title": "Filière"
       },
-      "nomfiliere": "Nomfiliere",
+      "nomfiliere": "Nom filière",
       "responsable": "Responsable",
-      "accreditaion": "Accreditaion",
+      "accreditaion": "Accréditaion",
       "programme": "Programme",
-      "pfumApp.filiere.anneeInscription": "Annee académique",
+      "pfumApp.filiere.anneeInscription": "Année académique",
       "etudiantsExecutif": "Etudiants Executif",
       "etudiantsLicence": "Etudiants Licence",
       "etudiantsMaster": "Etudiants Master",

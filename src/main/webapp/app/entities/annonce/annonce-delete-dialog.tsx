@@ -33,8 +33,8 @@ export class AnnonceDeleteDialog extends React.Component<IAnnonceDeleteDialogPro
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.annonce.delete.question">
-          <Translate contentKey="pfumv10App.annonce.delete.question" interpolate={{ id: annonceEntity.id }}>
+        <ModalBody id="pfumApp.annonce.delete.question">
+          <Translate contentKey="pfumApp.annonce.delete.question" interpolate={{ id: annonceEntity.id }}>
             Are you sure you want to delete this Annonce?
           </Translate>
         </ModalBody>

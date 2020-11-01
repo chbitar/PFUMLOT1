@@ -25,12 +25,12 @@ export class ContentDetail extends React.Component<IContentDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.content.detail.title">Content</Translate> [<b>{contentEntity.id}</b>]
+            <Translate contentKey="pfumApp.content.detail.title">Content</Translate> [<b>{contentEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="data">
-                <Translate contentKey="pfumv10App.content.data">Data</Translate>
+                <Translate contentKey="pfumApp.content.data">Data</Translate>
               </span>
             </dt>
             <dd>

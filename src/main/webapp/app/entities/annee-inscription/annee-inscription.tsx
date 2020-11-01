@@ -63,7 +63,7 @@ export class AnneeInscription extends React.Component<IAnneeInscriptionProps, IA
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.anneeInscription.home.search')}
+                    placeholder={translate('pfumApp.anneeInscription.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -85,7 +85,7 @@ export class AnneeInscription extends React.Component<IAnneeInscriptionProps, IA
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.anneeInscription.annee">Annee</Translate>
+                    <Translate contentKey="pfumApp.anneeInscription.annee">Annee</Translate>
                   </th>
                   <th />
                 </tr>
@@ -127,7 +127,7 @@ export class AnneeInscription extends React.Component<IAnneeInscriptionProps, IA
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.anneeInscription.home.notFound">No Annee Inscriptions found</Translate>
+              <Translate contentKey="pfumApp.anneeInscription.home.notFound">No Annee Inscriptions found</Translate>
             </div>
           )}
         </div>

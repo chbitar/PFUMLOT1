@@ -25,13 +25,12 @@ export class AnneeInscriptionDetail extends React.Component<IAnneeInscriptionDet
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.anneeInscription.detail.title">AnneeInscription</Translate> [
-            <b>{anneeInscriptionEntity.id}</b>]
+            <Translate contentKey="pfumApp.anneeInscription.detail.title">AnneeInscription</Translate> [<b>{anneeInscriptionEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="annee">
-                <Translate contentKey="pfumv10App.anneeInscription.annee">Annee</Translate>
+                <Translate contentKey="pfumApp.anneeInscription.annee">Annee</Translate>
               </span>
             </dt>
             <dd>{anneeInscriptionEntity.annee}</dd>

@@ -47,11 +47,11 @@ export class EspaceEtudiant extends React.Component<IEspaceEtudiantProps, IEspac
     return (
       <div>
         <h2 id="espace-etudiant-heading">
-          <Translate contentKey="pfumv10App.espaceEtudiant.home.title">Espace Etudiants</Translate>
+          <Translate contentKey="pfumApp.espaceEtudiant.home.title">Espace Etudiants</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.espaceEtudiant.home.createLabel">Create new Espace Etudiant</Translate>
+            <Translate contentKey="pfumApp.espaceEtudiant.home.createLabel">Create new Espace Etudiant</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class EspaceEtudiant extends React.Component<IEspaceEtudiantProps, IEspac
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.espaceEtudiant.home.search')}
+                    placeholder={translate('pfumApp.espaceEtudiant.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,28 +86,28 @@ export class EspaceEtudiant extends React.Component<IEspaceEtudiantProps, IEspac
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.espaceEtudiant.emploiDuTemps">Emploi Du Temps</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.emploiDuTemps">Emploi Du Temps</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.espaceEtudiant.user">User</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.user">User</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.espaceEtudiant.etudiantLicence">Etudiant Licence</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.etudiantLicence">Etudiant Licence</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.espaceEtudiant.etudiantMaster">Etudiant Master</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.etudiantMaster">Etudiant Master</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.espaceEtudiant.etudiantExecutif">Etudiant Executif</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.etudiantExecutif">Etudiant Executif</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.espaceEtudiant.calendrier">Calendrier</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.calendrier">Calendrier</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.espaceEtudiant.absence">Absence</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.absence">Absence</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.espaceEtudiant.annonce">Annonce</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.annonce">Annonce</Translate>
                   </th>
                   <th />
                 </tr>
@@ -199,7 +199,7 @@ export class EspaceEtudiant extends React.Component<IEspaceEtudiantProps, IEspac
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.espaceEtudiant.home.notFound">No Espace Etudiants found</Translate>
+              <Translate contentKey="pfumApp.espaceEtudiant.home.notFound">No Espace Etudiants found</Translate>
             </div>
           )}
         </div>

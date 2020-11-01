@@ -45,6 +45,9 @@ public class Professeur implements Serializable {
 
     @Column(name = "email")
     private String email;
+    
+    @Column(name = "telephone")
+    private String telephone;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -179,6 +182,20 @@ public class Professeur implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+    
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public Professeur tel(String telephone) {
+        this.telephone = telephone;
+        return this;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
 
     public Set<AffectationModule> getAffectationModules() {
         return affectationModules;
@@ -234,6 +251,8 @@ public class Professeur implements Serializable {
             ", cin='" + getCin() + "'" +
             ", rib='" + getRib() + "'" +
             ", email='" + getEmail() + "'" +
+            ", telephone='" + getTelephone()+ "'" +
+
             "}";
     }
 }

@@ -25,47 +25,47 @@ export class NoteLicenceDetail extends React.Component<INoteLicenceDetailProps> 
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.noteLicence.detail.title">NoteLicence</Translate> [<b>{noteLicenceEntity.id}</b>]
+            <Translate contentKey="pfumApp.noteLicence.detail.title">NoteLicence</Translate> [<b>{noteLicenceEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="semestre">
-                <Translate contentKey="pfumv10App.noteLicence.semestre">Semestre</Translate>
+                <Translate contentKey="pfumApp.noteLicence.semestre">Semestre</Translate>
               </span>
             </dt>
             <dd>{noteLicenceEntity.semestre}</dd>
             <dt>
               <span id="noteCC1">
-                <Translate contentKey="pfumv10App.noteLicence.noteCC1">Note CC 1</Translate>
+                <Translate contentKey="pfumApp.noteLicence.noteCC1">Note CC 1</Translate>
               </span>
             </dt>
             <dd>{noteLicenceEntity.noteCC1}</dd>
             <dt>
               <span id="noteCC2">
-                <Translate contentKey="pfumv10App.noteLicence.noteCC2">Note CC 2</Translate>
+                <Translate contentKey="pfumApp.noteLicence.noteCC2">Note CC 2</Translate>
               </span>
             </dt>
             <dd>{noteLicenceEntity.noteCC2}</dd>
             <dt>
               <span id="noteFinal">
-                <Translate contentKey="pfumv10App.noteLicence.noteFinal">Note Final</Translate>
+                <Translate contentKey="pfumApp.noteLicence.noteFinal">Note Final</Translate>
               </span>
             </dt>
             <dd>{noteLicenceEntity.noteFinal}</dd>
             <dt>
               <span id="date">
-                <Translate contentKey="pfumv10App.noteLicence.date">Date</Translate>
+                <Translate contentKey="pfumApp.noteLicence.date">Date</Translate>
               </span>
             </dt>
             <dd>
               <TextFormat value={noteLicenceEntity.date} type="date" format={APP_DATE_FORMAT} />
             </dd>
             <dt>
-              <Translate contentKey="pfumv10App.noteLicence.user">User</Translate>
+              <Translate contentKey="pfumApp.noteLicence.user">User</Translate>
             </dt>
             <dd>{noteLicenceEntity.user ? noteLicenceEntity.user.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.noteLicence.module">Module</Translate>
+              <Translate contentKey="pfumApp.noteLicence.module">Module</Translate>
             </dt>
             <dd>{noteLicenceEntity.module ? noteLicenceEntity.module.id : ''}</dd>
           </dl>

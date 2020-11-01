@@ -83,10 +83,10 @@ public class EtudiantsMaster implements Serializable {
     private String province;
 
     @Column(name = "tel")
-    private Integer tel;
+    private String tel;
 
     @Column(name = "deuxieme_tel")
-    private Integer deuxiemeTel;
+    private String deuxiemeTel;
 
     
     @Lob
@@ -370,29 +370,29 @@ public class EtudiantsMaster implements Serializable {
         this.province = province;
     }
 
-    public Integer getTel() {
+    public String getTel() {
         return tel;
     }
 
-    public EtudiantsMaster tel(Integer tel) {
+    public EtudiantsMaster tel(String tel) {
         this.tel = tel;
         return this;
     }
 
-    public void setTel(Integer tel) {
+    public void setTel(String tel) {
         this.tel = tel;
     }
 
-    public Integer getDeuxiemeTel() {
+    public String getDeuxiemeTel() {
         return deuxiemeTel;
     }
 
-    public EtudiantsMaster deuxiemeTel(Integer deuxiemeTel) {
+    public EtudiantsMaster deuxiemeTel(String deuxiemeTel) {
         this.deuxiemeTel = deuxiemeTel;
         return this;
     }
 
-    public void setDeuxiemeTel(Integer deuxiemeTel) {
+    public void setDeuxiemeTel(String deuxiemeTel) {
         this.deuxiemeTel = deuxiemeTel;
     }
 

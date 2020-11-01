@@ -25,28 +25,28 @@ export class AffectationModuleDetail extends React.Component<IAffectationModuleD
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.affectationModule.detail.title">AffectationModule</Translate> [
+            <Translate contentKey="pfumApp.affectationModule.detail.title">AffectationModule</Translate> [
             <b>{affectationModuleEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="annee">
-                <Translate contentKey="pfumv10App.affectationModule.annee">Annee</Translate>
+                <Translate contentKey="pfumApp.affectationModule.annee">Annee</Translate>
               </span>
             </dt>
             <dd>{affectationModuleEntity.annee}</dd>
             <dt>
               <span id="semestre">
-                <Translate contentKey="pfumv10App.affectationModule.semestre">Semestre</Translate>
+                <Translate contentKey="pfumApp.affectationModule.semestre">Semestre</Translate>
               </span>
             </dt>
             <dd>{affectationModuleEntity.semestre}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.affectationModule.module">Module</Translate>
+              <Translate contentKey="pfumApp.affectationModule.module">Module</Translate>
             </dt>
             <dd>{affectationModuleEntity.module ? affectationModuleEntity.module.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.affectationModule.professeur">Professeur</Translate>
+              <Translate contentKey="pfumApp.affectationModule.professeur">Professeur</Translate>
             </dt>
             <dd>{affectationModuleEntity.professeur ? affectationModuleEntity.professeur.id : ''}</dd>
           </dl>

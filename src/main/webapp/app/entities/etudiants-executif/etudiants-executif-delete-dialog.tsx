@@ -33,8 +33,8 @@ export class EtudiantsExecutifDeleteDialog extends React.Component<IEtudiantsExe
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.etudiantsExecutif.delete.question">
-          <Translate contentKey="pfumv10App.etudiantsExecutif.delete.question" interpolate={{ id: etudiantsExecutifEntity.id }}>
+        <ModalBody id="pfumApp.etudiantsExecutif.delete.question">
+          <Translate contentKey="pfumApp.etudiantsExecutif.delete.question" interpolate={{ id: etudiantsExecutifEntity.id }}>
             Are you sure you want to delete this EtudiantsExecutif?
           </Translate>
         </ModalBody>

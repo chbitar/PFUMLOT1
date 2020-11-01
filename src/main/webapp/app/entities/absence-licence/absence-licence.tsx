@@ -47,7 +47,7 @@ export class AbsenceLicence extends React.Component<IAbsenceProps, IAbsenceState
     return (
       <div>
         <h2 id="absence-heading">
-          {/*           <Translate contentKey="pfumv10App.absence.home.title">Absences</Translate>
+          {/*           <Translate contentKey="pfumApp.absence.home.title">Absences</Translate>
            */}
           Liste des absences : Licence
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
@@ -65,7 +65,7 @@ export class AbsenceLicence extends React.Component<IAbsenceProps, IAbsenceState
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.absence.home.search')}
+                    placeholder={translate('pfumApp.absence.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -87,21 +87,21 @@ export class AbsenceLicence extends React.Component<IAbsenceProps, IAbsenceState
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th> */}
                   <th>
-                    <Translate contentKey="pfumv10App.absence.absent">Absent</Translate>
+                    <Translate contentKey="pfumApp.absence.absent">Absent</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.absence.dateSeance">Date Seance</Translate>
+                    <Translate contentKey="pfumApp.absence.dateSeance">Date Seance</Translate>
                   </th>
 
                   <th>
-                    <Translate contentKey="pfumv10App.absence.module">Module</Translate>
+                    <Translate contentKey="pfumApp.absence.module">Module</Translate>
                   </th>
                   <th>Nom Etudiant</th>
                   {/*  <th>
-                    <Translate contentKey="pfumv10App.absence.etudiantsMaster">Etudiants Master</Translate>
+                    <Translate contentKey="pfumApp.absence.etudiantsMaster">Etudiants Master</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.absence.etudiantsExecutif">Etudiants Executif</Translate>
+                    <Translate contentKey="pfumApp.absence.etudiantsExecutif">Etudiants Executif</Translate>
                   </th> */}
                   <th />
                 </tr>
@@ -171,7 +171,7 @@ export class AbsenceLicence extends React.Component<IAbsenceProps, IAbsenceState
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.absence.home.notFound">No Absences found</Translate>
+              <Translate contentKey="pfumApp.absence.home.notFound">No Absences found</Translate>
             </div>
           )}
         </div>

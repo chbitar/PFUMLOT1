@@ -1,5 +1,5 @@
 {
-  "pfumv10App": {
+  "pfumApp": {
     "professeur": {
       "home": {
         "title": "Professeurs",
@@ -18,13 +18,13 @@
         "title": "Professeur"
       },
       "nom": "Nom",
-      "prenom": "Prenom",
+      "prenom": "Prénom",
       "etablissement": "Etablissement",
       "grade": "Grade",
-      "diplome": "Diplome",
+      "diplome": "Diplôme",
       "cin": "Cin",
       "rib": "Rib",
-      "telephone": "Telephone",
+      "telephone": "Téléphone",
       "email": "Email",
       "user": "User",
       "affectationModule": "Affectation Module"

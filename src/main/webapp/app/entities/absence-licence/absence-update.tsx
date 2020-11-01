@@ -19,6 +19,8 @@ import { getEntity, updateEntity, createEntity, reset } from './absence.reducer'
 import { IAbsence } from 'app/shared/model/absence.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
+import { IFicheAbsence, Programme } from 'app/shared/model/fiche-absence.model';
+import { createEntity as createFicheAbsenceEntity } from 'app/entities/fiche-absence/fiche-absence.reducer';
 
 export interface IAbsenceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -83,6 +85,8 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
         ...values
       };
 
+      const absences = [];
+
       this.state.etudiantListLicence.map(item => {
         const absence: IAbsence = {
           dateSeance: entity.dateSeance,
@@ -92,13 +96,23 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
             id: item
           }
         };
-        this.props.createEntity(absence);
+        absences.push(absence);
+        /* this.props.createEntity(absence); */
       });
+
+      const ficheAbsence: IFicheAbsence = {
+        dateSeance: entity.dateSeance,
+        /* user: entity.user, */
+        module: entity.module,
+        programme: Programme.LICENCE,
+        absences
+      };
+      this.props.createFicheAbsenceEntity(ficheAbsence);
     }
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/absence-licence');
+    this.props.history.push('/entity/fiche-absence');
   };
 
   render() {
@@ -109,9 +123,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.absence.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.absence.home.createOrEditLabel">Create or edit a Absence</Translate>
-            </h2>
+            <h2 id="pfumApp.absence.home.createOrEditLabel">Créer une fiche d'absence [Bac+3]</h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -120,32 +132,35 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
               <p>Loading...</p>
             ) : (
               <AvForm model={isNew ? {} : absenceEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
-                  <AvGroup>
-                    <Label for="absence-id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="absence-id" type="text" className="form-control" name="id" required readOnly />
-                  </AvGroup>
-                ) : null}
                 <AvGroup>
                   <Label id="dateSeanceLabel" for="absence-dateSeance">
-                    <Translate contentKey="pfumv10App.absence.dateSeance">Date Seance</Translate>
+                    <Translate contentKey="pfumApp.absence.dateSeance">Date Seance</Translate>
                   </Label>
                   <AvInput
                     id="absence-dateSeance"
-                    type="datetime-local"
+                    type="date"
                     className="form-control"
                     name="dateSeance"
-                    placeholder={'YYYY-MM-DD HH:mm'}
+                    placeholder={'YYYY-MM-DD'}
                     value={isNew ? null : convertDateTimeFromServer(this.props.absenceEntity.dateSeance)}
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
                   />
                 </AvGroup>
                 <AvGroup>
                   <Label for="absence-module">
-                    <Translate contentKey="pfumv10App.absence.module">Module</Translate>
+                    <Translate contentKey="pfumApp.absence.module">Module</Translate>
                   </Label>
-                  <AvInput id="absence-module" type="select" className="form-control" name="module.id">
+                  <AvInput
+                    id="absence-module"
+                    type="select"
+                    className="form-control"
+                    name="module.id"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  >
                     <option value="" key="0" />
                     {modules
                       ? modules.map(otherEntity => (
@@ -164,16 +179,15 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                             <Translate contentKey="global.field.id">ID</Translate>
                           </th> */}
                       <th>
-                        <Translate contentKey="pfumv10App.etudiantsLicence.nom">Nom</Translate>
+                        <Translate contentKey="pfumApp.etudiantsLicence.nom">Nom</Translate>
                       </th>
                       <th>
-                        <Translate contentKey="pfumv10App.etudiantsLicence.prenom">Prenom</Translate>
+                        <Translate contentKey="pfumApp.etudiantsLicence.prenom">Prenom</Translate>
                       </th>
 
                       <th />
                     </tr>
                   </thead>
-
                   {etudiantsLicences.map((etudiant, i) => (
                     <tbody>
                       <tr key={`entity-${i}`}>
@@ -195,7 +209,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                   ))}
                 </Table>
                 <div />
-                <Button tag={Link} id="cancel-save" to="/entity/absence-licence" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/entity/fiche-absence" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;
                   <span className="d-none d-md-inline">
@@ -236,6 +250,7 @@ const mapDispatchToProps = {
   getEntity,
   updateEntity,
   createEntity,
+  createFicheAbsenceEntity,
   reset
 };
 

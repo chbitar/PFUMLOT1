@@ -166,7 +166,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                             <Col md="6">
                               <AvGroup>
                                 <Label id="nomLabel" for="etudiants-licence-nom">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.nom">Nom</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.nom">Nom</Translate>
                                 </Label>
                                 <AvField
                                   id="etudiants-licence-nom"
@@ -179,7 +179,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                               </AvGroup>
                               <AvGroup>
                                 <Label id="prenomLabel" for="etudiants-licence-prenom">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.prenom">Prenom</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.prenom">Prenom</Translate>
                                 </Label>
                                 <AvField
                                   id="etudiants-licence-prenom"
@@ -192,7 +192,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                               </AvGroup>
                               <AvGroup>
                                 <Label id="dateNaissanceLabel" for="etudiants-licence-dateNaissance">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.dateNaissance">Date Naissance</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.dateNaissance">Date Naissance</Translate>
                                 </Label>
                                 <AvInput
                                   id="etudiants-licence-dateNaissance"
@@ -208,7 +208,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                               </AvGroup>
                               <AvGroup>
                                 <Label id="adresseContactLabel" for="etudiants-licence-adresseContact">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.adresseContact">Adresse Contact</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.adresseContact">Adresse Contact</Translate>
                                 </Label>
                                 <AvField
                                   id="etudiants-licence-adresseContact"
@@ -221,7 +221,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                               </AvGroup>
                               <AvGroup>
                                 <Label id="villeLabel" for="etudiants-licence-ville">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.ville">Ville</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.ville">Ville</Translate>
                                 </Label>
                                 <AvField id="etudiants-licence-ville" type="text" name="ville" />
                               </AvGroup>
@@ -229,7 +229,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                             <Col md="6">
                               <AvGroup>
                                 <Label id="emailLabel" for="etudiants-licence-email">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.email">Email</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.email">Email</Translate>
                                 </Label>
                                 <AvField
                                   id="etudiants-licence-email"
@@ -242,7 +242,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                               </AvGroup>
                               <AvGroup>
                                 <Label id="cinPassLabel" for="etudiants-licence-cinPass">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.cinPass">Cin Pass</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.cinPass">Cin Pass</Translate>
                                 </Label>
                                 <AvField
                                   id="etudiants-licence-cinPass"
@@ -255,37 +255,37 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                               </AvGroup>
                               <AvGroup>
                                 <Label id="paysNationaliteLabel" for="etudiants-licence-paysNationalite">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.paysNationalite">Pays Nationalite</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.paysNationalite">Pays Nationalite</Translate>
                                 </Label>
                                 <AvField id="etudiants-licence-paysNationalite" type="text" name="paysNationalite" />
                               </AvGroup>
                               <AvGroup>
                                 <Label id="paysResidenceLabel" for="etudiants-licence-paysResidence">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.paysResidence">Pays Residence</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.paysResidence">Pays Residence</Translate>
                                 </Label>
                                 <AvField id="etudiants-licence-paysResidence" type="text" name="paysResidence" />
                               </AvGroup>
                               <AvGroup>
                                 <Label id="codepostalLabel" for="etudiants-licence-codepostal">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.codepostal">Codepostal</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.codepostal">Codepostal</Translate>
                                 </Label>
                                 <AvField id="etudiants-licence-codepostal" type="text" name="codepostal" />
                               </AvGroup>
                               <AvGroup>
                                 <Label id="provinceLabel" for="etudiants-licence-province">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.province">Province</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.province">Province</Translate>
                                 </Label>
                                 <AvField id="etudiants-licence-province" type="text" name="province" />
                               </AvGroup>
                               <AvGroup>
                                 <Label id="telLabel" for="etudiants-licence-tel">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.tel">Tel</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.tel">Tel</Translate>
                                 </Label>
                                 <AvField id="etudiants-licence-tel" type="string" className="form-control" name="tel" />
                               </AvGroup>
                               <AvGroup>
                                 <Label id="deuxiemeTelLabel" for="etudiants-licence-deuxiemeTel">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.deuxiemeTel">Deuxieme Tel</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.deuxiemeTel">Deuxieme Tel</Translate>
                                 </Label>
                                 <AvField id="etudiants-licence-deuxiemeTel" type="string" className="form-control" name="deuxiemeTel" />
                               </AvGroup>
@@ -313,20 +313,20 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                                   value={(!isNew && etudiantsLicenceEntity.pjBac) || 'Sciences_De_La_Vie_Et_De_La_Terre'}
                                 >
                                   <option value="Sciences_De_La_Vie_Et_De_La_Terre">
-                                    {translate('pfumv10App.DiplomeBac.Sciences_De_La_Vie_Et_De_La_Terre')}
+                                    {translate('pfumApp.DiplomeBac.Sciences_De_La_Vie_Et_De_La_Terre')}
                                   </option>
                                   <option value="Sciences_Physiques_Et_Chimiques">
-                                    {translate('pfumv10App.DiplomeBac.Sciences_Physiques_Et_Chimiques')}
+                                    {translate('pfumApp.DiplomeBac.Sciences_Physiques_Et_Chimiques')}
                                   </option>
-                                  <option value="Sciences_Economiques">{translate('pfumv10App.DiplomeBac.Sciences_Economiques')}</option>
+                                  <option value="Sciences_Economiques">{translate('pfumApp.DiplomeBac.Sciences_Economiques')}</option>
                                   <option value="Techniques_De_Gestion_Et_Comptabilite">
-                                    {translate('pfumv10App.DiplomeBac.Techniques_De_Gestion_Et_Comptabilite')}
+                                    {translate('pfumApp.DiplomeBac.Techniques_De_Gestion_Et_Comptabilite')}
                                   </option>
                                 </AvInput>
                               </AvGroup>
                               <AvGroup>
                                 <Label id="mentionLabel" for="etudiants-licence-mention">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.mention">Mention</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.mention">Mention</Translate>
                                 </Label>
                                 <AvInput
                                   id="etudiants-licence-mention"
@@ -335,21 +335,21 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                                   name="mention"
                                   value={(!isNew && etudiantsLicenceEntity.mention) || 'Passable'}
                                 >
-                                  <option value="Passable">{translate('pfumv10App.Mention.Passable')}</option>
-                                  <option value="Assez_bien">{translate('pfumv10App.Mention.Assez_bien')}</option>
-                                  <option value="Bien">{translate('pfumv10App.Mention.Bien')}</option>
-                                  <option value="Tres_bien">{translate('pfumv10App.Mention.Tres_bien')}</option>
+                                  <option value="Passable">{translate('pfumApp.Mention.Passable')}</option>
+                                  <option value="Assez_bien">{translate('pfumApp.Mention.Assez_bien')}</option>
+                                  <option value="Bien">{translate('pfumApp.Mention.Bien')}</option>
+                                  <option value="Tres_bien">{translate('pfumApp.Mention.Tres_bien')}</option>
                                 </AvInput>
                               </AvGroup>
                               <AvGroup>
                                 <Label id="anneOtentionLabel" for="etudiants-licence-anneOtention">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.anneOtention">Année Obtention</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.anneOtention">Année Obtention</Translate>
                                 </Label>
                                 <AvField id="etudiants-licence-anneOtention" type="text" name="anneeObtention" />
                               </AvGroup>
                               <AvGroup>
                                 <Label for="etudiants-licence-filiere">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.filiere">Filiere</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.filiere">Filiere</Translate>
                                 </Label>
                                 <AvInput id="etudiants-licence-filiere" type="select" className="form-control" name="filiere.id">
                                   <option value="" key="0" />
@@ -364,7 +364,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                               </AvGroup>
                               <AvGroup>
                                 <Label for="etudiants-licence-anneeInscription">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.anneeInscription">Annee Inscription</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.anneeInscription">Annee Inscription</Translate>
                                 </Label>
                                 <AvInput
                                   id="etudiants-licence-anneeInscription"
@@ -400,7 +400,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                               <AvGroup>
                                 <AvGroup>
                                   <Label id="bacalaureatLabel" for="bacalaureat">
-                                    <Translate contentKey="pfumv10App.etudiantsLicence.bacalaureat">Bacalaureat</Translate>
+                                    <Translate contentKey="pfumApp.etudiantsLicence.bacalaureat">Bacalaureat</Translate>
                                   </Label>
                                   <br />
                                   {bacalaureat ? (
@@ -520,7 +520,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                               <AvGroup>
                                 <AvGroup>
                                   <Label id="cinPassportLabel" for="cinPassport">
-                                    <Translate contentKey="pfumv10App.etudiantsLicence.cinPassport">Cin Passport</Translate>
+                                    <Translate contentKey="pfumApp.etudiantsLicence.cinPassport">Cin Passport</Translate>
                                   </Label>
                                   <br />
                                   {cinPassport ? (
@@ -573,7 +573,7 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                             <div className="card-body">
                               <AvGroup>
                                 <Label for="etudiants-licence-modalite">
-                                  <Translate contentKey="pfumv10App.etudiantsLicence.modalite">Modalite</Translate>
+                                  <Translate contentKey="pfumApp.etudiantsLicence.modalite">Modalite</Translate>
                                 </Label>
                                 <AvInput id="etudiants-licence-modalite" type="select" className="form-control" name="modalite.id">
                                   <option value="" key="0" />

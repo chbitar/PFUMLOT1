@@ -83,8 +83,8 @@ export class NoteLicenceUpdate extends React.Component<INoteLicenceUpdateProps, 
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.noteLicence.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.noteLicence.home.createOrEditLabel">Create or edit a NoteLicence</Translate>
+            <h2 id="pfumApp.noteLicence.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.noteLicence.home.createOrEditLabel">Create or edit a NoteLicence</Translate>
             </h2>
           </Col>
         </Row>
@@ -104,7 +104,7 @@ export class NoteLicenceUpdate extends React.Component<INoteLicenceUpdateProps, 
                 ) : null}
                 <AvGroup>
                   <Label id="semestreLabel" for="note-licence-semestre">
-                    <Translate contentKey="pfumv10App.noteLicence.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.semestre">Semestre</Translate>
                   </Label>
                   <AvInput
                     id="note-licence-semestre"
@@ -113,35 +113,35 @@ export class NoteLicenceUpdate extends React.Component<INoteLicenceUpdateProps, 
                     name="semestre"
                     value={(!isNew && noteLicenceEntity.semestre) || 'S1'}
                   >
-                    <option value="S1">{translate('pfumv10App.Semestre.S1')}</option>
-                    <option value="S2">{translate('pfumv10App.Semestre.S2')}</option>
-                    <option value="S3">{translate('pfumv10App.Semestre.S3')}</option>
-                    <option value="S4">{translate('pfumv10App.Semestre.S4')}</option>
-                    <option value="S5">{translate('pfumv10App.Semestre.S5')}</option>
-                    <option value="S6">{translate('pfumv10App.Semestre.S6')}</option>
+                    <option value="S1">{translate('pfumApp.Semestre.S1')}</option>
+                    <option value="S2">{translate('pfumApp.Semestre.S2')}</option>
+                    <option value="S3">{translate('pfumApp.Semestre.S3')}</option>
+                    <option value="S4">{translate('pfumApp.Semestre.S4')}</option>
+                    <option value="S5">{translate('pfumApp.Semestre.S5')}</option>
+                    <option value="S6">{translate('pfumApp.Semestre.S6')}</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label id="noteCC1Label" for="note-licence-noteCC1">
-                    <Translate contentKey="pfumv10App.noteLicence.noteCC1">Note CC 1</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.noteCC1">Note CC 1</Translate>
                   </Label>
                   <AvField id="note-licence-noteCC1" type="string" className="form-control" name="noteCC1" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="noteCC2Label" for="note-licence-noteCC2">
-                    <Translate contentKey="pfumv10App.noteLicence.noteCC2">Note CC 2</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.noteCC2">Note CC 2</Translate>
                   </Label>
                   <AvField id="note-licence-noteCC2" type="string" className="form-control" name="noteCC2" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="noteFinalLabel" for="note-licence-noteFinal">
-                    <Translate contentKey="pfumv10App.noteLicence.noteFinal">Note Final</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.noteFinal">Note Final</Translate>
                   </Label>
                   <AvField id="note-licence-noteFinal" type="string" className="form-control" name="noteFinal" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="dateLabel" for="note-licence-date">
-                    <Translate contentKey="pfumv10App.noteLicence.date">Date</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.date">Date</Translate>
                   </Label>
                   <AvInput
                     id="note-licence-date"
@@ -154,7 +154,7 @@ export class NoteLicenceUpdate extends React.Component<INoteLicenceUpdateProps, 
                 </AvGroup>
                 <AvGroup>
                   <Label for="note-licence-user">
-                    <Translate contentKey="pfumv10App.noteLicence.user">User</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.user">User</Translate>
                   </Label>
                   <AvInput id="note-licence-user" type="select" className="form-control" name="user.id">
                     <option value="" key="0" />
@@ -169,7 +169,7 @@ export class NoteLicenceUpdate extends React.Component<INoteLicenceUpdateProps, 
                 </AvGroup>
                 <AvGroup>
                   <Label for="note-licence-module">
-                    <Translate contentKey="pfumv10App.noteLicence.module">Module</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.module">Module</Translate>
                   </Label>
                   <AvInput id="note-licence-module" type="select" className="form-control" name="module.id">
                     <option value="" key="0" />

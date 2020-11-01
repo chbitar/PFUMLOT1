@@ -96,6 +96,10 @@ import document, {
 import emploieDuTemps, {
   EmploieDuTempsState
 } from 'app/entities/emploie-du-temps/emploie-du-temps.reducer';
+// prettier-ignore
+import ficheAbsence, {
+  FicheAbsenceState
+} from 'app/entities/fiche-absence/fiche-absence.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -129,8 +133,8 @@ export interface IRootState {
   readonly noteExecutif: NoteExecutifState;
   readonly tableauDeBoard: TableauDeBoardState;
   readonly document: DocumentState;
-
   readonly emploieDuTemps: EmploieDuTempsState;
+  readonly ficheAbsence: FicheAbsenceState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -167,6 +171,7 @@ const rootReducer = combineReducers<IRootState>({
   tableauDeBoard,
   document,
   emploieDuTemps,
+  ficheAbsence,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

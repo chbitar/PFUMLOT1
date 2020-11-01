@@ -47,7 +47,7 @@ export class Document extends React.Component<IDocumentProps, IDocumentState> {
     return (
       <div>
         <h2 id="document-heading">
-          <Translate contentKey="pfumv10App.document.home.title">Liste des documents</Translate>
+          <Translate contentKey="pfumApp.document.home.title">Liste des documents</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Charger un nouveau document
@@ -63,7 +63,7 @@ export class Document extends React.Component<IDocumentProps, IDocumentState> {
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.document.home.search')}
+                    placeholder={translate('pfumApp.document.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -85,13 +85,13 @@ export class Document extends React.Component<IDocumentProps, IDocumentState> {
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.document.titre">Titre</Translate>
+                    <Translate contentKey="pfumApp.document.titre">Titre</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.document.data">Data</Translate>
+                    <Translate contentKey="pfumApp.document.data">Data</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.document.typeDocument">Type Document</Translate>
+                    <Translate contentKey="pfumApp.document.typeDocument">Type Document</Translate>
                   </th>
                   <th />
                 </tr>
@@ -119,7 +119,7 @@ export class Document extends React.Component<IDocumentProps, IDocumentState> {
                       ) : null}
                     </td>
                     <td>
-                      <Translate contentKey={`pfumv10App.TypeDocument.${document.typeDocument}`} />
+                      <Translate contentKey={`pfumApp.TypeDocument.${document.typeDocument}`} />
                     </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
@@ -149,7 +149,7 @@ export class Document extends React.Component<IDocumentProps, IDocumentState> {
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.document.home.notFound">No Documents found</Translate>
+              <Translate contentKey="pfumApp.document.home.notFound">No Documents found</Translate>
             </div>
           )}
         </div>

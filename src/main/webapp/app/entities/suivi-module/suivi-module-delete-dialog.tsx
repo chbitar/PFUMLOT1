@@ -33,8 +33,8 @@ export class SuiviModuleDeleteDialog extends React.Component<ISuiviModuleDeleteD
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.suiviModule.delete.question">
-          <Translate contentKey="pfumv10App.suiviModule.delete.question" interpolate={{ id: suiviModuleEntity.id }}>
+        <ModalBody id="pfumApp.suiviModule.delete.question">
+          <Translate contentKey="pfumApp.suiviModule.delete.question" interpolate={{ id: suiviModuleEntity.id }}>
             Are you sure you want to delete this SuiviModule?
           </Translate>
         </ModalBody>

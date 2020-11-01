@@ -33,8 +33,8 @@ export class ModuleDeleteDialog extends React.Component<IModuleDeleteDialogProps
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.module.delete.question">
-          <Translate contentKey="pfumv10App.module.delete.question" interpolate={{ id: moduleEntity.id }}>
+        <ModalBody id="pfumApp.module.delete.question">
+          <Translate contentKey="pfumApp.module.delete.question" interpolate={{ id: moduleEntity.id }}>
             Are you sure you want to delete this Module?
           </Translate>
         </ModalBody>

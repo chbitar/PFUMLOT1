@@ -4,6 +4,7 @@ import { IEtudiantsMaster } from 'app/shared/model/etudiants-master.model';
 import { IModule } from 'app/shared/model/module.model';
 import { IEtablissement } from 'app/shared/model/etablissement.model';
 import { ITableauDeBoard } from 'app/shared/model/tableau-de-board.model';
+import { IAnneeInscription } from './annee-inscription.model';
 
 export const enum Programme {
   LICENCE = 'LICENCE',
@@ -23,6 +24,7 @@ export interface IFiliere {
   modules?: IModule[];
   etablissement?: IEtablissement;
   boards?: ITableauDeBoard[];
+  anneeInscription?: IAnneeInscription;
 }
 
 export const defaultValue: Readonly<IFiliere> = {};

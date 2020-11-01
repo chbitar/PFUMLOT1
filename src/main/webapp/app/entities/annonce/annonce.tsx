@@ -47,11 +47,11 @@ export class Annonce extends React.Component<IAnnonceProps, IAnnonceState> {
     return (
       <div>
         <h2 id="annonce-heading">
-          <Translate contentKey="pfumv10App.annonce.home.title">Annonces</Translate>
+          <Translate contentKey="pfumApp.annonce.home.title">Annonces</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.annonce.home.createLabel">Create new Annonce</Translate>
+            <Translate contentKey="pfumApp.annonce.home.createLabel">Create new Annonce</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class Annonce extends React.Component<IAnnonceProps, IAnnonceState> {
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.annonce.home.search')}
+                    placeholder={translate('pfumApp.annonce.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,10 +86,10 @@ export class Annonce extends React.Component<IAnnonceProps, IAnnonceState> {
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.annonce.annonce">Annonce</Translate>
+                    <Translate contentKey="pfumApp.annonce.annonce">Annonce</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.annonce.commentaire">Commentaire</Translate>
+                    <Translate contentKey="pfumApp.annonce.commentaire">Commentaire</Translate>
                   </th>
                   <th />
                 </tr>
@@ -132,7 +132,7 @@ export class Annonce extends React.Component<IAnnonceProps, IAnnonceState> {
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.annonce.home.notFound">No Annonces found</Translate>
+              <Translate contentKey="pfumApp.annonce.home.notFound">No Annonces found</Translate>
             </div>
           )}
         </div>

@@ -51,7 +51,7 @@ public class UserExtendedService extends UserService {
 		user.setLastName(lastName);
 		user.setEmail(email);
 		user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
-		String encryptedPassword = passwordEncoder.encode("Maroc@2020");
+		String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
 		user.setPassword(encryptedPassword);
 		user.setResetKey(RandomUtil.generateResetKey());
 		user.setResetDate(Instant.now());

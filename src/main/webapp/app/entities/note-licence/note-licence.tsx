@@ -47,11 +47,11 @@ export class NoteLicence extends React.Component<INoteLicenceProps, INoteLicence
     return (
       <div>
         <h2 id="note-licence-heading">
-          <Translate contentKey="pfumv10App.noteLicence.home.title">Note Licences</Translate>
+          <Translate contentKey="pfumApp.noteLicence.home.title">Note Licences</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.noteLicence.home.createLabel">Create new Note Licence</Translate>
+            <Translate contentKey="pfumApp.noteLicence.home.createLabel">Create new Note Licence</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class NoteLicence extends React.Component<INoteLicenceProps, INoteLicence
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.noteLicence.home.search')}
+                    placeholder={translate('pfumApp.noteLicence.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,25 +86,25 @@ export class NoteLicence extends React.Component<INoteLicenceProps, INoteLicence
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteLicence.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.semestre">Semestre</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteLicence.noteCC1">Note CC 1</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.noteCC1">Note CC 1</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteLicence.noteCC2">Note CC 2</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.noteCC2">Note CC 2</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteLicence.noteFinal">Note Final</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.noteFinal">Note Final</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteLicence.date">Date</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.date">Date</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteLicence.user">User</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.user">User</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteLicence.module">Module</Translate>
+                    <Translate contentKey="pfumApp.noteLicence.module">Module</Translate>
                   </th>
                   <th />
                 </tr>
@@ -118,7 +118,7 @@ export class NoteLicence extends React.Component<INoteLicenceProps, INoteLicence
                       </Button>
                     </td>
                     <td>
-                      <Translate contentKey={`pfumv10App.Semestre.${noteLicence.semestre}`} />
+                      <Translate contentKey={`pfumApp.Semestre.${noteLicence.semestre}`} />
                     </td>
                     <td>{noteLicence.noteCC1}</td>
                     <td>{noteLicence.noteCC2}</td>
@@ -156,7 +156,7 @@ export class NoteLicence extends React.Component<INoteLicenceProps, INoteLicence
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.noteLicence.home.notFound">No Note Licences found</Translate>
+              <Translate contentKey="pfumApp.noteLicence.home.notFound">No Note Licences found</Translate>
             </div>
           )}
         </div>

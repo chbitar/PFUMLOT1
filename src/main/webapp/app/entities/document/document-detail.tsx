@@ -25,18 +25,18 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.document.detail.title">Document</Translate> [<b>{documentEntity.id}</b>]
+            <Translate contentKey="pfumApp.document.detail.title">Document</Translate> [<b>{documentEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="titre">
-                <Translate contentKey="pfumv10App.document.titre">Titre</Translate>
+                <Translate contentKey="pfumApp.document.titre">Titre</Translate>
               </span>
             </dt>
             <dd>{documentEntity.titre}</dd>
             <dt>
               <span id="data">
-                <Translate contentKey="pfumv10App.document.data">Data</Translate>
+                <Translate contentKey="pfumApp.document.data">Data</Translate>
               </span>
             </dt>
             <dd>
@@ -53,7 +53,7 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
             </dd>
             <dt>
               <span id="typeDocument">
-                <Translate contentKey="pfumv10App.document.typeDocument">Type Document</Translate>
+                <Translate contentKey="pfumApp.document.typeDocument">Type Document</Translate>
               </span>
             </dt>
             <dd>{documentEntity.typeDocument}</dd>

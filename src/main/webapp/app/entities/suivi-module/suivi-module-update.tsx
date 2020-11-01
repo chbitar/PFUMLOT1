@@ -96,8 +96,8 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.suiviModule.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.suiviModule.home.createOrEditLabel">Create or edit a SuiviModule</Translate>
+            <h2 id="pfumApp.suiviModule.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.suiviModule.home.createOrEditLabel">Create or edit a SuiviModule</Translate>
             </h2>
           </Col>
         </Row>
@@ -109,7 +109,7 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
               <AvForm model={isNew ? {} : suiviModuleEntity} onSubmit={this.saveEntity}>
                 <AvGroup>
                   <Label id="semestreLabel" for="suivi-module-semestre">
-                    <Translate contentKey="pfumv10App.suiviModule.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.semestre">Semestre</Translate>
                   </Label>
                   <AvInput
                     onChange={this.filterModules}
@@ -119,17 +119,17 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                     name="semestre"
                     value={(!isNew && suiviModuleEntity.semestre) || 'S1'}
                   >
-                    <option value="S1">{translate('pfumv10App.Semestre.S1')}</option>
-                    <option value="S2">{translate('pfumv10App.Semestre.S2')}</option>
-                    <option value="S3">{translate('pfumv10App.Semestre.S3')}</option>
-                    <option value="S4">{translate('pfumv10App.Semestre.S4')}</option>
-                    <option value="S5">{translate('pfumv10App.Semestre.S5')}</option>
-                    <option value="S6">{translate('pfumv10App.Semestre.S6')}</option>
+                    <option value="S1">{translate('pfumApp.Semestre.S1')}</option>
+                    <option value="S2">{translate('pfumApp.Semestre.S2')}</option>
+                    <option value="S3">{translate('pfumApp.Semestre.S3')}</option>
+                    <option value="S4">{translate('pfumApp.Semestre.S4')}</option>
+                    <option value="S5">{translate('pfumApp.Semestre.S5')}</option>
+                    <option value="S6">{translate('pfumApp.Semestre.S6')}</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label id="descriptifLabel" for="suivi-module-descriptif">
-                    <Translate contentKey="pfumv10App.suiviModule.descriptif">Descriptif</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.descriptif">Descriptif</Translate>
                   </Label>
                   <AvInput
                     id="suivi-module-descriptif"
@@ -142,7 +142,7 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                 </AvGroup>
                 <AvGroup>
                   <Label id="observationsLabel" for="suivi-module-observations">
-                    <Translate contentKey="pfumv10App.suiviModule.observations">Observations</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.observations">Observations</Translate>
                   </Label>
                   <AvInput
                     id="suivi-module-observations"
@@ -155,7 +155,7 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                 </AvGroup>
                 <AvGroup>
                   <Label id="dateLabel" for="suivi-module-date">
-                    <Translate contentKey="pfumv10App.suiviModule.date">Date</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.date">Date</Translate>
                   </Label>
                   <AvInput
                     id="suivi-module-date"
@@ -171,7 +171,7 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                 </AvGroup>
                 <AvGroup>
                   <Label id="debutCreneauLabel" for="suivi-module-debutCreneau">
-                    <Translate contentKey="pfumv10App.suiviModule.debutCreneau">Debut Creneau</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.debutCreneau">Debut Creneau</Translate>
                   </Label>
                   <AvInput
                     id="suivi-module-debutCreneau"
@@ -187,7 +187,7 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                 </AvGroup>
                 <AvGroup>
                   <Label id="finCreneauLabel" for="suivi-module-finCreneau">
-                    <Translate contentKey="pfumv10App.suiviModule.finCreneau">Fin Creneau</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.finCreneau">Fin Creneau</Translate>
                   </Label>
                   <AvInput
                     id="suivi-module-finCreneau"
@@ -203,7 +203,7 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                 </AvGroup>
                 <AvGroup>
                   <Label id="dureeLabel" for="suivi-module-duree">
-                    <Translate contentKey="pfumv10App.suiviModule.duree">Duree</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.duree">Duree</Translate>
                   </Label>
                   <AvField
                     id="suivi-module-duree"
@@ -218,7 +218,7 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                 </AvGroup>
                 <AvGroup>
                   <Label for="suivi-module-module">
-                    <Translate contentKey="pfumv10App.suiviModule.module">Module</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.module">Module</Translate>
                   </Label>
                   <AvInput id="suivi-module-module" type="select" className="form-control" name="module.id">
                     <option value="" key="0" />

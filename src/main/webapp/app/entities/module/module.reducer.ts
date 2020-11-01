@@ -157,6 +157,14 @@ export const getEntitiesBySemestre: ICrudSearchAction<IModule> = sem => {
   };
 };
 
+export const getEntitiesByFiliere: ICrudSearchAction<IModule> = filiere => {
+  const requestUrl = `${apiExtendedUrl}/filiere/${filiere}`;
+  return {
+    type: ACTION_TYPES.FETCH_MODULE_LIST,
+    payload: axios.get<IModule>(requestUrl)
+  };
+};
+
 export const getEntitiesAffectedToProf: ICrudSearchAction<IModule> = sem => {
   const requestUrl = `${apiExtendedUrl}/professeur/${sem}`;
   return {

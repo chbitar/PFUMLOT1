@@ -33,8 +33,8 @@ export class EtablissementDeleteDialog extends React.Component<IEtablissementDel
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.etablissement.delete.question">
-          <Translate contentKey="pfumv10App.etablissement.delete.question" interpolate={{ id: etablissementEntity.id }}>
+        <ModalBody id="pfumApp.etablissement.delete.question">
+          <Translate contentKey="pfumApp.etablissement.delete.question" interpolate={{ id: etablissementEntity.id }}>
             Are you sure you want to delete this Etablissement?
           </Translate>
         </ModalBody>

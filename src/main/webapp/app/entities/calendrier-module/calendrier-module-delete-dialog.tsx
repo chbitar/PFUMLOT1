@@ -33,8 +33,8 @@ export class CalendrierModuleDeleteDialog extends React.Component<ICalendrierMod
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.calendrierModule.delete.question">
-          <Translate contentKey="pfumv10App.calendrierModule.delete.question" interpolate={{ id: calendrierModuleEntity.id }}>
+        <ModalBody id="pfumApp.calendrierModule.delete.question">
+          <Translate contentKey="pfumApp.calendrierModule.delete.question" interpolate={{ id: calendrierModuleEntity.id }}>
             Are you sure you want to delete this CalendrierModule?
           </Translate>
         </ModalBody>

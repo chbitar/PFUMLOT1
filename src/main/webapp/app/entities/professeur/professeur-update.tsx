@@ -76,8 +76,8 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.professeur.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.professeur.home.createOrEditLabel">Create or edit a Professeur</Translate>
+            <h2 id="pfumApp.professeur.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.professeur.home.createOrEditLabel">Create or edit a Professeur</Translate>
             </h2>
           </Col>
         </Row>
@@ -89,55 +89,77 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
               <AvForm model={isNew ? {} : professeurEntity} onSubmit={this.saveEntity}>
                 <AvGroup>
                   <Label id="nomLabel" for="professeur-nom">
-                    <Translate contentKey="pfumv10App.professeur.nom">Nom</Translate>
+                    <Translate contentKey="pfumApp.professeur.nom">Nom</Translate>
                   </Label>
-                  <AvField id="professeur-nom" type="text" name="nom" />
+                  <AvField
+                    id="professeur-nom"
+                    type="text"
+                    name="nom"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="prenomLabel" for="professeur-prenom">
-                    <Translate contentKey="pfumv10App.professeur.prenom">Prenom</Translate>
+                    <Translate contentKey="pfumApp.professeur.prenom">Prenom</Translate>
                   </Label>
-                  <AvField id="professeur-prenom" type="text" name="prenom" />
+                  <AvField
+                    id="professeur-prenom"
+                    type="text"
+                    name="prenom"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="emailLabel" for="professeur-email">
-                    <Translate contentKey="pfumv10App.professeur.email">Email</Translate>
+                    <Translate contentKey="pfumApp.professeur.email">Email</Translate>
                   </Label>
-                  <AvField id="professeur-email" type="text" name="email" />
+                  <AvField
+                    id="professeur-email"
+                    type="text"
+                    name="email"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      email: { value: true, errorMessage: translate('entity.validation.email') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="telephoneLabel" for="professeur-telephone">
-                    <Translate contentKey="pfumv10App.professeur.telephone">Telephone</Translate>
+                    <Translate contentKey="pfumApp.professeur.telephone">Telephone</Translate>
                   </Label>
                   <AvField id="professeur-telephone" type="text" name="telephone" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="etablissementLabel" for="professeur-etablissement">
-                    <Translate contentKey="pfumv10App.professeur.etablissement">Etablissement</Translate>
+                    <Translate contentKey="pfumApp.professeur.etablissement">Etablissement</Translate>
                   </Label>
                   <AvField id="professeur-etablissement" type="text" name="etablissement" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="gradeLabel" for="professeur-grade">
-                    <Translate contentKey="pfumv10App.professeur.grade">Grade</Translate>
+                    <Translate contentKey="pfumApp.professeur.grade">Grade</Translate>
                   </Label>
                   <AvField id="professeur-grade" type="text" name="grade" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="diplomeLabel" for="professeur-diplome">
-                    <Translate contentKey="pfumv10App.professeur.diplome">Diplome</Translate>
+                    <Translate contentKey="pfumApp.professeur.diplome">Diplome</Translate>
                   </Label>
                   <AvField id="professeur-diplome" type="text" name="diplome" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="cinLabel" for="professeur-cin">
-                    <Translate contentKey="pfumv10App.professeur.cin">Cin</Translate>
+                    <Translate contentKey="pfumApp.professeur.cin">Cin</Translate>
                   </Label>
                   <AvField id="professeur-cin" type="text" name="cin" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="ribLabel" for="professeur-rib">
-                    <Translate contentKey="pfumv10App.professeur.rib">Rib</Translate>
+                    <Translate contentKey="pfumApp.professeur.rib">Rib</Translate>
                   </Label>
                   <AvField id="professeur-rib" type="text" name="rib" />
                 </AvGroup>

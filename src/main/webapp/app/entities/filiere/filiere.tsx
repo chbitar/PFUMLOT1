@@ -47,53 +47,24 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
     return (
       <div>
         <h2 id="filiere-heading">
-          Liste des filières
+          &nbsp; &nbsp; Liste des filières
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Ajouter une filière
           </Link>
         </h2>
-        <Row>
-          <Col sm="12">
-            <AvForm onSubmit={this.search}>
-              <AvGroup>
-                <InputGroup>
-                  <AvInput
-                    type="text"
-                    name="search"
-                    value={this.state.search}
-                    onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.filiere.home.search')}
-                  />
-                  <Button className="input-group-addon">
-                    <FontAwesomeIcon icon="search" />
-                  </Button>
-                  <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                    <FontAwesomeIcon icon="trash" />
-                  </Button>
-                </InputGroup>
-              </AvGroup>
-            </AvForm>
-          </Col>
-        </Row>
+        &nbsp; &nbsp;
         <div className="table-responsive">
           {filiereList && filiereList.length > 0 ? (
             <Table responsive>
               <thead>
                 <tr>
-                  <th>Nom filière</th>
-                  <th>
-                    <Translate contentKey="pfumv10App.filiere.responsable">Responsable</Translate>
-                  </th>
-                  <th>
-                    <Translate contentKey="pfumv10App.filiere.accreditaion">Accreditation</Translate>
-                  </th>
-                  <th>
-                    <Translate contentKey="pfumv10App.filiere.programme">Programme</Translate>
-                  </th>
-                  <th>
-                    <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
-                  </th>
+                  <th>Nom Filière</th>
+                  <th>Responsable</th>
+                  <th>Accréditation</th>
+                  <th>Programme</th>
+                  <th>Etablissement</th>
+                  <th>Année académique</th>
                   <th />
                 </tr>
               </thead>
@@ -103,9 +74,7 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
                     <td>{filiere.nomfiliere}</td>
                     <td>{filiere.responsable}</td>
                     <td>{filiere.accreditaion}</td>
-                    <td>
-                      <Translate contentKey={`pfumv10App.Programme.${filiere.programme}`} />
-                    </td>
+                    <td>{filiere.programme}</td>
                     <td>
                       {filiere.etablissement ? (
                         <Link to={`etablissement/${filiere.etablissement.id}`}>{filiere.etablissement.nomEcole}</Link>
@@ -113,6 +82,7 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
                         ''
                       )}
                     </td>
+                    <td>{filiere.anneeInscription ? filiere.anneeInscription.annee : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${filiere.id}`} color="info" size="sm">
@@ -141,7 +111,7 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.filiere.home.notFound">No Filieres found</Translate>
+              <Translate contentKey="pfumApp.filiere.home.notFound">No Filieres found</Translate>
             </div>
           )}
         </div>

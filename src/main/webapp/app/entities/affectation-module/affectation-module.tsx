@@ -80,16 +80,16 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
               <thead>
                 <tr>
                   <th>
-                    <Translate contentKey="pfumv10App.affectationModule.annee">Annee</Translate>
+                    <Translate contentKey="pfumApp.affectationModule.annee">Annee</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.affectationModule.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.affectationModule.semestre">Semestre</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.affectationModule.module">Module</Translate>
+                    <Translate contentKey="pfumApp.affectationModule.module">Module</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.affectationModule.professeur">Professeur</Translate>
+                    <Translate contentKey="pfumApp.affectationModule.professeur">Professeur</Translate>
                   </th>
                   <th />
                 </tr>
@@ -99,7 +99,7 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
                   <tr key={`entity-${i}`}>
                     <td>{affectationModule.annee}</td>
                     <td>
-                      <Translate contentKey={`pfumv10App.Semestre.${affectationModule.semestre}`} />
+                      <Translate contentKey={`pfumApp.Semestre.${affectationModule.semestre}`} />
                     </td>
                     <td>
                       {affectationModule.module ? (
@@ -146,7 +146,7 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.affectationModule.home.notFound">No Affectation Modules found</Translate>
+              <Translate contentKey="pfumApp.affectationModule.home.notFound">No Affectation Modules found</Translate>
             </div>
           )}
         </div>

@@ -47,11 +47,11 @@ export class AutreDoc extends React.Component<IAutreDocProps, IAutreDocState> {
     return (
       <div>
         <h2 id="autre-doc-heading">
-          <Translate contentKey="pfumv10App.autreDoc.home.title">Autre Docs</Translate>
+          <Translate contentKey="pfumApp.autreDoc.home.title">Autre Docs</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.autreDoc.home.createLabel">Create new Autre Doc</Translate>
+            <Translate contentKey="pfumApp.autreDoc.home.createLabel">Create new Autre Doc</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class AutreDoc extends React.Component<IAutreDocProps, IAutreDocState> {
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.autreDoc.home.search')}
+                    placeholder={translate('pfumApp.autreDoc.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,13 +86,13 @@ export class AutreDoc extends React.Component<IAutreDocProps, IAutreDocState> {
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.autreDoc.titre">Titre</Translate>
+                    <Translate contentKey="pfumApp.autreDoc.titre">Titre</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.autreDoc.data">Data</Translate>
+                    <Translate contentKey="pfumApp.autreDoc.data">Data</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.autreDoc.etudiantexec">Etudiantexec</Translate>
+                    <Translate contentKey="pfumApp.autreDoc.etudiantexec">Etudiantexec</Translate>
                   </th>
                   <th />
                 </tr>
@@ -154,7 +154,7 @@ export class AutreDoc extends React.Component<IAutreDocProps, IAutreDocState> {
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.autreDoc.home.notFound">No Autre Docs found</Translate>
+              <Translate contentKey="pfumApp.autreDoc.home.notFound">No Autre Docs found</Translate>
             </div>
           )}
         </div>

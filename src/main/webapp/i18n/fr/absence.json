@@ -1,12 +1,12 @@
 {
-  "pfumv10App": {
+  "pfumApp": {
     "absence": {
       "home": {
         "title": "Absences",
         "createLabel": "Créer un nouveau Absence",
         "createOrEditLabel": "Créer ou éditer un Absence",
         "search": "Recherche pour Absence",
-        "notFound": "Aucun Absence trouvé"
+        "notFound": "Aucune fiche d'absence trouvée"
       },
       "created": "Un nouveau Absence a été créé avec l'identifiant {{ param }}",
       "updated": "Le Absence avec l'identifiant {{ param }} a été mis à jour",

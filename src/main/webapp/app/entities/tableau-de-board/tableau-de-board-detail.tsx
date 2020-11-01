@@ -25,17 +25,17 @@ export class TableauDeBoardDetail extends React.Component<ITableauDeBoardDetailP
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.tableauDeBoard.detail.title">TableauDeBoard</Translate> [<b>{tableauDeBoardEntity.id}</b>]
+            <Translate contentKey="pfumApp.tableauDeBoard.detail.title">TableauDeBoard</Translate> [<b>{tableauDeBoardEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="tableauDeBoard">
-                <Translate contentKey="pfumv10App.tableauDeBoard.tableauDeBoard">Tableau De Board</Translate>
+                <Translate contentKey="pfumApp.tableauDeBoard.tableauDeBoard">Tableau De Board</Translate>
               </span>
             </dt>
             <dd>{tableauDeBoardEntity.tableauDeBoard}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.tableauDeBoard.filier">Filier</Translate>
+              <Translate contentKey="pfumApp.tableauDeBoard.filier">Filier</Translate>
             </dt>
             <dd>
               {tableauDeBoardEntity.filiers
@@ -48,7 +48,7 @@ export class TableauDeBoardDetail extends React.Component<ITableauDeBoardDetailP
                 : null}
             </dd>
             <dt>
-              <Translate contentKey="pfumv10App.tableauDeBoard.calendrier">Calendrier</Translate>
+              <Translate contentKey="pfumApp.tableauDeBoard.calendrier">Calendrier</Translate>
             </dt>
             <dd>
               {tableauDeBoardEntity.calendriers

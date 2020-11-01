@@ -33,8 +33,8 @@ export class NoteLicenceDeleteDialog extends React.Component<INoteLicenceDeleteD
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.noteLicence.delete.question">
-          <Translate contentKey="pfumv10App.noteLicence.delete.question" interpolate={{ id: noteLicenceEntity.id }}>
+        <ModalBody id="pfumApp.noteLicence.delete.question">
+          <Translate contentKey="pfumApp.noteLicence.delete.question" interpolate={{ id: noteLicenceEntity.id }}>
             Are you sure you want to delete this NoteLicence?
           </Translate>
         </ModalBody>

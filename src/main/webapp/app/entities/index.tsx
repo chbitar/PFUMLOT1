@@ -28,6 +28,7 @@ import { AUTHORITIES } from 'app/config/constants';
 import PrivateRoute from 'app/shared/auth/private-route';
 import AbsenceLicence from './absence-licence';
 import AbsenceMaster from './absence-master';
+import FicheAbsence from './fiche-absence';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -108,6 +109,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/document`} component={Document} />
       <ErrorBoundaryRoute path={`${match.url}/etudiants-executif`} component={EtudiantsExecutif} />
 
+      <ErrorBoundaryRoute path={`${match.url}/fiche-absence`} component={FicheAbsence} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

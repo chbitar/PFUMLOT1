@@ -56,11 +56,11 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
     return (
       <div>
         <h2 id="suivi-module-heading">
-          <Translate contentKey="pfumv10App.suiviModule.home.title"> Suivi Modules </Translate>
+          <Translate contentKey="pfumApp.suiviModule.home.title"> Suivi Modules </Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.suiviModule.home.createLabel">Create new Suivi Module</Translate>
+            <Translate contentKey="pfumApp.suiviModule.home.createLabel">Create new Suivi Module</Translate>
           </Link>
         </h2>
         <Row>
@@ -73,7 +73,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.suiviModule.home.search')}
+                    placeholder={translate('pfumApp.suiviModule.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -92,32 +92,32 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
               <thead>
                 <tr>
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.professeur">Professeur</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.professeur">Professeur</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.semestre">Semestre</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.module">Module</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.module">Module</Translate>
                   </th>
                   <th>Reste</th>
                   {/*                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.descriptif">Descriptif</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.descriptif">Descriptif</Translate>
                   </th> */}
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.observations">Observations</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.observations">Observations</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.date">Date</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.date">Date</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.debutCreneau">Debut Creneau</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.debutCreneau">Debut Creneau</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.finCreneau">Fin Creneau</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.finCreneau">Fin Creneau</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.suiviModule.duree">Duree</Translate>
+                    <Translate contentKey="pfumApp.suiviModule.duree">Duree</Translate>
                   </th>
                   <th />
                 </tr>
@@ -127,7 +127,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
                   <tr key={`entity-${i}`}>
                     <td>{suiviModule.user ? suiviModule.user.firstName + ' ' + suiviModule.user.lastName : ''}</td>
                     <td>
-                      <Translate contentKey={`pfumv10App.Semestre.${suiviModule.semestre}`} />
+                      <Translate contentKey={`pfumApp.Semestre.${suiviModule.semestre}`} />
                     </td>
                     <td>{suiviModule.module ? <Link to={`module/${suiviModule.module.id}`}>{suiviModule.module.nomModule}</Link> : ''}</td>
                     <td>
@@ -177,7 +177,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.suiviModule.home.notFound">No Suivi Modules found</Translate>
+              <Translate contentKey="pfumApp.suiviModule.home.notFound">No Suivi Modules found</Translate>
             </div>
           )}
         </div>

@@ -25,29 +25,29 @@ export class AbsenceDetail extends React.Component<IAbsenceDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.absence.detail.title">Absence</Translate> [<b>{absenceEntity.id}</b>]
+            <Translate contentKey="pfumApp.absence.detail.title">Absence</Translate> [<b>{absenceEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="absent">
-                <Translate contentKey="pfumv10App.absence.absent">Absent</Translate>
+                <Translate contentKey="pfumApp.absence.absent">Absent</Translate>
               </span>
             </dt>
             <dd>{absenceEntity.absent ? 'true' : 'false'}</dd>
             <dt>
               <span id="dateSeance">
-                <Translate contentKey="pfumv10App.absence.dateSeance">Date Seance</Translate>
+                <Translate contentKey="pfumApp.absence.dateSeance">Date Seance</Translate>
               </span>
             </dt>
             <dd>
               <TextFormat value={absenceEntity.dateSeance} type="date" format={APP_DATE_FORMAT} />
             </dd>
             <dt>
-              <Translate contentKey="pfumv10App.absence.user">User</Translate>
+              <Translate contentKey="pfumApp.absence.user">User</Translate>
             </dt>
             <dd>{absenceEntity.user ? absenceEntity.user.firstName + ' ' + absenceEntity.user.lastName : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.absence.module">Module</Translate>
+              <Translate contentKey="pfumApp.absence.module">Module</Translate>
             </dt>
             <dd>{absenceEntity.module ? absenceEntity.module.nomModule : ''}</dd>
             <dt>

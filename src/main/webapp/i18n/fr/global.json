@@ -28,6 +28,7 @@
         "tableauDeBoard": "Tableau De Board",
         "document": "Document",
         "emploieDuTemps": "Emploie Du Temps",
+        "ficheAbsence": "Fiche Absence",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -138,7 +139,8 @@
       "maxbytes": "Ce champ doit être inférieur à {{max}} bytes.",
       "pattern": "Ce champ doit suivre l'expression régulière {{pattern}}.",
       "number": "Ce champ doit être un nombre.",
-      "datetimelocal": "Ce champ doit être une date et une heure."
+      "datetimelocal": "Ce champ doit être une date et une heure.",
+      "email": "Votre email n'est pas valide."
     }
   },
   "error": {

@@ -25,18 +25,18 @@ export class AutreDocDetail extends React.Component<IAutreDocDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.autreDoc.detail.title">AutreDoc</Translate> [<b>{autreDocEntity.id}</b>]
+            <Translate contentKey="pfumApp.autreDoc.detail.title">AutreDoc</Translate> [<b>{autreDocEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="titre">
-                <Translate contentKey="pfumv10App.autreDoc.titre">Titre</Translate>
+                <Translate contentKey="pfumApp.autreDoc.titre">Titre</Translate>
               </span>
             </dt>
             <dd>{autreDocEntity.titre}</dd>
             <dt>
               <span id="data">
-                <Translate contentKey="pfumv10App.autreDoc.data">Data</Translate>
+                <Translate contentKey="pfumApp.autreDoc.data">Data</Translate>
               </span>
             </dt>
             <dd>
@@ -52,7 +52,7 @@ export class AutreDocDetail extends React.Component<IAutreDocDetailProps> {
               ) : null}
             </dd>
             <dt>
-              <Translate contentKey="pfumv10App.autreDoc.etudiantexec">Etudiantexec</Translate>
+              <Translate contentKey="pfumApp.autreDoc.etudiantexec">Etudiantexec</Translate>
             </dt>
             <dd>{autreDocEntity.etudiantexec ? autreDocEntity.etudiantexec.id : ''}</dd>
           </dl>

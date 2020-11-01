@@ -33,8 +33,8 @@ export class DocumentDeleteDialog extends React.Component<IDocumentDeleteDialogP
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.document.delete.question">
-          <Translate contentKey="pfumv10App.document.delete.question" interpolate={{ id: documentEntity.id }}>
+        <ModalBody id="pfumApp.document.delete.question">
+          <Translate contentKey="pfumApp.document.delete.question" interpolate={{ id: documentEntity.id }}>
             Are you sure you want to delete this Document?
           </Translate>
         </ModalBody>

@@ -1,5 +1,5 @@
 {
-  "pfumv10App": {
+  "pfumApp": {
     "module": {
       "home": {
         "title": "Modules",
@@ -27,7 +27,7 @@
       "noteLicence": "Note Licence",
       "noteMaster": "Note Master",
       "noteExecutif": "Note Executif",
-      "filiere": "Filiere"
+      "filiere": "Filière"
     }
   }
 }

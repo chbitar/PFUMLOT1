@@ -76,8 +76,8 @@ export class ModuleUpdate extends React.Component<IModuleUpdateProps, IModuleUpd
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.module.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.module.home.createOrEditLabel">Create or edit a Module</Translate>
+            <h2 id="pfumApp.module.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.module.home.createOrEditLabel">Create or edit a Module</Translate>
             </h2>
           </Col>
         </Row>
@@ -89,19 +89,34 @@ export class ModuleUpdate extends React.Component<IModuleUpdateProps, IModuleUpd
               <AvForm model={isNew ? {} : moduleEntity} onSubmit={this.saveEntity}>
                 <AvGroup>
                   <Label id="nomModuleLabel" for="module-nomModule">
-                    <Translate contentKey="pfumv10App.module.nomModule">Nom Module</Translate>
+                    <Translate contentKey="pfumApp.module.nomModule">Nom Module</Translate>
                   </Label>
-                  <AvField id="module-nomModule" type="text" name="nomModule" />
+                  <AvField
+                    id="module-nomModule"
+                    type="text"
+                    name="nomModule"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="volumeHoraireLabel" for="module-volumeHoraire">
-                    <Translate contentKey="pfumv10App.module.volumeHoraire">Volume Horaire</Translate>
+                    <Translate contentKey="pfumApp.module.volumeHoraire">Volume Horaire</Translate>
                   </Label>
-                  <AvField id="module-volumeHoraire" type="string" className="form-control" name="volumeHoraire" />
+                  <AvField
+                    id="module-volumeHoraire"
+                    type="string"
+                    className="form-control"
+                    name="volumeHoraire"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="semestreLabel" for="module-semestre">
-                    <Translate contentKey="pfumv10App.module.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.module.semestre">Semestre</Translate>
                   </Label>
                   <AvInput
                     id="module-semestre"
@@ -109,18 +124,29 @@ export class ModuleUpdate extends React.Component<IModuleUpdateProps, IModuleUpd
                     className="form-control"
                     name="semestre"
                     value={(!isNew && moduleEntity.semestre) || 'S1'}
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
                   >
-                    <option value="S1">{translate('pfumv10App.Semestre.S1')}</option>
-                    <option value="S2">{translate('pfumv10App.Semestre.S2')}</option>
-                    <option value="S3">{translate('pfumv10App.Semestre.S3')}</option>
-                    <option value="S4">{translate('pfumv10App.Semestre.S4')}</option>
-                    <option value="S5">{translate('pfumv10App.Semestre.S5')}</option>
-                    <option value="S6">{translate('pfumv10App.Semestre.S6')}</option>
+                    <option value="S1">{translate('pfumApp.Semestre.S1')}</option>
+                    <option value="S2">{translate('pfumApp.Semestre.S2')}</option>
+                    <option value="S3">{translate('pfumApp.Semestre.S3')}</option>
+                    <option value="S4">{translate('pfumApp.Semestre.S4')}</option>
+                    <option value="S5">{translate('pfumApp.Semestre.S5')}</option>
+                    <option value="S6">{translate('pfumApp.Semestre.S6')}</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label for="module-filiere">Filière</Label>
-                  <AvInput id="module-filiere" type="select" className="form-control" name="filiere.id">
+                  <AvInput
+                    id="module-filiere"
+                    type="select"
+                    className="form-control"
+                    name="filiere.id"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  >
                     <option value="" key="0" />
                     {filieres
                       ? filieres.map(otherEntity => (

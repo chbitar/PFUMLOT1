@@ -64,19 +64,19 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                 <dl className="jh-entity-details">
                   <dt>
                     <span id="nom">
-                      <Translate contentKey="pfumv10App.etudiantsExecutif.nom">Nom</Translate>
+                      <Translate contentKey="pfumApp.etudiantsExecutif.nom">Nom</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsExecutifEntity.nom}</dd>
                   <dt>
                     <span id="prenom">
-                      <Translate contentKey="pfumv10App.etudiantsExecutif.prenom">Prenom</Translate>
+                      <Translate contentKey="pfumApp.etudiantsExecutif.prenom">Prenom</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsExecutifEntity.prenom}</dd>
                   <dt>
                     <span id="dateNaissance">
-                      <Translate contentKey="pfumv10App.etudiantsExecutif.dateNaissance">Date Naissance</Translate>
+                      <Translate contentKey="pfumApp.etudiantsExecutif.dateNaissance">Date Naissance</Translate>
                     </span>
                   </dt>
                   <dd>
@@ -84,32 +84,32 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                   </dd>
                   <dt>
                     <span id="adresseContact">
-                      <Translate contentKey="pfumv10App.etudiantsExecutif.adresseContact">Adresse Contact</Translate>
+                      <Translate contentKey="pfumApp.etudiantsExecutif.adresseContact">Adresse Contact</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsExecutifEntity.adresseContact}</dd>
                   <dt>
                     <span id="ville">
-                      <Translate contentKey="pfumv10App.etudiantsExecutif.ville">Ville</Translate>
+                      <Translate contentKey="pfumApp.etudiantsExecutif.ville">Ville</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsExecutifEntity.ville}</dd>
                   <dt>
                     <span id="email">
-                      <Translate contentKey="pfumv10App.etudiantsExecutif.email">Email</Translate>
+                      <Translate contentKey="pfumApp.etudiantsExecutif.email">Email</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsExecutifEntity.email}</dd>
 
                   <dt>
                     <span id="cinPass">
-                      <Translate contentKey="pfumv10App.etudiantsExecutif.cinPass">Cin Pass</Translate>
+                      <Translate contentKey="pfumApp.etudiantsExecutif.cinPass">Cin Pass</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsExecutifEntity.cinPass}</dd>
                   <dt>
                     <span id="paysNationalite">
-                      <Translate contentKey="pfumv10App.etudiantsExecutif.paysNationalite">Pays Nationalite</Translate>
+                      <Translate contentKey="pfumApp.etudiantsExecutif.paysNationalite">Pays Nationalite</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsExecutifEntity.paysNationalite}</dd>
@@ -119,7 +119,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                 <span className="badge badge-warning">Informations filiére</span>
                 <dt>
                   <span id="photo">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.photo">Photo</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.photo">Photo</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -141,48 +141,48 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                 <dd>{etudiantsExecutifEntity.pjBac}</dd>
                 <dt>
                   <span id="mention">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.mention">Mention</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.mention">Mention</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsExecutifEntity.mention}</dd>
                 <dt>
                   <span id="anneOtention">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.anneOtention">Année d'obtention</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.anneOtention">Année d'obtention</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsExecutifEntity.anneeObtention}</dd>
                 <dt>
-                  <Translate contentKey="pfumv10App.etudiantsExecutif.filiere">Filiere</Translate>
+                  <Translate contentKey="pfumApp.etudiantsExecutif.filiere">Filiere</Translate>
                 </dt>
                 <dd>{etudiantsExecutifEntity.filiere ? etudiantsExecutifEntity.filiere.nomfiliere : ''}</dd>
 
                 <dt>
                   <span id="paysResidence">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.paysResidence">Pays Residence</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.paysResidence">Pays Residence</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsExecutifEntity.paysResidence}</dd>
                 <dt>
                   <span id="codepostal">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.codepostal">Codepostal</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.codepostal">Codepostal</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsExecutifEntity.codepostal}</dd>
                 <dt>
                   <span id="province">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.province">Province</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.province">Province</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsExecutifEntity.province}</dd>
                 <dt>
                   <span id="tel">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.tel">Tel</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.tel">Tel</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsExecutifEntity.tel}</dd>
                 <dt>
                   <span id="deuxiemeTel">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.deuxiemeTel">Deuxieme Tel</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.deuxiemeTel">Deuxieme Tel</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsExecutifEntity.deuxiemeTel}</dd>
@@ -259,7 +259,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                 </dd>
                 <dt>
                   <span id="bacalaureat">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.bacalaureat">Bacalaureat</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.bacalaureat">Bacalaureat</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -279,7 +279,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                 </dd>
                 <dt>
                   <span id="cinPassport">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.cinPassport">Cin Passport</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.cinPassport">Cin Passport</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -299,7 +299,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                 </dd>
                 <dt>
                   <span id="diplome">
-                    <Translate contentKey="pfumv10App.etudiantsExecutif.diplome">Diplome</Translate>
+                    <Translate contentKey="pfumApp.etudiantsExecutif.diplome">Diplome</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -335,7 +335,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                   )}
                 </dd>
                 <dt>
-                  <Translate contentKey="pfumv10App.etudiantsExecutif.modalite">Modalite</Translate>
+                  <Translate contentKey="pfumApp.etudiantsExecutif.modalite">Modalite</Translate>
                 </dt>
                 <dd>{etudiantsExecutifEntity.modalite ? etudiantsExecutifEntity.modalite.modalite : ''}</dd>
                 {(isAdmin || isUser) && (

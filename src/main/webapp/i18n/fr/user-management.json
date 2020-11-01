@@ -1,7 +1,7 @@
 {
   "userManagement": {
     "home": {
-      "title": "Utilisateurs",
+      "title": "Liste des utilisateurs",
       "createLabel": "Créer un nouvel utilisateur",
       "createOrEditLabel": "Créer ou éditer un utilisateur"
     },
@@ -20,7 +20,7 @@
     "email": "Email",
     "activated": "Activé",
     "deactivated": "Désactivé",
-    "profiles": "Droits",
+    "profiles": "Profiles",
     "langKey": "Langue",
     "createdBy": "Créé par",
     "createdDate": "Créé le",

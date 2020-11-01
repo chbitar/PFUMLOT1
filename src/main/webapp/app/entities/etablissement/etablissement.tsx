@@ -47,11 +47,11 @@ export class Etablissement extends React.Component<IEtablissementProps, IEtablis
     return (
       <div>
         <h2 id="etablissement-heading">
-          <Translate contentKey="pfumv10App.etablissement.home.title">Etablissements</Translate>
+          <Translate contentKey="pfumApp.etablissement.home.title">Etablissements</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.etablissement.home.createLabel">Create new Etablissement</Translate>
+            <Translate contentKey="pfumApp.etablissement.home.createLabel">Create new Etablissement</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class Etablissement extends React.Component<IEtablissementProps, IEtablis
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.etablissement.home.search')}
+                    placeholder={translate('pfumApp.etablissement.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,25 +86,25 @@ export class Etablissement extends React.Component<IEtablissementProps, IEtablis
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.etablissement.nomEcole">Nom Ecole</Translate>
+                    <Translate contentKey="pfumApp.etablissement.nomEcole">Nom Ecole</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.etablissement.adresse">Adresse</Translate>
+                    <Translate contentKey="pfumApp.etablissement.adresse">Adresse</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.etablissement.rc">Rc</Translate>
+                    <Translate contentKey="pfumApp.etablissement.rc">Rc</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.etablissement.ice">Ice</Translate>
+                    <Translate contentKey="pfumApp.etablissement.ice">Ice</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.etablissement.tp">Tp</Translate>
+                    <Translate contentKey="pfumApp.etablissement.tp">Tp</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.etablissement.identiteFiche">Identite Fiche</Translate>
+                    <Translate contentKey="pfumApp.etablissement.identiteFiche">Identite Fiche</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.etablissement.logo">Logo</Translate>
+                    <Translate contentKey="pfumApp.etablissement.logo">Logo</Translate>
                   </th>
                   <th />
                 </tr>
@@ -164,7 +164,7 @@ export class Etablissement extends React.Component<IEtablissementProps, IEtablis
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.etablissement.home.notFound">No Etablissements found</Translate>
+              <Translate contentKey="pfumApp.etablissement.home.notFound">No Etablissements found</Translate>
             </div>
           )}
         </div>

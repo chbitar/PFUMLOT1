@@ -37,8 +37,8 @@ export interface IEtudiantsMaster {
   paysResidence?: string;
   codepostal?: string;
   province?: string;
-  tel?: number;
-  deuxiemeTel?: number;
+  tel?: String;
+  deuxiemeTel?: String;
   photoContentType?: string;
   photo?: any;
   testAdmission?: any;

@@ -25,31 +25,27 @@ export class ModuleDetail extends React.Component<IModuleDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.module.detail.title">Module</Translate> [<b>{moduleEntity.id}</b>]
+            [<b>{moduleEntity.nomModule}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
-              <span id="nomModule">
-                <Translate contentKey="pfumv10App.module.nomModule">Nom Module</Translate>
-              </span>
-            </dt>
-            <dd>{moduleEntity.nomModule}</dd>
-            <dt>
               <span id="volumeHoraire">
-                <Translate contentKey="pfumv10App.module.volumeHoraire">Volume Horaire</Translate>
+                <Translate contentKey="pfumApp.module.volumeHoraire">Volume Horaire</Translate>
               </span>
             </dt>
             <dd>{moduleEntity.volumeHoraire}</dd>
             <dt>
               <span id="semestre">
-                <Translate contentKey="pfumv10App.module.semestre">Semestre</Translate>
+                <Translate contentKey="pfumApp.module.semestre">Semestre</Translate>
               </span>
             </dt>
-            <dd>{moduleEntity.semestre}</dd>
+            <dd>
+              <Translate contentKey={`pfumApp.Semestre.${moduleEntity.semestre}`} />
+            </dd>
             <dt>
-              <Translate contentKey="pfumv10App.module.filiere">Filiere</Translate>
+              <Translate contentKey="pfumApp.module.filiere">Filiere</Translate>
             </dt>
-            <dd>{moduleEntity.filiere ? moduleEntity.filiere.id : ''}</dd>
+            <dd>{moduleEntity.filiere ? moduleEntity.filiere.nomfiliere : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/module" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

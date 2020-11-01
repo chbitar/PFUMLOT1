@@ -39,7 +39,7 @@ export class PasswordResetFinishPage extends React.Component<IPasswordResetFinis
       <AvForm onValidSubmit={this.handleValidSubmit}>
         <AvField
           name="newPassword"
-          label={translate('global.form.newpassword.label')}
+          label={translate('global.form.newpassword')}
           placeholder={translate('global.form.newpassword.placeholder')}
           type="password"
           validate={{

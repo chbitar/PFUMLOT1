@@ -25,19 +25,18 @@ export class CalendrierModuleDetail extends React.Component<ICalendrierModuleDet
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.calendrierModule.detail.title">CalendrierModule</Translate> [
-            <b>{calendrierModuleEntity.id}</b>]
+            <Translate contentKey="pfumApp.calendrierModule.detail.title">CalendrierModule</Translate> [<b>{calendrierModuleEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="libelle">
-                <Translate contentKey="pfumv10App.calendrierModule.libelle">Libelle</Translate>
+                <Translate contentKey="pfumApp.calendrierModule.libelle">Libelle</Translate>
               </span>
             </dt>
             <dd>{calendrierModuleEntity.libelle}</dd>
             <dt>
               <span id="dateControlContinu1">
-                <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
+                <Translate contentKey="pfumApp.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
               </span>
             </dt>
             <dd>
@@ -45,18 +44,18 @@ export class CalendrierModuleDetail extends React.Component<ICalendrierModuleDet
             </dd>
             <dt>
               <span id="dateControlContinu2">
-                <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu2">Date Control Continu 2</Translate>
+                <Translate contentKey="pfumApp.calendrierModule.dateControlContinu2">Date Control Continu 2</Translate>
               </span>
             </dt>
             <dd>
               <TextFormat value={calendrierModuleEntity.dateControlContinu2} type="date" format={APP_DATE_FORMAT} />
             </dd>
             <dt>
-              <Translate contentKey="pfumv10App.calendrierModule.module">Module</Translate>
+              <Translate contentKey="pfumApp.calendrierModule.module">Module</Translate>
             </dt>
             <dd>{calendrierModuleEntity.module ? calendrierModuleEntity.module.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.calendrierModule.anneeInscription">Annee Inscription</Translate>
+              <Translate contentKey="pfumApp.calendrierModule.anneeInscription">Annee Inscription</Translate>
             </dt>
             <dd>{calendrierModuleEntity.anneeInscription ? calendrierModuleEntity.anneeInscription.id : ''}</dd>
           </dl>

@@ -80,8 +80,8 @@ export class EtablissementUpdate extends React.Component<IEtablissementUpdatePro
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.etablissement.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.etablissement.home.createOrEditLabel">Create or edit a Etablissement</Translate>
+            <h2 id="pfumApp.etablissement.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.etablissement.home.createOrEditLabel">Create or edit a Etablissement</Translate>
             </h2>
           </Col>
         </Row>
@@ -101,44 +101,44 @@ export class EtablissementUpdate extends React.Component<IEtablissementUpdatePro
                 ) : null}
                 <AvGroup>
                   <Label id="nomEcoleLabel" for="etablissement-nomEcole">
-                    <Translate contentKey="pfumv10App.etablissement.nomEcole">Nom Ecole</Translate>
+                    <Translate contentKey="pfumApp.etablissement.nomEcole">Nom Ecole</Translate>
                   </Label>
                   <AvField id="etablissement-nomEcole" type="text" name="nomEcole" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="adresseLabel" for="etablissement-adresse">
-                    <Translate contentKey="pfumv10App.etablissement.adresse">Adresse</Translate>
+                    <Translate contentKey="pfumApp.etablissement.adresse">Adresse</Translate>
                   </Label>
                   <AvField id="etablissement-adresse" type="text" name="adresse" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="rcLabel" for="etablissement-rc">
-                    <Translate contentKey="pfumv10App.etablissement.rc">Rc</Translate>
+                    <Translate contentKey="pfumApp.etablissement.rc">Rc</Translate>
                   </Label>
                   <AvField id="etablissement-rc" type="text" name="rc" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="iceLabel" for="etablissement-ice">
-                    <Translate contentKey="pfumv10App.etablissement.ice">Ice</Translate>
+                    <Translate contentKey="pfumApp.etablissement.ice">Ice</Translate>
                   </Label>
                   <AvField id="etablissement-ice" type="text" name="ice" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="tpLabel" for="etablissement-tp">
-                    <Translate contentKey="pfumv10App.etablissement.tp">Tp</Translate>
+                    <Translate contentKey="pfumApp.etablissement.tp">Tp</Translate>
                   </Label>
                   <AvField id="etablissement-tp" type="text" name="tp" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="identiteFicheLabel" for="etablissement-identiteFiche">
-                    <Translate contentKey="pfumv10App.etablissement.identiteFiche">Identite Fiche</Translate>
+                    <Translate contentKey="pfumApp.etablissement.identiteFiche">Identite Fiche</Translate>
                   </Label>
                   <AvField id="etablissement-identiteFiche" type="text" name="identiteFiche" />
                 </AvGroup>
                 <AvGroup>
                   <AvGroup>
                     <Label id="logoLabel" for="logo">
-                      <Translate contentKey="pfumv10App.etablissement.logo">Logo</Translate>
+                      <Translate contentKey="pfumApp.etablissement.logo">Logo</Translate>
                     </Label>
                     <br />
                     {logo ? (

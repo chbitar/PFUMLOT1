@@ -47,11 +47,11 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
     return (
       <div>
         <h2 id="calendrier-module-heading">
-          <Translate contentKey="pfumv10App.calendrierModule.home.title">Calendrier Modules</Translate>
+          <Translate contentKey="pfumApp.calendrierModule.home.title">Calendrier Modules</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.calendrierModule.home.createLabel">Create new Calendrier Module</Translate>
+            <Translate contentKey="pfumApp.calendrierModule.home.createLabel">Create new Calendrier Module</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.calendrierModule.home.search')}
+                    placeholder={translate('pfumApp.calendrierModule.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,19 +86,19 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.calendrierModule.libelle">Libelle</Translate>
+                    <Translate contentKey="pfumApp.calendrierModule.libelle">Libelle</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
+                    <Translate contentKey="pfumApp.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu2">Date Control Continu 2</Translate>
+                    <Translate contentKey="pfumApp.calendrierModule.dateControlContinu2">Date Control Continu 2</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.calendrierModule.module">Module</Translate>
+                    <Translate contentKey="pfumApp.calendrierModule.module">Module</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.calendrierModule.anneeInscription">Annee Inscription</Translate>
+                    <Translate contentKey="pfumApp.calendrierModule.anneeInscription">Annee Inscription</Translate>
                   </th>
                   <th />
                 </tr>
@@ -156,7 +156,7 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.calendrierModule.home.notFound">No Calendrier Modules found</Translate>
+              <Translate contentKey="pfumApp.calendrierModule.home.notFound">No Calendrier Modules found</Translate>
             </div>
           )}
         </div>

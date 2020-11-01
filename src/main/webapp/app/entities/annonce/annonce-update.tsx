@@ -80,8 +80,8 @@ export class AnnonceUpdate extends React.Component<IAnnonceUpdateProps, IAnnonce
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.annonce.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.annonce.home.createOrEditLabel">Create or edit a Annonce</Translate>
+            <h2 id="pfumApp.annonce.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.annonce.home.createOrEditLabel">Create or edit a Annonce</Translate>
             </h2>
           </Col>
         </Row>
@@ -101,13 +101,13 @@ export class AnnonceUpdate extends React.Component<IAnnonceUpdateProps, IAnnonce
                 ) : null}
                 <AvGroup>
                   <Label id="annonceLabel" for="annonce-annonce">
-                    <Translate contentKey="pfumv10App.annonce.annonce">Annonce</Translate>
+                    <Translate contentKey="pfumApp.annonce.annonce">Annonce</Translate>
                   </Label>
                   <AvInput id="annonce-annonce" type="textarea" name="annonce" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="commentaireLabel" for="annonce-commentaire">
-                    <Translate contentKey="pfumv10App.annonce.commentaire">Commentaire</Translate>
+                    <Translate contentKey="pfumApp.annonce.commentaire">Commentaire</Translate>
                   </Label>
                   <AvInput id="annonce-commentaire" type="textarea" name="commentaire" />
                 </AvGroup>

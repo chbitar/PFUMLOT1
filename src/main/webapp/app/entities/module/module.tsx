@@ -7,7 +7,7 @@ import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { Translate, translate, ICrudSearchAction, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, getEntitiesBySemestre } from './module.reducer';
+import { getSearchEntities, getEntities, getEntitiesBySemestre, getEntitiesByFiliere } from './module.reducer';
 import { IModule } from 'app/shared/model/module.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -48,68 +48,56 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
     else this.props.getEntitiesBySemestre(e.target.value);
   };
 
+  filtrerListModuleByFiliere = e => {
+    this.props.history.push('/entity/module');
+
+    if (e.target.value === '') this.props.getEntities();
+    else this.props.getEntitiesByFiliere(e.target.value);
+  };
+
   render() {
     const { moduleList, match } = this.props;
     return (
       <div>
         <h2 id="module-heading">
-          liste des modules
+          &nbsp; &nbsp; Liste des modules
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Ajouter un nouveau module
+            &nbsp;Ajouter un nouveau module
           </Link>
         </h2>
+        &nbsp; &nbsp;
         <Row>
-          {/* <Col sm="12">
-            <AvForm onSubmit={this.search}>
-              <AvGroup>
-                <InputGroup>
-                  <AvInput
-                    type="text"
-                    name="search"
-                    value={this.state.search}
-                    onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.module.home.search')}
-                  />
-                  <Button className="input-group-addon">
-                    <FontAwesomeIcon icon="search" />
-                  </Button>
-                  <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                    <FontAwesomeIcon icon="trash" />
-                  </Button>
-                </InputGroup>
-              </AvGroup>
-            </AvForm>
-          </Col> */}
           <Col sm="12">
-            Filtrer par Semestre :
             <div>
+              Filtrer par Semestre : &nbsp;
               <select onChange={this.filtrerListModuleBySemestre}>
                 <option value="" />
-                <option value="S1">S1</option>
-                <option value="S2">S2</option>
-                <option value="S3">S3</option>
-                <option value="S4">S4</option>
-                <option value="S5">S5</option>
-                <option value="S6">S6</option>
+                <option value="S1">Semestre 1</option>
+                <option value="S2">Semestre 2</option>
+                <option value="S3">Semestre 3</option>
+                <option value="S4">Semestre 4</option>
+                <option value="S5">Semestre 5</option>
+                <option value="S6">Semestre 6</option>
               </select>
             </div>
           </Col>
         </Row>
-
+        <br />
+        <br />
         <div className="table-responsive">
           {moduleList && moduleList.length > 0 ? (
             <Table responsive>
               <thead>
                 <tr>
                   <th>
-                    <Translate contentKey="pfumv10App.module.nomModule">Nom Module</Translate>
+                    <Translate contentKey="pfumApp.module.nomModule">Nom Module</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.module.volumeHoraire">Volume Horaire</Translate>
+                    <Translate contentKey="pfumApp.module.volumeHoraire">Volume Horaire</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.module.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.module.semestre">Semestre</Translate>
                   </th>
                   <th>Filière</th>
                   <th />
@@ -121,11 +109,17 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
                     <td>{module.nomModule}</td>
                     <td>{module.volumeHoraire}</td>
                     <td>
-                      <Translate contentKey={`pfumv10App.Semestre.${module.semestre}`} />
+                      <Translate contentKey={`pfumApp.Semestre.${module.semestre}`} />
                     </td>
                     <td>{module.filiere ? <Link to={`filiere/${module.filiere.id}`}>{module.filiere.nomfiliere}</Link> : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
+                        <Button tag={Link} to={`${match.url}/${module.id}`} color="info" size="sm">
+                          <FontAwesomeIcon icon="eye" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.view">View</Translate>
+                          </span>
+                        </Button>
                         <Button tag={Link} to={`${match.url}/${module.id}/edit`} color="primary" size="sm">
                           <FontAwesomeIcon icon="pencil-alt" />{' '}
                           <span className="d-none d-md-inline">
@@ -146,7 +140,7 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.module.home.notFound">No Modules found</Translate>
+              <Translate contentKey="pfumApp.module.home.notFound">No Modules found</Translate>
             </div>
           )}
         </div>
@@ -162,7 +156,8 @@ const mapStateToProps = ({ module }: IRootState) => ({
 const mapDispatchToProps = {
   getSearchEntities,
   getEntities,
-  getEntitiesBySemestre
+  getEntitiesBySemestre,
+  getEntitiesByFiliere
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

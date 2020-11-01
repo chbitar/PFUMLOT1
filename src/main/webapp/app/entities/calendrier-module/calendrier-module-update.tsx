@@ -89,8 +89,8 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.calendrierModule.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.calendrierModule.home.createOrEditLabel">Create or edit a CalendrierModule</Translate>
+            <h2 id="pfumApp.calendrierModule.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.calendrierModule.home.createOrEditLabel">Create or edit a CalendrierModule</Translate>
             </h2>
           </Col>
         </Row>
@@ -110,13 +110,13 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
                 ) : null}
                 <AvGroup>
                   <Label id="libelleLabel" for="calendrier-module-libelle">
-                    <Translate contentKey="pfumv10App.calendrierModule.libelle">Libelle</Translate>
+                    <Translate contentKey="pfumApp.calendrierModule.libelle">Libelle</Translate>
                   </Label>
                   <AvField id="calendrier-module-libelle" type="text" name="libelle" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="dateControlContinu1Label" for="calendrier-module-dateControlContinu1">
-                    <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
+                    <Translate contentKey="pfumApp.calendrierModule.dateControlContinu1">Date Control Continu 1</Translate>
                   </Label>
                   <AvInput
                     id="calendrier-module-dateControlContinu1"
@@ -129,7 +129,7 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
                 </AvGroup>
                 <AvGroup>
                   <Label id="dateControlContinu2Label" for="calendrier-module-dateControlContinu2">
-                    <Translate contentKey="pfumv10App.calendrierModule.dateControlContinu2">Date Control Continu 2</Translate>
+                    <Translate contentKey="pfumApp.calendrierModule.dateControlContinu2">Date Control Continu 2</Translate>
                   </Label>
                   <AvInput
                     id="calendrier-module-dateControlContinu2"
@@ -142,7 +142,7 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
                 </AvGroup>
                 <AvGroup>
                   <Label for="calendrier-module-module">
-                    <Translate contentKey="pfumv10App.calendrierModule.module">Module</Translate>
+                    <Translate contentKey="pfumApp.calendrierModule.module">Module</Translate>
                   </Label>
                   <AvInput id="calendrier-module-module" type="select" className="form-control" name="module.id">
                     <option value="" key="0" />
@@ -157,7 +157,7 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
                 </AvGroup>
                 <AvGroup>
                   <Label for="calendrier-module-anneeInscription">
-                    <Translate contentKey="pfumv10App.calendrierModule.anneeInscription">Annee Inscription</Translate>
+                    <Translate contentKey="pfumApp.calendrierModule.anneeInscription">Annee Inscription</Translate>
                   </Label>
                   <AvInput id="calendrier-module-anneeInscription" type="select" className="form-control" name="anneeInscription.id">
                     <option value="" key="0" />

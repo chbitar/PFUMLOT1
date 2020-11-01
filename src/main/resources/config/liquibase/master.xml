@@ -80,6 +80,7 @@
     <include file="config/liquibase/changelog/20201022204637_added_entity_NoteExecutif.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201022204638_added_entity_TableauDeBoard.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201022204639_added_entity_EmploieDuTemps.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201101004326_added_entity_FicheAbsence.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20201022195251_added_entity_constraints_Absence.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201022195252_added_entity_constraints_AffectationModule.xml" relativeToChangelogFile="false"/>
@@ -126,5 +127,6 @@
     <include file="config/liquibase/changelog/20201022204636_added_entity_constraints_NoteMaster.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201022204637_added_entity_constraints_NoteExecutif.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201022204638_added_entity_constraints_TableauDeBoard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201101004326_added_entity_constraints_FicheAbsence.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

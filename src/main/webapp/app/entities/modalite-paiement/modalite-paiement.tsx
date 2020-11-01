@@ -63,7 +63,7 @@ export class ModalitePaiement extends React.Component<IModalitePaiementProps, IM
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.modalitePaiement.home.search')}
+                    placeholder={translate('pfumApp.modalitePaiement.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -85,22 +85,22 @@ export class ModalitePaiement extends React.Component<IModalitePaiementProps, IM
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.modalitePaiement.modalite">Modalite</Translate>
+                    <Translate contentKey="pfumApp.modalitePaiement.modalite">Modalite</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.modalitePaiement.coutProgrammettc">Cout Programmettc</Translate>
+                    <Translate contentKey="pfumApp.modalitePaiement.coutProgrammettc">Cout Programmettc</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.modalitePaiement.coutProgrammettcDevise">Cout Programmettc Devise</Translate>
+                    <Translate contentKey="pfumApp.modalitePaiement.coutProgrammettcDevise">Cout Programmettc Devise</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.modalitePaiement.remiseNiveau1">Remise Niveau 1</Translate>
+                    <Translate contentKey="pfumApp.modalitePaiement.remiseNiveau1">Remise Niveau 1</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.modalitePaiement.remiseNiveau2">Remise Niveau 2</Translate>
+                    <Translate contentKey="pfumApp.modalitePaiement.remiseNiveau2">Remise Niveau 2</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.modalitePaiement.devise">Devise</Translate>
+                    <Translate contentKey="pfumApp.modalitePaiement.devise">Devise</Translate>
                   </th>
                   <th />
                 </tr>
@@ -119,7 +119,7 @@ export class ModalitePaiement extends React.Component<IModalitePaiementProps, IM
                     <td>{modalitePaiement.remiseNiveau1}</td>
                     <td>{modalitePaiement.remiseNiveau2}</td>
                     <td>
-                      <Translate contentKey={`pfumv10App.Devise.${modalitePaiement.devise}`} />
+                      <Translate contentKey={`pfumApp.Devise.${modalitePaiement.devise}`} />
                     </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
@@ -149,7 +149,7 @@ export class ModalitePaiement extends React.Component<IModalitePaiementProps, IM
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.modalitePaiement.home.notFound">No Modalite Paiements found</Translate>
+              <Translate contentKey="pfumApp.modalitePaiement.home.notFound">No Modalite Paiements found</Translate>
             </div>
           )}
         </div>

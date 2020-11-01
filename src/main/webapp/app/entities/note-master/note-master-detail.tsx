@@ -25,47 +25,47 @@ export class NoteMasterDetail extends React.Component<INoteMasterDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.noteMaster.detail.title">NoteMaster</Translate> [<b>{noteMasterEntity.id}</b>]
+            <Translate contentKey="pfumApp.noteMaster.detail.title">NoteMaster</Translate> [<b>{noteMasterEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="semestre">
-                <Translate contentKey="pfumv10App.noteMaster.semestre">Semestre</Translate>
+                <Translate contentKey="pfumApp.noteMaster.semestre">Semestre</Translate>
               </span>
             </dt>
             <dd>{noteMasterEntity.semestre}</dd>
             <dt>
               <span id="noteCC1">
-                <Translate contentKey="pfumv10App.noteMaster.noteCC1">Note CC 1</Translate>
+                <Translate contentKey="pfumApp.noteMaster.noteCC1">Note CC 1</Translate>
               </span>
             </dt>
             <dd>{noteMasterEntity.noteCC1}</dd>
             <dt>
               <span id="noteCC2">
-                <Translate contentKey="pfumv10App.noteMaster.noteCC2">Note CC 2</Translate>
+                <Translate contentKey="pfumApp.noteMaster.noteCC2">Note CC 2</Translate>
               </span>
             </dt>
             <dd>{noteMasterEntity.noteCC2}</dd>
             <dt>
               <span id="noteFinal">
-                <Translate contentKey="pfumv10App.noteMaster.noteFinal">Note Final</Translate>
+                <Translate contentKey="pfumApp.noteMaster.noteFinal">Note Final</Translate>
               </span>
             </dt>
             <dd>{noteMasterEntity.noteFinal}</dd>
             <dt>
               <span id="date">
-                <Translate contentKey="pfumv10App.noteMaster.date">Date</Translate>
+                <Translate contentKey="pfumApp.noteMaster.date">Date</Translate>
               </span>
             </dt>
             <dd>
               <TextFormat value={noteMasterEntity.date} type="date" format={APP_DATE_FORMAT} />
             </dd>
             <dt>
-              <Translate contentKey="pfumv10App.noteMaster.user">User</Translate>
+              <Translate contentKey="pfumApp.noteMaster.user">User</Translate>
             </dt>
             <dd>{noteMasterEntity.user ? noteMasterEntity.user.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.noteMaster.module">Module</Translate>
+              <Translate contentKey="pfumApp.noteMaster.module">Module</Translate>
             </dt>
             <dd>{noteMasterEntity.module ? noteMasterEntity.module.id : ''}</dd>
           </dl>

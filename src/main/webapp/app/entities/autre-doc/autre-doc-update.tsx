@@ -86,8 +86,8 @@ export class AutreDocUpdate extends React.Component<IAutreDocUpdateProps, IAutre
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.autreDoc.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.autreDoc.home.createOrEditLabel">Create or edit a AutreDoc</Translate>
+            <h2 id="pfumApp.autreDoc.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.autreDoc.home.createOrEditLabel">Create or edit a AutreDoc</Translate>
             </h2>
           </Col>
         </Row>
@@ -107,14 +107,14 @@ export class AutreDocUpdate extends React.Component<IAutreDocUpdateProps, IAutre
                 ) : null}
                 <AvGroup>
                   <Label id="titreLabel" for="autre-doc-titre">
-                    <Translate contentKey="pfumv10App.autreDoc.titre">Titre</Translate>
+                    <Translate contentKey="pfumApp.autreDoc.titre">Titre</Translate>
                   </Label>
                   <AvField id="autre-doc-titre" type="text" name="titre" />
                 </AvGroup>
                 <AvGroup>
                   <AvGroup>
                     <Label id="dataLabel" for="data">
-                      <Translate contentKey="pfumv10App.autreDoc.data">Data</Translate>
+                      <Translate contentKey="pfumApp.autreDoc.data">Data</Translate>
                     </Label>
                     <br />
                     {data ? (
@@ -143,7 +143,7 @@ export class AutreDocUpdate extends React.Component<IAutreDocUpdateProps, IAutre
                 </AvGroup>
                 <AvGroup>
                   <Label for="autre-doc-etudiantexec">
-                    <Translate contentKey="pfumv10App.autreDoc.etudiantexec">Etudiantexec</Translate>
+                    <Translate contentKey="pfumApp.autreDoc.etudiantexec">Etudiantexec</Translate>
                   </Label>
                   <AvInput id="autre-doc-etudiantexec" type="select" className="form-control" name="etudiantexec.id">
                     <option value="" key="0" />

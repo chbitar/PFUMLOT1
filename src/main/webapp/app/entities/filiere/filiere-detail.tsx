@@ -25,37 +25,33 @@ export class FiliereDetail extends React.Component<IFiliereDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.filiere.detail.title">Filiere</Translate> [<b>{filiereEntity.id}</b>]
+            [<b>{filiereEntity.nomfiliere}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
-              <span id="nomfiliere">
-                <Translate contentKey="pfumv10App.filiere.nomfiliere">Nomfiliere</Translate>
-              </span>
-            </dt>
-            <dd>{filiereEntity.nomfiliere}</dd>
-            <dt>
               <span id="responsable">
-                <Translate contentKey="pfumv10App.filiere.responsable">Responsable</Translate>
+                <Translate contentKey="pfumApp.filiere.responsable">Responsable</Translate>
               </span>
             </dt>
             <dd>{filiereEntity.responsable}</dd>
             <dt>
               <span id="accreditaion">
-                <Translate contentKey="pfumv10App.filiere.accreditaion">Accreditaion</Translate>
+                <Translate contentKey="pfumApp.filiere.accreditaion">Accréditaion</Translate>
               </span>
             </dt>
             <dd>{filiereEntity.accreditaion}</dd>
             <dt>
               <span id="programme">
-                <Translate contentKey="pfumv10App.filiere.programme">Programme</Translate>
+                <Translate contentKey="pfumApp.filiere.programme">Programme</Translate>
               </span>
             </dt>
             <dd>{filiereEntity.programme}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
+              <Translate contentKey="pfumApp.filiere.etablissement">Etablissement</Translate>
             </dt>
-            <dd>{filiereEntity.etablissement ? filiereEntity.etablissement.id : ''}</dd>
+            <dd>{filiereEntity.etablissement ? filiereEntity.etablissement.nomEcole : ''}</dd>
+            <dt>Anéee académique</dt>
+            <dd>{filiereEntity.anneeInscription ? filiereEntity.anneeInscription.annee : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/filiere" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -25,43 +25,42 @@ export class ModalitePaiementDetail extends React.Component<IModalitePaiementDet
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.modalitePaiement.detail.title">ModalitePaiement</Translate> [
-            <b>{modalitePaiementEntity.id}</b>]
+            <Translate contentKey="pfumApp.modalitePaiement.detail.title">ModalitePaiement</Translate> [<b>{modalitePaiementEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="modalite">
-                <Translate contentKey="pfumv10App.modalitePaiement.modalite">Modalite</Translate>
+                <Translate contentKey="pfumApp.modalitePaiement.modalite">Modalite</Translate>
               </span>
             </dt>
             <dd>{modalitePaiementEntity.modalite}</dd>
             <dt>
               <span id="coutProgrammettc">
-                <Translate contentKey="pfumv10App.modalitePaiement.coutProgrammettc">Cout Programmettc</Translate>
+                <Translate contentKey="pfumApp.modalitePaiement.coutProgrammettc">Cout Programmettc</Translate>
               </span>
             </dt>
             <dd>{modalitePaiementEntity.coutProgrammettc}</dd>
             <dt>
               <span id="coutProgrammettcDevise">
-                <Translate contentKey="pfumv10App.modalitePaiement.coutProgrammettcDevise">Cout Programmettc Devise</Translate>
+                <Translate contentKey="pfumApp.modalitePaiement.coutProgrammettcDevise">Cout Programmettc Devise</Translate>
               </span>
             </dt>
             <dd>{modalitePaiementEntity.coutProgrammettcDevise}</dd>
             <dt>
               <span id="remiseNiveau1">
-                <Translate contentKey="pfumv10App.modalitePaiement.remiseNiveau1">Remise Niveau 1</Translate>
+                <Translate contentKey="pfumApp.modalitePaiement.remiseNiveau1">Remise Niveau 1</Translate>
               </span>
             </dt>
             <dd>{modalitePaiementEntity.remiseNiveau1}</dd>
             <dt>
               <span id="remiseNiveau2">
-                <Translate contentKey="pfumv10App.modalitePaiement.remiseNiveau2">Remise Niveau 2</Translate>
+                <Translate contentKey="pfumApp.modalitePaiement.remiseNiveau2">Remise Niveau 2</Translate>
               </span>
             </dt>
             <dd>{modalitePaiementEntity.remiseNiveau2}</dd>
             <dt>
               <span id="devise">
-                <Translate contentKey="pfumv10App.modalitePaiement.devise">Devise</Translate>
+                <Translate contentKey="pfumApp.modalitePaiement.devise">Devise</Translate>
               </span>
             </dt>
             <dd>{modalitePaiementEntity.devise}</dd>

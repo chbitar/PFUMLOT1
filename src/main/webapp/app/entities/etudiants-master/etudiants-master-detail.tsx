@@ -66,19 +66,19 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                 <dl className="jh-entity-details">
                   <dt>
                     <span id="nom">
-                      <Translate contentKey="pfumv10App.etudiantsMaster.nom">Nom</Translate>
+                      <Translate contentKey="pfumApp.etudiantsMaster.nom">Nom</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsMasterEntity.nom}</dd>
                   <dt>
                     <span id="prenom">
-                      <Translate contentKey="pfumv10App.etudiantsMaster.prenom">Prenom</Translate>
+                      <Translate contentKey="pfumApp.etudiantsMaster.prenom">Prenom</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsMasterEntity.prenom}</dd>
                   <dt>
                     <span id="dateNaissance">
-                      <Translate contentKey="pfumv10App.etudiantsMaster.dateNaissance">Date Naissance</Translate>
+                      <Translate contentKey="pfumApp.etudiantsMaster.dateNaissance">Date Naissance</Translate>
                     </span>
                   </dt>
                   <dd>
@@ -86,31 +86,31 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                   </dd>
                   <dt>
                     <span id="adresseContact">
-                      <Translate contentKey="pfumv10App.etudiantsMaster.adresseContact">Adresse Contact</Translate>
+                      <Translate contentKey="pfumApp.etudiantsMaster.adresseContact">Adresse Contact</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsMasterEntity.adresseContact}</dd>
                   <dt>
                     <span id="ville">
-                      <Translate contentKey="pfumv10App.etudiantsMaster.ville">Ville</Translate>
+                      <Translate contentKey="pfumApp.etudiantsMaster.ville">Ville</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsMasterEntity.ville}</dd>
                   <dt>
                     <span id="email">
-                      <Translate contentKey="pfumv10App.etudiantsMaster.email">Email</Translate>
+                      <Translate contentKey="pfumApp.etudiantsMaster.email">Email</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsMasterEntity.email}</dd>
                   <dt>
                     <span id="cinPass">
-                      <Translate contentKey="pfumv10App.etudiantsMaster.cinPass">Cin Pass</Translate>
+                      <Translate contentKey="pfumApp.etudiantsMaster.cinPass">Cin Pass</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsMasterEntity.cinPass}</dd>
                   <dt>
                     <span id="codepostal">
-                      <Translate contentKey="pfumv10App.etudiantsMaster.codepostal">Codepostal</Translate>
+                      <Translate contentKey="pfumApp.etudiantsMaster.codepostal">Codepostal</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsMasterEntity.codepostal}</dd>
@@ -120,7 +120,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                 <span className="badge badge-warning">Informations filiére</span>
                 <dt>
                   <span id="photo">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.photo">Photo</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.photo">Photo</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -141,42 +141,42 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                 <dd>{etudiantsMasterEntity.typeBac}</dd>
                 <dt>
                   <span id="mention">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.mention">Mention</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.mention">Mention</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsMasterEntity.mention}</dd>
                 <dt>
                   <span id="anneOtention">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.anneOtention">Année Obtention</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.anneOtention">Année Obtention</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsMasterEntity.anneeObtention}</dd>
                 <dt>
-                  <Translate contentKey="pfumv10App.etudiantsMaster.filiere">Filiere</Translate>
+                  <Translate contentKey="pfumApp.etudiantsMaster.filiere">Filiere</Translate>
                 </dt>
                 <dd>{etudiantsMasterEntity.filiere ? etudiantsMasterEntity.filiere.nomfiliere : ''}</dd>
                 <dt>
                   <span id="paysResidence">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.paysResidence">Pays Residence</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.paysResidence">Pays Residence</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsMasterEntity.paysResidence}</dd>
 
                 <dt>
                   <span id="province">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.province">Province</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.province">Province</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsMasterEntity.province}</dd>
                 <dt>
                   <span id="tel">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.tel">Tel</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.tel">Tel</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsMasterEntity.tel}</dd>
                 <dt>
                   <span id="deuxiemeTel">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.deuxiemeTel">Deuxieme Tel</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.deuxiemeTel">Deuxieme Tel</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsMasterEntity.deuxiemeTel}</dd>
@@ -189,13 +189,13 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                 <span className="badge badge-warning">Piéces jointes</span>
                 <dt>
                   <span id="extraitActeNaissance">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.extraitActeNaissance">Extrait Acte Naissance</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.extraitActeNaissance">Extrait Acte Naissance</Translate>
                   </span>
                 </dt>
 
                 <dt>
                   <span id="bacalaureat">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.bacalaureat">Bacalaureat</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.bacalaureat">Bacalaureat</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -255,7 +255,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                 </dd>
                 <dt>
                   <span id="cinPassport">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.cinPassport">Cin Passport</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.cinPassport">Cin Passport</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -282,7 +282,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                 <span className="badge badge-warning">Status d'inscription</span>
                 <dt>
                   <span id="inscriptionvalide">
-                    <Translate contentKey="pfumv10App.etudiantsMaster.inscriptionvalide">Inscriptionvalide</Translate>
+                    <Translate contentKey="pfumApp.etudiantsMaster.inscriptionvalide">Inscriptionvalide</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -293,7 +293,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                   )}
                 </dd>
                 <dt>
-                  <Translate contentKey="pfumv10App.etudiantsMaster.modalite">Modalite</Translate>
+                  <Translate contentKey="pfumApp.etudiantsMaster.modalite">Modalite</Translate>
                 </dt>
                 <dd>{etudiantsMasterEntity.modalite ? etudiantsMasterEntity.modalite.modalite : ''}</dd>
                 {(isAdmin || isUser) && (

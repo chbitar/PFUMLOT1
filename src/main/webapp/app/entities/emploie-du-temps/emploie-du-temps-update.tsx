@@ -80,8 +80,8 @@ export class EmploieDuTempsUpdate extends React.Component<IEmploieDuTempsUpdateP
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.emploieDuTemps.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.emploieDuTemps.home.createOrEditLabel">Create or edit a EmploieDuTemps</Translate>
+            <h2 id="pfumApp.emploieDuTemps.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.emploieDuTemps.home.createOrEditLabel">Create or edit a EmploieDuTemps</Translate>
             </h2>
           </Col>
         </Row>
@@ -102,7 +102,7 @@ export class EmploieDuTempsUpdate extends React.Component<IEmploieDuTempsUpdateP
                 <AvGroup>
                   <AvGroup>
                     <Label id="emploieDuTempsLabel" for="emploieDuTemps">
-                      <Translate contentKey="pfumv10App.emploieDuTemps.emploieDuTemps">Emploie Du Temps</Translate>
+                      <Translate contentKey="pfumApp.emploieDuTemps.emploieDuTemps">Emploie Du Temps</Translate>
                     </Label>
                     <br />
                     {emploieDuTemps ? (
@@ -131,7 +131,7 @@ export class EmploieDuTempsUpdate extends React.Component<IEmploieDuTempsUpdateP
                 </AvGroup>
                 <AvGroup>
                   <Label id="programmeLabel" for="emploie-du-temps-programme">
-                    <Translate contentKey="pfumv10App.emploieDuTemps.programme">Programme</Translate>
+                    <Translate contentKey="pfumApp.emploieDuTemps.programme">Programme</Translate>
                   </Label>
                   <AvInput
                     id="emploie-du-temps-programme"
@@ -140,9 +140,9 @@ export class EmploieDuTempsUpdate extends React.Component<IEmploieDuTempsUpdateP
                     name="programme"
                     value={(!isNew && emploieDuTempsEntity.programme) || 'LICENCE'}
                   >
-                    <option value="LICENCE">{translate('pfumv10App.Programme.LICENCE')}</option>
-                    <option value="MASTER">{translate('pfumv10App.Programme.MASTER')}</option>
-                    <option value="MASTER_EXECUTIF">{translate('pfumv10App.Programme.MASTER_EXECUTIF')}</option>
+                    <option value="LICENCE">{translate('pfumApp.Programme.LICENCE')}</option>
+                    <option value="MASTER">{translate('pfumApp.Programme.MASTER')}</option>
+                    <option value="MASTER_EXECUTIF">{translate('pfumApp.Programme.MASTER_EXECUTIF')}</option>
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/emploie-du-temps" replace color="info">

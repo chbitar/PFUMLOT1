@@ -70,7 +70,7 @@ export class AnneeInscriptionUpdate extends React.Component<IAnneeInscriptionUpd
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.anneeInscription.home.createOrEditLabel">Ajouter ou éditer une année de scolarite</h2>
+            <h2 id="pfumApp.anneeInscription.home.createOrEditLabel">Ajouter ou éditer une année de scolarite</h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -89,7 +89,7 @@ export class AnneeInscriptionUpdate extends React.Component<IAnneeInscriptionUpd
                 ) : null}
                 <AvGroup>
                   <Label id="anneeLabel" for="annee-inscription-annee">
-                    <Translate contentKey="pfumv10App.anneeInscription.annee">Annee</Translate>
+                    <Translate contentKey="pfumApp.anneeInscription.annee">Annee</Translate>
                   </Label>
                   <AvField id="annee-inscription-annee" type="text" name="annee" />
                 </AvGroup>

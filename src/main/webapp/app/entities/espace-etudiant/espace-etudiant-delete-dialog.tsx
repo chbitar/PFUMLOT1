@@ -33,8 +33,8 @@ export class EspaceEtudiantDeleteDialog extends React.Component<IEspaceEtudiantD
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.espaceEtudiant.delete.question">
-          <Translate contentKey="pfumv10App.espaceEtudiant.delete.question" interpolate={{ id: espaceEtudiantEntity.id }}>
+        <ModalBody id="pfumApp.espaceEtudiant.delete.question">
+          <Translate contentKey="pfumApp.espaceEtudiant.delete.question" interpolate={{ id: espaceEtudiantEntity.id }}>
             Are you sure you want to delete this EspaceEtudiant?
           </Translate>
         </ModalBody>

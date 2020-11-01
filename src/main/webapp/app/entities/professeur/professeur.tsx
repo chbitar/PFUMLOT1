@@ -47,66 +47,46 @@ export class Professeur extends React.Component<IProfesseurProps, IProfesseurSta
     return (
       <div>
         <h2 id="professeur-heading">
-          Liste des professeurs
+          &nbsp; &nbsp; Liste des professeurs
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.professeur.home.createLabel">Create new Professeur</Translate>
+            <Translate contentKey="pfumApp.professeur.home.createLabel">Create new Professeur</Translate>
           </Link>
         </h2>
-        <Row>
-          <Col sm="12">
-            <AvForm onSubmit={this.search}>
-              <AvGroup>
-                <InputGroup>
-                  <AvInput
-                    type="text"
-                    name="search"
-                    value={this.state.search}
-                    onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.professeur.home.search')}
-                  />
-                  <Button className="input-group-addon">
-                    <FontAwesomeIcon icon="search" />
-                  </Button>
-                  <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                    <FontAwesomeIcon icon="trash" />
-                  </Button>
-                </InputGroup>
-              </AvGroup>
-            </AvForm>
-          </Col>
-        </Row>
+        &nbsp; &nbsp;
         <div className="table-responsive">
           {professeurList && professeurList.length > 0 ? (
             <Table responsive>
               <thead>
                 <tr>
                   <th>
-                    <Translate contentKey="pfumv10App.professeur.nom">Nom</Translate>
+                    <Translate contentKey="pfumApp.professeur.nom">Nom</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.professeur.prenom">Prenom</Translate>
+                    <Translate contentKey="pfumApp.professeur.prenom">Prenom</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.professeur.etablissement">Etablissement</Translate>
+                    <Translate contentKey="pfumApp.professeur.etablissement">Etablissement</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.professeur.grade">Grade</Translate>
+                    <Translate contentKey="pfumApp.professeur.grade">Grade</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.professeur.diplome">Diplome</Translate>
+                    <Translate contentKey="pfumApp.professeur.diplome">Diplome</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.professeur.cin">Cin</Translate>
+                    <Translate contentKey="pfumApp.professeur.cin">Cin</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.professeur.rib">Rib</Translate>
+                    <Translate contentKey="pfumApp.professeur.rib">Rib</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.professeur.email">Email</Translate>
+                    <Translate contentKey="pfumApp.professeur.email">Email</Translate>
                   </th>
-
+                  <th>
+                    <Translate contentKey="pfumApp.professeur.telephone">Email</Translate>
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -121,6 +101,7 @@ export class Professeur extends React.Component<IProfesseurProps, IProfesseurSta
                     <td>{professeur.cin}</td>
                     <td>{professeur.rib}</td>
                     <td>{professeur.email}</td>
+                    <td>{professeur.telephone}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${professeur.id}`} color="info" size="sm">
@@ -149,7 +130,7 @@ export class Professeur extends React.Component<IProfesseurProps, IProfesseurSta
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.professeur.home.notFound">No Professeurs found</Translate>
+              <Translate contentKey="pfumApp.professeur.home.notFound">No Professeurs found</Translate>
             </div>
           )}
         </div>

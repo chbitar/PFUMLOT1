@@ -33,8 +33,8 @@ export class FiliereDeleteDialog extends React.Component<IFiliereDeleteDialogPro
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.filiere.delete.question">
-          <Translate contentKey="pfumv10App.filiere.delete.question" interpolate={{ id: filiereEntity.id }}>
+        <ModalBody id="pfumApp.filiere.delete.question">
+          <Translate contentKey="pfumApp.filiere.delete.question" interpolate={{ id: filiereEntity.nomfiliere }}>
             Are you sure you want to delete this Filiere?
           </Translate>
         </ModalBody>

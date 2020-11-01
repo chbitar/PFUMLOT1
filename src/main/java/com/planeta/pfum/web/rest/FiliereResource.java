@@ -61,7 +61,7 @@ public class FiliereResource {
         }
         Filiere result = filiereRepository.save(filiere);
         return ResponseEntity.created(new URI("/api/filieres/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getNomfiliere().toString()))
             .body(result);
     }
 
@@ -82,7 +82,7 @@ public class FiliereResource {
         }
         Filiere result = filiereRepository.save(filiere);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, filiere.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, filiere.getNomfiliere().toString()))
             .body(result);
     }
 

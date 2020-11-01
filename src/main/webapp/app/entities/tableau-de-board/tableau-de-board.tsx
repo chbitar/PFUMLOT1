@@ -47,11 +47,11 @@ export class TableauDeBoard extends React.Component<ITableauDeBoardProps, ITable
     return (
       <div>
         <h2 id="tableau-de-board-heading">
-          <Translate contentKey="pfumv10App.tableauDeBoard.home.title">Tableau De Boards</Translate>
+          <Translate contentKey="pfumApp.tableauDeBoard.home.title">Tableau De Boards</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.tableauDeBoard.home.createLabel">Create new Tableau De Board</Translate>
+            <Translate contentKey="pfumApp.tableauDeBoard.home.createLabel">Create new Tableau De Board</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class TableauDeBoard extends React.Component<ITableauDeBoardProps, ITable
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.tableauDeBoard.home.search')}
+                    placeholder={translate('pfumApp.tableauDeBoard.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,13 +86,13 @@ export class TableauDeBoard extends React.Component<ITableauDeBoardProps, ITable
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.tableauDeBoard.tableauDeBoard">Tableau De Board</Translate>
+                    <Translate contentKey="pfumApp.tableauDeBoard.tableauDeBoard">Tableau De Board</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.tableauDeBoard.filier">Filier</Translate>
+                    <Translate contentKey="pfumApp.tableauDeBoard.filier">Filier</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.tableauDeBoard.calendrier">Calendrier</Translate>
+                    <Translate contentKey="pfumApp.tableauDeBoard.calendrier">Calendrier</Translate>
                   </th>
                   <th />
                 </tr>
@@ -154,7 +154,7 @@ export class TableauDeBoard extends React.Component<ITableauDeBoardProps, ITable
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.tableauDeBoard.home.notFound">No Tableau De Boards found</Translate>
+              <Translate contentKey="pfumApp.tableauDeBoard.home.notFound">No Tableau De Boards found</Translate>
             </div>
           )}
         </div>

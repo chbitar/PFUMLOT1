@@ -25,12 +25,12 @@ export class EmploieDuTempsDetail extends React.Component<IEmploieDuTempsDetailP
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.emploieDuTemps.detail.title">EmploieDuTemps</Translate> [<b>{emploieDuTempsEntity.id}</b>]
+            <Translate contentKey="pfumApp.emploieDuTemps.detail.title">EmploieDuTemps</Translate> [<b>{emploieDuTempsEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="emploieDuTemps">
-                <Translate contentKey="pfumv10App.emploieDuTemps.emploieDuTemps">Emploie Du Temps</Translate>
+                <Translate contentKey="pfumApp.emploieDuTemps.emploieDuTemps">Emploie Du Temps</Translate>
               </span>
             </dt>
             <dd>
@@ -47,7 +47,7 @@ export class EmploieDuTempsDetail extends React.Component<IEmploieDuTempsDetailP
             </dd>
             <dt>
               <span id="programme">
-                <Translate contentKey="pfumv10App.emploieDuTemps.programme">Programme</Translate>
+                <Translate contentKey="pfumApp.emploieDuTemps.programme">Programme</Translate>
               </span>
             </dt>
             <dd>{emploieDuTempsEntity.programme}</dd>

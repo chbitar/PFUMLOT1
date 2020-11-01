@@ -33,8 +33,8 @@ export class AnneeInscriptionDeleteDialog extends React.Component<IAnneeInscript
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.anneeInscription.delete.question">
-          <Translate contentKey="pfumv10App.anneeInscription.delete.question" interpolate={{ id: anneeInscriptionEntity.id }}>
+        <ModalBody id="pfumApp.anneeInscription.delete.question">
+          <Translate contentKey="pfumApp.anneeInscription.delete.question" interpolate={{ id: anneeInscriptionEntity.id }}>
             Are you sure you want to delete this AnneeInscription?
           </Translate>
         </ModalBody>

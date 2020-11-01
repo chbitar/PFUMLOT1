@@ -47,11 +47,11 @@ export class NoteMaster extends React.Component<INoteMasterProps, INoteMasterSta
     return (
       <div>
         <h2 id="note-master-heading">
-          <Translate contentKey="pfumv10App.noteMaster.home.title">Note Masters</Translate>
+          <Translate contentKey="pfumApp.noteMaster.home.title">Note Masters</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.noteMaster.home.createLabel">Create new Note Master</Translate>
+            <Translate contentKey="pfumApp.noteMaster.home.createLabel">Create new Note Master</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class NoteMaster extends React.Component<INoteMasterProps, INoteMasterSta
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.noteMaster.home.search')}
+                    placeholder={translate('pfumApp.noteMaster.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,25 +86,25 @@ export class NoteMaster extends React.Component<INoteMasterProps, INoteMasterSta
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteMaster.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.semestre">Semestre</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteMaster.noteCC1">Note CC 1</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.noteCC1">Note CC 1</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteMaster.noteCC2">Note CC 2</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.noteCC2">Note CC 2</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteMaster.noteFinal">Note Final</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.noteFinal">Note Final</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteMaster.date">Date</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.date">Date</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteMaster.user">User</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.user">User</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteMaster.module">Module</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.module">Module</Translate>
                   </th>
                   <th />
                 </tr>
@@ -118,7 +118,7 @@ export class NoteMaster extends React.Component<INoteMasterProps, INoteMasterSta
                       </Button>
                     </td>
                     <td>
-                      <Translate contentKey={`pfumv10App.Semestre.${noteMaster.semestre}`} />
+                      <Translate contentKey={`pfumApp.Semestre.${noteMaster.semestre}`} />
                     </td>
                     <td>{noteMaster.noteCC1}</td>
                     <td>{noteMaster.noteCC2}</td>
@@ -156,7 +156,7 @@ export class NoteMaster extends React.Component<INoteMasterProps, INoteMasterSta
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.noteMaster.home.notFound">No Note Masters found</Translate>
+              <Translate contentKey="pfumApp.noteMaster.home.notFound">No Note Masters found</Translate>
             </div>
           )}
         </div>

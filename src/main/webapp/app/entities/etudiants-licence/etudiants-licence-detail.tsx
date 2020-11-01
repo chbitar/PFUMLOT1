@@ -65,19 +65,19 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                 <dl className="jh-entity-details">
                   <dt>
                     <span id="nom">
-                      <Translate contentKey="pfumv10App.etudiantsLicence.nom">Nom</Translate>
+                      <Translate contentKey="pfumApp.etudiantsLicence.nom">Nom</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsLicenceEntity.nom}</dd>
                   <dt>
                     <span id="prenom">
-                      <Translate contentKey="pfumv10App.etudiantsLicence.prenom">Prenom</Translate>
+                      <Translate contentKey="pfumApp.etudiantsLicence.prenom">Prenom</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsLicenceEntity.prenom}</dd>
                   <dt>
                     <span id="dateNaissance">
-                      <Translate contentKey="pfumv10App.etudiantsLicence.dateNaissance">Date Naissance</Translate>
+                      <Translate contentKey="pfumApp.etudiantsLicence.dateNaissance">Date Naissance</Translate>
                     </span>
                   </dt>
                   <dd>
@@ -85,31 +85,31 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                   </dd>
                   <dt>
                     <span id="adresseContact">
-                      <Translate contentKey="pfumv10App.etudiantsLicence.adresseContact">Adresse Contact</Translate>
+                      <Translate contentKey="pfumApp.etudiantsLicence.adresseContact">Adresse Contact</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsLicenceEntity.adresseContact}</dd>
                   <dt>
                     <span id="ville">
-                      <Translate contentKey="pfumv10App.etudiantsLicence.ville">Ville</Translate>
+                      <Translate contentKey="pfumApp.etudiantsLicence.ville">Ville</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsLicenceEntity.ville}</dd>
                   <dt>
                     <span id="email">
-                      <Translate contentKey="pfumv10App.etudiantsLicence.email">Email</Translate>
+                      <Translate contentKey="pfumApp.etudiantsLicence.email">Email</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsLicenceEntity.email}</dd>
                   <dt>
                     <span id="cinPass">
-                      <Translate contentKey="pfumv10App.etudiantsLicence.cinPass">Cin Pass</Translate>
+                      <Translate contentKey="pfumApp.etudiantsLicence.cinPass">Cin Pass</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsLicenceEntity.cinPass}</dd>
                   <dt>
                     <span id="codepostal">
-                      <Translate contentKey="pfumv10App.etudiantsLicence.codepostal">Codepostal</Translate>
+                      <Translate contentKey="pfumApp.etudiantsLicence.codepostal">Codepostal</Translate>
                     </span>
                   </dt>
                   <dd>{etudiantsLicenceEntity.codepostal}</dd>
@@ -119,7 +119,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                 <span className="badge badge-warning">Informations filiére</span>
                 <dt>
                   <span id="photo">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.photo">Photo</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.photo">Photo</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -140,42 +140,42 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                 <dd>{etudiantsLicenceEntity.pjBac}</dd>
                 <dt>
                   <span id="mention">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.mention">Mention</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.mention">Mention</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsLicenceEntity.mention}</dd>
                 <dt>
-                  <Translate contentKey="pfumv10App.etudiantsLicence.filiere">Filiere</Translate>
+                  <Translate contentKey="pfumApp.etudiantsLicence.filiere">Filiere</Translate>
                 </dt>
                 <dt>
                   <span id="anneOtention">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.anneOtention">Année d'otention</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.anneOtention">Année d'otention</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsLicenceEntity.anneeObtention}</dd>
                 <dd>{etudiantsLicenceEntity.filiere ? etudiantsLicenceEntity.filiere.nomfiliere : ''}</dd>
                 <dt>
                   <span id="paysResidence">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.paysResidence">Pays Residence</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.paysResidence">Pays Residence</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsLicenceEntity.paysResidence}</dd>
 
                 <dt>
                   <span id="province">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.province">Province</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.province">Province</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsLicenceEntity.province}</dd>
                 <dt>
                   <span id="tel">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.tel">Tel</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.tel">Tel</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsLicenceEntity.tel}</dd>
                 <dt>
                   <span id="deuxiemeTel">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.deuxiemeTel">Deuxieme Tel</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.deuxiemeTel">Deuxieme Tel</Translate>
                   </span>
                 </dt>
                 <dd>{etudiantsLicenceEntity.deuxiemeTel}</dd>
@@ -189,7 +189,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
 
                 <dt>
                   <span id="bacalaureat">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.bacalaureat">Bacalaureat</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.bacalaureat">Bacalaureat</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -245,7 +245,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                 </dd>
                 <dt>
                   <span id="cinPassport">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.cinPassport">Cin Passport</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.cinPassport">Cin Passport</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -272,7 +272,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                 <span className="badge badge-warning">Status d'inscription</span>
                 <dt>
                   <span id="inscriptionvalide">
-                    <Translate contentKey="pfumv10App.etudiantsLicence.inscriptionvalide">Inscriptionvalide</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.inscriptionvalide">Inscriptionvalide</Translate>
                   </span>
                 </dt>
                 <dd>
@@ -283,7 +283,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                   )}
                 </dd>
                 <dt>
-                  <Translate contentKey="pfumv10App.etudiantsLicence.modalite">Modalite</Translate>
+                  <Translate contentKey="pfumApp.etudiantsLicence.modalite">Modalite</Translate>
                 </dt>
                 <dd>{etudiantsLicenceEntity.modalite ? etudiantsLicenceEntity.modalite.modalite : ''}</dd>
                 {(isAdmin || isUser) && (

@@ -47,11 +47,11 @@ export class EmploieDuTemps extends React.Component<IEmploieDuTempsProps, IEmplo
     return (
       <div>
         <h2 id="emploie-du-temps-heading">
-          <Translate contentKey="pfumv10App.emploieDuTemps.home.title">Emploie Du Temps</Translate>
+          <Translate contentKey="pfumApp.emploieDuTemps.home.title">Emploie Du Temps</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.emploieDuTemps.home.createLabel">Create new Emploie Du Temps</Translate>
+            <Translate contentKey="pfumApp.emploieDuTemps.home.createLabel">Create new Emploie Du Temps</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class EmploieDuTemps extends React.Component<IEmploieDuTempsProps, IEmplo
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.emploieDuTemps.home.search')}
+                    placeholder={translate('pfumApp.emploieDuTemps.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,10 +86,10 @@ export class EmploieDuTemps extends React.Component<IEmploieDuTempsProps, IEmplo
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.emploieDuTemps.emploieDuTemps">Emploie Du Temps</Translate>
+                    <Translate contentKey="pfumApp.emploieDuTemps.emploieDuTemps">Emploie Du Temps</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.emploieDuTemps.programme">Programme</Translate>
+                    <Translate contentKey="pfumApp.emploieDuTemps.programme">Programme</Translate>
                   </th>
                   <th />
                 </tr>
@@ -116,7 +116,7 @@ export class EmploieDuTemps extends React.Component<IEmploieDuTempsProps, IEmplo
                       ) : null}
                     </td>
                     <td>
-                      <Translate contentKey={`pfumv10App.Programme.${emploieDuTemps.programme}`} />
+                      <Translate contentKey={`pfumApp.Programme.${emploieDuTemps.programme}`} />
                     </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
@@ -146,7 +146,7 @@ export class EmploieDuTemps extends React.Component<IEmploieDuTempsProps, IEmplo
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.emploieDuTemps.home.notFound">No Emploie Du Temps found</Translate>
+              <Translate contentKey="pfumApp.emploieDuTemps.home.notFound">No Emploie Du Temps found</Translate>
             </div>
           )}
         </div>

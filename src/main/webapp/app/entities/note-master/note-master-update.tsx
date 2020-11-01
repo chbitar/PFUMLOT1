@@ -83,8 +83,8 @@ export class NoteMasterUpdate extends React.Component<INoteMasterUpdateProps, IN
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.noteMaster.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.noteMaster.home.createOrEditLabel">Create or edit a NoteMaster</Translate>
+            <h2 id="pfumApp.noteMaster.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.noteMaster.home.createOrEditLabel">Create or edit a NoteMaster</Translate>
             </h2>
           </Col>
         </Row>
@@ -104,7 +104,7 @@ export class NoteMasterUpdate extends React.Component<INoteMasterUpdateProps, IN
                 ) : null}
                 <AvGroup>
                   <Label id="semestreLabel" for="note-master-semestre">
-                    <Translate contentKey="pfumv10App.noteMaster.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.semestre">Semestre</Translate>
                   </Label>
                   <AvInput
                     id="note-master-semestre"
@@ -113,35 +113,35 @@ export class NoteMasterUpdate extends React.Component<INoteMasterUpdateProps, IN
                     name="semestre"
                     value={(!isNew && noteMasterEntity.semestre) || 'S1'}
                   >
-                    <option value="S1">{translate('pfumv10App.Semestre.S1')}</option>
-                    <option value="S2">{translate('pfumv10App.Semestre.S2')}</option>
-                    <option value="S3">{translate('pfumv10App.Semestre.S3')}</option>
-                    <option value="S4">{translate('pfumv10App.Semestre.S4')}</option>
-                    <option value="S5">{translate('pfumv10App.Semestre.S5')}</option>
-                    <option value="S6">{translate('pfumv10App.Semestre.S6')}</option>
+                    <option value="S1">{translate('pfumApp.Semestre.S1')}</option>
+                    <option value="S2">{translate('pfumApp.Semestre.S2')}</option>
+                    <option value="S3">{translate('pfumApp.Semestre.S3')}</option>
+                    <option value="S4">{translate('pfumApp.Semestre.S4')}</option>
+                    <option value="S5">{translate('pfumApp.Semestre.S5')}</option>
+                    <option value="S6">{translate('pfumApp.Semestre.S6')}</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label id="noteCC1Label" for="note-master-noteCC1">
-                    <Translate contentKey="pfumv10App.noteMaster.noteCC1">Note CC 1</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.noteCC1">Note CC 1</Translate>
                   </Label>
                   <AvField id="note-master-noteCC1" type="string" className="form-control" name="noteCC1" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="noteCC2Label" for="note-master-noteCC2">
-                    <Translate contentKey="pfumv10App.noteMaster.noteCC2">Note CC 2</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.noteCC2">Note CC 2</Translate>
                   </Label>
                   <AvField id="note-master-noteCC2" type="string" className="form-control" name="noteCC2" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="noteFinalLabel" for="note-master-noteFinal">
-                    <Translate contentKey="pfumv10App.noteMaster.noteFinal">Note Final</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.noteFinal">Note Final</Translate>
                   </Label>
                   <AvField id="note-master-noteFinal" type="string" className="form-control" name="noteFinal" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="dateLabel" for="note-master-date">
-                    <Translate contentKey="pfumv10App.noteMaster.date">Date</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.date">Date</Translate>
                   </Label>
                   <AvInput
                     id="note-master-date"
@@ -154,7 +154,7 @@ export class NoteMasterUpdate extends React.Component<INoteMasterUpdateProps, IN
                 </AvGroup>
                 <AvGroup>
                   <Label for="note-master-user">
-                    <Translate contentKey="pfumv10App.noteMaster.user">User</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.user">User</Translate>
                   </Label>
                   <AvInput id="note-master-user" type="select" className="form-control" name="user.id">
                     <option value="" key="0" />
@@ -169,7 +169,7 @@ export class NoteMasterUpdate extends React.Component<INoteMasterUpdateProps, IN
                 </AvGroup>
                 <AvGroup>
                   <Label for="note-master-module">
-                    <Translate contentKey="pfumv10App.noteMaster.module">Module</Translate>
+                    <Translate contentKey="pfumApp.noteMaster.module">Module</Translate>
                   </Label>
                   <AvInput id="note-master-module" type="select" className="form-control" name="module.id">
                     <option value="" key="0" />

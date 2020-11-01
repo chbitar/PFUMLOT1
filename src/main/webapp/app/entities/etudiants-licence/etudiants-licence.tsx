@@ -92,7 +92,7 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
                   <div className="toast-body">
                     <AvGroup>
                       <Label for="filiere-etablissement">
-                        <Translate contentKey="pfumv10App.filiere.etablissement">Etablissement</Translate>
+                        <Translate contentKey="pfumApp.filiere.etablissement">Etablissement</Translate>
                       </Label>
                       <AvInput
                         id="filiere-etablissement"
@@ -150,7 +150,7 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
                           name="search"
                           value={this.state.search}
                           onChange={this.handleSearch}
-                          placeholder={translate('pfumv10App.etudiantsLicence.home.search')}
+                          placeholder={translate('pfumApp.etudiantsLicence.home.search')}
                         />
                         <Button className="input-group-addon">
                           <FontAwesomeIcon icon="search" />
@@ -173,20 +173,20 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
                 <tr>
                   <th>N° etudiant</th>
                   <th>
-                    <Translate contentKey="pfumv10App.etudiantsLicence.nom">Nom</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.nom">Nom</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.etudiantsLicence.prenom">Prenom</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.prenom">Prenom</Translate>
                   </th>
 
                   <th>
-                    <Translate contentKey="pfumv10App.etudiantsLicence.photo">Photo</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.photo">Photo</Translate>
                   </th>
 
                   {(isAdmin || isRespFin) && <th>Validité</th>}
 
                   <th>
-                    <Translate contentKey="pfumv10App.etudiantsLicence.filiere">Filiere</Translate>
+                    <Translate contentKey="pfumApp.etudiantsLicence.filiere">Filiere</Translate>
                   </th>
                   <th>Année scolaire</th>
 
@@ -274,7 +274,7 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.etudiantsLicence.home.notFound">No Etudiants Licences found</Translate>
+              <Translate contentKey="pfumApp.etudiantsLicence.home.notFound">No Etudiants Licences found</Translate>
             </div>
           )}
         </div>

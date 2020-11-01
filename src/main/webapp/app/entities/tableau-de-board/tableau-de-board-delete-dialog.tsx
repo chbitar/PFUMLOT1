@@ -33,8 +33,8 @@ export class TableauDeBoardDeleteDialog extends React.Component<ITableauDeBoardD
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.tableauDeBoard.delete.question">
-          <Translate contentKey="pfumv10App.tableauDeBoard.delete.question" interpolate={{ id: tableauDeBoardEntity.id }}>
+        <ModalBody id="pfumApp.tableauDeBoard.delete.question">
+          <Translate contentKey="pfumApp.tableauDeBoard.delete.question" interpolate={{ id: tableauDeBoardEntity.id }}>
             Are you sure you want to delete this TableauDeBoard?
           </Translate>
         </ModalBody>

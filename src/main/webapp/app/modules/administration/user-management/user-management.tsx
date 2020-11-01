@@ -64,7 +64,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
     return (
       <div>
         <h2 id="user-management-page-heading">
-          <Translate contentKey="userManagement.home.title">Users</Translate>
+          &nbsp; &nbsp;<Translate contentKey="userManagement.home.title">Users</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
             <FontAwesomeIcon icon="plus" /> <Translate contentKey="userManagement.home.createLabel">Create a new user</Translate>
           </Link>
@@ -72,10 +72,6 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
         <Table responsive striped>
           <thead>
             <tr>
-              <th className="hand" onClick={this.sort('id')}>
-                <Translate contentKey="global.field.id">ID</Translate>
-                <FontAwesomeIcon icon="sort" />
-              </th>
               <th className="hand" onClick={this.sort('login')}>
                 <Translate contentKey="userManagement.login">Login</Translate>
                 <FontAwesomeIcon icon="sort" />
@@ -110,11 +106,6 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
           <tbody>
             {users.map((user, i) => (
               <tr id={user.login} key={`user-${i}`}>
-                <td>
-                  <Button tag={Link} to={`${match.url}/${user.login}`} color="link" size="sm">
-                    {user.id}
-                  </Button>
-                </td>
                 <td>{user.login}</td>
                 <td>{user.email}</td>
                 <td>

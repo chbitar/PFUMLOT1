@@ -25,48 +25,48 @@ export class EtablissementDetail extends React.Component<IEtablissementDetailPro
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.etablissement.detail.title">Etablissement</Translate> [<b>{etablissementEntity.id}</b>]
+            <Translate contentKey="pfumApp.etablissement.detail.title">Etablissement</Translate> [<b>{etablissementEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="nomEcole">
-                <Translate contentKey="pfumv10App.etablissement.nomEcole">Nom Ecole</Translate>
+                <Translate contentKey="pfumApp.etablissement.nomEcole">Nom Ecole</Translate>
               </span>
             </dt>
             <dd>{etablissementEntity.nomEcole}</dd>
             <dt>
               <span id="adresse">
-                <Translate contentKey="pfumv10App.etablissement.adresse">Adresse</Translate>
+                <Translate contentKey="pfumApp.etablissement.adresse">Adresse</Translate>
               </span>
             </dt>
             <dd>{etablissementEntity.adresse}</dd>
             <dt>
               <span id="rc">
-                <Translate contentKey="pfumv10App.etablissement.rc">Rc</Translate>
+                <Translate contentKey="pfumApp.etablissement.rc">Rc</Translate>
               </span>
             </dt>
             <dd>{etablissementEntity.rc}</dd>
             <dt>
               <span id="ice">
-                <Translate contentKey="pfumv10App.etablissement.ice">Ice</Translate>
+                <Translate contentKey="pfumApp.etablissement.ice">Ice</Translate>
               </span>
             </dt>
             <dd>{etablissementEntity.ice}</dd>
             <dt>
               <span id="tp">
-                <Translate contentKey="pfumv10App.etablissement.tp">Tp</Translate>
+                <Translate contentKey="pfumApp.etablissement.tp">Tp</Translate>
               </span>
             </dt>
             <dd>{etablissementEntity.tp}</dd>
             <dt>
               <span id="identiteFiche">
-                <Translate contentKey="pfumv10App.etablissement.identiteFiche">Identite Fiche</Translate>
+                <Translate contentKey="pfumApp.etablissement.identiteFiche">Identite Fiche</Translate>
               </span>
             </dt>
             <dd>{etablissementEntity.identiteFiche}</dd>
             <dt>
               <span id="logo">
-                <Translate contentKey="pfumv10App.etablissement.logo">Logo</Translate>
+                <Translate contentKey="pfumApp.etablissement.logo">Logo</Translate>
               </span>
             </dt>
             <dd>

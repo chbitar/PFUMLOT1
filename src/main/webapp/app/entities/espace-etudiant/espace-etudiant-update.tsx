@@ -127,8 +127,8 @@ export class EspaceEtudiantUpdate extends React.Component<IEspaceEtudiantUpdateP
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.espaceEtudiant.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.espaceEtudiant.home.createOrEditLabel">Create or edit a EspaceEtudiant</Translate>
+            <h2 id="pfumApp.espaceEtudiant.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.espaceEtudiant.home.createOrEditLabel">Create or edit a EspaceEtudiant</Translate>
             </h2>
           </Col>
         </Row>
@@ -149,7 +149,7 @@ export class EspaceEtudiantUpdate extends React.Component<IEspaceEtudiantUpdateP
                 <AvGroup>
                   <AvGroup>
                     <Label id="emploiDuTempsLabel" for="emploiDuTemps">
-                      <Translate contentKey="pfumv10App.espaceEtudiant.emploiDuTemps">Emploi Du Temps</Translate>
+                      <Translate contentKey="pfumApp.espaceEtudiant.emploiDuTemps">Emploi Du Temps</Translate>
                     </Label>
                     <br />
                     {emploiDuTemps ? (
@@ -178,7 +178,7 @@ export class EspaceEtudiantUpdate extends React.Component<IEspaceEtudiantUpdateP
                 </AvGroup>
                 <AvGroup>
                   <Label for="espace-etudiant-user">
-                    <Translate contentKey="pfumv10App.espaceEtudiant.user">User</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.user">User</Translate>
                   </Label>
                   <AvInput id="espace-etudiant-user" type="select" className="form-control" name="user.id">
                     <option value="" key="0" />
@@ -193,7 +193,7 @@ export class EspaceEtudiantUpdate extends React.Component<IEspaceEtudiantUpdateP
                 </AvGroup>
                 <AvGroup>
                   <Label for="espace-etudiant-etudiantLicence">
-                    <Translate contentKey="pfumv10App.espaceEtudiant.etudiantLicence">Etudiant Licence</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.etudiantLicence">Etudiant Licence</Translate>
                   </Label>
                   <AvInput id="espace-etudiant-etudiantLicence" type="select" className="form-control" name="etudiantLicence.id">
                     <option value="" key="0" />
@@ -208,7 +208,7 @@ export class EspaceEtudiantUpdate extends React.Component<IEspaceEtudiantUpdateP
                 </AvGroup>
                 <AvGroup>
                   <Label for="espace-etudiant-etudiantMaster">
-                    <Translate contentKey="pfumv10App.espaceEtudiant.etudiantMaster">Etudiant Master</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.etudiantMaster">Etudiant Master</Translate>
                   </Label>
                   <AvInput id="espace-etudiant-etudiantMaster" type="select" className="form-control" name="etudiantMaster.id">
                     <option value="" key="0" />
@@ -223,7 +223,7 @@ export class EspaceEtudiantUpdate extends React.Component<IEspaceEtudiantUpdateP
                 </AvGroup>
                 <AvGroup>
                   <Label for="espace-etudiant-etudiantExecutif">
-                    <Translate contentKey="pfumv10App.espaceEtudiant.etudiantExecutif">Etudiant Executif</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.etudiantExecutif">Etudiant Executif</Translate>
                   </Label>
                   <AvInput id="espace-etudiant-etudiantExecutif" type="select" className="form-control" name="etudiantExecutif.id">
                     <option value="" key="0" />
@@ -238,7 +238,7 @@ export class EspaceEtudiantUpdate extends React.Component<IEspaceEtudiantUpdateP
                 </AvGroup>
                 <AvGroup>
                   <Label for="espace-etudiant-calendrier">
-                    <Translate contentKey="pfumv10App.espaceEtudiant.calendrier">Calendrier</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.calendrier">Calendrier</Translate>
                   </Label>
                   <AvInput id="espace-etudiant-calendrier" type="select" className="form-control" name="calendrier.id">
                     <option value="" key="0" />
@@ -253,7 +253,7 @@ export class EspaceEtudiantUpdate extends React.Component<IEspaceEtudiantUpdateP
                 </AvGroup>
                 <AvGroup>
                   <Label for="espace-etudiant-absence">
-                    <Translate contentKey="pfumv10App.espaceEtudiant.absence">Absence</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.absence">Absence</Translate>
                   </Label>
                   <AvInput id="espace-etudiant-absence" type="select" className="form-control" name="absence.id">
                     <option value="" key="0" />
@@ -268,7 +268,7 @@ export class EspaceEtudiantUpdate extends React.Component<IEspaceEtudiantUpdateP
                 </AvGroup>
                 <AvGroup>
                   <Label for="espace-etudiant-annonce">
-                    <Translate contentKey="pfumv10App.espaceEtudiant.annonce">Annonce</Translate>
+                    <Translate contentKey="pfumApp.espaceEtudiant.annonce">Annonce</Translate>
                   </Label>
                   <AvInput id="espace-etudiant-annonce" type="select" className="form-control" name="annonce.id">
                     <option value="" key="0" />

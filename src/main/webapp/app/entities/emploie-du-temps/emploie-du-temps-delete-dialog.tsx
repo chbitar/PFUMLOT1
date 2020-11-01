@@ -33,8 +33,8 @@ export class EmploieDuTempsDeleteDialog extends React.Component<IEmploieDuTempsD
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.emploieDuTemps.delete.question">
-          <Translate contentKey="pfumv10App.emploieDuTemps.delete.question" interpolate={{ id: emploieDuTempsEntity.id }}>
+        <ModalBody id="pfumApp.emploieDuTemps.delete.question">
+          <Translate contentKey="pfumApp.emploieDuTemps.delete.question" interpolate={{ id: emploieDuTempsEntity.id }}>
             Are you sure you want to delete this EmploieDuTemps?
           </Translate>
         </ModalBody>

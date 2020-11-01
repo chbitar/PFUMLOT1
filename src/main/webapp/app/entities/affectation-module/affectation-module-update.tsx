@@ -80,7 +80,7 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.affectationModule.home.createOrEditLabel">Créer ou éditer une affectation Module/Professeur</h2>
+            <h2 id="pfumApp.affectationModule.home.createOrEditLabel">Créer ou éditer une affectation Module/Professeur</h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -99,13 +99,13 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                 ) : null}
                 <AvGroup>
                   <Label id="anneeLabel" for="affectation-module-annee">
-                    <Translate contentKey="pfumv10App.affectationModule.annee">Annee</Translate>
+                    <Translate contentKey="pfumApp.affectationModule.annee">Annee</Translate>
                   </Label>
                   <AvField id="affectation-module-annee" type="text" name="annee" value="2020-2021" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="semestreLabel" for="affectation-module-semestre">
-                    <Translate contentKey="pfumv10App.affectationModule.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.affectationModule.semestre">Semestre</Translate>
                   </Label>
                   <AvInput
                     onChange={this.fillListModule}
@@ -115,17 +115,17 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                     name="semestre"
                     value={(!isNew && affectationModuleEntity.semestre) || 'S1'}
                   >
-                    <option value="S1">{translate('pfumv10App.Semestre.S1')}</option>
-                    <option value="S2">{translate('pfumv10App.Semestre.S2')}</option>
-                    <option value="S3">{translate('pfumv10App.Semestre.S3')}</option>
-                    <option value="S4">{translate('pfumv10App.Semestre.S4')}</option>
-                    <option value="S5">{translate('pfumv10App.Semestre.S5')}</option>
-                    <option value="S6">{translate('pfumv10App.Semestre.S6')}</option>
+                    <option value="S1">{translate('pfumApp.Semestre.S1')}</option>
+                    <option value="S2">{translate('pfumApp.Semestre.S2')}</option>
+                    <option value="S3">{translate('pfumApp.Semestre.S3')}</option>
+                    <option value="S4">{translate('pfumApp.Semestre.S4')}</option>
+                    <option value="S5">{translate('pfumApp.Semestre.S5')}</option>
+                    <option value="S6">{translate('pfumApp.Semestre.S6')}</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label for="affectation-module-module">
-                    <Translate contentKey="pfumv10App.affectationModule.module">Module</Translate>
+                    <Translate contentKey="pfumApp.affectationModule.module">Module</Translate>
                   </Label>
                   <AvInput id="affectation-module-module" type="select" className="form-control" name="module.id">
                     <option value="" key="0" />
@@ -140,7 +140,7 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                 </AvGroup>
                 <AvGroup>
                   <Label for="affectation-module-professeur">
-                    <Translate contentKey="pfumv10App.affectationModule.professeur">Professeur</Translate>
+                    <Translate contentKey="pfumApp.affectationModule.professeur">Professeur</Translate>
                   </Label>
                   <AvInput id="affectation-module-professeur" type="select" className="form-control" name="professeur.id">
                     <option value="" key="0" />

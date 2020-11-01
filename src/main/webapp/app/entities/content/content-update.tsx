@@ -86,8 +86,8 @@ export class ContentUpdate extends React.Component<IContentUpdateProps, IContent
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.content.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.content.home.createOrEditLabel">Create or edit a Content</Translate>
+            <h2 id="pfumApp.content.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.content.home.createOrEditLabel">Create or edit a Content</Translate>
             </h2>
           </Col>
         </Row>
@@ -108,7 +108,7 @@ export class ContentUpdate extends React.Component<IContentUpdateProps, IContent
                 <AvGroup>
                   <AvGroup>
                     <Label id="dataLabel" for="data">
-                      <Translate contentKey="pfumv10App.content.data">Data</Translate>
+                      <Translate contentKey="pfumApp.content.data">Data</Translate>
                     </Label>
                     <br />
                     {data ? (

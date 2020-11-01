@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.planeta.pfum.domain.Professeur;
 import com.planeta.pfum.domain.User;
 import com.planeta.pfum.repository.ProfesseurRepository;
+import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.security.AuthoritiesConstants;
+import com.planeta.pfum.service.MailService;
 import com.planeta.pfum.service.UserExtendedService;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+import com.planeta.pfum.web.rest.errors.EmailAlreadyUsedException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 
@@ -33,12 +36,19 @@ public class ProfesseurExtendedResource {
 
 	private final UserExtendedService userService;
 
+	private final UserRepository userRepository;
+	
+    private final MailService mailService;
+
+
 	@Value("${jhipster.clientApp.name}")
 	private String applicationName;
 
-	public ProfesseurExtendedResource(ProfesseurRepository professeurRepository, UserExtendedService userService) {
+	public ProfesseurExtendedResource(ProfesseurRepository professeurRepository, UserExtendedService userService,UserRepository userRepository,MailService mailService) {
 		this.professeurRepository = professeurRepository;
 		this.userService = userService;
+		this.userRepository = userRepository;
+		this.mailService = mailService;
 	}
 
 	/**
@@ -57,16 +67,24 @@ public class ProfesseurExtendedResource {
 			throw new BadRequestAlertException("A new professeur cannot already have an ID", ENTITY_NAME, "idexists");
 		}
 
-		// Creation d'un compte USER pour se connecter
-		User newUser = userService.createUserForActeur(professeur.getEmail(), professeur.getNom(), professeur.getPrenom(),AuthoritiesConstants.PROF);
+		else if (userRepository.findOneByEmailIgnoreCase(professeur.getEmail()).isPresent()) {
+			throw new EmailAlreadyUsedException();
+		} else {
 
-		professeur.setUser(newUser);
+			// Creation d'un compte USER pour se connecter
+			User newUser = userService.createUserForActeur(professeur.getEmail(), professeur.getNom(),
+					professeur.getPrenom(), AuthoritiesConstants.PROF);
 
-		Professeur result = professeurRepository.save(professeur);
-//    professeurSearchRepository.save(result);
-		return ResponseEntity
-				.created(new URI("/api/extended/professeurs/" + result.getId())).headers(HeaderUtil
-						.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-				.body(result);
+			professeur.setUser(newUser);
+
+			Professeur result = professeurRepository.save(professeur);
+			
+            mailService.sendCreationEmail(newUser);
+
+			return ResponseEntity
+					.created(new URI("/api/extended/professeurs/" + result.getId())).headers(HeaderUtil
+							.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+					.body(result);
+		}
 	}
 }

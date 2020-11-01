@@ -53,6 +53,10 @@ public class Absence implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("absences")
     private EtudiantsExecutif etudiantsExecutif;
+    
+    @ManyToOne
+    @JsonIgnoreProperties("absences")
+    private FicheAbsence ficheAbsence;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -177,6 +181,19 @@ public class Absence implements Serializable {
 
     public void setEtudiantsExecutif(EtudiantsExecutif etudiantsExecutif) {
         this.etudiantsExecutif = etudiantsExecutif;
+    }
+    
+    public FicheAbsence getFicheAbsence() {
+        return ficheAbsence;
+    }
+
+    public FicheAbsence ficheAbsenc(FicheAbsence ficheAbsence) {
+        this.ficheAbsence = ficheAbsence;
+        return ficheAbsence;
+    }
+
+    public void setFicheAbsence(FicheAbsence ficheAbsence) {
+        this.ficheAbsence = ficheAbsence;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

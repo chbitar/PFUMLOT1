@@ -33,8 +33,8 @@ export class ModalitePaiementDeleteDialog extends React.Component<IModalitePaiem
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.modalitePaiement.delete.question">
-          <Translate contentKey="pfumv10App.modalitePaiement.delete.question" interpolate={{ id: modalitePaiementEntity.id }}>
+        <ModalBody id="pfumApp.modalitePaiement.delete.question">
+          <Translate contentKey="pfumApp.modalitePaiement.delete.question" interpolate={{ id: modalitePaiementEntity.id }}>
             Are you sure you want to delete this ModalitePaiement?
           </Translate>
         </ModalBody>

@@ -25,12 +25,12 @@ export class EspaceEtudiantDetail extends React.Component<IEspaceEtudiantDetailP
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.espaceEtudiant.detail.title">EspaceEtudiant</Translate> [<b>{espaceEtudiantEntity.id}</b>]
+            <Translate contentKey="pfumApp.espaceEtudiant.detail.title">EspaceEtudiant</Translate> [<b>{espaceEtudiantEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="emploiDuTemps">
-                <Translate contentKey="pfumv10App.espaceEtudiant.emploiDuTemps">Emploi Du Temps</Translate>
+                <Translate contentKey="pfumApp.espaceEtudiant.emploiDuTemps">Emploi Du Temps</Translate>
               </span>
             </dt>
             <dd>
@@ -49,31 +49,31 @@ export class EspaceEtudiantDetail extends React.Component<IEspaceEtudiantDetailP
               ) : null}
             </dd>
             <dt>
-              <Translate contentKey="pfumv10App.espaceEtudiant.user">User</Translate>
+              <Translate contentKey="pfumApp.espaceEtudiant.user">User</Translate>
             </dt>
             <dd>{espaceEtudiantEntity.user ? espaceEtudiantEntity.user.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.espaceEtudiant.etudiantLicence">Etudiant Licence</Translate>
+              <Translate contentKey="pfumApp.espaceEtudiant.etudiantLicence">Etudiant Licence</Translate>
             </dt>
             <dd>{espaceEtudiantEntity.etudiantLicence ? espaceEtudiantEntity.etudiantLicence.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.espaceEtudiant.etudiantMaster">Etudiant Master</Translate>
+              <Translate contentKey="pfumApp.espaceEtudiant.etudiantMaster">Etudiant Master</Translate>
             </dt>
             <dd>{espaceEtudiantEntity.etudiantMaster ? espaceEtudiantEntity.etudiantMaster.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.espaceEtudiant.etudiantExecutif">Etudiant Executif</Translate>
+              <Translate contentKey="pfumApp.espaceEtudiant.etudiantExecutif">Etudiant Executif</Translate>
             </dt>
             <dd>{espaceEtudiantEntity.etudiantExecutif ? espaceEtudiantEntity.etudiantExecutif.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.espaceEtudiant.calendrier">Calendrier</Translate>
+              <Translate contentKey="pfumApp.espaceEtudiant.calendrier">Calendrier</Translate>
             </dt>
             <dd>{espaceEtudiantEntity.calendrier ? espaceEtudiantEntity.calendrier.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.espaceEtudiant.absence">Absence</Translate>
+              <Translate contentKey="pfumApp.espaceEtudiant.absence">Absence</Translate>
             </dt>
             <dd>{espaceEtudiantEntity.absence ? espaceEtudiantEntity.absence.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.espaceEtudiant.annonce">Annonce</Translate>
+              <Translate contentKey="pfumApp.espaceEtudiant.annonce">Annonce</Translate>
             </dt>
             <dd>{espaceEtudiantEntity.annonce ? espaceEtudiantEntity.annonce.id : ''}</dd>
           </dl>

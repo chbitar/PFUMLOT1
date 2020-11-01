@@ -94,11 +94,11 @@ public class EtudiantsMasterResourceIT {
     private static final String DEFAULT_PROVINCE = "AAAAAAAAAA";
     private static final String UPDATED_PROVINCE = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_TEL = 1;
-    private static final Integer UPDATED_TEL = 2;
+	private static final String DEFAULT_TEL = "AAAAAAAAAA";
+	private static final String UPDATED_TEL =  "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_DEUXIEME_TEL = 1;
-    private static final Integer UPDATED_DEUXIEME_TEL = 2;
+	private static final String DEFAULT_DEUXIEME_TEL =  "AAAAAAAAAA";
+	private static final String UPDATED_DEUXIEME_TEL =  "BBBBBBBBBB";
 
     private static final byte[] DEFAULT_PHOTO = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PHOTO = TestUtil.createByteArray(1, "1");

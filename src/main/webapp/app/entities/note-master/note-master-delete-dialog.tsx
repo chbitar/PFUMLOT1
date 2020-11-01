@@ -33,8 +33,8 @@ export class NoteMasterDeleteDialog extends React.Component<INoteMasterDeleteDia
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.noteMaster.delete.question">
-          <Translate contentKey="pfumv10App.noteMaster.delete.question" interpolate={{ id: noteMasterEntity.id }}>
+        <ModalBody id="pfumApp.noteMaster.delete.question">
+          <Translate contentKey="pfumApp.noteMaster.delete.question" interpolate={{ id: noteMasterEntity.id }}>
             Are you sure you want to delete this NoteMaster?
           </Translate>
         </ModalBody>

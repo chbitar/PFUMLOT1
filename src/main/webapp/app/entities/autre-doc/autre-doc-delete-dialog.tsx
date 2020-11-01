@@ -33,8 +33,8 @@ export class AutreDocDeleteDialog extends React.Component<IAutreDocDeleteDialogP
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="pfumv10App.autreDoc.delete.question">
-          <Translate contentKey="pfumv10App.autreDoc.delete.question" interpolate={{ id: autreDocEntity.id }}>
+        <ModalBody id="pfumApp.autreDoc.delete.question">
+          <Translate contentKey="pfumApp.autreDoc.delete.question" interpolate={{ id: autreDocEntity.id }}>
             Are you sure you want to delete this AutreDoc?
           </Translate>
         </ModalBody>

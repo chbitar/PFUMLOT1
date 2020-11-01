@@ -25,47 +25,47 @@ export class NoteExecutifDetail extends React.Component<INoteExecutifDetailProps
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.noteExecutif.detail.title">NoteExecutif</Translate> [<b>{noteExecutifEntity.id}</b>]
+            <Translate contentKey="pfumApp.noteExecutif.detail.title">NoteExecutif</Translate> [<b>{noteExecutifEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="semestre">
-                <Translate contentKey="pfumv10App.noteExecutif.semestre">Semestre</Translate>
+                <Translate contentKey="pfumApp.noteExecutif.semestre">Semestre</Translate>
               </span>
             </dt>
             <dd>{noteExecutifEntity.semestre}</dd>
             <dt>
               <span id="noteCC1">
-                <Translate contentKey="pfumv10App.noteExecutif.noteCC1">Note CC 1</Translate>
+                <Translate contentKey="pfumApp.noteExecutif.noteCC1">Note CC 1</Translate>
               </span>
             </dt>
             <dd>{noteExecutifEntity.noteCC1}</dd>
             <dt>
               <span id="noteCC2">
-                <Translate contentKey="pfumv10App.noteExecutif.noteCC2">Note CC 2</Translate>
+                <Translate contentKey="pfumApp.noteExecutif.noteCC2">Note CC 2</Translate>
               </span>
             </dt>
             <dd>{noteExecutifEntity.noteCC2}</dd>
             <dt>
               <span id="noteFinal">
-                <Translate contentKey="pfumv10App.noteExecutif.noteFinal">Note Final</Translate>
+                <Translate contentKey="pfumApp.noteExecutif.noteFinal">Note Final</Translate>
               </span>
             </dt>
             <dd>{noteExecutifEntity.noteFinal}</dd>
             <dt>
               <span id="date">
-                <Translate contentKey="pfumv10App.noteExecutif.date">Date</Translate>
+                <Translate contentKey="pfumApp.noteExecutif.date">Date</Translate>
               </span>
             </dt>
             <dd>
               <TextFormat value={noteExecutifEntity.date} type="date" format={APP_DATE_FORMAT} />
             </dd>
             <dt>
-              <Translate contentKey="pfumv10App.noteExecutif.user">User</Translate>
+              <Translate contentKey="pfumApp.noteExecutif.user">User</Translate>
             </dt>
             <dd>{noteExecutifEntity.user ? noteExecutifEntity.user.id : ''}</dd>
             <dt>
-              <Translate contentKey="pfumv10App.noteExecutif.module">Module</Translate>
+              <Translate contentKey="pfumApp.noteExecutif.module">Module</Translate>
             </dt>
             <dd>{noteExecutifEntity.module ? noteExecutifEntity.module.id : ''}</dd>
           </dl>

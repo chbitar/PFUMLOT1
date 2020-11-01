@@ -47,11 +47,11 @@ export class NoteExecutif extends React.Component<INoteExecutifProps, INoteExecu
     return (
       <div>
         <h2 id="note-executif-heading">
-          <Translate contentKey="pfumv10App.noteExecutif.home.title">Note Executifs</Translate>
+          <Translate contentKey="pfumApp.noteExecutif.home.title">Note Executifs</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="pfumv10App.noteExecutif.home.createLabel">Create new Note Executif</Translate>
+            <Translate contentKey="pfumApp.noteExecutif.home.createLabel">Create new Note Executif</Translate>
           </Link>
         </h2>
         <Row>
@@ -64,7 +64,7 @@ export class NoteExecutif extends React.Component<INoteExecutifProps, INoteExecu
                     name="search"
                     value={this.state.search}
                     onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.noteExecutif.home.search')}
+                    placeholder={translate('pfumApp.noteExecutif.home.search')}
                   />
                   <Button className="input-group-addon">
                     <FontAwesomeIcon icon="search" />
@@ -86,25 +86,25 @@ export class NoteExecutif extends React.Component<INoteExecutifProps, INoteExecu
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteExecutif.semestre">Semestre</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.semestre">Semestre</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteExecutif.noteCC1">Note CC 1</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.noteCC1">Note CC 1</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteExecutif.noteCC2">Note CC 2</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.noteCC2">Note CC 2</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteExecutif.noteFinal">Note Final</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.noteFinal">Note Final</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteExecutif.date">Date</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.date">Date</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteExecutif.user">User</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.user">User</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.noteExecutif.module">Module</Translate>
+                    <Translate contentKey="pfumApp.noteExecutif.module">Module</Translate>
                   </th>
                   <th />
                 </tr>
@@ -118,7 +118,7 @@ export class NoteExecutif extends React.Component<INoteExecutifProps, INoteExecu
                       </Button>
                     </td>
                     <td>
-                      <Translate contentKey={`pfumv10App.Semestre.${noteExecutif.semestre}`} />
+                      <Translate contentKey={`pfumApp.Semestre.${noteExecutif.semestre}`} />
                     </td>
                     <td>{noteExecutif.noteCC1}</td>
                     <td>{noteExecutif.noteCC2}</td>
@@ -156,7 +156,7 @@ export class NoteExecutif extends React.Component<INoteExecutifProps, INoteExecu
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.noteExecutif.home.notFound">No Note Executifs found</Translate>
+              <Translate contentKey="pfumApp.noteExecutif.home.notFound">No Note Executifs found</Translate>
             </div>
           )}
         </div>

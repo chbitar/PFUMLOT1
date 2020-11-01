@@ -25,18 +25,18 @@ export class AnnonceDetail extends React.Component<IAnnonceDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumv10App.annonce.detail.title">Annonce</Translate> [<b>{annonceEntity.id}</b>]
+            <Translate contentKey="pfumApp.annonce.detail.title">Annonce</Translate> [<b>{annonceEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="annonce">
-                <Translate contentKey="pfumv10App.annonce.annonce">Annonce</Translate>
+                <Translate contentKey="pfumApp.annonce.annonce">Annonce</Translate>
               </span>
             </dt>
             <dd>{annonceEntity.annonce}</dd>
             <dt>
               <span id="commentaire">
-                <Translate contentKey="pfumv10App.annonce.commentaire">Commentaire</Translate>
+                <Translate contentKey="pfumApp.annonce.commentaire">Commentaire</Translate>
               </span>
             </dt>
             <dd>{annonceEntity.commentaire}</dd>

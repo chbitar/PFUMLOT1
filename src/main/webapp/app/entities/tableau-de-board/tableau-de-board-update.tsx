@@ -83,8 +83,8 @@ export class TableauDeBoardUpdate extends React.Component<ITableauDeBoardUpdateP
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="pfumv10App.tableauDeBoard.home.createOrEditLabel">
-              <Translate contentKey="pfumv10App.tableauDeBoard.home.createOrEditLabel">Create or edit a TableauDeBoard</Translate>
+            <h2 id="pfumApp.tableauDeBoard.home.createOrEditLabel">
+              <Translate contentKey="pfumApp.tableauDeBoard.home.createOrEditLabel">Create or edit a TableauDeBoard</Translate>
             </h2>
           </Col>
         </Row>
@@ -104,13 +104,13 @@ export class TableauDeBoardUpdate extends React.Component<ITableauDeBoardUpdateP
                 ) : null}
                 <AvGroup>
                   <Label id="tableauDeBoardLabel" for="tableau-de-board-tableauDeBoard">
-                    <Translate contentKey="pfumv10App.tableauDeBoard.tableauDeBoard">Tableau De Board</Translate>
+                    <Translate contentKey="pfumApp.tableauDeBoard.tableauDeBoard">Tableau De Board</Translate>
                   </Label>
                   <AvField id="tableau-de-board-tableauDeBoard" type="text" name="tableauDeBoard" />
                 </AvGroup>
                 <AvGroup>
                   <Label for="tableau-de-board-filier">
-                    <Translate contentKey="pfumv10App.tableauDeBoard.filier">Filier</Translate>
+                    <Translate contentKey="pfumApp.tableauDeBoard.filier">Filier</Translate>
                   </Label>
                   <AvInput
                     id="tableau-de-board-filier"
@@ -132,7 +132,7 @@ export class TableauDeBoardUpdate extends React.Component<ITableauDeBoardUpdateP
                 </AvGroup>
                 <AvGroup>
                   <Label for="tableau-de-board-calendrier">
-                    <Translate contentKey="pfumv10App.tableauDeBoard.calendrier">Calendrier</Translate>
+                    <Translate contentKey="pfumApp.tableauDeBoard.calendrier">Calendrier</Translate>
                   </Label>
                   <AvInput
                     id="tableau-de-board-calendrier"

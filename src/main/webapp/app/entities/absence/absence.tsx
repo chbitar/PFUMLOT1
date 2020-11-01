@@ -47,37 +47,15 @@ export class Absence extends React.Component<IAbsenceProps, IAbsenceState> {
     return (
       <div>
         <h2 id="absence-heading">
-          {/*           <Translate contentKey="pfumv10App.absence.home.title">Absences</Translate>
+          {/*           <Translate contentKey="pfumApp.absence.home.title">Absences</Translate>
            */}{' '}
-          Liste des absences : Master Executif
+          &nbsp; &nbsp; Liste des absences : Master Exécutif
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Marquer une nouvelle absence
           </Link>
         </h2>
-        <Row>
-          <Col sm="12">
-            <AvForm onSubmit={this.search}>
-              <AvGroup>
-                <InputGroup>
-                  <AvInput
-                    type="text"
-                    name="search"
-                    value={this.state.search}
-                    onChange={this.handleSearch}
-                    placeholder={translate('pfumv10App.absence.home.search')}
-                  />
-                  <Button className="input-group-addon">
-                    <FontAwesomeIcon icon="search" />
-                  </Button>
-                  <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                    <FontAwesomeIcon icon="trash" />
-                  </Button>
-                </InputGroup>
-              </AvGroup>
-            </AvForm>
-          </Col>
-        </Row>
+        <br />
         <div className="table-responsive">
           {absenceList && absenceList.length > 0 ? (
             <Table responsive>
@@ -87,20 +65,20 @@ export class Absence extends React.Component<IAbsenceProps, IAbsenceState> {
                     <Translate contentKey="global.field.id">ID</Translate>
                   </th> */}
                   <th>
-                    <Translate contentKey="pfumv10App.absence.absent">Absent</Translate>
+                    <Translate contentKey="pfumApp.absence.absent">Absent</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumv10App.absence.dateSeance">Date Seance</Translate>
+                    <Translate contentKey="pfumApp.absence.dateSeance">Date Seance</Translate>
                   </th>
 
                   <th>
-                    <Translate contentKey="pfumv10App.absence.module">Module</Translate>
+                    <Translate contentKey="pfumApp.absence.module">Module</Translate>
                   </th>
                   {/*    <th>
-                    <Translate contentKey="pfumv10App.absence.etudiantsLicence">Etudiants Licence</Translate>
+                    <Translate contentKey="pfumApp.absence.etudiantsLicence">Etudiants Licence</Translate>
                   </th> */}
                   {/*  <th>
-                    <Translate contentKey="pfumv10App.absence.etudiantsMaster">Etudiants Master</Translate>
+                    <Translate contentKey="pfumApp.absence.etudiantsMaster">Etudiants Master</Translate>
                   </th>*/}
                   <th>Nom Etudiant</th>
                   <th />
@@ -171,7 +149,7 @@ export class Absence extends React.Component<IAbsenceProps, IAbsenceState> {
             </Table>
           ) : (
             <div className="alert alert-warning">
-              <Translate contentKey="pfumv10App.absence.home.notFound">No Absences found</Translate>
+              <Translate contentKey="pfumApp.absence.home.notFound">No Absences found</Translate>
             </div>
           )}
         </div>
