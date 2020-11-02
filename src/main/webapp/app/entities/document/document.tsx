@@ -65,9 +65,7 @@ export class Document extends React.Component<IDocumentProps, IDocumentState> {
                   {/*    <th>
                     <Translate contentKey="pfumApp.document.data">Data</Translate>
                   </th> */}
-                  <th>
-                    <Translate contentKey="pfumApp.document.typeDocument">Type Document</Translate>
-                  </th>
+                  <th>Source Document</th>
                   <th />
                 </tr>
               </thead>

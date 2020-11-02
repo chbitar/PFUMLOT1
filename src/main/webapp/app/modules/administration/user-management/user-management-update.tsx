@@ -65,14 +65,6 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
               <p>Loading...</p>
             ) : (
               <AvForm onValidSubmit={this.saveUser}>
-                {user.id ? (
-                  <AvGroup>
-                    <Label for="id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvField type="text" className="form-control" name="id" required readOnly value={user.id} />
-                  </AvGroup>
-                ) : null}
                 <AvGroup>
                   <Label for="login">
                     <Translate contentKey="userManagement.login">Login</Translate>

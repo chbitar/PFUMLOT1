@@ -105,8 +105,9 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
         /* user: entity.user, */
         module: entity.module,
         programme: Programme.LICENCE,
-        absences
+        absences: absences
       };
+
       this.props.createFicheAbsenceEntity(ficheAbsence);
     }
   };
@@ -191,8 +192,6 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                   {etudiantsLicences.map((etudiant, i) => (
                     <tbody>
                       <tr key={`entity-${i}`}>
-                        {/*                             <td>{etudiant.id}</td>
-                         */}{' '}
                         <td>{etudiant.nom}</td>
                         <td>{etudiant.prenom}</td>
                         <td>
@@ -246,7 +245,6 @@ const mapDispatchToProps = {
   getModules,
   getEtudiantsLicences,
   getEtudiantsMasters,
-  getEtudiantsExecutifs,
   getEntity,
   updateEntity,
   createEntity,

@@ -51,7 +51,7 @@ public class Absence implements Serializable {
     private Module module;
 
     @ManyToOne
-    @JsonIgnoreProperties("absences")
+    @JsonIgnoreProperties(value="<%= absences %>", allowSetters = true)
     private EtudiantsLicence etudiantsLicence;
 
     @ManyToOne

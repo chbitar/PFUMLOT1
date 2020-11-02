@@ -61,7 +61,7 @@ export class PasswordPage extends React.Component<IUserPasswordProps, IUserPassw
               />
               <AvField
                 name="newPassword"
-                label={translate('global.form.newpassword.label')}
+                label={translate('global.form.newpassword')}
                 placeholder={translate('global.form.newpassword.placeholder')}
                 type="password"
                 validate={{

@@ -12,19 +12,15 @@ export const EspaceProfMenu = props => (
     {/*     <MenuItem icon="asterisk" to="/entity/absence">
       Fiche d’absence Executif
     </MenuItem>
-
     <MenuItem icon="asterisk" to="/entity/absence-licence">
       Fiche d’absence BAC+3
     </MenuItem>
-
     <MenuItem icon="asterisk" to="/entity/absence-master">
       Fiche d’absence MASTER
     </MenuItem> */}
-
     <MenuItem icon="asterisk" to="/entity/fiche-absence">
       Fiche d’absence
     </MenuItem>
-
     <MenuItem icon="asterisk" to="/entity/suivi-module">
       Suivi module
     </MenuItem>

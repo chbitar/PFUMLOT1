@@ -76,7 +76,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
         );
       });
 
-    var listEtudiantMaster = this.props.etudiantsExecutifs
+    var listEtudiantMaster = this.props.etudiantsMaster
       .filter(etudiant => this.estAbsent(etudiant.id))
       .map((etudiant, i) => {
         return (
@@ -89,7 +89,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
           </tr>
         );
       });
-    var listEtudiantLicence = this.props.etudiantsExecutifs
+    var listEtudiantLicence = this.props.etudiantsLicence
       .filter(etudiant => this.estAbsent(etudiant.id))
       .map((etudiant, i) => {
         return (

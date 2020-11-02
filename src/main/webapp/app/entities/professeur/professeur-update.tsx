@@ -4,13 +4,14 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, setFileData, byteSize, openFile } from 'react-jhipster';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntity, reset, createExtendedEntity } from './professeur.reducer';
+import { getEntity, updateEntity, createEntity, reset, createExtendedEntity, setBlob } from './professeur.reducer';
 import { IProfesseur } from 'app/shared/model/professeur.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
@@ -48,6 +49,14 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
     this.props.getUsers();
   }
 
+  onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => this.props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  clearBlob = name => () => {
+    this.props.setBlob(name, undefined, undefined);
+  };
+
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const { professeurEntity } = this.props;
@@ -71,6 +80,8 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
   render() {
     const { professeurEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
+
+    const { diplomePj, diplomePjContentType } = professeurEntity;
 
     return (
       <div>
@@ -131,7 +142,15 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
                   <Label id="telephoneLabel" for="professeur-telephone">
                     <Translate contentKey="pfumApp.professeur.telephone">Telephone</Translate>
                   </Label>
-                  <AvField id="professeur-telephone" type="text" name="telephone" />
+                  <AvField
+                    id="professeur-telephone"
+                    type="text"
+                    name="telephone"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      maxLength: { value: 30, errorMessage: 'Le numéro de téléphone saisie dépasse la taille autorisée' }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="etablissementLabel" for="professeur-etablissement">
@@ -152,6 +171,34 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
                   <AvField id="professeur-diplome" type="text" name="diplome" />
                 </AvGroup>
                 <AvGroup>
+                  <AvGroup>
+                    <Label id="dataLabel" for="diplomePj" />
+                    <br />
+                    {diplomePj ? (
+                      <div>
+                        <a onClick={openFile(diplomePjContentType, diplomePj)}>
+                          <Translate contentKey="entity.action.open">Open</Translate>
+                        </a>
+                        <br />
+                        <Row>
+                          <Col md="11">
+                            <span>
+                              {diplomePjContentType}, {byteSize(diplomePj)}
+                            </span>
+                          </Col>
+                          <Col md="1">
+                            <Button color="danger" onClick={this.clearBlob('diplomePj')}>
+                              <FontAwesomeIcon icon="times-circle" />
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
+                    ) : null}
+                    <input id="file_data" type="file" onChange={this.onBlobChange(false, 'diplomePj')} />
+                    <AvInput type="hidden" name="diplomePj" value={diplomePj} />
+                  </AvGroup>
+                </AvGroup>
+                <AvGroup>
                   <Label id="cinLabel" for="professeur-cin">
                     <Translate contentKey="pfumApp.professeur.cin">Cin</Translate>
                   </Label>
@@ -161,7 +208,14 @@ export class ProfesseurUpdate extends React.Component<IProfesseurUpdateProps, IP
                   <Label id="ribLabel" for="professeur-rib">
                     <Translate contentKey="pfumApp.professeur.rib">Rib</Translate>
                   </Label>
-                  <AvField id="professeur-rib" type="text" name="rib" />
+                  <AvField
+                    id="professeur-rib"
+                    type="text"
+                    name="rib"
+                    validate={{
+                      maxLength: { value: 24, errorMessage: 'Le RIB valide doit comporter 24 chiffre' }
+                    }}
+                  />
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/professeur" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
@@ -199,6 +253,7 @@ const mapDispatchToProps = {
   updateEntity,
   createEntity,
   reset,
+  setBlob,
   createExtendedEntity
 };
 

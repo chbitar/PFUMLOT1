@@ -207,23 +207,29 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                   </Label>
                   <AvInput
                     id="suivi-module-duree"
-                    type="select"
+                    type="text"
                     className="form-control"
                     name="duree"
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') },
                       number: { value: true, errorMessage: translate('entity.validation.number') }
                     }}
-                  >
-                    <option value="2">2 heure</option>
-                    <option value="1.5">1 heure et demi</option>
-                  </AvInput>
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label for="suivi-module-module">
                     <Translate contentKey="pfumApp.suiviModule.module">Module</Translate>
                   </Label>
-                  <AvInput id="suivi-module-module" type="select" className="form-control" name="module.id">
+                  <AvInput
+                    id="suivi-module-module"
+                    type="select"
+                    className="form-control"
+                    name="module.id"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') },
+                      number: { value: true, errorMessage: translate('entity.validation.number') }
+                    }}
+                  >
                     <option value="" key="0" />
                     {modules
                       ? modules.map(otherEntity => (

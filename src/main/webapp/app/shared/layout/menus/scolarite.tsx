@@ -22,9 +22,9 @@ export const ScolariteMenu = props => (
     <MenuItem icon="asterisk" to="/entity/document">
       Ajouter un emploi du temps
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/document">
+    {/*     <MenuItem icon="asterisk" to="/entity/document">
       Ajouer un avis
-    </MenuItem>
+    </MenuItem> */}
     <Alert variant="primary">Gestion scolarité</Alert>
     <MenuItem icon="asterisk" to="/entity/affectation-module">
       Affectation module

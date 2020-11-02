@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.planeta.pfum.domain.FicheAbsence;
 import com.planeta.pfum.domain.SuiviModule;
 
 /**
@@ -18,5 +19,9 @@ public interface SuiviModuleExtendedRepository extends SuiviModuleRepository {
 	List<SuiviModule> findByUserIsCurrentUser();
 
 	List<SuiviModule> findAllByUserId(Long id);
+
+	List<SuiviModule> findAllByModuleId(Long moduleId);
+
+	List<SuiviModule> findAllByUserIdAndModuleId(Long id, Long moduleId);
 
 }

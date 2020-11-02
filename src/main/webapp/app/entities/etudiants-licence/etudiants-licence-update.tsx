@@ -236,7 +236,8 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                                   type="text"
                                   name="email"
                                   validate={{
-                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                                    email: { value: true, errorMessage: translate('entity.validation.email') }
                                   }}
                                 />
                               </AvGroup>
@@ -287,7 +288,8 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                                   className="form-control"
                                   name="tel"
                                   validate={{
-                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                    required: { value: true, errorMessage: translate('entity.validation.required') },
+                                    maxLength: { value: 30, errorMessage: 'Le numéro de téléphone saisie dépasse la taille autorisée' }
                                   }}
                                 />
                               </AvGroup>

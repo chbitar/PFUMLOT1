@@ -69,7 +69,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
               />
               <AvField
                 name="firstPassword"
-                label={translate('global.form.newpassword.label')}
+                label={translate('global.form.newpassword')}
                 placeholder={translate('global.form.newpassword.placeholder')}
                 type="password"
                 onChange={this.updatePassword}

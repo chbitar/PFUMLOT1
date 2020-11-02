@@ -7,12 +7,13 @@ import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { byteSize, Translate, translate, ICrudSearchAction, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntitiesByUserId } from './suivi-module.reducer';
+import { getSearchEntities, getEntitiesByUserId, getEntities, getEntitiesByModule } from './suivi-module.reducer';
 import { ISuiviModule } from 'app/shared/model/suivi-module.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_DATE_FORMAT_TIMESTAMP, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { Transform } from 'stream';
+import { getModulesAffectedToProf as getModules } from 'app/entities/module/module.reducer';
 
 export interface ISuiviModuleProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -26,7 +27,8 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
   };
 
   componentDidMount() {
-    this.props.getEntitiesByUserId();
+    this.props.getEntities();
+    this.props.getModules();
   }
 
   search = () => {
@@ -37,7 +39,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
 
   clear = () => {
     this.setState({ search: '' }, () => {
-      this.props.getEntitiesByUserId();
+      this.props.getEntities();
     });
   };
 
@@ -51,19 +53,24 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
 
   handleSearch = event => this.setState({ search: event.target.value });
 
+  filtrerListByModule = e => {
+    if (e.target.value === '') this.props.getEntities();
+    else this.props.getEntitiesByModule(e.target.value);
+  };
+
   render() {
-    const { suiviModuleList, match, isProfesseur } = this.props;
+    const { suiviModuleList, match, isProfesseur, modules } = this.props;
     return (
       <div>
         <h2 id="suivi-module-heading">
-          <Translate contentKey="pfumApp.suiviModule.home.title"> Suivi Modules </Translate>
+          &nbsp; &nbsp; <Translate contentKey="pfumApp.suiviModule.home.title"> Suivi Modules </Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
             <Translate contentKey="pfumApp.suiviModule.home.createLabel">Create new Suivi Module</Translate>
           </Link>
         </h2>
-        <Row>
+        {/* <Row>
           <Col sm="12">
             <AvForm onSubmit={this.search}>
               <AvGroup>
@@ -85,7 +92,26 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
               </AvGroup>
             </AvForm>
           </Col>
+        </Row> */}
+        <br />
+        <Row>
+          <Col md="6">
+            <div>
+              Filtrer par Module : &nbsp;
+              <select onChange={this.filtrerListByModule}>
+                <option value="" />
+                {modules
+                  ? modules.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.nomModule}
+                      </option>
+                    ))
+                  : null}
+              </select>
+            </div>
+          </Col>
         </Row>
+        <br />
         <div className="table-responsive">
           {suiviModuleList && suiviModuleList.length > 0 ? (
             <Table responsive>
@@ -186,14 +212,18 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
   }
 }
 
-const mapStateToProps = ({ suiviModule, authentication }: IRootState) => ({
-  suiviModuleList: suiviModule.entities,
-  isProfesseur: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.PROF])
+const mapStateToProps = (storeState: IRootState) => ({
+  suiviModuleList: storeState.suiviModule.entities,
+  isProfesseur: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.PROF]),
+  modules: storeState.module.entities
 });
 
 const mapDispatchToProps = {
   getSearchEntities,
-  getEntitiesByUserId
+  getEntitiesByUserId,
+  getModules,
+  getEntities,
+  getEntitiesByModule
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

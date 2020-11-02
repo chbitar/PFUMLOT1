@@ -13,6 +13,7 @@ export const ACTION_TYPES = {
   CREATE_PROFESSEUR: 'professeur/CREATE_PROFESSEUR',
   UPDATE_PROFESSEUR: 'professeur/UPDATE_PROFESSEUR',
   DELETE_PROFESSEUR: 'professeur/DELETE_PROFESSEUR',
+  SET_BLOB: 'professeur/SET_BLOB',
   RESET: 'professeur/RESET'
 };
 
@@ -90,6 +91,16 @@ export default (state: ProfesseurState = initialState, action): ProfesseurState 
         updateSuccess: true,
         entity: {}
       };
+    case ACTION_TYPES.SET_BLOB:
+      const { name, data, contentType } = action.payload;
+      return {
+        ...state,
+        entity: {
+          ...state.entity,
+          [name]: data,
+          [name + 'ContentType']: contentType
+        }
+      };
     case ACTION_TYPES.RESET:
       return {
         ...initialState
@@ -159,4 +170,12 @@ export const createExtendedEntity: ICrudPutAction<IProfesseur> = entity => async
 };
 export const reset = () => ({
   type: ACTION_TYPES.RESET
+});
+export const setBlob = (name, data, contentType?) => ({
+  type: ACTION_TYPES.SET_BLOB,
+  payload: {
+    name,
+    data,
+    contentType
+  }
 });

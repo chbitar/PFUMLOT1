@@ -47,13 +47,13 @@ export class ModalitePaiement extends React.Component<IModalitePaiementProps, IM
     return (
       <div>
         <h2 id="modalite-paiement-heading">
-          Parametrage modalité de paiement scolarité
+          &nbsp; &nbsp; Paramétrage modalité de paiement scolarité
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Créer ou éditer une modalité
           </Link>
         </h2>
-        <Row>
+        {/* <Row>
           <Col sm="12">
             <AvForm onSubmit={this.search}>
               <AvGroup>
@@ -75,7 +75,8 @@ export class ModalitePaiement extends React.Component<IModalitePaiementProps, IM
               </AvGroup>
             </AvForm>
           </Col>
-        </Row>
+        </Row> */}
+        <br />
         <div className="table-responsive">
           {modalitePaiementList && modalitePaiementList.length > 0 ? (
             <Table responsive>

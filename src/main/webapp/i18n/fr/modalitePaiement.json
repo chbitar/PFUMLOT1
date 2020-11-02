@@ -3,23 +3,23 @@
     "modalitePaiement": {
       "home": {
         "title": "ModalitePaiements",
-        "createLabel": "Créer un nouveau Modalite Paiement",
-        "createOrEditLabel": "Créer ou éditer un Modalite Paiement",
-        "search": "Recherche pour Modalite Paiement",
-        "notFound": "Aucun Modalite Paiement trouvé"
+        "createLabel": "Créer une nouvelle Modalité Paiement",
+        "createOrEditLabel": "Créer ou éditer un Modalité Paiement",
+        "search": "Recherche pour Modalité Paiement",
+        "notFound": "Aucune Modalité Paiement trouvée"
       },
-      "created": "Un nouveau Modalite Paiement a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Modalite Paiement avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Modalite Paiement avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvelle Modalité Paiement a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Modalité Paiement avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Modalité Paiement avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Modalite Paiement {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer le Modalité de Paiement {{ id }} ?"
       },
       "detail": {
         "title": "Modalite Paiement"
       },
       "modalite": "Modalite",
-      "coutProgrammettc": "Cout Programme ttc",
-      "coutProgrammettcDevise": "Cout Programme ttc Devise",
+      "coutProgrammettc": "Coût Programme ttc",
+      "coutProgrammettcDevise": "Coût Programme ttc Devise",
       "remiseNiveau1": "Remise Niveau 1",
       "remiseNiveau2": "Remise Niveau 2",
       "devise": "Devise",

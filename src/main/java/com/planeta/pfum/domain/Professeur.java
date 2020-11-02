@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -56,7 +57,14 @@ public class Professeur implements Serializable {
     
     @Column(name = "telephone")
     private String telephone;
+    
+    @Lob
+    @Column(name = "diplome_pj")
+    private byte[] diplomePj;
 
+    @Column(name = "diplome_pj_content_type")
+    private String diplomePjContentType;
+ 
     @OneToOne
     @JoinColumn(unique = true)
     private User user;
@@ -205,6 +213,32 @@ public class Professeur implements Serializable {
     }
 
 
+    public byte[] getDiplomePj() {
+        return diplomePj;
+    }
+
+    public Professeur diplomePj(byte[] diplomePj) {
+        this.diplomePj = diplomePj;
+        return this;
+    }
+
+    public void setDiplomePj(byte[] diplomePj) {
+        this.diplomePj = diplomePj;
+    }
+
+    public String getDiplomePjContentType() {
+        return diplomePjContentType;
+    }
+
+    public Professeur diplomePjContentType(String diplomePjContentType) {
+        this.diplomePjContentType = diplomePjContentType;
+        return this;
+    }
+
+    public void setDiplomePjContentType(String diplomePjContentType) {
+        this.diplomePjContentType = diplomePjContentType;
+    }
+    
     public Set<AffectationModule> getAffectationModules() {
         return affectationModules;
     }

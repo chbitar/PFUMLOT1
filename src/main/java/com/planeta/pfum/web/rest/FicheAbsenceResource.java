@@ -136,7 +136,6 @@ public class FicheAbsenceResource {
 			return ficheAbsenceRepository.findAllByModuleId(Long.valueOf(module));
 		} else {
 			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-//			Optional<Professeur> p = professeurRepository.findOneByUserId(user.get().getId());
 			return ficheAbsenceRepository.findAllByUserIdAndModuleId(user.get().getId(),Long.valueOf(module));
 		}
    

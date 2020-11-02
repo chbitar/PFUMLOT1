@@ -52,7 +52,6 @@ public class SuiviModuleExtendedResource {
 
 	private final SuiviModuleExtendedRepository suiviModuleRepository;
 
-
 	private final ProfesseurExtendedRepository professeurRepository;
 
 	private final UserRepository userRepository;
@@ -62,9 +61,8 @@ public class SuiviModuleExtendedResource {
 	private final ModuleRepository moduleRepository;
 
 	public SuiviModuleExtendedResource(SuiviModuleExtendedRepository suiviModuleRepository,
-			 ProfesseurExtendedRepository professeurRepository,
-			UserRepository userRepository, AffectationModuleExtendedRepository affectationModuleRepository,
-			ModuleRepository moduleRepository) {
+			ProfesseurExtendedRepository professeurRepository, UserRepository userRepository,
+			AffectationModuleExtendedRepository affectationModuleRepository, ModuleRepository moduleRepository) {
 		this.suiviModuleRepository = suiviModuleRepository;
 		this.professeurRepository = professeurRepository;
 		this.userRepository = userRepository;
@@ -93,14 +91,13 @@ public class SuiviModuleExtendedResource {
 		suiviModule.setUser(user.get());
 
 		SuiviModule result = suiviModuleRepository.save(suiviModule);
-//		suiviModuleSearchRepository.save(result);
 		return ResponseEntity
 				.created(new URI("/api/extended/suivi-modules/" + result.getId())).headers(HeaderUtil
 						.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
 				.body(result);
 	}
 
-	@GetMapping("/extended/suivi-modules") 
+	@GetMapping("/extended/suivi-modules")
 	public List<SuiviModule> getAllSuiviModulesAffectedToProfsseur() {
 		log.debug("REST request to get all SuiviModules By professeurs");
 
@@ -108,13 +105,12 @@ public class SuiviModuleExtendedResource {
 			return suiviModuleRepository.findAll();
 		} else {
 			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-//			Optional<Professeur> p = professeurRepository.findOneByUserId(user.get().getId());
 			return suiviModuleRepository.findAllByUserId(user.get().getId());
 		}
 
 	}
 
-	@GetMapping("/extended/modules/professeur/{sem}") 
+	@GetMapping("/extended/modules/professeur/{sem}")
 	public List<com.planeta.pfum.domain.Module> getAllModulesAffectedToProfsseurBySem(@PathVariable Semestre sem) {
 		log.debug("REST request to get all SuiviModules By professeurs");
 		List<com.planeta.pfum.domain.Module> modules = new ArrayList<Module>();
@@ -140,7 +136,7 @@ public class SuiviModuleExtendedResource {
 		return modules;
 	}
 
-	@GetMapping("/extended/modules/professeur") 
+	@GetMapping("/extended/modules/professeur")
 	public List<com.planeta.pfum.domain.Module> getAllModulesAffectedToProfesseur() {
 		log.debug("REST request to get all SuiviModules By professeurs");
 		List<com.planeta.pfum.domain.Module> modules = new ArrayList<Module>();
@@ -158,6 +154,19 @@ public class SuiviModuleExtendedResource {
 		}
 
 		return modules;
+	}
+
+	@GetMapping("/extended/suivi-modules/module/{module}")
+	public List<SuiviModule> getAllSuiviModuleByModule(@PathVariable String module) {
+		log.debug("REST request to get all FicheAbsences");
+
+		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+			return suiviModuleRepository.findAllByModuleId(Long.valueOf(module));
+		} else {
+			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+			return suiviModuleRepository.findAllByUserIdAndModuleId(user.get().getId(), Long.valueOf(module));
+		}
+
 	}
 
 }

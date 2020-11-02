@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAction, openFile } from 'react-jhipster';
+import { Translate, ICrudGetAction, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -85,6 +85,26 @@ export class ProfesseurDetail extends React.Component<IProfesseurDetailProps> {
               </span>
             </dt>
             <dd>{professeurEntity.rib}</dd>
+            <dt>
+              <span id="diplomePj">Document joint</span>
+            </dt>
+            <dd>
+              {professeurEntity.diplomePj ? (
+                <div>
+                  <a onClick={openFile(professeurEntity.diplomePjContentType, professeurEntity.diplomePj)}>
+                    <img
+                      src={`data:${professeurEntity.diplomePjContentType};base64,${professeurEntity.diplomePj}`}
+                      style={{ maxHeight: '30px' }}
+                    />
+                  </a>
+                  <span>
+                    {professeurEntity.diplomePjContentType}, {byteSize(professeurEntity.diplomePj)}
+                  </span>
+                </div>
+              ) : (
+                'Aucun document joint'
+              )}
+            </dd>
             <br />
             <dt>
               <span className="badge badge-warning">Emploi du temps et Avis</span>

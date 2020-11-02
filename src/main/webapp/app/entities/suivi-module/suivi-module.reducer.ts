@@ -122,7 +122,7 @@ export const getSearchEntities: ICrudSearchAction<ISuiviModule> = (query, page, 
 
 export const getEntities: ICrudGetAllAction<ISuiviModule> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_SUIVIMODULE_LIST,
-  payload: axios.get<ISuiviModule>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+  payload: axios.get<ISuiviModule>(`${apiExtendedUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
 export const getEntity: ICrudGetAction<ISuiviModule> = id => {
@@ -172,6 +172,14 @@ export const createExtendedEntity: ICrudPutAction<ISuiviModule> = entity => asyn
 
 export const getEntitiesByUserId: ICrudGetAllAction<ISuiviModule> = () => {
   const requestUrl = `${apiExtendedUrl}`;
+  return {
+    type: ACTION_TYPES.FETCH_SUIVIMODULE_LIST,
+    payload: axios.get<ISuiviModule>(requestUrl)
+  };
+};
+
+export const getEntitiesByModule: ICrudGetAction<ISuiviModule> = module => {
+  const requestUrl = `${apiExtendedUrl}/module/${module}`;
   return {
     type: ACTION_TYPES.FETCH_SUIVIMODULE_LIST,
     payload: axios.get<ISuiviModule>(requestUrl)

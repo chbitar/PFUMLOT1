@@ -22,9 +22,9 @@
       "descriptif": "Descriptif",
       "observations": "Observations",
       "date": "Date",
-      "debutCreneau": "Debut Creneau",
-      "finCreneau": "Fin Creneau",
-      "duree": "Duree",
+      "debutCreneau": "Début Créneau",
+      "finCreneau": "Fin Créneau",
+      "duree": "Durée",
       "user": "User",
       "module": "Module"
     }
