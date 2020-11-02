@@ -24,10 +24,7 @@ export class AffectationModuleDetail extends React.Component<IAffectationModuleD
     return (
       <Row>
         <Col md="8">
-          <h2>
-            <Translate contentKey="pfumApp.affectationModule.detail.title">AffectationModule</Translate> [
-            <b>{affectationModuleEntity.id}</b>]
-          </h2>
+          <br />
           <dl className="jh-entity-details">
             <dt>
               <span id="annee">
@@ -44,11 +41,15 @@ export class AffectationModuleDetail extends React.Component<IAffectationModuleD
             <dt>
               <Translate contentKey="pfumApp.affectationModule.module">Module</Translate>
             </dt>
-            <dd>{affectationModuleEntity.module ? affectationModuleEntity.module.id : ''}</dd>
+            <dd>{affectationModuleEntity.module ? affectationModuleEntity.module.nomModule : ''}</dd>
             <dt>
               <Translate contentKey="pfumApp.affectationModule.professeur">Professeur</Translate>
             </dt>
-            <dd>{affectationModuleEntity.professeur ? affectationModuleEntity.professeur.id : ''}</dd>
+            <dd>
+              {affectationModuleEntity.professeur
+                ? affectationModuleEntity.professeur.nom + ' ' + affectationModuleEntity.professeur.prenom
+                : ''}
+            </dd>
           </dl>
           <Button tag={Link} to="/entity/affectation-module" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

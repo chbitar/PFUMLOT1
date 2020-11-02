@@ -159,10 +159,10 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                   </Label>
                   <AvInput
                     id="suivi-module-date"
-                    type="datetime-local"
+                    type="date"
                     className="form-control"
                     name="date"
-                    placeholder={'YYYY-MM-DD HH:mm'}
+                    placeholder={'YYYY-MM-DD'}
                     value={isNew ? null : convertDateTimeFromServer(this.props.suiviModuleEntity.date)}
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') }
@@ -205,16 +205,19 @@ export class SuiviModuleUpdate extends React.Component<ISuiviModuleUpdateProps, 
                   <Label id="dureeLabel" for="suivi-module-duree">
                     <Translate contentKey="pfumApp.suiviModule.duree">Duree</Translate>
                   </Label>
-                  <AvField
+                  <AvInput
                     id="suivi-module-duree"
-                    type="string"
+                    type="select"
                     className="form-control"
                     name="duree"
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') },
                       number: { value: true, errorMessage: translate('entity.validation.number') }
                     }}
-                  />
+                  >
+                    <option value="2">2 heure</option>
+                    <option value="1.5">1 heure et demi</option>
+                  </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label for="suivi-module-module">

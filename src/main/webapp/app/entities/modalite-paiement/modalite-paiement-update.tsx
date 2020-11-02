@@ -81,19 +81,18 @@ export class ModalitePaiementUpdate extends React.Component<IModalitePaiementUpd
               <p>Loading...</p>
             ) : (
               <AvForm model={isNew ? {} : modalitePaiementEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
-                  <AvGroup>
-                    <Label for="modalite-paiement-id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="modalite-paiement-id" type="text" className="form-control" name="id" required readOnly />
-                  </AvGroup>
-                ) : null}
                 <AvGroup>
                   <Label id="modaliteLabel" for="modalite-paiement-modalite">
                     <Translate contentKey="pfumApp.modalitePaiement.modalite">Modalite</Translate>
                   </Label>
-                  <AvField id="modalite-paiement-modalite" type="text" name="modalite" />
+                  <AvField
+                    id="modalite-paiement-modalite"
+                    type="text"
+                    name="modalite"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="coutProgrammettcLabel" for="modalite-paiement-coutProgrammettc">

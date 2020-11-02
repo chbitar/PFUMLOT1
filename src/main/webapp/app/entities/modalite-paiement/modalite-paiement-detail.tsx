@@ -25,7 +25,8 @@ export class ModalitePaiementDetail extends React.Component<IModalitePaiementDet
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumApp.modalitePaiement.detail.title">ModalitePaiement</Translate> [<b>{modalitePaiementEntity.id}</b>]
+            <Translate contentKey="pfumApp.modalitePaiement.detail.title">ModalitePaiement</Translate> [
+            <b>{modalitePaiementEntity.modalite}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>

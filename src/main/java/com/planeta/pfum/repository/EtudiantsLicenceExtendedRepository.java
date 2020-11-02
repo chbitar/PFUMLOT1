@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.planeta.pfum.domain.EtudiantsLicence;
+import com.planeta.pfum.domain.EtudiantsMaster;
 import com.planeta.pfum.domain.Filiere;
 
 
@@ -19,4 +20,13 @@ public interface EtudiantsLicenceExtendedRepository extends EtudiantsLicenceRepo
     List<EtudiantsLicence> findAllByFiliere(Filiere fil);
 
 	List<EtudiantsLicence> findAllByUserId(Long id);
+
+	List<EtudiantsLicence> findByNomOrPrenomAllIgnoreCase(String mot, String mot2);
+
+	List<EtudiantsLicence> findByNomContainingOrPrenomContainingAllIgnoreCase(String mot, String mot2);
+
+	List<EtudiantsLicence> findBySuffixeContainingOrNomContainingOrPrenomContainingAllIgnoreCase(String mot,String mot2,String mot3);
+
+	List<EtudiantsLicence> findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(String mot,
+			String mot2, String mot3);
 }

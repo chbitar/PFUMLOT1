@@ -82,9 +82,6 @@ export class ModalitePaiement extends React.Component<IModalitePaiementProps, IM
               <thead>
                 <tr>
                   <th>
-                    <Translate contentKey="global.field.id">ID</Translate>
-                  </th>
-                  <th>
                     <Translate contentKey="pfumApp.modalitePaiement.modalite">Modalite</Translate>
                   </th>
                   <th>
@@ -108,11 +105,6 @@ export class ModalitePaiement extends React.Component<IModalitePaiementProps, IM
               <tbody>
                 {modalitePaiementList.map((modalitePaiement, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${modalitePaiement.id}`} color="link" size="sm">
-                        {modalitePaiement.id}
-                      </Button>
-                    </td>
                     <td>{modalitePaiement.modalite}</td>
                     <td>{modalitePaiement.coutProgrammettc}</td>
                     <td>{modalitePaiement.coutProgrammettcDevise}</td>

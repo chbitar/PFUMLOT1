@@ -54,26 +54,29 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
     return (
       <div>
         <h2 id="affectation-module-heading">
-          Liste des affectations modules
+          &nbsp; &nbsp; Liste des affectations modules
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Créer une nouvelle affectation
           </Link>
         </h2>
+        <br />
         <Row>
           <Col sm="12">
-            Filtrer par Semestre :
+            Filtrer par Semestre :&nbsp;
             <select onChange={this.filtrerListAffectationModule}>
               <option value="" />
-              <option value="S1">S1</option>
-              <option value="S2">S2</option>
-              <option value="S3">S3</option>
-              <option value="S4">S4</option>
-              <option value="S5">S5</option>
-              <option value="S6">S6</option>
+              <option value="S1">Semestre 1</option>
+              <option value="S2">Semestre 2</option>
+              <option value="S3">Semestre 3</option>
+              <option value="S4">Semestre 4</option>
+              <option value="S5">Semestre 5</option>
+              <option value="S6">Semestre 6</option>
             </select>
           </Col>
         </Row>
+        <br />
+        <br />
         <div className="table-responsive">
           {affectationModuleList && affectationModuleList.length > 0 ? (
             <Table responsive>

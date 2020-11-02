@@ -89,19 +89,19 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
               <p>Loading...</p>
             ) : (
               <AvForm model={isNew ? {} : affectationModuleEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
-                  <AvGroup>
-                    <Label for="affectation-module-id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="affectation-module-id" type="text" className="form-control" name="id" required readOnly />
-                  </AvGroup>
-                ) : null}
                 <AvGroup>
                   <Label id="anneeLabel" for="affectation-module-annee">
                     <Translate contentKey="pfumApp.affectationModule.annee">Annee</Translate>
                   </Label>
-                  <AvField id="affectation-module-annee" type="text" name="annee" value="2020-2021" />
+                  <AvField
+                    id="affectation-module-annee"
+                    type="text"
+                    name="annee"
+                    value="2020-2021"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="semestreLabel" for="affectation-module-semestre">
@@ -114,6 +114,9 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                     className="form-control"
                     name="semestre"
                     value={(!isNew && affectationModuleEntity.semestre) || 'S1'}
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
                   >
                     <option value="S1">{translate('pfumApp.Semestre.S1')}</option>
                     <option value="S2">{translate('pfumApp.Semestre.S2')}</option>
@@ -127,7 +130,15 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                   <Label for="affectation-module-module">
                     <Translate contentKey="pfumApp.affectationModule.module">Module</Translate>
                   </Label>
-                  <AvInput id="affectation-module-module" type="select" className="form-control" name="module.id">
+                  <AvInput
+                    id="affectation-module-module"
+                    type="select"
+                    className="form-control"
+                    name="module.id"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  >
                     <option value="" key="0" />
                     {modules
                       ? modules.map(otherEntity => (
@@ -142,7 +153,15 @@ export class AffectationModuleUpdate extends React.Component<IAffectationModuleU
                   <Label for="affectation-module-professeur">
                     <Translate contentKey="pfumApp.affectationModule.professeur">Professeur</Translate>
                   </Label>
-                  <AvInput id="affectation-module-professeur" type="select" className="form-control" name="professeur.id">
+                  <AvInput
+                    id="affectation-module-professeur"
+                    type="select"
+                    className="form-control"
+                    name="professeur.id"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  >
                     <option value="" key="0" />
                     {professeurs
                       ? professeurs.map(otherEntity => (

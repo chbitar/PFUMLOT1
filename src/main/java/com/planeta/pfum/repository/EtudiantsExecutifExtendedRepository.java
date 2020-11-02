@@ -18,4 +18,7 @@ public interface EtudiantsExecutifExtendedRepository extends EtudiantsExecutifRe
     List<EtudiantsExecutif> findAllByFiliere(Filiere fil);
 
 	List<EtudiantsExecutif> findAllByUserId(Long id);
+
+	List<EtudiantsExecutif> findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(String mot,
+			String mot2, String mot3);
 }

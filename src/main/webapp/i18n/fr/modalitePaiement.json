@@ -18,14 +18,14 @@
         "title": "Modalite Paiement"
       },
       "modalite": "Modalite",
-      "coutProgrammettc": "Cout Programmettc",
-      "coutProgrammettcDevise": "Cout Programmettc Devise",
+      "coutProgrammettc": "Cout Programme ttc",
+      "coutProgrammettcDevise": "Cout Programme ttc Devise",
       "remiseNiveau1": "Remise Niveau 1",
       "remiseNiveau2": "Remise Niveau 2",
       "devise": "Devise",
-      "etudiantsExecutif": "Etudiants Executif",
-      "etudiantsLicence": "Etudiants Licence",
-      "etudiantsMaster": "Etudiants Master"
+      "etudiantsExecutif": "Etudiants Master Exécutif",
+      "etudiantsLicence": "Etudiants Bac +3",
+      "etudiantsMaster": "Etudiants Master académique"
     }
   }
 }

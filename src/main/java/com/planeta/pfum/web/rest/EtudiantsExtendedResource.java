@@ -227,6 +227,29 @@ public class EtudiantsExtendedResource {
         log.debug("REST request to get all etudiants-masters");
         return etudiantsMasterRepository.findAllByFiliere(fil);
     }
+    
+    @GetMapping("/extended/etudiants-licences/etudiant/{mot}") 
+    public List<EtudiantsLicence> getAllEtudiantsLicencesByNomOuPrenom(@PathVariable String mot) {
+        log.debug("REST request to get all etudiants-licences");
+        return etudiantsLicenceRepository.findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(mot,mot,mot);
+        
+    }
+    
+    @GetMapping("/extended/etudiants-masters/etudiant/{mot}") 
+    public List<EtudiantsMaster> getAllEtudiantsMastersByNomOuPrenom(@PathVariable String mot) {
+        log.debug("REST request to get all etudiants-licences");
+        return etudiantsMasterRepository.findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(mot,mot,mot);
+        
+    }
+    
+    @GetMapping("/extended/etudiants-executifs/etudiant/{mot}") 
+    public List<EtudiantsExecutif> getAllEtudiantsExecutifsByNomOuPrenom(@PathVariable String mot) {
+        log.debug("REST request to get all etudiants-licences");
+        return etudiantsExecutifRepository.findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(mot,mot,mot);
+        
+    }
+    
+    
     /**
      * {@code GET  /etudiants-masters} : get all the etudiantsMasters.
      *

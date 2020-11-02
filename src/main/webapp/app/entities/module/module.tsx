@@ -66,7 +66,8 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
             &nbsp;Ajouter un nouveau module
           </Link>
         </h2>
-        &nbsp; &nbsp;
+        <br />
+        <br />
         <Row>
           <Col sm="12">
             <div>

@@ -91,19 +91,11 @@ export class EtablissementUpdate extends React.Component<IEtablissementUpdatePro
               <p>Loading...</p>
             ) : (
               <AvForm model={isNew ? {} : etablissementEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
-                  <AvGroup>
-                    <Label for="etablissement-id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="etablissement-id" type="text" className="form-control" name="id" required readOnly />
-                  </AvGroup>
-                ) : null}
                 <AvGroup>
                   <Label id="nomEcoleLabel" for="etablissement-nomEcole">
                     <Translate contentKey="pfumApp.etablissement.nomEcole">Nom Ecole</Translate>
                   </Label>
-                  <AvField id="etablissement-nomEcole" type="text" name="nomEcole" />
+                  <AvField id="etablissement-nomEcole" type="text" name="nomEcole" disabled />
                 </AvGroup>
                 <AvGroup>
                   <Label id="adresseLabel" for="etablissement-adresse">
@@ -131,7 +123,7 @@ export class EtablissementUpdate extends React.Component<IEtablissementUpdatePro
                 </AvGroup>
                 <AvGroup>
                   <Label id="identiteFicheLabel" for="etablissement-identiteFiche">
-                    <Translate contentKey="pfumApp.etablissement.identiteFiche">Identite Fiche</Translate>
+                    <Translate contentKey="pfumApp.etablissement.identiteFiche">Identité Fiche</Translate>
                   </Label>
                   <AvField id="etablissement-identiteFiche" type="text" name="identiteFiche" />
                 </AvGroup>
@@ -162,7 +154,15 @@ export class EtablissementUpdate extends React.Component<IEtablissementUpdatePro
                       </div>
                     ) : null}
                     <input id="file_logo" type="file" onChange={this.onBlobChange(true, 'logo')} accept="image/*" />
-                    <AvInput type="hidden" name="logo" value={logo} />
+                    <AvInput
+                      type="hidden"
+                      name="logo"
+                      value={logo}
+                      validate={{
+                        required: { value: true, errorMessage: translate('entity.validation.required') },
+                        number: { value: true, errorMessage: translate('entity.validation.number') }
+                      }}
+                    />
                   </AvGroup>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/etablissement" replace color="info">

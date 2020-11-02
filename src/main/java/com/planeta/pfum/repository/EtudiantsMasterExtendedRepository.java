@@ -19,4 +19,9 @@ public interface EtudiantsMasterExtendedRepository extends EtudiantsMasterReposi
     List<EtudiantsMaster> findAllByFiliere(Filiere fil);
 
 	List<EtudiantsMaster> findAllByUserId(Long id);
+
+	List<EtudiantsMaster> findByNomOrPrenomAllIgnoreCase(String mot, String mot2);
+
+	List<EtudiantsMaster> findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(String mot,
+			String mot2, String mot3);
 }

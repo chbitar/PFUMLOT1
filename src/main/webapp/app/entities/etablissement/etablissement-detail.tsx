@@ -25,7 +25,7 @@ export class EtablissementDetail extends React.Component<IEtablissementDetailPro
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumApp.etablissement.detail.title">Etablissement</Translate> [<b>{etablissementEntity.id}</b>]
+            <Translate contentKey="pfumApp.etablissement.detail.title">Etablissement</Translate> [<b>{etablissementEntity.nomEcole}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -78,9 +78,9 @@ export class EtablissementDetail extends React.Component<IEtablissementDetailPro
                       style={{ maxHeight: '30px' }}
                     />
                   </a>
-                  <span>
+                  {/*   <span>
                     {etablissementEntity.logoContentType}, {byteSize(etablissementEntity.logo)}
-                  </span>
+                  </span> */}
                 </div>
               ) : null}
             </dd>

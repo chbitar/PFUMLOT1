@@ -188,6 +188,14 @@ export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsLicence> = fil => {
   };
 };
 
+export const getEntitiesByEtudiantNameOrPrenom: ICrudGetAction<IEtudiantsLicence> = mot => {
+  const requestUrl = `${apiExtendedUrl}/etudiant/${mot}`;
+  return {
+    type: ACTION_TYPES.FETCH_ETUDIANTSLICENCE_LIST,
+    payload: axios.get<IEtudiantsLicence>(requestUrl)
+  };
+};
+
 export const createExtendedEntity: ICrudPutAction<IEtudiantsLicence> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_ETUDIANTSLICENCE,

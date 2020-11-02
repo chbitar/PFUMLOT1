@@ -46,45 +46,20 @@ export class Etablissement extends React.Component<IEtablissementProps, IEtablis
     const { etablissementList, match } = this.props;
     return (
       <div>
-        <h2 id="etablissement-heading">
+        {/*  <h2 id="etablissement-heading">
           <Translate contentKey="pfumApp.etablissement.home.title">Etablissements</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
             <Translate contentKey="pfumApp.etablissement.home.createLabel">Create new Etablissement</Translate>
           </Link>
-        </h2>
-        <Row>
-          <Col sm="12">
-            <AvForm onSubmit={this.search}>
-              <AvGroup>
-                <InputGroup>
-                  <AvInput
-                    type="text"
-                    name="search"
-                    value={this.state.search}
-                    onChange={this.handleSearch}
-                    placeholder={translate('pfumApp.etablissement.home.search')}
-                  />
-                  <Button className="input-group-addon">
-                    <FontAwesomeIcon icon="search" />
-                  </Button>
-                  <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                    <FontAwesomeIcon icon="trash" />
-                  </Button>
-                </InputGroup>
-              </AvGroup>
-            </AvForm>
-          </Col>
-        </Row>
+        </h2> */}
+
         <div className="table-responsive">
           {etablissementList && etablissementList.length > 0 ? (
             <Table responsive>
               <thead>
                 <tr>
-                  <th>
-                    <Translate contentKey="global.field.id">ID</Translate>
-                  </th>
                   <th>
                     <Translate contentKey="pfumApp.etablissement.nomEcole">Nom Ecole</Translate>
                   </th>
@@ -112,11 +87,6 @@ export class Etablissement extends React.Component<IEtablissementProps, IEtablis
               <tbody>
                 {etablissementList.map((etablissement, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${etablissement.id}`} color="link" size="sm">
-                        {etablissement.id}
-                      </Button>
-                    </td>
                     <td>{etablissement.nomEcole}</td>
                     <td>{etablissement.adresse}</td>
                     <td>{etablissement.rc}</td>
@@ -150,12 +120,12 @@ export class Etablissement extends React.Component<IEtablissementProps, IEtablis
                             <Translate contentKey="entity.action.edit">Edit</Translate>
                           </span>
                         </Button>
-                        <Button tag={Link} to={`${match.url}/${etablissement.id}/delete`} color="danger" size="sm">
+                        {/*    <Button tag={Link} to={`${match.url}/${etablissement.id}/delete`} color="danger" size="sm">
                           <FontAwesomeIcon icon="trash" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.delete">Delete</Translate>
                           </span>
-                        </Button>
+                        </Button> */}
                       </div>
                     </td>
                   </tr>
