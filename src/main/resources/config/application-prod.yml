@@ -26,6 +26,9 @@ management:
         enabled: false
 
 spring:
+  profiles:
+    active: prod
+    include: no-liquibase
   devtools:
     restart:
       enabled: false
