@@ -1,8 +1,9 @@
 package com.planeta.pfum;
 
-import com.planeta.pfum.config.DefaultProfileUtil;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+import com.planeta.pfum.config.DefaultProfileUtil;
 
 /**
  * This is a helper Java class that provides an alternative to creating a {@code web.xml}.

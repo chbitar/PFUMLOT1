@@ -31,8 +31,11 @@ import com.planeta.pfum.repository.EtudiantsMasterExtendedRepository;
 import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.security.AuthoritiesConstants;
 import com.planeta.pfum.security.SecurityUtils;
+import com.planeta.pfum.service.MailService;
 import com.planeta.pfum.service.UserExtendedService;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
+import com.planeta.pfum.web.rest.errors.EmailAlreadyUsedException;
+import com.planeta.pfum.web.rest.errors.StudentAlreadySuscribedException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 
@@ -58,18 +61,21 @@ public class EtudiantsExtendedResource {
 	private final EtudiantsMasterExtendedRepository etudiantsMasterRepository;
 
 	private final UserExtendedService userService;
-	
+
 	private final UserRepository userRepository;
 
+	private final MailService mailService;
 
 	public EtudiantsExtendedResource(EtudiantsExecutifExtendedRepository etudiantsExecutifRepository,
-			EtudiantsLicenceExtendedRepository etudiantsLicenceRepository, EtudiantsMasterExtendedRepository etudiantsMasterRepository,
-			UserExtendedService userService, UserRepository userRepository) {
+			EtudiantsLicenceExtendedRepository etudiantsLicenceRepository,
+			EtudiantsMasterExtendedRepository etudiantsMasterRepository, UserExtendedService userService,
+			UserRepository userRepository, MailService mailService) {
 		this.userService = userService;
 		this.etudiantsExecutifRepository = etudiantsExecutifRepository;
 		this.etudiantsLicenceRepository = etudiantsLicenceRepository;
 		this.etudiantsMasterRepository = etudiantsMasterRepository;
 		this.userRepository = userRepository;
+		this.mailService = mailService;
 
 	}
 
@@ -91,49 +97,67 @@ public class EtudiantsExtendedResource {
 					"idexists");
 		}
 
-		EtudiantsExecutif result = etudiantsExecutifRepository.save(etudiantsExecutif);
+		else if (userRepository.findOneByEmailIgnoreCase(etudiantsExecutif.getEmail()).isPresent()) {
+			throw new EmailAlreadyUsedException();
+		} else if (etudiantsExecutifRepository.findOneByCinPassIgnoreCase(etudiantsExecutif.getCinPass()).isPresent()) {
+			throw new StudentAlreadySuscribedException();
+		} else {
 
-		String suffixe = genererSuffix(result.getId());
+			EtudiantsExecutif result = etudiantsExecutifRepository.save(etudiantsExecutif);
 
-		// Creation d'un compte USER pour se connecter
-		User newUser = userService.createUserForActeur(etudiantsExecutif.getEmail(), etudiantsExecutif.getNom(), etudiantsExecutif.getPrenom(),AuthoritiesConstants.ETUDIANT_EXECUTIF);
+			String suffixe = genererSuffix(result.getId());
 
-		etudiantsExecutif.setUser(newUser);
-		etudiantsExecutif.setSuffixe(suffixe);
+			// Creation d'un compte USER pour se connecter
+			User newUser = userService.createUserForActeur(etudiantsExecutif.getEmail(), etudiantsExecutif.getNom(),
+					etudiantsExecutif.getPrenom(), AuthoritiesConstants.ETUDIANT_EXECUTIF);
 
-		etudiantsExecutifRepository.save(etudiantsExecutif);
+			etudiantsExecutif.setUser(newUser);
+			etudiantsExecutif.setSuffixe(suffixe);
 
-//        etudiantsExecutifSearchRepository.save(result);
-		return ResponseEntity
-				.created(new URI("/api/etudiants-executifs/" + result.getId())).headers(HeaderUtil
-						.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-				.body(result);
+			etudiantsExecutifRepository.save(etudiantsExecutif);
+
+			mailService.sendCreationEmail(newUser);
+
+			return ResponseEntity
+					.created(new URI("/api/etudiants-executifs/" + result.getId())).headers(HeaderUtil
+							.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+					.body(result);
+		}
 	}
 
-	@PostMapping("/extended/etudiants-licences") 
+	@PostMapping("/extended/etudiants-licences")
 	public ResponseEntity<EtudiantsLicence> createEtudiantsLicence(
 			@Valid @RequestBody EtudiantsLicence etudiantsLicence) throws URISyntaxException {
 		log.debug("REST request to save EtudiantsLicence : {}", etudiantsLicence);
+
 		if (etudiantsLicence.getId() != null) {
 			throw new BadRequestAlertException("A new etudiantsLicence cannot already have an ID", ENTITY_NAME,
 					"idexists");
+		} else if (userRepository.findOneByEmailIgnoreCase(etudiantsLicence.getEmail()).isPresent()) {
+			throw new EmailAlreadyUsedException();
+		} else if (etudiantsLicenceRepository.findOneByCinPassIgnoreCase(etudiantsLicence.getCinPass()).isPresent()) {
+			throw new StudentAlreadySuscribedException();
+		} else {
+
+			EtudiantsLicence result = etudiantsLicenceRepository.save(etudiantsLicence);
+
+			String suffixe = genererSuffix(result.getId());
+
+			// Creation d'un compte USER pour se connecter
+			User newUser = userService.createUserForActeur(etudiantsLicence.getEmail(), etudiantsLicence.getNom(),
+					etudiantsLicence.getPrenom(), AuthoritiesConstants.ETUDIANT_LICENCE);
+
+			etudiantsLicence.setUser(newUser);
+			etudiantsLicence.setSuffixe(suffixe);
+			etudiantsLicenceRepository.save(etudiantsLicence);
+
+			mailService.sendCreationEmail(newUser);
+
+			return ResponseEntity
+					.created(new URI("/api/etudiants-licences/" + result.getId())).headers(HeaderUtil
+							.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+					.body(result);
 		}
-
-		EtudiantsLicence result = etudiantsLicenceRepository.save(etudiantsLicence);
-
-		String suffixe = genererSuffix(result.getId());
-
-		// Creation d'un compte USER pour se connecter
-		User newUser = userService.createUserForActeur(etudiantsLicence.getEmail(), etudiantsLicence.getNom(), etudiantsLicence.getPrenom(),AuthoritiesConstants.ETUDIANT_LICENCE);
-
-		etudiantsLicence.setUser(newUser);
-		etudiantsLicence.setSuffixe(suffixe);
-		etudiantsLicenceRepository.save(etudiantsLicence);
-
-		return ResponseEntity
-				.created(new URI("/api/etudiants-licences/" + result.getId())).headers(HeaderUtil
-						.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-				.body(result);
 	}
 
 	/**
@@ -145,7 +169,7 @@ public class EtudiantsExtendedResource {
 	 *         {@code 400 (Bad Request)} if the etudiantsMaster has already an ID.
 	 * @throws URISyntaxException if the Location URI syntax is incorrect.
 	 */
-	@PostMapping("/extended/etudiants-masters") 
+	@PostMapping("/extended/etudiants-masters")
 	public ResponseEntity<EtudiantsMaster> createEtudiantsMaster(@Valid @RequestBody EtudiantsMaster etudiantsMaster)
 			throws URISyntaxException {
 		log.debug("REST request to save EtudiantsMaster : {}", etudiantsMaster);
@@ -153,25 +177,32 @@ public class EtudiantsExtendedResource {
 			throw new BadRequestAlertException("A new etudiantsMaster cannot already have an ID", ENTITY_NAME,
 					"idexists");
 		}
-		EtudiantsMaster result = etudiantsMasterRepository.save(etudiantsMaster);
 
-		String suffixe = genererSuffix(result.getId());
+		else if (userRepository.findOneByEmailIgnoreCase(etudiantsMaster.getEmail()).isPresent()) {
+			throw new EmailAlreadyUsedException();
+		} else if (etudiantsMasterRepository.findOneByCinPassIgnoreCase(etudiantsMaster.getCinPass()).isPresent()) {
+			throw new StudentAlreadySuscribedException();
+		} else {
+			EtudiantsMaster result = etudiantsMasterRepository.save(etudiantsMaster);
 
-		// Creation d'un compte USER pour se connecter
-		User newUser = userService.createUserForActeur(etudiantsMaster.getEmail(), etudiantsMaster.getNom(), etudiantsMaster.getPrenom(),AuthoritiesConstants.ETUDIANT_MASTER);
-		etudiantsMaster.setUser(newUser);
-		etudiantsMaster.setSuffixe(suffixe);
+			String suffixe = genererSuffix(result.getId());
 
-		etudiantsMasterRepository.save(etudiantsMaster);
+			// Creation d'un compte USER pour se connecter
+			User newUser = userService.createUserForActeur(etudiantsMaster.getEmail(), etudiantsMaster.getNom(),
+					etudiantsMaster.getPrenom(), AuthoritiesConstants.ETUDIANT_MASTER);
+			etudiantsMaster.setUser(newUser);
+			etudiantsMaster.setSuffixe(suffixe);
 
-//        etudiantsMasterSearchRepository.save(result);
-		return ResponseEntity
-				.created(new URI("/api/etudiants-masters/" + result.getId())).headers(HeaderUtil
-						.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-				.body(result);
+			etudiantsMasterRepository.save(etudiantsMaster);
+
+			mailService.sendCreationEmail(newUser);
+
+			return ResponseEntity
+					.created(new URI("/api/etudiants-masters/" + result.getId())).headers(HeaderUtil
+							.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+					.body(result);
+		}
 	}
-	
-	
 
 	/**
 	 * {@code GET  /etudiants-executifs} : get all the etudiantsExecutifs.
@@ -179,7 +210,7 @@ public class EtudiantsExtendedResource {
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
 	 *         of etudiantsExecutifs in body.
 	 */
-	@GetMapping("/extended/etudiants-executifs") 
+	@GetMapping("/extended/etudiants-executifs")
 	public List<EtudiantsExecutif> getAllEtudiantsExecutifs() {
 		log.debug("REST request to get all EtudiantsExecutifs");
 
@@ -190,84 +221,85 @@ public class EtudiantsExtendedResource {
 
 		return etudiantsExecutifRepository.findAll();
 	}
-	
-	@GetMapping("/extended/etudiants-executifs/filiere/{fil}") 
+
+	@GetMapping("/extended/etudiants-executifs/filiere/{fil}")
 	public List<EtudiantsExecutif> getAllEtudiantsExecutifsByFiliere(@PathVariable Filiere fil) {
 		log.debug("REST request to get all etudiants-executifs");
 		return etudiantsExecutifRepository.findAllByFiliere(fil);
 	}
-	
-	
-    /**
-     * {@code GET  /etudiants-licences} : get all the etudiantsLicences.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of etudiantsLicences in body.
-     */
-    @GetMapping("/extended/etudiants-licences") 
-    public List<EtudiantsLicence> getAllEtudiantsLicences() {
-        log.debug("REST request to get all EtudiantsLicences");
-        
-    	if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT_LICENCE)) {
+
+	/**
+	 * {@code GET  /etudiants-licences} : get all the etudiantsLicences.
+	 *
+	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+	 *         of etudiantsLicences in body.
+	 */
+	@GetMapping("/extended/etudiants-licences")
+	public List<EtudiantsLicence> getAllEtudiantsLicences() {
+		log.debug("REST request to get all EtudiantsLicences");
+
+		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT_LICENCE)) {
 			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
 			return etudiantsLicenceRepository.findAllByUserId(user.get().getId());
-		} 
-        
-        
-        return etudiantsLicenceRepository.findAll();
-    }
-    @GetMapping("/extended/etudiants-licences/filiere/{fil}") 
-    public List<EtudiantsLicence> getAllEtudiantsLicencesByFiliere(@PathVariable Filiere fil) {
-        log.debug("REST request to get all etudiants-licences");
-        return etudiantsLicenceRepository.findAllByFiliere(fil);
-    }
-    
-    
-    @GetMapping("/extended/etudiants-masters/filiere/{fil}") 
-    public List<EtudiantsMaster> getAllEtudiantsMasterByFiliere(@PathVariable Filiere fil) {
-        log.debug("REST request to get all etudiants-masters");
-        return etudiantsMasterRepository.findAllByFiliere(fil);
-    }
-    
-    @GetMapping("/extended/etudiants-licences/etudiant/{mot}") 
-    public List<EtudiantsLicence> getAllEtudiantsLicencesByNomOuPrenom(@PathVariable String mot) {
-        log.debug("REST request to get all etudiants-licences");
-        return etudiantsLicenceRepository.findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(mot,mot,mot);
-        
-    }
-    
-    @GetMapping("/extended/etudiants-masters/etudiant/{mot}") 
-    public List<EtudiantsMaster> getAllEtudiantsMastersByNomOuPrenom(@PathVariable String mot) {
-        log.debug("REST request to get all etudiants-licences");
-        return etudiantsMasterRepository.findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(mot,mot,mot);
-        
-    }
-    
-    @GetMapping("/extended/etudiants-executifs/etudiant/{mot}") 
-    public List<EtudiantsExecutif> getAllEtudiantsExecutifsByNomOuPrenom(@PathVariable String mot) {
-        log.debug("REST request to get all etudiants-licences");
-        return etudiantsExecutifRepository.findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(mot,mot,mot);
-        
-    }
-    
-    
-    /**
-     * {@code GET  /etudiants-masters} : get all the etudiantsMasters.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of etudiantsMasters in body.
-     */
-    @GetMapping("/extended/etudiants-masters") 
-    public List<EtudiantsMaster> getAllEtudiantsMasters() {
-        log.debug("REST request to get all EtudiantsMasters");
-        
-    	if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT_MASTER)) {
+		}
+
+		return etudiantsLicenceRepository.findAll();
+	}
+
+	@GetMapping("/extended/etudiants-licences/filiere/{fil}")
+	public List<EtudiantsLicence> getAllEtudiantsLicencesByFiliere(@PathVariable Filiere fil) {
+		log.debug("REST request to get all etudiants-licences");
+		return etudiantsLicenceRepository.findAllByFiliere(fil);
+	}
+
+	@GetMapping("/extended/etudiants-masters/filiere/{fil}")
+	public List<EtudiantsMaster> getAllEtudiantsMasterByFiliere(@PathVariable Filiere fil) {
+		log.debug("REST request to get all etudiants-masters");
+		return etudiantsMasterRepository.findAllByFiliere(fil);
+	}
+
+	@GetMapping("/extended/etudiants-licences/etudiant/{mot}")
+	public List<EtudiantsLicence> getAllEtudiantsLicencesByNomOuPrenom(@PathVariable String mot) {
+		log.debug("REST request to get all etudiants-licences");
+		return etudiantsLicenceRepository
+				.findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(mot, mot, mot);
+
+	}
+
+	@GetMapping("/extended/etudiants-masters/etudiant/{mot}")
+	public List<EtudiantsMaster> getAllEtudiantsMastersByNomOuPrenom(@PathVariable String mot) {
+		log.debug("REST request to get all etudiants-licences");
+		return etudiantsMasterRepository
+				.findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(mot, mot, mot);
+
+	}
+
+	@GetMapping("/extended/etudiants-executifs/etudiant/{mot}")
+	public List<EtudiantsExecutif> getAllEtudiantsExecutifsByNomOuPrenom(@PathVariable String mot) {
+		log.debug("REST request to get all etudiants-licences");
+		return etudiantsExecutifRepository
+				.findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(mot, mot, mot);
+
+	}
+
+	/**
+	 * {@code GET  /etudiants-masters} : get all the etudiantsMasters.
+	 *
+	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+	 *         of etudiantsMasters in body.
+	 */
+	@GetMapping("/extended/etudiants-masters")
+	public List<EtudiantsMaster> getAllEtudiantsMasters() {
+		log.debug("REST request to get all EtudiantsMasters");
+
+		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ETUDIANT_MASTER)) {
 			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
 			return etudiantsMasterRepository.findAllByUserId(user.get().getId());
-		} 
-    	
-        return etudiantsMasterRepository.findAll();
+		}
 
-    }
+		return etudiantsMasterRepository.findAll();
 
+	}
 
 	private String genererSuffix(Long id) {
 		int fourDigYear = Calendar.getInstance().get(Calendar.YEAR);

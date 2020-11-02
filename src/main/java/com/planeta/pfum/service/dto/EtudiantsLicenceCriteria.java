@@ -2,17 +2,17 @@ package com.planeta.pfum.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import io.github.jhipster.service.Criteria;
+
 import com.planeta.pfum.domain.enumeration.DiplomeBac;
 import com.planeta.pfum.domain.enumeration.Mention;
+
+import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
+import io.github.jhipster.service.filter.InstantFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
-import io.github.jhipster.service.filter.InstantFilter;
 
 /**
  * Criteria class for the {@link com.planeta.pfum.domain.EtudiantsLicence} entity. This class is used

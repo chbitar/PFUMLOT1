@@ -113,6 +113,11 @@ export const getEntities: ICrudGetAllAction<IModule> = (page, size, sort) => ({
   payload: axios.get<IModule>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
+export const getEntitiesOrdredBySemestre: ICrudGetAllAction<IModule> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_MODULE_LIST,
+  payload: axios.get<IModule>(`${apiExtendedUrl}?cacheBuster=${new Date().getTime()}`)
+});
+
 export const getEntity: ICrudGetAction<IModule> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
@@ -126,7 +131,7 @@ export const createEntity: ICrudPutAction<IModule> = entity => async dispatch =>
     type: ACTION_TYPES.CREATE_MODULE,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getEntitiesOrdredBySemestre());
   return result;
 };
 
@@ -135,7 +140,7 @@ export const updateEntity: ICrudPutAction<IModule> = entity => async dispatch =>
     type: ACTION_TYPES.UPDATE_MODULE,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getEntitiesOrdredBySemestre());
   return result;
 };
 
@@ -145,7 +150,7 @@ export const deleteEntity: ICrudDeleteAction<IModule> = id => async dispatch => 
     type: ACTION_TYPES.DELETE_MODULE,
     payload: axios.delete(requestUrl)
   });
-  dispatch(getEntities());
+  dispatch(getEntitiesOrdredBySemestre());
   return result;
 };
 

@@ -32,6 +32,9 @@ export interface IEtudiantsMaster {
   typeBac?: DiplomeBac;
   mention?: Mention;
   anneeObtention?: string;
+  licence?: string;
+  anneeObtentionLicence?: string;
+  etablissementObtentionLicence?: string;
   cinPass?: string;
   paysNationalite?: string;
   paysResidence?: string;

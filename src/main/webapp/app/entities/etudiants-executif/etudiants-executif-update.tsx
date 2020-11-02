@@ -185,15 +185,6 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                           </Row>
                           <Row>
                             <Col md="6">
-                              {!isNew ? (
-                                <AvGroup>
-                                  <Label for="etudiants-executif-id">
-                                    <Translate contentKey="global.field.id">ID</Translate>
-                                  </Label>
-                                  <AvInput id="etudiants-executif-id" type="text" className="form-control" name="id" required readOnly />
-                                </AvGroup>
-                              ) : null}
-
                               <AvGroup>
                                 <Label id="nomLabel" for="etudiants-executif-nom">
                                   <Translate contentKey="pfumApp.etudiantsExecutif.nom">Nom</Translate>
@@ -311,7 +302,15 @@ export class EtudiantsExecutifUpdate extends React.Component<IEtudiantsExecutifU
                                 <Label id="telLabel" for="etudiants-executif-tel">
                                   <Translate contentKey="pfumApp.etudiantsExecutif.tel">Tel</Translate>
                                 </Label>
-                                <AvField id="etudiants-executif-tel" type="string" className="form-control" name="tel" />
+                                <AvField
+                                  id="etudiants-executif-tel"
+                                  type="string"
+                                  className="form-control"
+                                  name="tel"
+                                  validate={{
+                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                  }}
+                                />
                               </AvGroup>
                               <AvGroup>
                                 <Label id="deuxiemeTelLabel" for="etudiants-executif-deuxiemeTel">

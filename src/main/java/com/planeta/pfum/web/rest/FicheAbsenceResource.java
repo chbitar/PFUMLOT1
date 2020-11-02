@@ -24,7 +24,6 @@ import com.planeta.pfum.domain.Absence;
 import com.planeta.pfum.domain.FicheAbsence;
 import com.planeta.pfum.domain.User;
 import com.planeta.pfum.domain.enumeration.Programme;
-import com.planeta.pfum.domain.enumeration.Semestre;
 import com.planeta.pfum.repository.FicheAbsenceRepository;
 import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.security.AuthoritiesConstants;

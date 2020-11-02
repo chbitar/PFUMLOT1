@@ -1,8 +1,9 @@
 package com.planeta.pfum.config;
 
-import io.github.jhipster.config.JHipsterConstants;
-import io.github.jhipster.config.liquibase.AsyncSpringLiquibase;
-import liquibase.integration.spring.SpringLiquibase;
+import java.util.concurrent.Executor;
+
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,8 +14,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 
-import javax.sql.DataSource;
-import java.util.concurrent.Executor;
+import io.github.jhipster.config.JHipsterConstants;
+import io.github.jhipster.config.liquibase.AsyncSpringLiquibase;
+import liquibase.integration.spring.SpringLiquibase;
 
 @Configuration
 public class LiquibaseConfiguration {

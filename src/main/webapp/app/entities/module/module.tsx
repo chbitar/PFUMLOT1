@@ -7,7 +7,7 @@ import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { Translate, translate, ICrudSearchAction, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, getEntitiesBySemestre, getEntitiesByFiliere } from './module.reducer';
+import { getSearchEntities, getEntities, getEntitiesBySemestre, getEntitiesByFiliere, getEntitiesOrdredBySemestre } from './module.reducer';
 import { IModule } from 'app/shared/model/module.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -24,7 +24,7 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
   };
 
   componentDidMount() {
-    this.props.getEntities();
+    this.props.getEntitiesOrdredBySemestre();
   }
 
   search = () => {
@@ -35,7 +35,7 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
 
   clear = () => {
     this.setState({ search: '' }, () => {
-      this.props.getEntities();
+      this.props.getEntitiesOrdredBySemestre();
     });
   };
 
@@ -44,14 +44,14 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
   filtrerListModuleBySemestre = e => {
     this.props.history.push('/entity/module');
 
-    if (e.target.value === '') this.props.getEntities();
+    if (e.target.value === '') this.props.getEntitiesOrdredBySemestre();
     else this.props.getEntitiesBySemestre(e.target.value);
   };
 
   filtrerListModuleByFiliere = e => {
     this.props.history.push('/entity/module');
 
-    if (e.target.value === '') this.props.getEntities();
+    if (e.target.value === '') this.props.getEntitiesOrdredBySemestre();
     else this.props.getEntitiesByFiliere(e.target.value);
   };
 
@@ -157,6 +157,7 @@ const mapStateToProps = ({ module }: IRootState) => ({
 const mapDispatchToProps = {
   getSearchEntities,
   getEntities,
+  getEntitiesOrdredBySemestre,
   getEntitiesBySemestre,
   getEntitiesByFiliere
 };

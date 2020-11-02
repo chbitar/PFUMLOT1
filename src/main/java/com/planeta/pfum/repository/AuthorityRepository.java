@@ -1,8 +1,8 @@
 package com.planeta.pfum.repository;
 
-import com.planeta.pfum.domain.Authority;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.planeta.pfum.domain.Authority;
 
 /**
  * Spring Data JPA repository for the {@link Authority} entity.

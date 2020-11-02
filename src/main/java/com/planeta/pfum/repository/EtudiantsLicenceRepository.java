@@ -1,6 +1,5 @@
 package com.planeta.pfum.repository;
 
-import org.checkerframework.framework.qual.DefaultQualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

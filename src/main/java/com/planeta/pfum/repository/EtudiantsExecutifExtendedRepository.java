@@ -1,6 +1,7 @@
 package com.planeta.pfum.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,4 +22,6 @@ public interface EtudiantsExecutifExtendedRepository extends EtudiantsExecutifRe
 
 	List<EtudiantsExecutif> findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(String mot,
 			String mot2, String mot3);
+
+	Optional<EtudiantsExecutif> findOneByCinPassIgnoreCase(String cinPass);
 }

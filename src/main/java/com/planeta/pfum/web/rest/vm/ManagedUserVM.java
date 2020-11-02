@@ -1,7 +1,8 @@
 package com.planeta.pfum.web.rest.vm;
 
-import com.planeta.pfum.service.dto.UserDTO;
 import javax.validation.constraints.Size;
+
+import com.planeta.pfum.service.dto.UserDTO;
 
 /**
  * View Model extending the UserDTO, which is meant to be used in the user management UI.

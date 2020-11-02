@@ -172,14 +172,6 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                           </Row>
                           <Row>
                             <Col md="6">
-                              {!isNew ? (
-                                <AvGroup>
-                                  <Label for="etudiants-master-id">
-                                    <Translate contentKey="global.field.id">ID</Translate>
-                                  </Label>
-                                  <AvInput id="etudiants-master-id" type="text" className="form-control" name="id" required readOnly />
-                                </AvGroup>
-                              ) : null}
                               <AvGroup>
                                 <Label id="nomLabel" for="etudiants-master-nom">
                                   <Translate contentKey="pfumApp.etudiantsMaster.nom">Nom</Translate>
@@ -297,7 +289,15 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                                 <Label id="telLabel" for="etudiants-master-tel">
                                   <Translate contentKey="pfumApp.etudiantsMaster.tel">Tel</Translate>
                                 </Label>
-                                <AvField id="etudiants-master-tel" type="string" className="form-control" name="tel" />
+                                <AvField
+                                  id="etudiants-master-tel"
+                                  type="string"
+                                  className="form-control"
+                                  name="tel"
+                                  validate={{
+                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                  }}
+                                />
                               </AvGroup>
                               <AvGroup>
                                 <Label id="deuxiemeTelLabel" for="etudiants-master-deuxiemeTel">
@@ -363,10 +363,48 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                                 <AvField id="etudiants-master-anneOtention" type="text" name="anneeObtention" />
                               </AvGroup>
                               <AvGroup>
+                                <Label id="licenceLabel" for="etudiants-master-licence">
+                                  Licence
+                                </Label>
+                                <AvField
+                                  id="etudiants-master-anneOtention"
+                                  type="text"
+                                  name="licence"
+                                  validate={{
+                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                  }}
+                                />
+                              </AvGroup>
+                              <AvGroup>
+                                <Label id="anneeObtentionLicenceLabel" for="etudiants-master-anneeObtentionLicence">
+                                  Année d'obtention Licence
+                                </Label>
+                                <AvField id="etudiants-master-anneeObtentionLicence" type="text" name="anneeObtentionLicence" />
+                              </AvGroup>
+                              <AvGroup>
+                                <Label id="etablissementObtentionLicenceLabel" for="etudiants-master-etablissementObtentionLicence">
+                                  Etablissement d'obtention Licence
+                                </Label>
+                                <AvField
+                                  id="etudiants-master-etablissementObtentionLicence"
+                                  type="text"
+                                  name="etablissementObtentionLicence"
+                                />
+                              </AvGroup>
+
+                              <AvGroup>
                                 <Label for="etudiants-master-filiere">
                                   <Translate contentKey="pfumApp.etudiantsMaster.filiere">Filiere</Translate>
                                 </Label>
-                                <AvInput id="etudiants-master-filiere" type="select" className="form-control" name="filiere.id">
+                                <AvInput
+                                  id="etudiants-master-filiere"
+                                  type="select"
+                                  className="form-control"
+                                  name="filiere.id"
+                                  validate={{
+                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                  }}
+                                >
                                   <option value="" key="0" />
                                   {filieres
                                     ? filieres.map(otherEntity => (
@@ -386,6 +424,9 @@ export class EtudiantsMasterUpdate extends React.Component<IEtudiantsMasterUpdat
                                   type="select"
                                   className="form-control"
                                   name="anneeInscription.id"
+                                  validate={{
+                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                  }}
                                 >
                                   <option value="" key="0" />
                                   {anneeInscriptions

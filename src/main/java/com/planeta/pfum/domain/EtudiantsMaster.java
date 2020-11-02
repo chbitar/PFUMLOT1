@@ -1,18 +1,29 @@
 package com.planeta.pfum.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.planeta.pfum.domain.enumeration.DiplomeBac;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.planeta.pfum.domain.enumeration.DiplomeBac;
 import com.planeta.pfum.domain.enumeration.Mention;
 
 /**
@@ -65,6 +76,18 @@ public class EtudiantsMaster implements Serializable {
 
     @Column(name = "annee_obtention")
     private String anneeObtention;
+    
+    @NotNull
+    @Column(name = "licence", nullable = false)
+    private String licence;
+    
+    @NotNull
+    @Column(name = "annee_Obtention_Licence", nullable = false)
+    private String anneeObtentionLicence;
+    
+    @NotNull
+    @Column(name = "etablissement_Obtention_Licence", nullable = false)
+    private String etablissementObtentionLicence;
 
     @NotNull
     @Column(name = "cin_pass", nullable = false)
@@ -304,6 +327,48 @@ public class EtudiantsMaster implements Serializable {
     public void setAnneeObtention(String anneeObtention) {
         this.anneeObtention = anneeObtention;
     }
+    
+    
+    
+    public String getLicence() {
+        return licence;
+    }
+
+    public EtudiantsMaster licence(String licence) {
+        this.licence = licence;
+        return this;
+    }
+
+    public void setLicence(String licence) {
+        this.licence = licence;
+    }
+    
+    public String getAnneeObtentionLicence() {
+        return anneeObtentionLicence;
+    }
+
+    public EtudiantsMaster anneeObtentionLicence(String anneeObtentionLicence) {
+        this.anneeObtentionLicence = anneeObtentionLicence;
+        return this;
+    }
+
+    public void setAnneeObtentionLicence(String anneeObtentionLicence) {
+        this.anneeObtentionLicence = anneeObtentionLicence;
+    }
+    
+    public String getEtablissementObtentionLicence() {
+        return etablissementObtentionLicence;
+    }
+
+    public EtudiantsMaster etablissementObtentionLicence(String etablissementObtentionLicence) {
+        this.etablissementObtentionLicence = etablissementObtentionLicence;
+        return this;
+    }
+
+    public void setEtablissementObtentionLicence(String etablissementObtentionLicence) {
+        this.etablissementObtentionLicence = etablissementObtentionLicence;
+    }
+    
 
     public String getCinPass() {
         return cinPass;

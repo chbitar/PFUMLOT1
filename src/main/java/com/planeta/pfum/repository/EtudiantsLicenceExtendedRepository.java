@@ -1,12 +1,11 @@
 package com.planeta.pfum.repository;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.planeta.pfum.domain.EtudiantsLicence;
-import com.planeta.pfum.domain.EtudiantsMaster;
 import com.planeta.pfum.domain.Filiere;
 
 
@@ -29,4 +28,6 @@ public interface EtudiantsLicenceExtendedRepository extends EtudiantsLicenceRepo
 
 	List<EtudiantsLicence> findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(String mot,
 			String mot2, String mot3);
+
+	Optional<EtudiantsLicence> findOneByCinPassIgnoreCase(String cinPass);
 }

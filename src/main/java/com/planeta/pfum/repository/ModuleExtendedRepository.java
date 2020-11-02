@@ -1,11 +1,11 @@
 package com.planeta.pfum.repository;
 
-import com.planeta.pfum.domain.Module;
-import com.planeta.pfum.domain.enumeration.Semestre;
-import org.springframework.data.jpa.repository.*;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.planeta.pfum.domain.Module;
+import com.planeta.pfum.domain.enumeration.Semestre;
 
 
 /**

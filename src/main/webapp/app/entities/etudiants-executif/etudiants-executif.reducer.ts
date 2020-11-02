@@ -191,6 +191,14 @@ export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsExecutif> = fil => {
   };
 };
 
+export const getEntitiesByEtudiantNameOrPrenom: ICrudGetAction<IEtudiantsExecutif> = mot => {
+  const requestUrl = `${apiExtendedUrl}/etudiant/${mot}`;
+  return {
+    type: ACTION_TYPES.FETCH_ETUDIANTSEXECUTIF_LIST,
+    payload: axios.get<IEtudiantsExecutif>(requestUrl)
+  };
+};
+
 export const setBlob = (name, data, contentType?) => ({
   type: ACTION_TYPES.SET_BLOB,
   payload: {

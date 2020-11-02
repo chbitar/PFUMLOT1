@@ -151,6 +151,7 @@
     "Size": "Le champ {{fieldName}} ne respecte pas les critères minimum et maximum !",
     "userexists": "Login déjà utilisé !",
     "emailexists": "Email déjà utilisé !",
+    "studentexists": "Un étduiant portant les même identifiants[CIN/PASS] déjà inscrit !",
     "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'ID !",
     "idnull": "Invalid ID"
   },

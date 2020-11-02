@@ -1,15 +1,13 @@
 package com.planeta.pfum.service;
 
-import com.planeta.pfum.config.Constants;
-import com.planeta.pfum.domain.Authority;
-import com.planeta.pfum.domain.User;
-import com.planeta.pfum.repository.AuthorityRepository;
-import com.planeta.pfum.repository.UserRepository;
-import com.planeta.pfum.security.AuthoritiesConstants;
-import com.planeta.pfum.security.SecurityUtils;
-import com.planeta.pfum.service.dto.UserDTO;
-import com.planeta.pfum.service.util.RandomUtil;
-import com.planeta.pfum.web.rest.errors.*;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +19,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.planeta.pfum.config.Constants;
+import com.planeta.pfum.domain.Authority;
+import com.planeta.pfum.domain.User;
+import com.planeta.pfum.repository.AuthorityRepository;
+import com.planeta.pfum.repository.UserRepository;
+import com.planeta.pfum.security.AuthoritiesConstants;
+import com.planeta.pfum.security.SecurityUtils;
+import com.planeta.pfum.service.dto.UserDTO;
+import com.planeta.pfum.service.util.RandomUtil;
+import com.planeta.pfum.web.rest.errors.EmailAlreadyUsedException;
+import com.planeta.pfum.web.rest.errors.InvalidPasswordException;
+import com.planeta.pfum.web.rest.errors.LoginAlreadyUsedException;
 
 /**
  * Service class for managing users.

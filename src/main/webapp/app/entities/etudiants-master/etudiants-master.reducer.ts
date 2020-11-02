@@ -181,6 +181,14 @@ export const getEntitiesByFiliere: ICrudGetAction<IEtudiantsMaster> = fil => {
   };
 };
 
+export const getEntitiesByEtudiantNameOrPrenom: ICrudGetAction<IEtudiantsMaster> = mot => {
+  const requestUrl = `${apiExtendedUrl}/etudiant/${mot}`;
+  return {
+    type: ACTION_TYPES.FETCH_ETUDIANTSMASTER_LIST,
+    payload: axios.get<IEtudiantsMaster>(requestUrl)
+  };
+};
+
 export const setBlob = (name, data, contentType?) => ({
   type: ACTION_TYPES.SET_BLOB,
   payload: {

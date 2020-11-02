@@ -10,7 +10,14 @@ import { openFile, byteSize, Translate, translate, ICrudSearchAction, ICrudGetAl
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, updateEntity, getEntitiesByFiliere, getEntitiesByUserId } from './etudiants-executif.reducer';
+import {
+  getSearchEntities,
+  getEntities,
+  updateEntity,
+  getEntitiesByFiliere,
+  getEntitiesByUserId,
+  getEntitiesByEtudiantNameOrPrenom
+} from './etudiants-executif.reducer';
 import { IEtudiantsExecutif } from 'app/shared/model/etudiants-executif.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES } from 'app/config/constants';
@@ -68,6 +75,11 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
     else this.props.getEntitiesByFiliere(e.target.value);
   };
 
+  filtrerListEtudiantByName = e => {
+    if (e.target.value === '') this.props.getEntities();
+    else this.props.getEntitiesByEtudiantNameOrPrenom(e.target.value);
+  };
+
   handlePaymentSelect = () => () => {
     const requestUrl = `/api/etatInscrition/${this.props.etudiantsExecutifList[0].filiere.id}/PDF`;
     axios
@@ -96,87 +108,37 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
         {isEtudiant && <h2 id="etudiants-executif-heading">Détail Inscription Etudiant</h2>}
         <Row>
           {(isAdmin || isUser) && (
-            <Col sm="12">
-              <AvForm onSubmit={this.search}>
-                <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                  <div className="toast-header">
-                    <strong className="mr-auto">Etat d'inscription</strong>
-                  </div>
-                  <div className="toast-body">
-                    <AvGroup>
-                      <Label for="filiere-etablissement">
-                        <Translate contentKey="pfumApp.filiere.etablissement">Etablissement</Translate>
-                      </Label>
-                      <AvInput
-                        id="filiere-etablissement"
-                        type="select"
-                        className="form-control"
-                        name="etablissement.id"
-                        onChange={this.filtrerListFiliereEtab}
-                      >
-                        <option value="" key="0" />
-                        {etablissements
-                          ? etablissements.map(otherEntity => (
-                              <option value={otherEntity.id} key={otherEntity.id}>
-                                {otherEntity.nomEcole}
-                              </option>
-                            ))
-                          : null}
-                      </AvInput>
-                    </AvGroup>
-                    <AvGroup>
-                      <Label for="module-filiere">Filière</Label>
-                      <AvInput
-                        id="module-filiere"
-                        type="select"
-                        className="form-control"
-                        name="filiere.id"
-                        onChange={this.filtrerListEtudiantByFiliere}
-                      >
-                        <option value="" key="0" />
-                        {filieres
-                          ? filieres.map(otherEntity => (
-                              <option value={otherEntity.id} key={otherEntity.id}>
-                                {otherEntity.nomfiliere}
-                              </option>
-                            ))
-                          : null}
-                      </AvInput>
-                    </AvGroup>
-                    <Button color="warning" size="sm" onClick={this.handlePaymentSelect()}>
-                      <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">PDF</span>
-                    </Button>
-                    <Button color="success" size="sm">
-                      <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">XLS</span>
-                    </Button>
-                  </div>
+            <>
+              <Col md="12">
+                {' '}
+                &nbsp; &nbsp;
+                <br />
+                <br />
+                <div>
+                  Filtrer par Filière: &nbsp;
+                  <select onChange={this.filtrerListEtudiantByFiliere}>
+                    <option value="" key="0" />
+                    {filieres
+                      ? filieres.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.nomfiliere}
+                          </option>
+                        ))
+                      : null}
+                  </select>
                 </div>
-                <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                  <div className="toast-header">
-                    <strong className="mr-auto">Recherche</strong>
-                    <div className="toast-body">
-                      <AvGroup>
-                        <InputGroup>
-                          <AvInput
-                            type="text"
-                            name="search"
-                            value={this.state.search}
-                            onChange={this.handleSearch}
-                            placeholder={translate('pfumApp.etudiantsExecutif.home.search')}
-                          />
-                          <Button className="input-group-addon">
-                            <FontAwesomeIcon icon="search" />
-                          </Button>
-                          <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                            <FontAwesomeIcon icon="trash" />
-                          </Button>
-                        </InputGroup>
-                      </AvGroup>
-                    </div>
-                  </div>
+                <br />
+              </Col>
+              <Col md="12">
+                <br />
+                <br />
+                <div>
+                  Chercher par N° Etdiant, Nom/Prénom : &nbsp;
+                  <input type="text" onChange={this.filtrerListEtudiantByName} />
                 </div>
-              </AvForm>
-            </Col>
+                <br />
+              </Col>
+            </>
           )}
         </Row>
 
@@ -314,7 +276,8 @@ const mapDispatchToProps = {
   getFilieres,
   getEntitiesByEtab,
   getEntitiesByFiliere,
-  getEntitiesByUserId
+  getEntitiesByUserId,
+  getEntitiesByEtudiantNameOrPrenom
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

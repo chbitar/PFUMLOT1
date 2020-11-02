@@ -281,7 +281,15 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                                 <Label id="telLabel" for="etudiants-licence-tel">
                                   <Translate contentKey="pfumApp.etudiantsLicence.tel">Tel</Translate>
                                 </Label>
-                                <AvField id="etudiants-licence-tel" type="string" className="form-control" name="tel" />
+                                <AvField
+                                  id="etudiants-licence-tel"
+                                  type="string"
+                                  className="form-control"
+                                  name="tel"
+                                  validate={{
+                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                  }}
+                                />
                               </AvGroup>
                               <AvGroup>
                                 <Label id="deuxiemeTelLabel" for="etudiants-licence-deuxiemeTel">
@@ -351,7 +359,15 @@ export class EtudiantsLicenceUpdate extends React.Component<IEtudiantsLicenceUpd
                                 <Label for="etudiants-licence-filiere">
                                   <Translate contentKey="pfumApp.etudiantsLicence.filiere">Filiere</Translate>
                                 </Label>
-                                <AvInput id="etudiants-licence-filiere" type="select" className="form-control" name="filiere.id">
+                                <AvInput
+                                  id="etudiants-licence-filiere"
+                                  type="select"
+                                  className="form-control"
+                                  name="filiere.id"
+                                  validate={{
+                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                  }}
+                                >
                                   <option value="" key="0" />
                                   {filieres
                                     ? filieres.map(otherEntity => (
