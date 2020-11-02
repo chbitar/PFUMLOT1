@@ -189,6 +189,9 @@ entity EmploieDuTemps {
   emploieDuTemps AnyBlob,
   programme Programme
 }
+entity FicheAbsence {
+  dateSeance LocalDate required
+}
 enum TypeDocument {
   PROFESSEUR,
   LICENCE,
@@ -229,7 +232,8 @@ relationship OneToOne {
   EtudiantsExecutif{user} to User,
   EtudiantsLicence{user} to User,
   EtudiantsMaster{user} to User,
-  Professeur{user} to User
+  Professeur{user} to User,
+  FicheAbsence{module(nomModule)} to Module
 }
 relationship OneToMany {
   Module{absence} to Absence{module},
@@ -280,3 +284,4 @@ paginate EtudiantsLicence, EtudiantsMaster with infinite-scroll
 paginate Filiere, Module, Professeur with pagination
 service EtudiantsLicence, EtudiantsMaster, Filiere, Module, Professeur, SuiviModule with serviceClass
 filter EtudiantsLicence, EtudiantsMaster, Filiere, Module, Professeur, SuiviModule
+search FicheAbsence with elasticsearch
