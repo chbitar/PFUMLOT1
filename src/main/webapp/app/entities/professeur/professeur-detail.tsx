@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAction } from 'react-jhipster';
+import { Translate, ICrudGetAction, openFile } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -11,16 +11,18 @@ import { getEntity } from './professeur.reducer';
 import { IProfesseur } from 'app/shared/model/professeur.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { getDocumentByTypeDocument as getDocuments } from 'app/entities/document/document.reducer';
 
 export interface IProfesseurDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class ProfesseurDetail extends React.Component<IProfesseurDetailProps> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
+    this.props.getDocuments('PROFESSEUR');
   }
 
   render() {
-    const { professeurEntity } = this.props;
+    const { professeurEntity, documentList } = this.props;
     return (
       <Row>
         <Col md="8">
@@ -83,6 +85,32 @@ export class ProfesseurDetail extends React.Component<IProfesseurDetailProps> {
               </span>
             </dt>
             <dd>{professeurEntity.rib}</dd>
+            <br />
+            <dt>
+              <span className="badge badge-warning">Emploi du temps et Avis</span>
+            </dt>
+            {documentList &&
+              documentList.length > 0 &&
+              documentList.map((document, i) => (
+                <>
+                  <dd>
+                    {' '}
+                    <span id={document.titre} />
+                  </dd>
+                  <dd>
+                    {document.data ? (
+                      <div>
+                        <a onClick={openFile(document.dataContentType, document.data)}>
+                          <FontAwesomeIcon icon="file-pdf" />
+                          {document.titre}
+                          &nbsp;
+                        </a>
+                        <span id={document.titre} />
+                      </div>
+                    ) : null}
+                  </dd>
+                </>
+              ))}
           </dl>
           <Button tag={Link} to="/entity/professeur" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -103,11 +131,12 @@ export class ProfesseurDetail extends React.Component<IProfesseurDetailProps> {
   }
 }
 
-const mapStateToProps = ({ professeur }: IRootState) => ({
-  professeurEntity: professeur.entity
+const mapStateToProps = ({ professeur, document }: IRootState) => ({
+  professeurEntity: professeur.entity,
+  documentList: document.entities
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = { getEntity, getDocuments };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

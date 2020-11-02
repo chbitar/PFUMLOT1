@@ -93,7 +93,14 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   <Label id="titreLabel" for="document-titre">
                     <Translate contentKey="pfumApp.document.titre">Titre</Translate>
                   </Label>
-                  <AvField id="document-titre" type="text" name="titre" />
+                  <AvField
+                    id="document-titre"
+                    type="text"
+                    name="titre"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <AvGroup>
@@ -120,7 +127,14 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                       </div>
                     ) : null}
                     <input id="file_data" type="file" onChange={this.onBlobChange(false, 'data')} />
-                    <AvInput type="hidden" name="data" value={data} />
+                    <AvInput
+                      type="hidden"
+                      name="data"
+                      value={data}
+                      validate={{
+                        required: { value: true, errorMessage: translate('entity.validation.required') }
+                      }}
+                    />
                   </AvGroup>
                 </AvGroup>
                 <AvGroup>

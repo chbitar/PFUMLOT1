@@ -47,49 +47,24 @@ export class Document extends React.Component<IDocumentProps, IDocumentState> {
     return (
       <div>
         <h2 id="document-heading">
-          <Translate contentKey="pfumApp.document.home.title">Liste des documents</Translate>
+          &nbsp; &nbsp; Liste des documents
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Charger un nouveau document
           </Link>
         </h2>
-        <Row>
-          <Col sm="12">
-            <AvForm onSubmit={this.search}>
-              <AvGroup>
-                <InputGroup>
-                  <AvInput
-                    type="text"
-                    name="search"
-                    value={this.state.search}
-                    onChange={this.handleSearch}
-                    placeholder={translate('pfumApp.document.home.search')}
-                  />
-                  <Button className="input-group-addon">
-                    <FontAwesomeIcon icon="search" />
-                  </Button>
-                  <Button type="reset" className="input-group-addon" onClick={this.clear}>
-                    <FontAwesomeIcon icon="trash" />
-                  </Button>
-                </InputGroup>
-              </AvGroup>
-            </AvForm>
-          </Col>
-        </Row>
+        <br />
         <div className="table-responsive">
           {documentList && documentList.length > 0 ? (
             <Table responsive>
               <thead>
                 <tr>
                   <th>
-                    <Translate contentKey="global.field.id">ID</Translate>
-                  </th>
-                  <th>
                     <Translate contentKey="pfumApp.document.titre">Titre</Translate>
                   </th>
-                  <th>
+                  {/*    <th>
                     <Translate contentKey="pfumApp.document.data">Data</Translate>
-                  </th>
+                  </th> */}
                   <th>
                     <Translate contentKey="pfumApp.document.typeDocument">Type Document</Translate>
                   </th>
@@ -100,23 +75,14 @@ export class Document extends React.Component<IDocumentProps, IDocumentState> {
                 {documentList.map((document, i) => (
                   <tr key={`entity-${i}`}>
                     <td>
-                      <Button tag={Link} to={`${match.url}/${document.id}`} color="link" size="sm">
-                        {document.id}
-                      </Button>
-                    </td>
-                    <td>{document.titre}</td>
-                    <td>
+                      {document.titre}[
                       {document.data ? (
-                        <div>
-                          <a onClick={openFile(document.dataContentType, document.data)}>
-                            <Translate contentKey="entity.action.open">Open</Translate>
-                            &nbsp;
-                          </a>
-                          <span>
-                            {document.dataContentType}, {byteSize(document.data)}
-                          </span>
-                        </div>
+                        <>
+                          <a onClick={openFile(document.dataContentType, document.data)}>Télécharger &nbsp;</a>
+                          <span />
+                        </>
                       ) : null}
+                      ]
                     </td>
                     <td>
                       <Translate contentKey={`pfumApp.TypeDocument.${document.typeDocument}`} />

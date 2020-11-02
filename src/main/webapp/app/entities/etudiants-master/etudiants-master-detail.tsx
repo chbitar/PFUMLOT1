@@ -330,8 +330,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
               </Col>
 
               <Col md="6">
-                <span className="badge badge-warning">Emploi de temps et Avis</span>
-
+                <span className="badge badge-warning">Emploi du temps et Avis</span>
                 {documentList &&
                   documentList.length > 0 &&
                   documentList.map((document, i) => (
@@ -348,9 +347,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                                 {document.titre}
                                 &nbsp;
                               </a>
-                              <span id={document.titre}>
-                                {document.dataContentType}, {byteSize(document.data)}
-                              </span>
+                              <span id={document.titre} />
                             </div>
                           ) : null}
                         </div>

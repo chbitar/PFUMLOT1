@@ -25,7 +25,7 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumApp.document.detail.title">Document</Translate> [<b>{documentEntity.id}</b>]
+            <Translate contentKey="pfumApp.document.detail.title">Document</Translate> [<b>{documentEntity.titre}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -33,24 +33,24 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
                 <Translate contentKey="pfumApp.document.titre">Titre</Translate>
               </span>
             </dt>
-            <dd>{documentEntity.titre}</dd>
-            <dt>
-              <span id="data">
-                <Translate contentKey="pfumApp.document.data">Data</Translate>
-              </span>
-            </dt>
             <dd>
+              {documentEntity.titre} &nbsp; &nbsp;
               {documentEntity.data ? (
-                <div>
+                <>
                   <a onClick={openFile(documentEntity.dataContentType, documentEntity.data)}>
-                    <Translate contentKey="entity.action.open">Open</Translate>&nbsp;
+                    Cliquer pour <Translate contentKey="entity.action.open">Open</Translate>&nbsp;
                   </a>
-                  <span>
-                    {documentEntity.dataContentType}, {byteSize(documentEntity.data)}
-                  </span>
-                </div>
+                  <span />
+                </>
               ) : null}
             </dd>
+
+            <dt>
+              {/*    <span id="data">
+                <Translate contentKey="pfumApp.document.data">Data</Translate>
+              </span> */}
+            </dt>
+
             <dt>
               <span id="typeDocument">
                 <Translate contentKey="pfumApp.document.typeDocument">Type Document</Translate>
