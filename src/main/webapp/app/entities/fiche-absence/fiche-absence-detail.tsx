@@ -130,7 +130,8 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
           </dl>
           {ficheAbsenceEntity.programme === Programme.MASTER_EXECUTIF && etudiantsExecutifs && etudiantsExecutifs.length > 0 ? (
             <>
-              <Label for="absence-module">Etudiants du Master exécutif </Label>
+              <Label for="absence-module">Liste des absents [ Master exécutif ]</Label>
+              <br />
               <Table responsive>
                 <thead>
                   <tr>
@@ -151,7 +152,8 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
           )}
           {ficheAbsenceEntity.programme === Programme.LICENCE && etudiantsLicence && etudiantsLicence.length > 0 ? (
             <>
-              <Label for="absence-module">Etudiants Bac+3 </Label>
+              <Label for="absence-module">Liste des absents [ Bac+3 ]</Label>
+              <br />
               <Table responsive>
                 <thead>
                   <tr>
@@ -172,7 +174,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
           )}
           {ficheAbsenceEntity.programme === Programme.MASTER && etudiantsMaster && etudiantsMaster.length > 0 ? (
             <>
-              <Label for="absence-module">Etudiants du Master académique </Label>
+              <Label for="absence-module">Liste des absents [ Master académique ]</Label>
               <Table responsive>
                 <thead>
                   <tr>
@@ -197,13 +199,13 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>
-          &nbsp; &nbsp;
+          {/*     &nbsp; &nbsp;
           <Button tag={Link} to={`entity/fiche-absence/${ficheAbsenceEntity.id}/delete`} color="danger">
             <FontAwesomeIcon icon="trash" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.delete">Delete</Translate>
             </span>
-          </Button>
+          </Button> */}
           <br /> <br />
         </Col>
       </Row>
