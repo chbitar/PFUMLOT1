@@ -66,7 +66,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
       .filter(etudiant => this.estAbsent(etudiant.id))
       .map((etudiant, i) => {
         return (
-          <tr>
+          <tr key={`entity-${i}`}>
             <td>{etudiant.nom}</td>
             <td>{etudiant.prenom}</td>
             <td>
@@ -80,7 +80,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
       .filter(etudiant => this.estAbsent(etudiant.id))
       .map((etudiant, i) => {
         return (
-          <tr>
+          <tr key={`entity-${i}`}>
             <td>{etudiant.nom}</td>
             <td>{etudiant.prenom}</td>
             <td>
@@ -93,7 +93,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
       .filter(etudiant => this.estAbsent(etudiant.id))
       .map((etudiant, i) => {
         return (
-          <tr>
+          <tr key={`entity-${i}`}>
             <td>{etudiant.nom}</td>
             <td>{etudiant.prenom}</td>
             <td>
