@@ -47,7 +47,8 @@
       "espaceEtudiant": "Espace Etudiant",
       "filiere": "Filiere",
       "anneeInscription": "Annee Inscription",
-      "modalite": "Modalite"
+      "modalite": "Modalite",
+      "extraitActeNaissance": "Extrait Acte de Naissance"
     }
   }
 }
