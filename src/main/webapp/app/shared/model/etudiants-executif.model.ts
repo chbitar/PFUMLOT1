@@ -20,6 +20,12 @@ export const enum Mention {
   Tres_bien = 'Tres_bien'
 }
 
+export const enum Niveau {
+  PREMIER = 'PREMIER',
+  DEUXIEME = 'DEUXIEME',
+  TROISIEM = 'TROISIEME'
+}
+
 export interface IEtudiantsExecutif {
   id?: number;
   suffixe?: string;
@@ -31,6 +37,7 @@ export interface IEtudiantsExecutif {
   email?: string;
   pjBac?: DiplomeBac;
   mention?: Mention;
+  niveau?: Niveau;
   anneeObtention?: string;
   cinPass?: string;
   paysNationalite?: string;

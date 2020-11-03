@@ -62,7 +62,7 @@ public class SuiviModule implements Serializable {
 
     @NotNull
     @Column(name = "duree", nullable = false)
-    private Double duree;
+    private Integer duree;
 
     @ManyToOne
     @JsonIgnoreProperties("suiviModules")
@@ -159,16 +159,16 @@ public class SuiviModule implements Serializable {
         this.finCreneau = finCreneau;
     }
 
-    public Double getDuree() {
+    public Integer getDuree() {
         return duree;
     }
 
-    public SuiviModule duree(Double duree) {
+    public SuiviModule duree(Integer duree) {
         this.duree = duree;
         return this;
     }
 
-    public void setDuree(Double duree) {
+    public void setDuree(Integer duree) {
         this.duree = duree;
     }
 

@@ -271,9 +271,13 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
               <Col>
                 <span className="badge badge-warning">Status d'inscription</span>
                 <dt>
-                  <span id="inscriptionvalide">
-                    <Translate contentKey="pfumApp.etudiantsLicence.inscriptionvalide">Inscriptionvalide</Translate>
-                  </span>
+                  <span id="inscriptionniveau">Niveau d'inscription</span>
+                </dt>
+                <dd>
+                  <Translate contentKey={`pfumApp.Niveau.${etudiantsLicenceEntity.niveau}`} />
+                </dd>
+                <dt>
+                  <span id="inscriptionvalide">Status</span>
                 </dt>
                 <dd>
                   {etudiantsLicenceEntity.inscriptionvalide ? (

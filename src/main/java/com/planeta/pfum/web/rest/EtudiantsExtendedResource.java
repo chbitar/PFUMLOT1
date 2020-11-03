@@ -25,6 +25,7 @@ import com.planeta.pfum.domain.EtudiantsLicence;
 import com.planeta.pfum.domain.EtudiantsMaster;
 import com.planeta.pfum.domain.Filiere;
 import com.planeta.pfum.domain.User;
+import com.planeta.pfum.domain.enumeration.Niveau;
 import com.planeta.pfum.repository.EtudiantsExecutifExtendedRepository;
 import com.planeta.pfum.repository.EtudiantsLicenceExtendedRepository;
 import com.planeta.pfum.repository.EtudiantsMasterExtendedRepository;
@@ -113,7 +114,7 @@ public class EtudiantsExtendedResource {
 
 			etudiantsExecutif.setUser(newUser);
 			etudiantsExecutif.setSuffixe(suffixe);
-
+			etudiantsExecutif.setNiveau(Niveau.PREMIER);
 			etudiantsExecutifRepository.save(etudiantsExecutif);
 
 			mailService.sendCreationEmail(newUser);
@@ -149,6 +150,7 @@ public class EtudiantsExtendedResource {
 
 			etudiantsLicence.setUser(newUser);
 			etudiantsLicence.setSuffixe(suffixe);
+			etudiantsLicence.setNiveau(Niveau.PREMIER);
 			etudiantsLicenceRepository.save(etudiantsLicence);
 
 			mailService.sendCreationEmail(newUser);
@@ -192,7 +194,7 @@ public class EtudiantsExtendedResource {
 					etudiantsMaster.getPrenom(), AuthoritiesConstants.ETUDIANT_MASTER);
 			etudiantsMaster.setUser(newUser);
 			etudiantsMaster.setSuffixe(suffixe);
-
+			etudiantsMaster.setNiveau(Niveau.PREMIER);
 			etudiantsMasterRepository.save(etudiantsMaster);
 
 			mailService.sendCreationEmail(newUser);
@@ -263,8 +265,27 @@ public class EtudiantsExtendedResource {
 		log.debug("REST request to get all etudiants-licences");
 		return etudiantsLicenceRepository
 				.findBySuffixeContainingOrNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(mot, mot, mot);
-
 	}
+	
+	
+	@GetMapping("/extended/etudiants-licences/niveau/{niveau}")
+	public List<EtudiantsLicence> getAllEtudiantsLicencesByNiveau(@PathVariable Niveau niveau) {
+		log.debug("REST request to get all etudiants-licences");
+		return etudiantsLicenceRepository.findAllByNiveau(niveau);
+	}
+	
+	@GetMapping("/extended/etudiants-masters/niveau/{niveau}")
+	public List<EtudiantsMaster> getAllEtudiantsMasterByNiveau(@PathVariable Niveau niveau) {
+		log.debug("REST request to get all etudiants-licences");
+		return etudiantsMasterRepository.findAllByNiveau(niveau);
+	}
+	
+	@GetMapping("/extended/etudiants-executifs/niveau/{niveau}")
+	public List<EtudiantsExecutif> getAllEtudiantsExecutifByNiveau(@PathVariable Niveau niveau) {
+		log.debug("REST request to get all etudiants-licences");
+		return etudiantsExecutifRepository.findAllByNiveau(niveau);
+	}
+
 
 	@GetMapping("/extended/etudiants-masters/etudiant/{mot}")
 	public List<EtudiantsMaster> getAllEtudiantsMastersByNomOuPrenom(@PathVariable String mot) {

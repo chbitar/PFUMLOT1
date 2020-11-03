@@ -15,7 +15,8 @@ import {
   updateEntity,
   getEntitiesByFiliere,
   getEntitiesByUserId,
-  getEntitiesByEtudiantNameOrPrenom
+  getEntitiesByEtudiantNameOrPrenom,
+  getEntitiesByEtudiantNiveau
 } from './etudiants-licence.reducer';
 import { IEtudiantsLicence } from 'app/shared/model/etudiants-licence.model';
 // tslint:disable-next-line:no-unused-variable
@@ -79,6 +80,11 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
     else this.props.getEntitiesByEtudiantNameOrPrenom(e.target.value);
   };
 
+  filtrerEtudiantByNiveau = e => {
+    if (e.target.value === '') this.props.getEntities();
+    else this.props.getEntitiesByEtudiantNiveau(e.target.value);
+  };
+
   render() {
     const { etudiantsLicenceList, match, etablissements, filieres, isAdmin, isUser, isRespFin, isEtudiant } = this.props;
     return (
@@ -94,18 +100,16 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
           </h2>
         )}
         {isEtudiant && <h2 id="etudiants-executif-heading">Détail Inscription Etudiant</h2>}
+        <br />
         <Row>
           {(isAdmin || isUser) && (
             <>
-              <Col md="12">
-                {' '}
-                &nbsp; &nbsp;
-                <br />
-                <br />
+              <Col>
                 <div>
-                  Filtrer par Filière: &nbsp;
-                  <select onChange={this.filtrerListEtudiantByFiliere}>
-                    <option value="" key="0" />
+                  <select onChange={this.filtrerListEtudiantByFiliere} placeholder="Filtrer par Filière">
+                    <option value="" key="0">
+                      &nbsp;&nbsp;Filtrer par Filière
+                    </option>
                     {filieres
                       ? filieres.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
@@ -115,20 +119,31 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
                       : null}
                   </select>
                 </div>
-                <br />
               </Col>
-              <Col md="12">
-                <br />
-                <br />
+              <Col>
                 <div>
-                  Chercher par N° Etdiant, Nom/Prénom : &nbsp;
-                  <input type="text" onChange={this.filtrerListEtudiantByName} />
+                  <input
+                    type="text"
+                    onChange={this.filtrerListEtudiantByName}
+                    placeholder="Chercher par N° Etdiant, Nom/Prénom"
+                    style={{ width: '300px' }}
+                  />
                 </div>
-                <br />
+              </Col>
+              <Col>
+                <div>
+                  <select onChange={this.filtrerEtudiantByNiveau}>
+                    <option value=""> &nbsp; Filtrer par Niveau Inscription </option>
+                    <option value="PREMIER">Première année</option>
+                    <option value="DEUXIEME">Deuxième année</option>
+                    <option value="TROISIEME">Troisième année</option>
+                  </select>
+                </div>
               </Col>
             </>
           )}
         </Row>
+        <br />
         <div className="table-responsive">
           {etudiantsLicenceList && etudiantsLicenceList.length > 0 ? (
             <Table responsive>
@@ -265,7 +280,8 @@ const mapDispatchToProps = {
   getEntitiesByEtab,
   getEntitiesByFiliere,
   getEntitiesByUserId,
-  getEntitiesByEtudiantNameOrPrenom
+  getEntitiesByEtudiantNameOrPrenom,
+  getEntitiesByEtudiantNiveau
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

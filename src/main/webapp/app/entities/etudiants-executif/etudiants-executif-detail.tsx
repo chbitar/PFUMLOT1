@@ -59,7 +59,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
               <Col md="6">
                 <span className="badge badge-warning">Informations personnelles</span>
                 <h2>
-                  N° Etudiant : [<b>{etudiantsExecutifEntity.suffixe}</b>]
+                  N° Etudiant : [<b>{etudiantsExecutifEntity.suffixe}</b>]<br />
                 </h2>
                 <dl className="jh-entity-details">
                   <dt>
@@ -325,7 +325,13 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
               <Col md="6">
                 <span className="badge badge-warning">Status d'inscription</span>
                 <dt>
-                  <span id="inscriptionvalide">Validation inscription</span>
+                  <span id="inscriptionniveau">Niveau d'inscription</span>
+                </dt>
+                <dd>
+                  <Translate contentKey={`pfumApp.Niveau.${etudiantsExecutifEntity.niveau}`} />
+                </dd>
+                <dt>
+                  <span id="inscriptionvalide">Status</span>
                 </dt>
                 <dd>
                   {etudiantsExecutifEntity.inscriptionvalide ? (

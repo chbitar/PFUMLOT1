@@ -25,6 +25,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.planeta.pfum.domain.enumeration.DiplomeBac;
 import com.planeta.pfum.domain.enumeration.Mention;
+import com.planeta.pfum.domain.enumeration.Niveau;
 
 /**
  * A EtudiantsMaster.
@@ -165,6 +166,10 @@ public class EtudiantsMaster implements Serializable {
     @Column(name = "etablissement_obtention")
     private String etablissementObtention;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "niveau")
+    private Niveau niveau;
+    
     @OneToOne
     @JoinColumn(unique = true)
     private User user;
@@ -621,6 +626,20 @@ public class EtudiantsMaster implements Serializable {
         return inscriptionvalide;
     }
 
+ 
+    public Niveau getNiveau() {
+        return niveau;
+    }
+
+    public EtudiantsMaster niveau(Niveau niveau) {
+        this.niveau = niveau;
+        return this;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
+    }
+    
     public EtudiantsMaster inscriptionvalide(Boolean inscriptionvalide) {
         this.inscriptionvalide = inscriptionvalide;
         return this;

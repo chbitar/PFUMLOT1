@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.planeta.pfum.domain.EtudiantsMaster;
 import com.planeta.pfum.domain.Filiere;
+import com.planeta.pfum.domain.enumeration.Niveau;
 
 
 /**
@@ -27,5 +28,7 @@ public interface EtudiantsMasterExtendedRepository extends EtudiantsMasterReposi
 			String mot2, String mot3);
 
 	Optional<EtudiantsMaster> findOneByCinPassIgnoreCase(String cinPass);
+
+	List<EtudiantsMaster> findAllByNiveau(Niveau niveau);
 	
 }

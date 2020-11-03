@@ -25,6 +25,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.planeta.pfum.domain.enumeration.DiplomeBac;
 import com.planeta.pfum.domain.enumeration.Mention;
+import com.planeta.pfum.domain.enumeration.Niveau;
 
 /**
  * A EtudiantsExecutif.
@@ -98,6 +99,11 @@ public class EtudiantsExecutif implements Serializable {
 
     @Column(name = "deuxieme_tel")
     private String deuxiemeTel;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "niveau")
+    private Niveau niveau;
+    
 
     
     @Lob
@@ -305,6 +311,18 @@ public class EtudiantsExecutif implements Serializable {
 
     public void setMention(Mention mention) {
         this.mention = mention;
+    }
+    public Niveau getNiveau() {
+        return niveau;
+    }
+
+    public EtudiantsExecutif niveau(Niveau niveau) {
+        this.niveau = niveau;
+        return this;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
     }
 
     public String getAnneeObtention() {

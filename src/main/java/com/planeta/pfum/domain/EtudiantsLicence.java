@@ -25,6 +25,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.planeta.pfum.domain.enumeration.DiplomeBac;
 import com.planeta.pfum.domain.enumeration.Mention;
+import com.planeta.pfum.domain.enumeration.Niveau;
 
 /**
  * A EtudiantsLicence.
@@ -98,7 +99,10 @@ public class EtudiantsLicence implements Serializable {
 
     @Column(name = "deuxieme_tel")
     private String deuxiemeTel;
-
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "niveau")
+    private Niveau niveau;
     
     @Lob
     @Column(name = "photo", nullable = false)
@@ -612,6 +616,19 @@ public class EtudiantsLicence implements Serializable {
         return this;
     }
 
+    public Niveau getNiveau() {
+        return niveau;
+    }
+
+    public EtudiantsLicence niveau(Niveau niveau) {
+        this.niveau = niveau;
+        return this;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
+    }
+    
     public void setEspaceEtudiants(Set<EspaceEtudiant> espaceEtudiants) {
         this.espaceEtudiants = espaceEtudiants;
     }
@@ -654,6 +671,8 @@ public class EtudiantsLicence implements Serializable {
     public void setModalite(ModalitePaiement modalitePaiement) {
         this.modalite = modalitePaiement;
     }
+    
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
