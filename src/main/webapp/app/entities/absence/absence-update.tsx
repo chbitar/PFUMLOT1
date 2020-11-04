@@ -199,8 +199,6 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                       <th />
                     </tr>
                   </thead>
-                  {console.log(this.props.etudiantsExecutifs.length)}
-
                   {etudiantsExecutifs.map((etudiant, i) => (
                     <tbody>
                       <tr key={`entity-${i}`}>
