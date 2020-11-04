@@ -1,6 +1,5 @@
-<?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    <changeSet author="garar (generated)" id="1604319609033-1">
+    <changeSet author="garar (generated)" id="1604529130425-1">
         <createTable tableName="absence">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -15,7 +14,7 @@
             <column name="fiche_absence_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-2">
+    <changeSet author="garar (generated)" id="1604529130425-2">
         <createTable tableName="affectation_module">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -26,7 +25,7 @@
             <column name="professeur_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-3">
+    <changeSet author="garar (generated)" id="1604529130425-3">
         <createTable tableName="annee_inscription">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -34,7 +33,7 @@
             <column name="annee" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-4">
+    <changeSet author="garar (generated)" id="1604529130425-4">
         <createTable tableName="annonce">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -43,7 +42,7 @@
             <column name="commentaire" type="LONGTEXT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-5">
+    <changeSet author="garar (generated)" id="1604529130425-5">
         <createTable tableName="autre_document">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -53,7 +52,7 @@
             <column name="data_content_type" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-6">
+    <changeSet author="garar (generated)" id="1604529130425-6">
         <createTable tableName="calendrier_module">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -65,7 +64,7 @@
             <column name="annee_inscription_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-7">
+    <changeSet author="garar (generated)" id="1604529130425-7">
         <createTable tableName="document">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -78,7 +77,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-8">
+    <changeSet author="garar (generated)" id="1604529130425-8">
         <createTable tableName="emploie_du_temps">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -88,7 +87,7 @@
             <column name="programme" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-9">
+    <changeSet author="garar (generated)" id="1604529130425-9">
         <createTable tableName="espace_etudiant">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -104,7 +103,7 @@
             <column name="annonce_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-10">
+    <changeSet author="garar (generated)" id="1604529130425-10">
         <createTable tableName="etablissement">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -119,7 +118,7 @@
             <column name="logo_content_type" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-11">
+    <changeSet author="garar (generated)" id="1604529130425-11">
         <createTable tableName="etudiants_executif">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -187,9 +186,10 @@
             <column name="filiere_id" type="BIGINT"/>
             <column name="annee_inscription_id" type="BIGINT"/>
             <column name="modalite_id" type="BIGINT"/>
+            <column name="niveau" type="VARCHAR(50)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-12">
+    <changeSet author="garar (generated)" id="1604529130425-12">
         <createTable tableName="etudiants_licence">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -253,9 +253,10 @@
             <column name="filiere_id" type="BIGINT"/>
             <column name="annee_inscription_id" type="BIGINT"/>
             <column name="modalite_id" type="BIGINT"/>
+            <column name="niveau" type="VARCHAR(50)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-13">
+    <changeSet author="garar (generated)" id="1604529130425-13">
         <createTable tableName="etudiants_master">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -320,6 +321,7 @@
                 <constraints unique="true"/>
             </column>
             <column name="filiere_id" type="BIGINT"/>
+            <column name="niveau" type="VARCHAR(50)"/>
             <column name="annee_inscription_id" type="BIGINT"/>
             <column name="modalite_id" type="BIGINT"/>
             <column name="licence" type="VARCHAR(255)"/>
@@ -327,7 +329,7 @@
             <column name="etablissement_Obtention_Licence" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-14">
+    <changeSet author="garar (generated)" id="1604529130425-14">
         <createTable tableName="fiche_absence">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -338,7 +340,7 @@
             <column name="user_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-15">
+    <changeSet author="garar (generated)" id="1604529130425-15">
         <createTable tableName="filiere">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -351,14 +353,14 @@
             <column name="annee_inscription_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-16">
+    <changeSet author="garar (generated)" id="1604529130425-16">
         <createTable tableName="jhi_authority">
             <column name="name" type="VARCHAR(50)">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-17">
+    <changeSet author="garar (generated)" id="1604529130425-17">
         <createTable tableName="jhi_persistent_audit_event">
             <column autoIncrement="true" name="event_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -370,7 +372,7 @@
             <column name="event_type" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-18">
+    <changeSet author="garar (generated)" id="1604529130425-18">
         <createTable tableName="jhi_persistent_audit_evt_data">
             <column name="event_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -381,7 +383,7 @@
             <column name="value" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-19">
+    <changeSet author="garar (generated)" id="1604529130425-19">
         <createTable tableName="jhi_user">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -413,7 +415,7 @@
             <column name="last_modified_date" type="timestamp"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-20">
+    <changeSet author="garar (generated)" id="1604529130425-20">
         <createTable tableName="jhi_user_authority">
             <column name="user_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -423,7 +425,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-21">
+    <changeSet author="garar (generated)" id="1604529130425-21">
         <createTable tableName="modalite_paiement">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -436,7 +438,7 @@
             <column name="devise" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-22">
+    <changeSet author="garar (generated)" id="1604529130425-22">
         <createTable tableName="module">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -447,7 +449,7 @@
             <column name="filiere_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-23">
+    <changeSet author="garar (generated)" id="1604529130425-23">
         <createTable tableName="note_executif">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -461,7 +463,7 @@
             <column name="module_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-24">
+    <changeSet author="garar (generated)" id="1604529130425-24">
         <createTable tableName="note_licence">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -475,7 +477,7 @@
             <column name="module_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-25">
+    <changeSet author="garar (generated)" id="1604529130425-25">
         <createTable tableName="note_master">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -489,7 +491,7 @@
             <column name="module_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-26">
+    <changeSet author="garar (generated)" id="1604529130425-26">
         <createTable tableName="professeur">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -506,9 +508,12 @@
                 <constraints unique="true"/>
             </column>
             <column name="telephone" type="VARCHAR(50)"/>
+            <column name="Colonne 12" type="INT"/>
+            <column name="diplome_pj" type="LONGBLOB"/>
+            <column name="diplome_pj_content_type" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-27">
+    <changeSet author="garar (generated)" id="1604529130425-27">
         <createTable tableName="suivi_module">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -529,14 +534,14 @@
             <column name="fin_creneau" type="datetime">
                 <constraints nullable="false"/>
             </column>
-            <column name="duree" type="INT">
+            <column name="duree" type="DECIMAL(10)">
                 <constraints nullable="false"/>
             </column>
             <column name="user_id" type="BIGINT"/>
             <column name="module_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-28">
+    <changeSet author="garar (generated)" id="1604529130425-28">
         <createTable tableName="tableau_de_board">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -544,7 +549,7 @@
             <column name="tableau_de_board" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-29">
+    <changeSet author="garar (generated)" id="1604529130425-29">
         <createTable tableName="tableau_de_board_calendrier">
             <column name="calendrier_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -554,7 +559,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-30">
+    <changeSet author="garar (generated)" id="1604529130425-30">
         <createTable tableName="tableau_de_board_filier">
             <column name="filier_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -564,29 +569,29 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-31">
+    <changeSet author="garar (generated)" id="1604529130425-31">
         <createIndex indexName="fk_authority_name" tableName="jhi_user_authority">
             <column name="authority_name"/>
         </createIndex>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-32">
+    <changeSet author="garar (generated)" id="1604529130425-32">
         <createIndex indexName="idx_persistent_audit_event" tableName="jhi_persistent_audit_event">
             <column name="principal"/>
             <column name="event_date"/>
         </createIndex>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-33">
+    <changeSet author="garar (generated)" id="1604529130425-33">
         <createIndex indexName="idx_persistent_audit_evt_data" tableName="jhi_persistent_audit_evt_data">
             <column name="event_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-34">
+    <changeSet author="garar (generated)" id="1604529130425-34">
         <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="jhi_user_authority" constraintName="fk_authority_name" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="jhi_authority" validate="true"/>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-35">
+    <changeSet author="garar (generated)" id="1604529130425-35">
         <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="jhi_persistent_audit_evt_data" constraintName="fk_evt_pers_audit_evt_data" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="event_id" referencedTableName="jhi_persistent_audit_event" validate="true"/>
     </changeSet>
-    <changeSet author="garar (generated)" id="1604319609033-36">
+    <changeSet author="garar (generated)" id="1604529130425-36">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="jhi_user_authority" constraintName="fk_user_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
     </changeSet>
 </databaseChangeLog>
