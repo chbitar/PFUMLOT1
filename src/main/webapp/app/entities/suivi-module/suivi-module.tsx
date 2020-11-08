@@ -261,7 +261,9 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
               </tbody>
             </Table>
           ) : (
-            ''
+            <div className="alert alert-warning">
+              <Translate contentKey="pfumApp.suiviModule.home.notFound">No Suivi Modules found</Translate>
+            </div>
           )}
         </div>
       </div>
