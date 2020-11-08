@@ -1,25 +1,27 @@
 {
-    "name": "EmploieDuTemps",
-    "fields": [
-        {
-            "fieldName": "emploieDuTemps",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "any"
-        },
-        {
-            "fieldName": "programme",
-            "fieldType": "Programme",
-            "fieldValues": "LICENCE,MASTER,MASTER_EXECUTIF"
-        }
-    ],
-    "relationships": [],
-    "changelogDate": "20201022210102",
-    "entityTableName": "emploie_du_temps",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "EmploieDuTemps",
+  "fields": [
+    {
+      "fieldName": "emploieDuTemps",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "programme",
+      "fieldType": "Programme",
+      "fieldValues": "LICENCE,MASTER,MASTER_EXECUTIF"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20201107212746",
+  "entityTableName": "emploie_du_temps",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

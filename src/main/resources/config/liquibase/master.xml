@@ -2,10 +2,10 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
-    <property name="now" value="now()" dbms="mysql"/>
+    <property name="now" value="now()" dbms="mysql, mariadb"/>
 
     <property name="floatType" value="float4" dbms="postgresql, h2"/>
     <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
@@ -13,120 +13,47 @@
     <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
     <property name="uuidType" value="varchar(36)" dbms="h2, mysql, mariadb"/>
 
-<!--     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195249_added_entity_AutreDocument.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195250_added_entity_Document.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195251_added_entity_Absence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195252_added_entity_AffectationModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195253_added_entity_AnneeInscription.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195254_added_entity_CalendrierModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195255_added_entity_EtudiantsExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195256_added_entity_EtudiantsLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195257_added_entity_EtudiantsMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195258_added_entity_Filiere.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195259_added_entity_Module.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195300_added_entity_Professeur.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195301_added_entity_SuiviModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195302_added_entity_Etablissement.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195303_added_entity_ModalitePaiement.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195304_added_entity_EspaceEtudiant.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195305_added_entity_Annonce.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195306_added_entity_NoteLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195307_added_entity_NoteMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195308_added_entity_NoteExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195309_added_entity_TableauDeBoard.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195310_added_entity_EmploieDuTemps.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202225_added_entity_AutreDocument.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202226_added_entity_Document.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202227_added_entity_Absence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202228_added_entity_AffectationModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202229_added_entity_AnneeInscription.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202230_added_entity_CalendrierModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202231_added_entity_EtudiantsExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202232_added_entity_EtudiantsLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202233_added_entity_EtudiantsMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202234_added_entity_Filiere.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202235_added_entity_Module.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202236_added_entity_Professeur.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202237_added_entity_SuiviModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202238_added_entity_Etablissement.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202239_added_entity_ModalitePaiement.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202240_added_entity_EspaceEtudiant.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202241_added_entity_Annonce.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202242_added_entity_NoteLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202243_added_entity_NoteMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202244_added_entity_NoteExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202245_added_entity_TableauDeBoard.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202246_added_entity_EmploieDuTemps.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204618_added_entity_AutreDocument.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204619_added_entity_Document.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204620_added_entity_Absence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204621_added_entity_AffectationModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204622_added_entity_AnneeInscription.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204623_added_entity_CalendrierModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204624_added_entity_EtudiantsExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204625_added_entity_EtudiantsLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204626_added_entity_EtudiantsMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204627_added_entity_Filiere.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204628_added_entity_Module.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204629_added_entity_Professeur.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204630_added_entity_SuiviModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204631_added_entity_Etablissement.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204632_added_entity_ModalitePaiement.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204633_added_entity_EspaceEtudiant.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204634_added_entity_Annonce.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204635_added_entity_NoteLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204636_added_entity_NoteMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204637_added_entity_NoteExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204638_added_entity_TableauDeBoard.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204639_added_entity_EmploieDuTemps.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201101004326_added_entity_FicheAbsence.xml" relativeToChangelogFile="false"/> -->
-<!--     jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-<!--     <include file="config/liquibase/changelog/20201022195251_added_entity_constraints_Absence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195252_added_entity_constraints_AffectationModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195254_added_entity_constraints_CalendrierModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195255_added_entity_constraints_EtudiantsExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195256_added_entity_constraints_EtudiantsLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195257_added_entity_constraints_EtudiantsMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195258_added_entity_constraints_Filiere.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195259_added_entity_constraints_Module.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195300_added_entity_constraints_Professeur.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195301_added_entity_constraints_SuiviModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195304_added_entity_constraints_EspaceEtudiant.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195306_added_entity_constraints_NoteLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195307_added_entity_constraints_NoteMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195308_added_entity_constraints_NoteExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022195309_added_entity_constraints_TableauDeBoard.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202227_added_entity_constraints_Absence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202228_added_entity_constraints_AffectationModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202230_added_entity_constraints_CalendrierModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202231_added_entity_constraints_EtudiantsExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202232_added_entity_constraints_EtudiantsLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202233_added_entity_constraints_EtudiantsMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202234_added_entity_constraints_Filiere.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202235_added_entity_constraints_Module.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202236_added_entity_constraints_Professeur.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202237_added_entity_constraints_SuiviModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202240_added_entity_constraints_EspaceEtudiant.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202242_added_entity_constraints_NoteLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202243_added_entity_constraints_NoteMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202244_added_entity_constraints_NoteExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022202245_added_entity_constraints_TableauDeBoard.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204620_added_entity_constraints_Absence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204621_added_entity_constraints_AffectationModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204623_added_entity_constraints_CalendrierModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204624_added_entity_constraints_EtudiantsExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204625_added_entity_constraints_EtudiantsLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204626_added_entity_constraints_EtudiantsMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204627_added_entity_constraints_Filiere.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204628_added_entity_constraints_Module.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204629_added_entity_constraints_Professeur.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204630_added_entity_constraints_SuiviModule.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204633_added_entity_constraints_EspaceEtudiant.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204635_added_entity_constraints_NoteLicence.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204636_added_entity_constraints_NoteMaster.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204637_added_entity_constraints_NoteExecutif.xml" relativeToChangelogFile="false"/> -->
-<!--     <include file="config/liquibase/changelog/20201022204638_added_entity_constraints_TableauDeBoard.xml" relativeToChangelogFile="false"/> -->
-    <include file="config/liquibase/changelog/00000000000001_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107210646_added_entity_AutreDocument.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107210746_added_entity_Document.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107210846_added_entity_Absence.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107210946_added_entity_AffectationModule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211046_added_entity_AnneeInscription.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211146_added_entity_CalendrierModule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211246_added_entity_EtudiantsExecutif.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211346_added_entity_EtudiantsLicence.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211446_added_entity_EtudiantsMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211546_added_entity_Filiere.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211646_added_entity_Module.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211746_added_entity_Professeur.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211846_added_entity_SuiviModule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211946_added_entity_Etablissement.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212046_added_entity_ModalitePaiement.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212146_added_entity_EspaceEtudiant.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212246_added_entity_Annonce.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212346_added_entity_NoteLicence.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212446_added_entity_NoteMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212546_added_entity_NoteExecutif.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212646_added_entity_TableauDeBoard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212746_added_entity_EmploieDuTemps.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212846_added_entity_FicheAbsence.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20201107210846_added_entity_constraints_Absence.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107210946_added_entity_constraints_AffectationModule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211146_added_entity_constraints_CalendrierModule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211246_added_entity_constraints_EtudiantsExecutif.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211346_added_entity_constraints_EtudiantsLicence.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211446_added_entity_constraints_EtudiantsMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211546_added_entity_constraints_Filiere.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211646_added_entity_constraints_Module.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211746_added_entity_constraints_Professeur.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107211846_added_entity_constraints_SuiviModule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212146_added_entity_constraints_EspaceEtudiant.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212346_added_entity_constraints_NoteLicence.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212446_added_entity_constraints_NoteMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212546_added_entity_constraints_NoteExecutif.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212646_added_entity_constraints_TableauDeBoard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201107212846_added_entity_constraints_FicheAbsence.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

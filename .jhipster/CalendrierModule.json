@@ -1,56 +1,58 @@
 {
-    "name": "CalendrierModule",
-    "fields": [
-        {
-            "fieldName": "libelle",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "dateControlContinu1",
-            "fieldType": "Instant"
-        },
-        {
-            "fieldName": "dateControlContinu2",
-            "fieldType": "Instant"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "espaceEtudiant",
-            "otherEntityRelationshipName": "calendrier",
-            "relationshipName": "espaceEtudiant"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "module",
-            "otherEntityRelationshipName": "calendrierModule",
-            "relationshipName": "module",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "anneeInscription",
-            "otherEntityRelationshipName": "calendrierModule",
-            "relationshipName": "anneeInscription",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityName": "tableauDeBoard",
-            "otherEntityRelationshipName": "calendrier",
-            "relationshipName": "board",
-            "otherEntityField": "id",
-            "ownerSide": false
-        }
-    ],
-    "changelogDate": "20201022210046",
-    "entityTableName": "calendrier_module",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "CalendrierModule",
+  "fields": [
+    {
+      "fieldName": "libelle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateControlContinu1",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "dateControlContinu2",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "espaceEtudiant",
+      "otherEntityRelationshipName": "calendrier",
+      "relationshipName": "espaceEtudiant"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "module",
+      "otherEntityRelationshipName": "calendrierModule",
+      "relationshipName": "module",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "anneeInscription",
+      "otherEntityRelationshipName": "calendrierModule",
+      "relationshipName": "anneeInscription",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "tableauDeBoard",
+      "otherEntityRelationshipName": "calendrier",
+      "relationshipName": "board",
+      "otherEntityField": "id",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20201107211146",
+  "entityTableName": "calendrier_module",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

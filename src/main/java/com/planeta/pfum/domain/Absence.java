@@ -32,8 +32,6 @@ public class Absence implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "absent")
-    private Boolean absent;
 
     @Column(name = "date_seance")
     private Instant dateSeance;
@@ -73,19 +71,6 @@ public class Absence implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Boolean isAbsent() {
-        return absent;
-    }
-
-    public Absence absent(Boolean absent) {
-        this.absent = absent;
-        return this;
-    }
-
-    public void setAbsent(Boolean absent) {
-        this.absent = absent;
     }
 
     public Instant getDateSeance() {
@@ -225,7 +210,6 @@ public class Absence implements Serializable {
     public String toString() {
         return "Absence{" +
             "id=" + getId() +
-            ", absent='" + isAbsent() + "'" +
             ", dateSeance='" + getDateSeance() + "'" +
             "}";
     }

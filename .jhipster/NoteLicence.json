@@ -1,51 +1,53 @@
 {
-    "name": "NoteLicence",
-    "fields": [
-        {
-            "fieldName": "semestre",
-            "fieldType": "Semestre",
-            "fieldValues": "S1,S2,S3,S4,S5,S6"
-        },
-        {
-            "fieldName": "noteCC1",
-            "fieldType": "Double"
-        },
-        {
-            "fieldName": "noteCC2",
-            "fieldType": "Double"
-        },
-        {
-            "fieldName": "noteFinal",
-            "fieldType": "Double"
-        },
-        {
-            "fieldName": "date",
-            "fieldType": "Instant"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "user",
-            "otherEntityRelationshipName": "noteLicence",
-            "relationshipName": "user",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "module",
-            "otherEntityRelationshipName": "noteLicence",
-            "relationshipName": "module",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20201022210058",
-    "entityTableName": "note_licence",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "NoteLicence",
+  "fields": [
+    {
+      "fieldName": "semestre",
+      "fieldType": "Semestre",
+      "fieldValues": "S1,S2,S3,S4,S5,S6"
+    },
+    {
+      "fieldName": "noteCC1",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "noteCC2",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "noteFinal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "noteLicence",
+      "relationshipName": "user",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "module",
+      "otherEntityRelationshipName": "noteLicence",
+      "relationshipName": "module",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201107212346",
+  "entityTableName": "note_licence",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

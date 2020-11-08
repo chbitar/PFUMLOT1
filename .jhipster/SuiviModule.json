@@ -1,79 +1,81 @@
 {
-    "name": "SuiviModule",
-    "fields": [
-        {
-            "fieldName": "semestre",
-            "fieldType": "Semestre",
-            "fieldValues": "S1,S2,S3,S4,S5,S6"
-        },
-        {
-            "fieldName": "descriptif",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "text",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "observations",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "text",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "date",
-            "fieldType": "Instant",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "debutCreneau",
-            "fieldType": "Instant",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "finCreneau",
-            "fieldType": "Instant",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "duree",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "user",
-            "otherEntityRelationshipName": "suiviModule",
-            "relationshipName": "user",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "module",
-            "otherEntityRelationshipName": "suiviModule",
-            "relationshipName": "module",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20201022210053",
-    "entityTableName": "suivi_module",
-    "dto": "no",
-    "pagination": "no",
-    "service": "serviceClass",
-    "jpaMetamodelFiltering": true,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "SuiviModule",
+  "fields": [
+    {
+      "fieldName": "semestre",
+      "fieldType": "Semestre",
+      "fieldValues": "S1,S2,S3,S4,S5,S6"
+    },
+    {
+      "fieldName": "descriptif",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "observations",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "debutCreneau",
+      "fieldType": "Instant",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "finCreneau",
+      "fieldType": "Instant",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "duree",
+      "fieldType": "Integer",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "suiviModule",
+      "relationshipName": "user",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "module",
+      "otherEntityRelationshipName": "suiviModule",
+      "relationshipName": "module",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201107211846",
+  "entityTableName": "suivi_module",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

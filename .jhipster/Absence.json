@@ -1,65 +1,63 @@
 {
-    "name": "Absence",
-    "fields": [
-        {
-            "fieldName": "absent",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "dateSeance",
-            "fieldType": "Instant"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "espaceEtudiant",
-            "otherEntityRelationshipName": "absence",
-            "relationshipName": "espaceEtudiant"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "user",
-            "otherEntityRelationshipName": "absence",
-            "relationshipName": "user",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "module",
-            "otherEntityRelationshipName": "absence",
-            "relationshipName": "module",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "etudiantsLicence",
-            "otherEntityRelationshipName": "absence",
-            "relationshipName": "etudiantsLicence",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "etudiantsMaster",
-            "otherEntityRelationshipName": "absence",
-            "relationshipName": "etudiantsMaster",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "etudiantsExecutif",
-            "otherEntityRelationshipName": "absence",
-            "relationshipName": "etudiantsExecutif",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20201022210043",
-    "entityTableName": "absence",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "Absence",
+  "fields": [
+    {
+      "fieldName": "dateSeance",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "espaceEtudiant",
+      "otherEntityRelationshipName": "absence",
+      "relationshipName": "espaceEtudiant"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "absence",
+      "relationshipName": "user",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "module",
+      "otherEntityRelationshipName": "absence",
+      "relationshipName": "module",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "etudiantsLicence",
+      "otherEntityRelationshipName": "absence",
+      "relationshipName": "etudiantsLicence",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "etudiantsMaster",
+      "otherEntityRelationshipName": "absence",
+      "relationshipName": "etudiantsMaster",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "etudiantsExecutif",
+      "otherEntityRelationshipName": "absence",
+      "relationshipName": "etudiantsExecutif",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201107210846",
+  "entityTableName": "absence",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

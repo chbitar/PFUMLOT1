@@ -1,5 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
+import './styles.css';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'reactstrap';

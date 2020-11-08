@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { IUser } from 'app/shared/model/user.model';
 import { IModule } from 'app/shared/model/module.model';
+import { IProfesseur } from './professeur.model';
 
 export const enum Semestre {
   S1 = 'S1',
@@ -22,6 +23,7 @@ export interface ISuiviModule {
   duree?: number;
   user?: IUser;
   module?: IModule;
+  professeur?: IProfesseur;
 }
 
 export const defaultValue: Readonly<ISuiviModule> = {};

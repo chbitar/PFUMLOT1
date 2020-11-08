@@ -1,50 +1,52 @@
 {
-    "name": "AnneeInscription",
-    "fields": [
-        {
-            "fieldName": "annee",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "calendrierModule",
-            "otherEntityRelationshipName": "anneeInscription",
-            "relationshipName": "calendrierModule"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "etudiantsExecutif",
-            "otherEntityRelationshipName": "anneeInscription",
-            "relationshipName": "etudiantsExecutif"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "etudiantsLicence",
-            "otherEntityRelationshipName": "anneeInscription",
-            "relationshipName": "etudiantsLicence"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "etudiantsMaster",
-            "otherEntityRelationshipName": "anneeInscription",
-            "relationshipName": "etudiantsMaster"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "filiere",
-            "otherEntityRelationshipName": "anneeInscription",
-            "relationshipName": "filiere"
-        }
-    ],
-    "changelogDate": "20201022210045",
-    "entityTableName": "annee_inscription",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "AnneeInscription",
+  "fields": [
+    {
+      "fieldName": "annee",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "calendrierModule",
+      "otherEntityRelationshipName": "anneeInscription",
+      "relationshipName": "calendrierModule"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "etudiantsExecutif",
+      "otherEntityRelationshipName": "anneeInscription",
+      "relationshipName": "etudiantsExecutif"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "etudiantsLicence",
+      "otherEntityRelationshipName": "anneeInscription",
+      "relationshipName": "etudiantsLicence"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "etudiantsMaster",
+      "otherEntityRelationshipName": "anneeInscription",
+      "relationshipName": "etudiantsMaster"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "filiere",
+      "otherEntityRelationshipName": "anneeInscription",
+      "relationshipName": "filiere"
+    }
+  ],
+  "changelogDate": "20201107211046",
+  "entityTableName": "annee_inscription",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

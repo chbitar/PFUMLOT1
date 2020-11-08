@@ -1,24 +1,26 @@
 {
-    "name": "AutreDocument",
-    "fields": [
-        {
-            "fieldName": "titre",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "data",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "any"
-        }
-    ],
-    "relationships": [],
-    "changelogDate": "20201022210041",
-    "entityTableName": "autre_document",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "AutreDocument",
+  "fields": [
+    {
+      "fieldName": "titre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "data",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20201107210646",
+  "entityTableName": "autre_document",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

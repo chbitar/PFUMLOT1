@@ -1,62 +1,73 @@
 {
-    "name": "Professeur",
-    "fields": [
-        {
-            "fieldName": "nom",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "prenom",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "etablissement",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "grade",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "diplome",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "cin",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "rib",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "email",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "user",
-            "otherEntityRelationshipName": "professeur",
-            "relationshipName": "user",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "affectationModule",
-            "otherEntityRelationshipName": "professeur",
-            "relationshipName": "affectationModule"
-        }
-    ],
-    "changelogDate": "20201022210052",
-    "entityTableName": "professeur",
-    "dto": "no",
-    "pagination": "pagination",
-    "service": "serviceClass",
-    "jpaMetamodelFiltering": true,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "Professeur",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "etablissement",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "grade",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "diplome",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rib",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "diplomePj",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "telephone",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "professeur",
+      "relationshipName": "user",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "affectationModule",
+      "otherEntityRelationshipName": "professeur",
+      "relationshipName": "affectationModule"
+    }
+  ],
+  "changelogDate": "20201107211746",
+  "entityTableName": "professeur",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

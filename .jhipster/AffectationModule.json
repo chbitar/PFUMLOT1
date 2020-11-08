@@ -1,39 +1,41 @@
 {
-    "name": "AffectationModule",
-    "fields": [
-        {
-            "fieldName": "annee",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "semestre",
-            "fieldType": "Semestre",
-            "fieldValues": "S1,S2,S3,S4,S5,S6"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "module",
-            "otherEntityRelationshipName": "affectationModule",
-            "relationshipName": "module",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "professeur",
-            "otherEntityRelationshipName": "affectationModule",
-            "relationshipName": "professeur",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20201022210044",
-    "entityTableName": "affectation_module",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "AffectationModule",
+  "fields": [
+    {
+      "fieldName": "annee",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "semestre",
+      "fieldType": "Semestre",
+      "fieldValues": "S1,S2,S3,S4,S5,S6"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "module",
+      "otherEntityRelationshipName": "affectationModule",
+      "relationshipName": "module",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "professeur",
+      "otherEntityRelationshipName": "affectationModule",
+      "relationshipName": "professeur",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201107210946",
+  "entityTableName": "affectation_module",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

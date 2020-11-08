@@ -5,6 +5,7 @@ import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
 import { ISuiviModule, defaultValue } from 'app/shared/model/suivi-module.model';
+import { ISuiviModuleGroupedByMdoule } from 'app/shared/model/suivi-module.groupedByModule.model';
 
 export const ACTION_TYPES = {
   SEARCH_SUIVIMODULES: 'suiviModule/SEARCH_SUIVIMODULES',
@@ -13,6 +14,7 @@ export const ACTION_TYPES = {
   CREATE_SUIVIMODULE: 'suiviModule/CREATE_SUIVIMODULE',
   UPDATE_SUIVIMODULE: 'suiviModule/UPDATE_SUIVIMODULE',
   DELETE_SUIVIMODULE: 'suiviModule/DELETE_SUIVIMODULE',
+  FETCH_SUIVIMODULE_GROUPED_BY_MODULE_LIST: 'suiviModule/FETCH_SUIVIMODULE_GROUPED_BY_MODULE_LIST',
   SET_BLOB: 'suiviModule/SET_BLOB',
   RESET: 'suiviModule/RESET'
 };
@@ -21,6 +23,7 @@ const initialState = {
   loading: false,
   errorMessage: null,
   entities: [] as ReadonlyArray<ISuiviModule>,
+  entitiesGroupedByModule: [] as ReadonlyArray<ISuiviModuleGroupedByMdoule>,
   entity: defaultValue,
   updating: false,
   updateSuccess: false
@@ -35,6 +38,7 @@ export default (state: SuiviModuleState = initialState, action): SuiviModuleStat
     case REQUEST(ACTION_TYPES.SEARCH_SUIVIMODULES):
     case REQUEST(ACTION_TYPES.FETCH_SUIVIMODULE_LIST):
     case REQUEST(ACTION_TYPES.FETCH_SUIVIMODULE):
+    case REQUEST(ACTION_TYPES.FETCH_SUIVIMODULE_GROUPED_BY_MODULE_LIST):
       return {
         ...state,
         errorMessage: null,
@@ -56,6 +60,7 @@ export default (state: SuiviModuleState = initialState, action): SuiviModuleStat
     case FAILURE(ACTION_TYPES.CREATE_SUIVIMODULE):
     case FAILURE(ACTION_TYPES.UPDATE_SUIVIMODULE):
     case FAILURE(ACTION_TYPES.DELETE_SUIVIMODULE):
+    case FAILURE(ACTION_TYPES.FETCH_SUIVIMODULE_GROUPED_BY_MODULE_LIST):
       return {
         ...state,
         loading: false,
@@ -70,6 +75,13 @@ export default (state: SuiviModuleState = initialState, action): SuiviModuleStat
         loading: false,
         entities: action.payload.data
       };
+    case SUCCESS(ACTION_TYPES.FETCH_SUIVIMODULE_GROUPED_BY_MODULE_LIST):
+      return {
+        ...state,
+        loading: false,
+        entitiesGroupedByModule: action.payload.data
+      };
+
     case SUCCESS(ACTION_TYPES.FETCH_SUIVIMODULE):
       return {
         ...state,
@@ -183,6 +195,21 @@ export const getEntitiesByModule: ICrudGetAction<ISuiviModule> = module => {
   return {
     type: ACTION_TYPES.FETCH_SUIVIMODULE_LIST,
     payload: axios.get<ISuiviModule>(requestUrl)
+  };
+};
+
+export const getEntitiesGroupedByModule: ICrudGetAction<ISuiviModuleGroupedByMdoule> = () => {
+  const requestUrl = `${apiExtendedUrl}/module/groupe`;
+  return {
+    type: ACTION_TYPES.FETCH_SUIVIMODULE_GROUPED_BY_MODULE_LIST,
+    payload: axios.get<ISuiviModuleGroupedByMdoule>(requestUrl)
+  };
+};
+export const findAllGroupedByModuleByModuleId: ICrudGetAction<ISuiviModule> = module => {
+  const requestUrl = `${apiExtendedUrl}/module/groupe/${module}`;
+  return {
+    type: ACTION_TYPES.FETCH_SUIVIMODULE_GROUPED_BY_MODULE_LIST,
+    payload: axios.get<ISuiviModuleGroupedByMdoule>(requestUrl)
   };
 };
 

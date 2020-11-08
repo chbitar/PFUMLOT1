@@ -32,6 +32,8 @@ import com.planeta.pfum.repository.SuiviModuleExtendedRepository;
 import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.security.AuthoritiesConstants;
 import com.planeta.pfum.security.SecurityUtils;
+import com.planeta.pfum.service.dto.SuiviModuleDTO;
+import com.planeta.pfum.service.dto.SuiviModuleGroupedByModule;
 import com.planeta.pfum.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -98,15 +100,30 @@ public class SuiviModuleExtendedResource {
 	}
 
 	@GetMapping("/extended/suivi-modules")
-	public List<SuiviModule> getAllSuiviModulesAffectedToProfsseur() {
+	public List<SuiviModuleDTO> getAllSuiviModulesAffectedToProfsseur() {
 		log.debug("REST request to get all SuiviModules By professeurs");
 
+		List<SuiviModule> listeSuivisModule=new ArrayList<SuiviModule>();
+		List<SuiviModuleDTO> listeSuivisModuleDto=new ArrayList<SuiviModuleDTO>();
+
+		
 		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-			return suiviModuleRepository.findAll();
+			listeSuivisModule= suiviModuleRepository.findAll();
 		} else {
 			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-			return suiviModuleRepository.findAllByUserId(user.get().getId());
+			listeSuivisModule= suiviModuleRepository.findAllByUserId(user.get().getId());
 		}
+		
+		for(SuiviModule suiviModule:listeSuivisModule) {
+			SuiviModuleDTO dto=new SuiviModuleDTO(suiviModule);
+			
+			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+			Optional<Professeur> p = professeurRepository.findOneByUserId(user.get().getId());
+			if(p.isPresent()) dto.setProfesseur(p.get());
+			listeSuivisModuleDto.add(dto);
+		}
+		
+		return listeSuivisModuleDto;
 
 	}
 
@@ -168,5 +185,31 @@ public class SuiviModuleExtendedResource {
 		}
 
 	}
+	
+	@GetMapping("/extended/suivi-modules/module/groupe")
+	public List<SuiviModuleGroupedByModule> getAllSuiviGroupedByModule() {
+		log.debug("REST request to get all FicheAbsences");
+
+		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+			return suiviModuleRepository.findAllGroupedByModule();
+		} else {
+			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+			return suiviModuleRepository.findAllGroupedByModule(user.get().getId());
+		}
+	}
+	
+	
+	@GetMapping("/extended/suivi-modules/module/groupe/{module}")
+	public List<SuiviModuleGroupedByModule> getAllSuiviGroupedByModuleByModuleId(@PathVariable String module) {
+		log.debug("REST request to get all FicheAbsences");
+
+		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+			return suiviModuleRepository.findAllGroupedByModuleByModuleId(Long.valueOf(module));
+		} else {
+			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+			return suiviModuleRepository.findAllGroupedByModuleByModuleId(Long.valueOf(module),user.get().getId());
+		}
+	}
+	
 
 }

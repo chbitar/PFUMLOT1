@@ -79,7 +79,7 @@ export class SuiviModuleDetail extends React.Component<ISuiviModuleDetailProps> 
             <dt>
               <Translate contentKey="pfumApp.suiviModule.professeur">Professeur</Translate>
             </dt>
-            <dd>{suiviModuleEntity.user ? suiviModuleEntity.user.firstName + ' ' + suiviModuleEntity.user.lastName : ''}</dd>
+            <dd>{suiviModuleEntity.professeur ? suiviModuleEntity.professeur.nom + ' ' + suiviModuleEntity.professeur.prenom : ''}</dd>
             <dt>
               <Translate contentKey="pfumApp.suiviModule.module">Module</Translate>
             </dt>

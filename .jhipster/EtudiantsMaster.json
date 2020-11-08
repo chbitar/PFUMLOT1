@@ -1,196 +1,215 @@
 {
-    "name": "EtudiantsMaster",
-    "fields": [
-        {
-            "fieldName": "suffixe",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "nom",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "prenom",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "dateNaissance",
-            "fieldType": "Instant",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "adresseContact",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "ville",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "email",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "typeBac",
-            "fieldType": "DiplomeBac",
-            "fieldValues": "Sciences_De_La_Vie_Et_De_La_Terre,Sciences_Physiques_Et_Chimiques,Sciences_Economiques,Techniques_De_Gestion_Et_Comptabilite"
-        },
-        {
-            "fieldName": "mention",
-            "fieldType": "Mention",
-            "fieldValues": "Passable,Assez_bien,Bien,Tres_bien"
-        },
-        {
-            "fieldName": "anneeObtention",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "cinPass",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "paysNationalite",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "paysResidence",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "codepostal",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "province",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "tel",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "deuxiemeTel",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "photo",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "testAdmission",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
-        },
-        {
-            "fieldName": "relevesNotes",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
-        },
-        {
-            "fieldName": "bacalaureat",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "cinPassport",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "diplome",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
-        },
-        {
-            "fieldName": "inscriptionvalide",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "absent",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "etablissementObtention",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "user",
-            "otherEntityRelationshipName": "etudiantsMaster",
-            "relationshipName": "user",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "absence",
-            "otherEntityRelationshipName": "etudiantsMaster",
-            "relationshipName": "absence"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "espaceEtudiant",
-            "otherEntityRelationshipName": "etudiantMaster",
-            "relationshipName": "espaceEtudiant"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "filiere",
-            "otherEntityRelationshipName": "etudiantsMaster",
-            "relationshipName": "filiere",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "anneeInscription",
-            "otherEntityRelationshipName": "etudiantsMaster",
-            "relationshipName": "anneeInscription",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "modalitePaiement",
-            "otherEntityRelationshipName": "etudiantsMaster",
-            "relationshipName": "modalite",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20201022210049",
-    "entityTableName": "etudiants_master",
-    "dto": "no",
-    "pagination": "infinite-scroll",
-    "service": "serviceClass",
-    "jpaMetamodelFiltering": true,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "EtudiantsMaster",
+  "fields": [
+    {
+      "fieldName": "suffixe",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nom",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "prenom",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "dateNaissance",
+      "fieldType": "Instant",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "adresseContact",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "ville",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "typeBac",
+      "fieldType": "DiplomeBac",
+      "fieldValues": "Sciences_De_La_Vie_Et_De_La_Terre,Sciences_Physiques_Et_Chimiques,Sciences_Economiques,Techniques_De_Gestion_Et_Comptabilite"
+    },
+    {
+      "fieldName": "mention",
+      "fieldType": "Mention",
+      "fieldValues": "Passable,Assez_bien,Bien,Tres_bien"
+    },
+    {
+      "fieldName": "anneeObtention",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cinPass",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "paysNationalite",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paysResidence",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codepostal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "province",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tel",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "deuxiemeTel",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "photo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "testAdmission",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "relevesNotes",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "bacalaureat",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "cinPassport",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "diplome",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "inscriptionvalide",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "absent",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "etablissementObtention",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "niveau",
+      "fieldType": "String",
+  	  "fieldValues": "PREMIER, DEUXIEME,TROISIEME"
+    },
+    {
+      "fieldName": "licence",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anneeObtentionLicence",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "etablissementObtentionLicence",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "etudiantsMaster",
+      "relationshipName": "user",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "absence",
+      "otherEntityRelationshipName": "etudiantsMaster",
+      "relationshipName": "absence"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "espaceEtudiant",
+      "otherEntityRelationshipName": "etudiantMaster",
+      "relationshipName": "espaceEtudiant"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "filiere",
+      "otherEntityRelationshipName": "etudiantsMaster",
+      "relationshipName": "filiere",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "anneeInscription",
+      "otherEntityRelationshipName": "etudiantsMaster",
+      "relationshipName": "anneeInscription",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "modalitePaiement",
+      "otherEntityRelationshipName": "etudiantsMaster",
+      "relationshipName": "modalite",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201107211446",
+  "entityTableName": "etudiants_master",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

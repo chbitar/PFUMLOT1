@@ -89,7 +89,6 @@ public class AbsenceResourceIT {
      */
     public static Absence createEntity(EntityManager em) {
         Absence absence = new Absence()
-            .absent(DEFAULT_ABSENT)
             .dateSeance(DEFAULT_DATE_SEANCE);
         return absence;
     }
@@ -101,7 +100,6 @@ public class AbsenceResourceIT {
      */
     public static Absence createUpdatedEntity(EntityManager em) {
         Absence absence = new Absence()
-            .absent(UPDATED_ABSENT)
             .dateSeance(UPDATED_DATE_SEANCE);
         return absence;
     }
@@ -126,7 +124,6 @@ public class AbsenceResourceIT {
         List<Absence> absenceList = absenceRepository.findAll();
         assertThat(absenceList).hasSize(databaseSizeBeforeCreate + 1);
         Absence testAbsence = absenceList.get(absenceList.size() - 1);
-        assertThat(testAbsence.isAbsent()).isEqualTo(DEFAULT_ABSENT);
         assertThat(testAbsence.getDateSeance()).isEqualTo(DEFAULT_DATE_SEANCE);
     }
 
@@ -201,7 +198,6 @@ public class AbsenceResourceIT {
         // Disconnect from session so that the updates on updatedAbsence are not directly saved in db
         em.detach(updatedAbsence);
         updatedAbsence
-            .absent(UPDATED_ABSENT)
             .dateSeance(UPDATED_DATE_SEANCE);
 
         restAbsenceMockMvc.perform(put("/api/absences")
@@ -213,7 +209,6 @@ public class AbsenceResourceIT {
         List<Absence> absenceList = absenceRepository.findAll();
         assertThat(absenceList).hasSize(databaseSizeBeforeUpdate);
         Absence testAbsence = absenceList.get(absenceList.size() - 1);
-        assertThat(testAbsence.isAbsent()).isEqualTo(UPDATED_ABSENT);
         assertThat(testAbsence.getDateSeance()).isEqualTo(UPDATED_DATE_SEANCE);
     }
 

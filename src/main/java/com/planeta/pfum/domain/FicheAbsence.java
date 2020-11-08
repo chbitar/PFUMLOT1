@@ -44,8 +44,8 @@ public class FicheAbsence implements Serializable {
     @Column(name = "programme")
     private Programme programme;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JsonIgnoreProperties("absences")
     private Module module;
 
     

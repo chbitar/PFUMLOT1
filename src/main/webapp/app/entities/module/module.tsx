@@ -95,7 +95,7 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
                     <Translate contentKey="pfumApp.module.nomModule">Nom Module</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="pfumApp.module.volumeHoraire">Volume Horaire</Translate>
+                    <Translate contentKey="pfumApp.module.volumeHoraire">Volume Horaire</Translate>(en Heure)
                   </th>
                   <th>
                     <Translate contentKey="pfumApp.module.semestre">Semestre</Translate>
