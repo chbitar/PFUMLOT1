@@ -184,7 +184,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                   </AvInput>
                 </AvGroup>
                 <Label for="absence-module">Etudiants du Master exécutif </Label>
-                <Table responsive>
+                <Table responsive id="ListeEtudiantAbsences">
                   <thead>
                     <tr>
                       {/*    <th>

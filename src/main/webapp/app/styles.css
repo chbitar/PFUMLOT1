@@ -33,3 +33,11 @@ table th {
   background-color: darkgray;
   color: white;
 }
+
+#ListeEtudiantAbsences th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: darkgray;
+  color: white;
+}

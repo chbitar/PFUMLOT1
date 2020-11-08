@@ -132,7 +132,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
             <>
               <Label for="absence-module">Liste des absents [ Master exécutif ]</Label>
               <br />
-              <Table responsive>
+              <Table responsive id="ListeEtudiantAbsences">
                 <thead>
                   <tr>
                     <th>
@@ -154,7 +154,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
             <>
               <Label for="absence-module">Liste des absents [ Bac+3 ]</Label>
               <br />
-              <Table responsive>
+              <Table responsive id="ListeEtudiantAbsences">
                 <thead>
                   <tr>
                     <th>
@@ -175,7 +175,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
           {ficheAbsenceEntity.programme === Programme.MASTER && etudiantsMaster && etudiantsMaster.length > 0 ? (
             <>
               <Label for="absence-module">Liste des absents [ Master académique ]</Label>
-              <Table responsive>
+              <Table responsive id="ListeEtudiantAbsences">
                 <thead>
                   <tr>
                     <th>
