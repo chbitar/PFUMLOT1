@@ -10,7 +10,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './suivi-module.reducer';
 import { ISuiviModule } from 'app/shared/model/suivi-module.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_DATE_FORMAT_TIMESTAMP, APP_LOCAL_DATE_FORMAT, APP_TIMESTAMP_FORMAT } from 'app/config/constants';
 
 export interface ISuiviModuleDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -25,7 +25,7 @@ export class SuiviModuleDetail extends React.Component<ISuiviModuleDetailProps> 
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumApp.suiviModule.detail.title">SuiviModule</Translate> [<b>{suiviModuleEntity.id}</b>]
+            <Translate contentKey="pfumApp.suiviModule.detail.title">SuiviModule</Translate> [<b>{suiviModuleEntity.module.nomModule}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -60,7 +60,7 @@ export class SuiviModuleDetail extends React.Component<ISuiviModuleDetailProps> 
               </span>
             </dt>
             <dd>
-              <TextFormat value={suiviModuleEntity.debutCreneau} type="date" format={APP_DATE_FORMAT} />
+              <TextFormat value={suiviModuleEntity.debutCreneau} type="date" format={APP_DATE_FORMAT_TIMESTAMP} />
             </dd>
             <dt>
               <span id="finCreneau">
@@ -68,14 +68,14 @@ export class SuiviModuleDetail extends React.Component<ISuiviModuleDetailProps> 
               </span>
             </dt>
             <dd>
-              <TextFormat value={suiviModuleEntity.finCreneau} type="date" format={APP_DATE_FORMAT} />
+              <TextFormat value={suiviModuleEntity.finCreneau} type="date" format={APP_DATE_FORMAT_TIMESTAMP} />
             </dd>
             <dt>
               <span id="duree">
                 <Translate contentKey="pfumApp.suiviModule.duree">Duree</Translate>
               </span>
             </dt>
-            <dd>{suiviModuleEntity.duree}</dd>
+            <dd>{suiviModuleEntity.duree} Heures</dd>
             <dt>
               <Translate contentKey="pfumApp.suiviModule.professeur">Professeur</Translate>
             </dt>

@@ -100,7 +100,7 @@ public class SuiviModuleExtendedResource {
 	}
 
 	@GetMapping("/extended/suivi-modules")
-	public List<SuiviModuleDTO> getAllSuiviModulesAffectedToProfsseur() {
+	public List<SuiviModuleDTO> getAllSuiviModulesAffectedToProfesseur() {
 		log.debug("REST request to get all SuiviModules By professeurs");
 
 		List<SuiviModule> listeSuivisModule=new ArrayList<SuiviModule>();
@@ -109,6 +109,8 @@ public class SuiviModuleExtendedResource {
 		
 		if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
 			listeSuivisModule= suiviModuleRepository.findAll();
+			
+			
 		} else {
 			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
 			listeSuivisModule= suiviModuleRepository.findAllByUserId(user.get().getId());
@@ -117,8 +119,7 @@ public class SuiviModuleExtendedResource {
 		for(SuiviModule suiviModule:listeSuivisModule) {
 			SuiviModuleDTO dto=new SuiviModuleDTO(suiviModule);
 			
-			Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
-			Optional<Professeur> p = professeurRepository.findOneByUserId(user.get().getId());
+			Optional<Professeur> p = professeurRepository.findOneByUserId(suiviModule.getUser().getId());
 			if(p.isPresent()) dto.setProfesseur(p.get());
 			listeSuivisModuleDto.add(dto);
 		}

@@ -159,8 +159,7 @@ export class EtablissementUpdate extends React.Component<IEtablissementUpdatePro
                       name="logo"
                       value={logo}
                       validate={{
-                        required: { value: true, errorMessage: translate('entity.validation.required') },
-                        number: { value: true, errorMessage: translate('entity.validation.number') }
+                        required: { value: true, errorMessage: translate('entity.validation.required') }
                       }}
                     />
                   </AvGroup>

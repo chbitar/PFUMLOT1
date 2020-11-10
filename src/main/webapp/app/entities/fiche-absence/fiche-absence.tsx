@@ -81,15 +81,13 @@ export class FicheAbsence extends React.Component<IFicheAbsenceProps, IFicheAbse
           <FontAwesomeIcon icon="plus" />
           <span className="d-none d-md-inline">&nbsp;&nbsp; [Master Exécutif]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         </Button>
-        &nbsp; &nbsp;
         <br />
         <br />
         <Row>
-          <Col md="6">
+          <Col>
             <div>
-              Filtrer par Module : &nbsp;
-              <select onChange={this.filtrerListByModule}>
-                <option value="" />
+              <select onChange={this.filtrerListByModule} placeholder="Filtrer par Module">
+                <option value="">&nbsp;&nbsp;Filtrer par Module</option>
                 {modules
                   ? modules.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
@@ -100,11 +98,10 @@ export class FicheAbsence extends React.Component<IFicheAbsenceProps, IFicheAbse
               </select>
             </div>
           </Col>
-          <Col md="6">
+          <Col>
             <div>
-              Filtrer par Programme : &nbsp;
-              <select onChange={this.filtrerListModuleByProgramme}>
-                <option value="" />
+              <select onChange={this.filtrerListModuleByProgramme} placeholder="Filtrer par Programme">
+                <option value="">&nbsp;&nbsp;Filtrer par Programme</option>
                 <option value="LICENCE">{translate('pfumApp.Programme.LICENCE')}</option>
                 <option value="MASTER">{translate('pfumApp.Programme.MASTER')}</option>
                 <option value="MASTER_EXECUTIF">{translate('pfumApp.Programme.MASTER_EXECUTIF')}</option>

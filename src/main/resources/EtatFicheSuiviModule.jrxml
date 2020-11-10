@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="da713bc8-4c40-4f90-8a65-e0e96f92ba49">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="SuiviModuleId" class="java.lang.Long"/>
+	<parameter name="cumul" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[select suivi.duree,suivi.descriptif,suivi.observations,suivi.date,suivi.debut_creneau,suivi.fin_creneau,p.nom,p.prenom, m.nom_module,m.volume_horaire,et.logo from suivi_module suivi ,module m,professeur p ,jhi_user u,filiere f ,etablissement et where suivi.module_id=m.id and suivi.user_id=u.id and p.user_id=u.id and m.filiere_id=f.id and f.etablissement_id=et.id and suivi.id=$P{SuiviModuleId}]]>
+	</queryString>
+	<field name="duree" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="duree"/>
+		<property name="com.jaspersoft.studio.field.label" value="duree"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="suivi_module"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descriptif" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descriptif"/>
+		<property name="com.jaspersoft.studio.field.label" value="descriptif"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="suivi_module"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observations" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="observations"/>
+		<property name="com.jaspersoft.studio.field.label" value="observations"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="suivi_module"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="suivi_module"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="debut_creneau" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="debut_creneau"/>
+		<property name="com.jaspersoft.studio.field.label" value="debut_creneau"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="suivi_module"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fin_creneau" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fin_creneau"/>
+		<property name="com.jaspersoft.studio.field.label" value="fin_creneau"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="suivi_module"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nom"/>
+		<property name="com.jaspersoft.studio.field.label" value="nom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="professeur"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="prenom"/>
+		<property name="com.jaspersoft.studio.field.label" value="prenom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="professeur"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nom_module" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nom_module"/>
+		<property name="com.jaspersoft.studio.field.label" value="nom_module"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="module"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="volume_horaire" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="volume_horaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="volume_horaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="module"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="logo" class="byte[]">
+		<property name="com.jaspersoft.studio.field.name" value="logo"/>
+		<property name="com.jaspersoft.studio.field.label" value="logo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="etablissement"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="555" splitType="Stretch">
+			<frame>
+				<reportElement x="9" y="48" width="793" height="57" uuid="851c7e1a-771b-41ac-afe1-c49db003cc44"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.25" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="6" y="17" width="92" height="30" uuid="4ec86061-722b-4905-aa98-8ec61d865c4c"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Enseignant : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="603" y="17" width="124" height="30" uuid="2126ec45-1305-4cd0-989b-42ee2f5ab10a"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Volume horaire  : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="239" y="17" width="133" height="30" uuid="04bbe316-c7d7-4422-835d-f092fa798b35"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Intitulé du module : ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="95" y="17" width="128" height="30" uuid="1486a75a-5d8d-49de-8460-10526ed1eb1b"/>
+					<textElement>
+						<font fontName="SansSerif" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nom}+" "+$F{prenom}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="730" y="18" width="58" height="30" uuid="762771ea-693f-468d-aa8c-251f3043dfd7"/>
+					<textElement>
+						<font fontName="SansSerif" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{volume_horaire}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="372" y="18" width="223" height="30" uuid="8f624e26-a166-4f08-b1a7-b7c0758e6d52"/>
+					<textElement>
+						<font fontName="SansSerif" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nom_module}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="108" width="173" height="332" uuid="6a2759ce-8ad9-4c57-8e5d-2dc8b65cbc0a"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.25" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="6" y="12" width="100" height="26" uuid="ac03ab84-c23f-4eac-9f5a-366193e8474b"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Date :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="6" y="72" width="100" height="27" uuid="4cc0741a-bfaf-49cf-916a-6cb87f47580e"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nature : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="6" y="137" width="100" height="27" uuid="86c1ee54-906c-4147-9fa6-8567176b83b9"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Créneau : ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="25" y="38" width="138" height="25" uuid="576bfa04-dec8-40c2-b22c-a00337564730"/>
+					<textElement>
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{date})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="104" width="165" height="23" uuid="6623a320-f4df-4289-ab05-4747317eba8f"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<text><![CDATA[•Cours  • TD/TP  • Evaluation]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="7" y="170" width="25" height="24" uuid="79555150-cb4c-4674-a450-a67c63b06389"/>
+					<text><![CDATA[De:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="7" y="197" width="25" height="24" uuid="e2515fdb-e1e7-4447-a3bb-924eff8ac773"/>
+					<text><![CDATA[à:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="36" y="168" width="127" height="24" uuid="f9d75bc0-9e5d-49d9-8618-50c34938791c"/>
+					<textElement>
+						<font fontName="SansSerif" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{debut_creneau}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="36" y="197" width="127" height="24" uuid="c609325b-4d01-4a32-8b10-8955ae1324e8"/>
+					<textElement>
+						<font fontName="SansSerif" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fin_creneau}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="6" y="230" width="100" height="25" uuid="59f2dab6-9b6c-4681-adbc-4c321e91e52a"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Durée:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="35" y="258" width="67" height="22" uuid="fbeda64c-5c1b-4c54-bead-92c4bcf8bbfe"/>
+					<textElement>
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{duree}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="100" y="262" width="56" height="22" uuid="5f1db2ed-4b16-4c0a-982c-9d19510e2781"/>
+					<text><![CDATA[Heures]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="284" width="136" height="25" uuid="957595ed-712d-4f75-af99-302c9a453974"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cumul d’heures :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="31" y="312" width="67" height="26" uuid="9a2bd0c5-db74-44fc-bd65-f65f162cf2d1"/>
+					<textElement>
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{cumul}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="96" y="316" width="56" height="26" uuid="e8d272b8-b449-4671-a507-0ba7ab2ce9eb"/>
+					<text><![CDATA[Heures]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="192" y="108" width="610" height="212" uuid="979dd4df-86ee-4564-96dc-f9d524313874"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.25" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="7" y="11" width="391" height="31" uuid="ee2fedb6-de06-4c3b-bbbb-863cd814a491"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DESCRIPTIF DU CONTENU DE LA SEANCE : ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="7" y="48" width="590" height="160" uuid="75529b3e-071a-4647-8bfa-58ff51c911c3"/>
+					<textElement>
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{descriptif}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="191" y="327" width="611" height="112" uuid="cf900cb2-2885-4455-bbfb-a94a87a0fc93"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.25" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="9" y="9" width="231" height="23" uuid="8c4c95f7-f248-4195-9bf0-77f09af3037a"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Observations (le cas échéant) : ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="9" y="38" width="590" height="82" uuid="4cf3b287-bb33-4bd2-be36-38974d9367d1"/>
+					<textElement>
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{observations}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="192" y="455" width="294" height="95" uuid="00c16f9a-27a6-40d9-8151-27153fffaa51"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.25" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="38" y="13" width="189" height="37" uuid="7eeb9b64-3a86-437b-8206-4b7185108f6c"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Emargement de l’enseignant]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="492" y="455" width="310" height="95" uuid="cae2a9de-5973-4ccf-91df-49e443ae1a2c"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.25" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement x="8" y="16" width="290" height="37" uuid="b88d99c8-13b6-4c78-aa78-0cb91c4e0fc5"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Emargement du Coordonnateur Pédagogique de la Filière]]></text>
+				</staticText>
+			</frame>
+			<image hAlign="Center">
+				<reportElement stretchType="ContainerHeight" x="13" y="0" width="178" height="48" uuid="dfd171cc-48e7-4abf-8b48-cb02a368304a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$F{logo}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

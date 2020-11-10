@@ -232,7 +232,6 @@ public class ReportService {
 			File file = ResourceUtils.getFile("classpath:etatInscFiliereEtudExecutif.jrxml");
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 			JRSaver.saveObject(jasperReport, ":etatInscFiliereEtudExecutif.jasper");
-//			
 			Map<String, Object> parameters = new HashMap<>();
 			parameters.put("FiliereId", Long.valueOf(filiereId));
 			parameters.put("FiliereNom", filiereRepository.getOne(Long.valueOf(filiereId)).getNomfiliere());
@@ -259,6 +258,39 @@ public class ReportService {
 			default:
 				break;
 			}
+
+			return loadFileAsResource(fileName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Transactional(readOnly = true)
+	public Resource exportEtatFicheSuiviModule(Integer id, Integer cumul) {
+		try {
+			File file = ResourceUtils.getFile("classpath:EtatFicheSuiviModule.jrxml");
+			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+			JRSaver.saveObject(jasperReport, ":EtatFicheSuiviModule.jasper");
+			Map<String, Object> parameters = new HashMap<>();
+			parameters.put("SuiviModuleId", Long.valueOf(id));
+			parameters.put("cumul", Long.valueOf(cumul));
+
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
+					dataSource.getConnection());
+
+			SimpleReportExporter simpleReportExporter = new SimpleReportExporter(jasperPrint);
+			String fileName = "";
+				fileName = "ficheSuiviModule-"+id+"-.pdf";
+				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 
 			return loadFileAsResource(fileName);
 		} catch (FileNotFoundException e) {

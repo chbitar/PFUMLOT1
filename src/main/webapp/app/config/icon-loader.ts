@@ -30,7 +30,7 @@ import { faRoad } from '@fortawesome/free-solid-svg-icons/faRoad';
 import { faCloud } from '@fortawesome/free-solid-svg-icons/faCloud';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons/faFilePdf';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPrint } from '@fortawesome/free-solid-svg-icons';
 
 export const loadIcons = () => {
   library.add(
@@ -65,6 +65,7 @@ export const loadIcons = () => {
     faTimesCircle,
     faSearch,
     faFilePdf,
-    faMinus
+    faMinus,
+    faPrint
   );
 };

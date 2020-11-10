@@ -1,3 +1,5 @@
+import axios from 'axios';
+import fileDownload from 'react-file-download';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
@@ -78,6 +80,16 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
     this.props.findAllGroupedByModuleByModuleId(e.target.value);
   };
 
+  genererFicheDeSuiviModule = (id, cumul) => () => {
+    const requestUrl = `/api/fichesuivimodule/${id}/${cumul}`;
+    axios
+      .get(requestUrl, {
+        responseType: 'blob'
+      })
+      .then(res => {
+        fileDownload(res.data, 'fiche_Suivi_module.pdf');
+      });
+  };
   render() {
     const { suiviModuleList, match, isProfesseur, modules, suiviModuleGroupedByList } = this.props;
     return (
@@ -241,6 +253,12 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
                                             <span className="d-none d-md-inline">
                                               <Translate contentKey="entity.action.delete">Delete</Translate>
                                             </span>
+                                          </Button>
+                                          <Button
+                                            color="info"
+                                            onClick={this.genererFicheDeSuiviModule(suiviModule.id, suiviModuleGrouped.cumul)}
+                                          >
+                                            <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">Imprimer</span>
                                           </Button>
                                         </div>
                                       </td>

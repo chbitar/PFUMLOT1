@@ -119,12 +119,12 @@ public class ReportResource {
 				.body(resource);
 	}
 
-	@GetMapping("/etatInscrition/{filiereId}/{type}")
-	public ResponseEntity<Resource> exportEtatInscriptionParFiliere(@PathVariable Integer filiereId,
-			@PathVariable String type, HttpServletRequest request) throws IOException, java.io.IOException {
+	@GetMapping("/fichesuivimodule/{id}/{cumul}")
+	public ResponseEntity<Resource> exportEtatInscriptionParFiliere(@PathVariable Integer id,
+			@PathVariable Integer cumul, HttpServletRequest request) throws IOException, java.io.IOException {
 		log.debug("REST request to export all Orders");
 		// Load file as Resource
-		Resource resource = reportService.exportEtatInscriptionParFiliere(filiereId, type);
+		Resource resource = reportService.exportEtatFicheSuiviModule(id, cumul);
 		String contentType = null;
 		try {
 			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
@@ -143,6 +143,10 @@ public class ReportResource {
 				.headers(HeaderUtil.createAlert(applicationName, "Orders exported successfully", resource.toString()))
 				.body(resource);
 	}
+	
+	
+
+	
 
 	@PostMapping("/etudiants/envoyer-email")
 	@ResponseStatus(HttpStatus.CREATED)

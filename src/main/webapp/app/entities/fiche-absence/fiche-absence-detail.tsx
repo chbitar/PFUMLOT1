@@ -128,7 +128,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
             </dt>
             <dd>{ficheAbsenceEntity.module ? ficheAbsenceEntity.programme : ''}</dd>
           </dl>
-          {ficheAbsenceEntity.programme === Programme.MASTER_EXECUTIF && etudiantsExecutifs && etudiantsExecutifs.length > 0 ? (
+          {ficheAbsenceEntity.programme === Programme.MASTER_EXECUTIF ? (
             <>
               <Label for="absence-module">Liste des absents [ Master exécutif ]</Label>
               <br />
@@ -144,13 +144,17 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
                     <th />
                   </tr>
                 </thead>
-                <tbody>{listEtudiantMasterExecutif}</tbody>
+                {etudiantsExecutifs && etudiantsExecutifs.length > 0 ? (
+                  <tbody>{listEtudiantMasterExecutif}</tbody>
+                ) : (
+                  <div className="alert alert-warning">Aucun absent</div>
+                )}
               </Table>
             </>
           ) : (
             ''
           )}
-          {ficheAbsenceEntity.programme === Programme.LICENCE && etudiantsLicence && etudiantsLicence.length > 0 ? (
+          {ficheAbsenceEntity.programme === Programme.LICENCE ? (
             <>
               <Label for="absence-module">Liste des absents [ Bac+3 ]</Label>
               <br />
@@ -166,13 +170,17 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
                     <th />
                   </tr>
                 </thead>
-                <tbody>{listEtudiantLicence}</tbody>
+                {etudiantsLicence && etudiantsLicence.length > 0 ? (
+                  <tbody>{listEtudiantLicence}</tbody>
+                ) : (
+                  <div className="alert alert-warning">Aucun absent</div>
+                )}
               </Table>
             </>
           ) : (
             ''
           )}
-          {ficheAbsenceEntity.programme === Programme.MASTER && etudiantsMaster && etudiantsMaster.length > 0 ? (
+          {ficheAbsenceEntity.programme === Programme.MASTER ? (
             <>
               <Label for="absence-module">Liste des absents [ Master académique ]</Label>
               <Table responsive id="ListeEtudiantAbsences">
@@ -187,12 +195,17 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
                     <th />
                   </tr>
                 </thead>
-                <tbody>{listEtudiantMaster}</tbody>
+                {etudiantsMaster && etudiantsMaster.length > 0 ? (
+                  <tbody>{listEtudiantMaster}</tbody>
+                ) : (
+                  <div className="alert alert-warning">Aucun absent</div>
+                )}
               </Table>
             </>
           ) : (
             ''
           )}
+          <br />
           <Button tag={Link} to="/entity/fiche-absence" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
