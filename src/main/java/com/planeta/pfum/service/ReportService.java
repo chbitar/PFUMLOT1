@@ -277,22 +277,21 @@ public class ReportService {
 	@Transactional(readOnly = true)
 	public Resource exportEtatFicheSuiviModule(Integer id, Integer cumul) {
 		try {
-			File file = ResourceUtils.getFile("classpath:EtatFicheSuiviModule.jrxml");
-			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-			JRSaver.saveObject(jasperReport, ":EtatFicheSuiviModule.jasper");
+			
 			Map<String, Object> parameters = new HashMap<>();
 			parameters.put("SuiviModuleId", Long.valueOf(id));
 			parameters.put("cumul", Long.valueOf(cumul));
 
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
-					dataSource.getConnection());
+			JasperReport jasperReport = JasperCompileManager
+					.compileReport(resourceLoader.getResource("classpath:EtatFicheSuiviModule.jrxml").getInputStream());
+			JRSaver.saveObject(jasperReport, "EtatFicheSuiviModule.jasper");
 
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 			SimpleReportExporter simpleReportExporter = new SimpleReportExporter(jasperPrint);
-			String fileName = "";
-				fileName = "ficheSuiviModule-"+id+"-.pdf";
-				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
-
+			String fileName = "attestationInscription-Licence.pdf";
+			simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
 			return loadFileAsResource(fileName);
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (JRException e) {
