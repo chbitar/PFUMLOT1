@@ -325,7 +325,7 @@ public class EtudiantsExtendedResource {
 	private String genererSuffix(Long id) {
 		int fourDigYear = Calendar.getInstance().get(Calendar.YEAR);
 
-		String suffixe = "OS" + Integer.toString(fourDigYear).substring(2) + customFormat("0000", id);
+		String suffixe = "ES" + Integer.toString(fourDigYear).substring(2) + customFormat("0000", id);
 		return suffixe;
 	}
 

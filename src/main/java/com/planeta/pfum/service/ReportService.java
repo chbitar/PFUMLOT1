@@ -167,13 +167,12 @@ public class ReportService {
 			JasperReport jasperReport = null;
 			JasperPrint jasperPrint;
 			SimpleReportExporter simpleReportExporter = null;
-
 			switch (programme) {
 			case LICENCE:
 
 				jasperReport = JasperCompileManager.compileReport(
-						resourceLoader.getResource("classpath:BADGEOSTELEALICENCE.jrxml").getInputStream());
-				JRSaver.saveObject(jasperReport, "BADGEOSTELEALICENCE.jasper");
+						resourceLoader.getResource("classpath:BADGEESLSCALICENCE.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "BADGEESLSCALICENCE.jasper");
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
@@ -183,8 +182,8 @@ public class ReportService {
 			case MASTER:
 
 				jasperReport = JasperCompileManager.compileReport(
-						resourceLoader.getResource("classpath:BADGEOSTELEAMASTER.jrxml").getInputStream());
-				JRSaver.saveObject(jasperReport, "BADGEOSTELEAMASTER.jasper");
+						resourceLoader.getResource("classpath:BADGEESLSCAMASTER.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "BADGEESLSCAMASTER.jasper");
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
@@ -194,8 +193,8 @@ public class ReportService {
 			case MASTER_EXECUTIF:
 
 				jasperReport = JasperCompileManager.compileReport(
-						resourceLoader.getResource("classpath:BADGEOSTELEAEXECUTIF.jrxml").getInputStream());
-				JRSaver.saveObject(jasperReport, "BADGEOSTELEAEXECUTIF.jasper");
+						resourceLoader.getResource("classpath:BADGEESLSCAEXECUTIF.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "BADGEESLSCAEXECUTIF.jasper");
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);

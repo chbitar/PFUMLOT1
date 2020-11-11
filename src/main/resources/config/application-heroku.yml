@@ -12,7 +12,7 @@
 
 eureka:
   instance:
-    hostname: pfum.herokuapp.com
+    hostname: pfum-eslsca.herokuapp.com
     non-secure-port: 80
     prefer-ip-address: false
 
@@ -27,5 +27,3 @@ spring:
   data:
     jest:
       uri: ${BONSAI_URL}
-server:
-  port: ${PORT:8080}
