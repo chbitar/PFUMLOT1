@@ -92,7 +92,6 @@ public class ReportService {
 
 			Filiere filiere = null;
 			String fileName = "";
-			File file = null;
 			JasperReport jasperReport = null;
 			JasperPrint jasperPrint;
 			SimpleReportExporter simpleReportExporter = null;
@@ -101,6 +100,7 @@ public class ReportService {
 			case LICENCE:
 				filiere = etudiantsLicenceRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				parameters.put("FiliereId", filiere.getId());
+				parameters.put("Niveau", etudiantsLicenceRepository.getOne(Long.valueOf(etudiantId)).getNiveau().name());
 
 				jasperReport = JasperCompileManager
 						.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONL.jrxml").getInputStream());

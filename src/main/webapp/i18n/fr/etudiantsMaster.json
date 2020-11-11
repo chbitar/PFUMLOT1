@@ -45,10 +45,13 @@
       "user": "User",
       "absence": "Absence",
       "espaceEtudiant": "Espace Etudiant",
-      "filiere": "Filiere",
+      "filiere": "Filière",
       "anneeInscription": "Annee Inscription",
       "modalite": "Modalite",
-      "extraitActeNaissance": "Extrait Acte de Naissance"
+      "extraitActeNaissance": "Extrait Acte de Naissance",
+      "licence": "Licence",
+      "anneeObtentionLicence": "Année d'obtention Licence",
+      "etablissementObtentionLicence": "Etablissement d'obtention Licence"
     }
   }
 }

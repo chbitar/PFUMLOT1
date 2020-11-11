@@ -143,10 +143,6 @@ public class ReportResource {
 				.headers(HeaderUtil.createAlert(applicationName, "Orders exported successfully", resource.toString()))
 				.body(resource);
 	}
-	
-	
-
-	
 
 	@PostMapping("/etudiants/envoyer-email")
 	@ResponseStatus(HttpStatus.CREATED)

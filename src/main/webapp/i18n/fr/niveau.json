@@ -2,9 +2,9 @@
   "pfumApp": {
     "Niveau": {
       "null": "",
-      "PREMIER": "Pemière année",
+      "PREMIER": "Première année",
       "DEUXIEME": "Deuxième année",
-      "TROISIEME": "Troisème année"
+      "TROISIEME": "Troisième année"
     }
   }
 }

@@ -16,7 +16,8 @@ import {
   updateEntity,
   getEntitiesByFiliere,
   getEntitiesByUserId,
-  getEntitiesByEtudiantNameOrPrenom
+  getEntitiesByEtudiantNameOrPrenom,
+  getEntitiesByEtudiantNiveau
 } from './etudiants-executif.reducer';
 import { IEtudiantsExecutif } from 'app/shared/model/etudiants-executif.model';
 // tslint:disable-next-line:no-unused-variable
@@ -91,6 +92,11 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
       });
   };
 
+  filtrerEtudiantByNiveau = e => {
+    if (e.target.value === '') this.props.getEntities();
+    else this.props.getEntitiesByEtudiantNiveau(e.target.value);
+  };
+
   render() {
     const { etudiantsExecutifList, match, etablissements, filieres, isAdmin, isUser, isRespFin, isEtudiant } = this.props;
     return (
@@ -137,15 +143,16 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
                 </div>
               </Col>
               <Col>
-                {/*   <div>
-                
-              <select onChange={this.filtrerEtudiantByNiveau}>
-                <option value="" > &nbsp; Filtrer par Niveau Inscription </option>
-                <option value="PREMIER">Première année</option>
-                <option value="DEUXIEME">Deuxième année</option>
-                <option value="TROISIEME">Troisième année</option>
-              </select>
-            </div> */}
+                <Col>
+                  <div>
+                    <select onChange={this.filtrerEtudiantByNiveau}>
+                      <option value=""> &nbsp; Filtrer par Niveau Inscription </option>
+                      <option value="PREMIER">Première année</option>
+                      <option value="DEUXIEME">Deuxième année</option>
+                      <option value="TROISIEME">Troisième année</option>
+                    </select>
+                  </div>
+                </Col>
               </Col>
             </>
           )}
@@ -286,7 +293,8 @@ const mapDispatchToProps = {
   getEntitiesByEtab,
   getEntitiesByFiliere,
   getEntitiesByUserId,
-  getEntitiesByEtudiantNameOrPrenom
+  getEntitiesByEtudiantNameOrPrenom,
+  getEntitiesByEtudiantNiveau
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

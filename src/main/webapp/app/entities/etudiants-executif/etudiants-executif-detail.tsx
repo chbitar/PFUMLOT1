@@ -88,23 +88,29 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                 <br />
                 <Row>
                   <Col md="4">
-                    <h4>
+                    <h6>
                       N° Etudiant : [<b>{etudiantsExecutifEntity.suffixe}</b>]
-                    </h4>
+                    </h6>
                   </Col>
                   <Col md="4">
-                    <h4>
-                      Niveau d'inscription : [<b>{etudiantsExecutifEntity.niveau}</b>]
-                    </h4>
+                    <h6>
+                      Niveau d'inscription : [
+                      <b>
+                        <Translate contentKey={`pfumApp.Niveau.${etudiantsExecutifEntity.niveau}`} />
+                        -Master Exécutif
+                      </b>
+                      ]
+                    </h6>
                   </Col>
                   <Col md="4">
-                    <h4 style={{ marginLeft: '1px' }}>Status: </h4>
-
-                    {etudiantsExecutifEntity.inscriptionvalide ? (
-                      <Button color="success">Validé</Button>
-                    ) : (
-                      <Button color="danger">En attente</Button>
-                    )}
+                    <h6 style={{ marginLeft: '-30px', marginTop: '-8px' }}>
+                      Status: &nbsp; &nbsp;&nbsp; &nbsp;
+                      {etudiantsExecutifEntity.inscriptionvalide ? (
+                        <Button color="success">Validé</Button>
+                      ) : (
+                        <Button color="danger">En attente</Button>
+                      )}
+                    </h6>
                   </Col>
                 </Row>
 
