@@ -53,11 +53,11 @@ public class Absence implements Serializable {
     private EtudiantsLicence etudiantsLicence;
 
     @ManyToOne
-    @JsonIgnoreProperties("absences")
+    @JsonIgnoreProperties(value="<%= absences %>", allowSetters = true)
     private EtudiantsMaster etudiantsMaster;
 
     @ManyToOne
-    @JsonIgnoreProperties("absences")
+    @JsonIgnoreProperties(value="<%= absences %>", allowSetters = true)
     private EtudiantsExecutif etudiantsExecutif;
     
     @ManyToOne
