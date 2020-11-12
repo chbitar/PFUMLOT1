@@ -8,7 +8,7 @@ import { NavDropdown } from './menu-components';
 
 export const ScolariteMenu = props => (
   // tslint:disable-next-line:jsx-self-close
-  <NavDropdown icon="" name="Scolarité" id="entity-menu">
+  <NavDropdown icon="" name="Scolarité" id="entity-menu" style={{ width: '100%' }}>
     <Alert variant="primary">Config. scolarité</Alert>
     <MenuItem icon="asterisk" to="/entity/filiere">
       Ajouter Filiére

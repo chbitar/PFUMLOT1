@@ -8,7 +8,7 @@ import { NavDropdown } from './menu-components';
 
 export const ConfigurationMenu = props => (
   // tslint:disable-next-line:jsx-self-close
-  <NavDropdown icon="" name="Paramétrage" id="entity-menu">
+  <NavDropdown icon="" name="Paramétrage" id="entity-menu" style={{ width: '100%' }}>
     {/*     <MenuItem icon="asterisk" to="/entity/annee-inscription">
       Ajouter année inscription
     </MenuItem> */}

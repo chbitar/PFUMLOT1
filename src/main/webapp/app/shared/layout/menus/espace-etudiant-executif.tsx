@@ -35,7 +35,7 @@ const EspaceEtudiantMenuMaster = (
 );
 
 export const EspaceEtudiantMenu = ({ isAdmin, isEtudiantExecutif, isEtudiantLicence, isEtudiantMaster }) => (
-  <NavDropdown icon="user-edit" name="Espace Etudiant" id="entity-menu">
+  <NavDropdown icon="user-edit" name="Espace Etudiant" id="entity-menu" style={{ width: '100%' }}>
     {isEtudiantExecutif || isAdmin ? EspaceEtudiantMenuExecutif : ''}
     {isEtudiantLicence || isAdmin ? EspaceEtudiantMenuLicence : ''}
     {isEtudiantMaster || isAdmin ? EspaceEtudiantMenuMaster : ''}
