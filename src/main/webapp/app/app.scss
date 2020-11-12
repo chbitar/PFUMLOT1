@@ -10,7 +10,7 @@ body {
 }
 
 a {
-  color: #533f03;
+  color: #53032f;
   font-weight: bold;
 }
 
@@ -26,6 +26,8 @@ a {
 
 .app-container {
   box-sizing: border-box;
+  background-color: rgb(164, 214, 226);
+
   .view-container {
     width: 90%;
     height: calc(100% - 40px);
@@ -34,7 +36,7 @@ a {
     padding: 1rem;
     border: 1px solid;
     padding: 10px;
-    box-shadow: 5px 10px 8px 10px #888888;
+    box-shadow: 5px 10px 8px 10px #0e4b74;
     .card {
       bapadding: 1rem 1rem 1rem 50px;
     }
@@ -256,6 +258,12 @@ Generic styles
   opacity: 1;
 }
 
+.alert-success {
+  color: #1f5e11;
+  background-color: #8dc0fb;
+  border-color: #dcc1ea;
+}
+
 /* ==========================================================================
 make sure browsers use the pointer cursor for anchors, even with no href
 ========================================================================== */
@@ -328,13 +336,7 @@ nav.bg-light.navbar.navbar-expand-sm.navbar-light.fixed-top {
   padding: 0;
   width: 305px;
   background: rgb(41, 217, 219);
-  background: linear-gradient(
-    0deg,
-    rgba(41, 217, 219, 1) 5%,
-    rgba(101, 182, 50, 1) 100%,
-    rgba(106, 222, 70, 1) 100%,
-    rgba(253, 187, 45, 1) 100%
-  );
+  background: linear-gradient(0deg, rgba(41, 217, 219, 1) 5%, rgb(129, 201, 201) 100%, rgb(29, 70, 105) 100%, rgba(253, 187, 45, 1) 100%);
   position: fixed;
   height: 100%;
   overflow: auto;

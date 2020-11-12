@@ -126,7 +126,7 @@
 				<text><![CDATA[CINE/Passeport :]]></text>
 			</staticText>
 			<image hAlign="Center">
-				<reportElement stretchType="ContainerHeight" x="0" y="0" width="160" height="55" uuid="94883631-a913-43e2-b182-ab8d77d0181e">
+				<reportElement stretchType="ContainerHeight" x="0" y="0" width="190" height="55" uuid="94883631-a913-43e2-b182-ab8d77d0181e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA[$F{logo}]]></imageExpression>
@@ -146,7 +146,7 @@
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Le Directeur Pédagogique D'OSTELEA School of Turism & Hospitality, établissement d'enseignement supérieur privé accrèdité par l'état sous le N° 465/18,atteste que : ]]></text>
+				<text><![CDATA[Le Directeur Pédagogique D'ESLSCA Business School Paris, établissement d'enseignement supérieur privé accrèdité par l'état sous le N° 465/18,atteste que : ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="162" y="136" width="168" height="15" uuid="e195827e-620d-4ba0-9ab1-5a3d4e54e7c2"/>

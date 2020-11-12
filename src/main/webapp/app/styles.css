@@ -22,7 +22,7 @@ table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #4caf50;
+  background-color: #446380;
   color: white;
 }
 
@@ -50,8 +50,7 @@ table th {
   margin-bottom: 10px;
   margin-right: 10px;
   margin-left: 10px;
-  border: 1px solid #4caf50;
-  border: 2px solid green;
+  border: 2px solid #446380;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
@@ -65,6 +64,6 @@ table th {
   margin: -9px 0 0; /* half of font-size */
   background: #fff;
   padding: 0 3px;
-  color: #4caf50;
+  color: #446380;
   font-weight: bold;
 }
