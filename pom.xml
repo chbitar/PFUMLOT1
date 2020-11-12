@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.planeta.pfum</groupId>
-    <artifactId>pfum</artifactId>
+    <artifactId>pfum-eslsca</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Pfum-eslsca</name>
