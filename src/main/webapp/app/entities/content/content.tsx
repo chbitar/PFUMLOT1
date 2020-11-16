@@ -77,7 +77,7 @@ export class Content extends React.Component<IContentProps, IContentState> {
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {contentList && contentList.length > 0 ? (
             <Table responsive>
               <thead>

@@ -56,7 +56,7 @@ export class Absence extends React.Component<IAbsenceProps, IAbsenceState> {
           </Link>
         </h2>
         <br />
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {absenceList && absenceList.length > 0 ? (
             <Table responsive>
               <thead>

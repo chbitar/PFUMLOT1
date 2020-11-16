@@ -77,7 +77,7 @@ export class ModalitePaiement extends React.Component<IModalitePaiementProps, IM
           </Col>
         </Row> */}
         <br />
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {modalitePaiementList && modalitePaiementList.length > 0 ? (
             <Table responsive>
               <thead>

@@ -144,7 +144,7 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
           )}
         </Row>
         <br />
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {etudiantsMasterList && etudiantsMasterList.length > 0 ? (
             <Table responsive>
               <thead>

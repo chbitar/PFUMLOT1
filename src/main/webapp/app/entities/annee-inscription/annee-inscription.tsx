@@ -76,7 +76,7 @@ export class AnneeInscription extends React.Component<IAnneeInscriptionProps, IA
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {anneeInscriptionList && anneeInscriptionList.length > 0 ? (
             <Table responsive>
               <thead>

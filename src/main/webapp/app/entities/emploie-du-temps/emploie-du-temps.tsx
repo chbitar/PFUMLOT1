@@ -77,7 +77,7 @@ export class EmploieDuTemps extends React.Component<IEmploieDuTempsProps, IEmplo
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {emploieDuTempsList && emploieDuTempsList.length > 0 ? (
             <Table responsive>
               <thead>

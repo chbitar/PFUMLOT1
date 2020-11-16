@@ -77,7 +77,7 @@ export class EspaceEtudiant extends React.Component<IEspaceEtudiantProps, IEspac
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {espaceEtudiantList && espaceEtudiantList.length > 0 ? (
             <Table responsive>
               <thead>

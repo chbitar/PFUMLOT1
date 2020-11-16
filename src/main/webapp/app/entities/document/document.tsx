@@ -54,7 +54,7 @@ export class Document extends React.Component<IDocumentProps, IDocumentState> {
           </Link>
         </h2>
         <br />
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {documentList && documentList.length > 0 ? (
             <Table responsive>
               <thead>

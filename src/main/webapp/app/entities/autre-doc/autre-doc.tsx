@@ -77,7 +77,7 @@ export class AutreDoc extends React.Component<IAutreDocProps, IAutreDocState> {
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {autreDocList && autreDocList.length > 0 ? (
             <Table responsive>
               <thead>

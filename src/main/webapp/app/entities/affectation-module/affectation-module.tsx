@@ -77,7 +77,7 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
         </Row>
         <br />
         <br />
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {affectationModuleList && affectationModuleList.length > 0 ? (
             <Table responsive>
               <thead>

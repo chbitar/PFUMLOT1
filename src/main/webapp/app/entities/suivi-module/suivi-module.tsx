@@ -121,7 +121,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
           </Col>
         </Row>
         <br />
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {suiviModuleGroupedByList && suiviModuleGroupedByList.length > 0 ? (
             <Table responsive id="suivimdoulesgrouped">
               <thead>

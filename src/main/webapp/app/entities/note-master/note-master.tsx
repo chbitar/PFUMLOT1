@@ -77,7 +77,7 @@ export class NoteMaster extends React.Component<INoteMasterProps, INoteMasterSta
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {noteMasterList && noteMasterList.length > 0 ? (
             <Table responsive>
               <thead>

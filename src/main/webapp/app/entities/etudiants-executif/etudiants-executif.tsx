@@ -158,7 +158,7 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
           )}
         </Row>
         <br />
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {etudiantsExecutifList && etudiantsExecutifList.length > 0 ? (
             <Table responsive>
               <thead>
