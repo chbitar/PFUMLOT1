@@ -34,9 +34,10 @@ export class App extends React.Component<IAppProps> {
 
   render() {
     const paddingTop = '60px';
+    const paddingLeft = '100px';
     return (
       <Router basename={baseHref}>
-        <div className="app-container" style={{ paddingTop }}>
+        <div className="app-container" style={{ paddingTop, paddingLeft }}>
           <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
           <ErrorBoundary>
             <Header

@@ -94,7 +94,7 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
           </Col>
         </Row>
         <br />
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           &nbsp; &nbsp;{' '}
           {calendrierModuleList && calendrierModuleList.length > 0 ? (
             <Table responsive>

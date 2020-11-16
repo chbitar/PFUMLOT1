@@ -86,7 +86,7 @@ export class Module extends React.Component<IModuleProps, IModuleState> {
         </Row>
         <br />
         <br />
-        <div className="table-responsive" style={{ marginLeft: '10px' }}>
+        <div className="table-responsive" style={{ marginLeft: '10px', paddingRight: '20px' }}>
           {moduleList && moduleList.length > 0 ? (
             <Table responsive>
               <thead>
