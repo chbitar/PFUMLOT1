@@ -495,7 +495,7 @@ export class EspaceEtudiantsMaster extends React.Component<IEspaceEtudiantsMaste
           <Row>
             <Col md="6">
               <div style={{ float: 'right', display: 'inline-block' }}>
-                <Button tag={Link} to="/entity/espace-etudiant/licence/profil" replace color="info">
+                <Button tag={Link} to="/entity/espace-etudiant/master/profil" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />{' '}
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>

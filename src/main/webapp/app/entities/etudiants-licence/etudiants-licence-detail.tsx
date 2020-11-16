@@ -149,7 +149,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                       </Row>
                     </Col>
 
-                    <Col ms="8">
+                    <Col ms="8" style={{ maxHeight: '200px', maxWidth: '200px' }}>
                       <dt>
                         <span id="photo" />
                       </dt>
@@ -159,7 +159,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                             <a onClick={openFile(etudiantsLicenceEntity.photoContentType, etudiantsLicenceEntity.photo)}>
                               <img
                                 src={`data:${etudiantsLicenceEntity.photoContentType};base64,${etudiantsLicenceEntity.photo}`}
-                                style={{ maxHeight: '200px' }}
+                                style={{ maxHeight: '200px', maxWidth: '200px' }}
                               />
                             </a>
                           </div>
@@ -167,7 +167,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                       </dd>
                     </Col>
                   </Row>
-                  <Row style={{ marginTop: '-100px' }}>
+                  <Row>
                     <Col md="4">
                       <dt>
                         <span id="adresseContact">
@@ -437,7 +437,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
           <Row>
             <Col md="6">
               <div style={{ float: 'right', display: 'inline-block' }}>
-                <Button tag={Link} to="/entity/etudiants-executif" replace color="info">
+                <Button tag={Link} to="/entity/etudiants-licence" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />{' '}
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
@@ -445,7 +445,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                 </Button>
                 &nbsp;
                 {(isAdmin || isUser) && (
-                  <Button tag={Link} to={`/entity/etudiants-executif/${etudiantsLicenceEntity.id}/edit`} replace color="primary">
+                  <Button tag={Link} to={`/entity/etudiants-licence/${etudiantsLicenceEntity.id}/edit`} replace color="primary">
                     <FontAwesomeIcon icon="pencil-alt" />{' '}
                     <span className="d-none d-md-inline">
                       <Translate contentKey="entity.action.edit">Edit</Translate>
