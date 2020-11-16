@@ -25,7 +25,8 @@ export class SuiviModuleDetail extends React.Component<ISuiviModuleDetailProps> 
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumApp.suiviModule.detail.title">SuiviModule</Translate> [<b>{suiviModuleEntity.module.nomModule}</b>]
+            <Translate contentKey="pfumApp.suiviModule.detail.title">SuiviModule</Translate> [
+            <b>{suiviModuleEntity.module ? suiviModuleEntity.module.nomModule : ''}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
