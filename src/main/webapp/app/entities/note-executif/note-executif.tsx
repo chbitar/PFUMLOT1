@@ -77,7 +77,7 @@ export class NoteExecutif extends React.Component<INoteExecutifProps, INoteExecu
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {noteExecutifList && noteExecutifList.length > 0 ? (
             <Table responsive>
               <thead>

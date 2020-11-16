@@ -8,29 +8,29 @@ import { NavDropdown } from './menu-components';
 
 export const ScolariteMenu = props => (
   // tslint:disable-next-line:jsx-self-close
-  <NavDropdown icon="" name="Scolarité" id="entity-menu" style={{ width: '100%' }}>
+  <NavDropdown icon="university" name="Scolarité" id="entity-menu" style={{ width: '100%' }}>
     <Alert variant="primary">Config. scolarité</Alert>
-    <MenuItem icon="asterisk" to="/entity/filiere">
-      Ajouter Filiére
+    <MenuItem icon="folder" to="/entity/filiere">
+      Gestion Filiére
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/module">
-      Ajouter Module
+    <MenuItem icon="folder" to="/entity/module">
+      Gestion Module
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/professeur">
-      Ajouter Professeur
+    <MenuItem icon="folder" to="/entity/professeur">
+      Gestion Professeur
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/document">
-      Ajouter un emploi du temps
+    <MenuItem icon="folder" to="/entity/document">
+      Gestion emploi du temps
     </MenuItem>
-    {/*     <MenuItem icon="asterisk" to="/entity/document">
+    {/*     <MenuItem icon="folder" to="/entity/document">
       Ajouer un avis
     </MenuItem> */}
     <Alert variant="primary">Gestion scolarité</Alert>
-    <MenuItem icon="asterisk" to="/entity/affectation-module">
-      Affectation module
+    <MenuItem icon="folder" to="/entity/affectation-module">
+      Gestion Affectation module
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/calendrier-module">
-      Calendrier examen
+    <MenuItem icon="folder" to="/entity/calendrier-module">
+      Gestion Calendrier examen
     </MenuItem>
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
   </NavDropdown>

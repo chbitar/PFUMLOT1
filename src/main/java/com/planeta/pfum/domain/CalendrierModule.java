@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +21,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.planeta.pfum.domain.enumeration.Programme;
 
 /**
  * A CalendrierModule.
@@ -59,6 +62,24 @@ public class CalendrierModule implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
     private Set<TableauDeBoard> boards = new HashSet<>();
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "programme")
+    private Programme programme;
+
+
+    public Programme getProgramme() {
+        return programme;
+    }
+
+    public CalendrierModule programme(Programme programme) {
+        this.programme = programme;
+        return this;
+    }
+
+    public void setProgramme(Programme programme) {
+        this.programme = programme;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {

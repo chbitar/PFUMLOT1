@@ -213,6 +213,13 @@ export const createExtendedEntity: ICrudPutAction<IEtudiantsLicence> = entity =>
   return result;
 };
 
+export const getEntityDetail: ICrudGetAction<IEtudiantsLicence> = () => {
+  const requestUrl = `${apiExtendedUrl}/espace`;
+  return {
+    type: ACTION_TYPES.FETCH_ETUDIANTSLICENCE,
+    payload: axios.get<IEtudiantsLicence>(requestUrl)
+  };
+};
 export const setBlob = (name, data, contentType?) => ({
   type: ACTION_TYPES.SET_BLOB,
   payload: {

@@ -16,7 +16,7 @@ import { AUTHORITIES } from 'app/config/constants';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { IRootState } from 'app/shared/reducers';
 import { connect } from 'react-redux';
-import { EspaceEtudiantMenu } from '../menus/espace-etudiant-executif';
+import { EspaceEtudiantMenu } from '../menus/espace-etudiant';
 import { InscriptionsMasterMenu } from '../menus/inscriptions-master';
 import { InscriptionsLicenceMenu } from '../menus/inscriptions-licence';
 import { InscriptionsMasterExecutifMenu } from '../menus/inscriptions-master-executif';
@@ -98,9 +98,9 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
               {isAuthenticated && (isUser || isAdmin) && <InscriptionsMasterExecutifMenu />}
               {isAuthenticated && (isRespFil || isAdmin) && <ScolariteMenu />}
               {isAuthenticated && (isProf || isAdmin) && <EspaceProfMenu />}
-              {isAuthenticated && (isEtudiantExecutif || isEtudiantLicence || isEtudiantMaster || isAdmin) && (
+              {isAuthenticated && (isEtudiantExecutif || isEtudiantLicence || isEtudiantMaster) /* || isAdmin */ && (
                 <EspaceEtudiantMenu
-                  isAdmin={isAdmin}
+                  /* isAdmin={isAdmin} */
                   isEtudiantExecutif={isEtudiantExecutif}
                   isEtudiantLicence={isEtudiantLicence}
                   isEtudiantMaster={isEtudiantMaster}

@@ -8,30 +8,21 @@ import { NavDropdown } from './menu-components';
 
 export const EspaceProfMenu = props => (
   // tslint:disable-next-line:jsx-self-close
-  <NavDropdown name="Espace professeur" id="entity-menu" style={{ width: '100%' }}>
-    {/*     <MenuItem icon="asterisk" to="/entity/absence">
-      Fiche d’absence Executif
-    </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/absence-licence">
-      Fiche d’absence BAC+3
-    </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/absence-master">
-      Fiche d’absence MASTER
-    </MenuItem> */}
-    <MenuItem icon="asterisk" to="/entity/fiche-absence">
+  <NavDropdown icon="user" name="Espace professeur" id="entity-menu" style={{ width: '100%' }}>
+    <MenuItem icon="clock" to="/entity/fiche-absence">
       Fiche d’absence
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/suivi-module">
+    <MenuItem icon="folder" to="/entity/suivi-module">
       Suivi module
     </MenuItem>
     <Alert variant="primary">Notes</Alert>
-    <MenuItem icon="asterisk" to="/entity/note-licence">
+    <MenuItem icon="folder" to="/entity/note-licence">
       Licence
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/note-master">
+    <MenuItem icon="folder" to="/entity/note-master">
       Master
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/note-executif">
+    <MenuItem icon="folder" to="/entity/note-executif">
       Master executif
     </MenuItem>
 

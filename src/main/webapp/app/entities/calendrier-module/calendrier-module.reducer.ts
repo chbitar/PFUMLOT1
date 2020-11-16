@@ -114,6 +114,20 @@ export const getEntities: ICrudGetAllAction<ICalendrierModule> = (page, size, so
   payload: axios.get<ICalendrierModule>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
+export const getEntitiesByModule: ICrudGetAction<ICalendrierModule> = module => {
+  const requestUrl = `${apiUrl}/module/${module}`;
+  return {
+    type: ACTION_TYPES.FETCH_CALENDRIERMODULE_LIST,
+    payload: axios.get<ICalendrierModule>(requestUrl)
+  };
+};
+export const getEntitiesByProgramme: ICrudGetAction<ICalendrierModule> = programme => {
+  const requestUrl = `${apiUrl}/programme/${programme}`;
+  return {
+    type: ACTION_TYPES.FETCH_CALENDRIERMODULE_LIST,
+    payload: axios.get<ICalendrierModule>(requestUrl)
+  };
+};
 export const getEntity: ICrudGetAction<ICalendrierModule> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
@@ -148,6 +162,14 @@ export const deleteEntity: ICrudDeleteAction<ICalendrierModule> = id => async di
   });
   dispatch(getEntities());
   return result;
+};
+
+export const getCalendrierExamenByProgramme: ICrudSearchAction<ICalendrierModule> = programme => {
+  const requestUrl = `${apiUrl}/programme/${programme}`;
+  return {
+    type: ACTION_TYPES.FETCH_CALENDRIERMODULE_LIST,
+    payload: axios.get<ICalendrierModule>(requestUrl)
+  };
 };
 
 export const reset = () => ({

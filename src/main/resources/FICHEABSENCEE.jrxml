@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FICHEABSENCEL" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5333e6a-a05c-4026-a850-2ba4c09f455c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#C7C8C9">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Dataset1" uuid="eb5ac994-945f-47b3-b3cf-56e44a39d9ee">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
+		<parameter name="FicheabsenceId2" class="java.lang.Long"/>
+		<queryString language="SQL">
+			<![CDATA[select l.nom,l.prenom from etudiants_executif l ,absence a where a.etudiants_executif_id=l.id and a.fiche_absence_id=$P{FicheabsenceId2}]]>
+		</queryString>
+		<field name="nom" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="nom"/>
+			<property name="com.jaspersoft.studio.field.label" value="nom"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="etudiants_licence"/>
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="prenom" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="prenom"/>
+			<property name="com.jaspersoft.studio.field.label" value="prenom"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="etudiants_licence"/>
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="FicheabsenceId" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[select f.date_seance,f.programme,m.nom_module from  fiche_absence f,module m where f.module_id=m.id and f.id=$P{FicheabsenceId}]]>
+	</queryString>
+	<field name="date_seance" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date_seance"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_seance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fiche_absence"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="programme" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="programme"/>
+		<property name="com.jaspersoft.studio.field.label" value="programme"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="fiche_absence"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nom_module" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nom_module"/>
+		<property name="com.jaspersoft.studio.field.label" value="nom_module"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="module"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="534" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="94" width="161" height="20" uuid="f5486b00-ed45-4a19-be5b-44d4c60ce054"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date de Séance :
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="154" width="161" height="20" uuid="8098379e-19d6-455c-87bf-e983e5a2199e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Module :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="214" width="161" height="20" uuid="51638fb6-221a-4ff2-badb-7a4d511ae19e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Programme :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="28" y="119" width="161" height="30" uuid="d96c5c54-eac2-427a-a019-cb3d555df3da"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_seance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="179" width="161" height="30" uuid="72c922ec-f848-4dec-bc9b-b9723f26a689"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nom_module}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="241" width="161" height="30" uuid="6ddc9b4d-be0a-454d-afd5-6b2a91b278a2"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{programme}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="0" y="332" width="550" height="163" uuid="9d065d2f-fbb0-4c57-8903-473655802ebb">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					<property name="com.jaspersoft.studio.components.autoresize.next" value="true"/>
+					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset1" uuid="60fbaeb1-7b16-40ae-a1c6-5da83f3905e7">
+						<datasetParameter name="FicheabsenceId2">
+							<datasetParameterExpression><![CDATA[$P{FicheabsenceId}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="278" uuid="187804db-2a54-4fed-9e38-c644b59ff2ca">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Colonne1"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="278" height="30" uuid="064927d0-e683-488a-901e-e330f8c1a4b3"/>
+								<textElement textAlignment="Center">
+									<font size="14"/>
+								</textElement>
+								<text><![CDATA[Nom]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="278" height="30" uuid="1bfa45a7-79b5-4627-b0c8-23a890b524c5"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="272" uuid="31cf96cc-b5e5-4b22-b3eb-1d5793e4adf2">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Colonne2"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="272" height="30" uuid="d54657f1-9624-454e-a2a5-cc67fcafaf03"/>
+								<textElement textAlignment="Center">
+									<font size="14"/>
+								</textElement>
+								<text><![CDATA[Prénom]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="272" height="30" uuid="c6b5386e-f501-4f65-9b86-9e2d472262b7"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{prenom}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="90" y="280" width="301" height="41" uuid="beb01f09-2323-48ac-832c-582d25f36ef3"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Liste des absents [ Master Exécutif ]]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="40" width="261" height="41" uuid="b20b0ab1-3bd7-48c5-abe0-48716ac2644d"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FICHE ABSENCE]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

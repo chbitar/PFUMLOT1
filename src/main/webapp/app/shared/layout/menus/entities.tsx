@@ -9,70 +9,70 @@ import { NavDropdown } from './menu-components';
 export const EntitiesMenu = props => (
   // tslint:disable-next-line:jsx-self-close
   <NavDropdown icon="th-list" name={translate('global.menu.entities.main')} id="entity-menu">
-    <MenuItem icon="asterisk" to="/entity/absence">
+    <MenuItem icon="folder" to="/entity/absence">
       <Translate contentKey="global.menu.entities.absence" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/affectation-module">
+    <MenuItem icon="folder" to="/entity/affectation-module">
       <Translate contentKey="global.menu.entities.affectationModule" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/annee-inscription">
+    <MenuItem icon="folder" to="/entity/annee-inscription">
       <Translate contentKey="global.menu.entities.anneeInscription" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/calendrier-module">
+    <MenuItem icon="folder" to="/entity/calendrier-module">
       <Translate contentKey="global.menu.entities.calendrierModule" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/etudiants-executif">
+    <MenuItem icon="folder" to="/entity/etudiants-executif">
       <Translate contentKey="global.menu.entities.etudiantsExecutif" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/etudiants-licence">
+    <MenuItem icon="folder" to="/entity/etudiants-licence">
       <Translate contentKey="global.menu.entities.etudiantsLicence" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/etudiants-master">
+    <MenuItem icon="folder" to="/entity/etudiants-master">
       <Translate contentKey="global.menu.entities.etudiantsMaster" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/filiere">
+    <MenuItem icon="folder" to="/entity/filiere">
       <Translate contentKey="global.menu.entities.filiere" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/module">
+    <MenuItem icon="folder" to="/entity/module">
       <Translate contentKey="global.menu.entities.module" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/professeur">
+    <MenuItem icon="folder" to="/entity/professeur">
       <Translate contentKey="global.menu.entities.professeur" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/suivi-module">
+    <MenuItem icon="folder" to="/entity/suivi-module">
       <Translate contentKey="global.menu.entities.suiviModule" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/etablissement">
+    <MenuItem icon="folder" to="/entity/etablissement">
       <Translate contentKey="global.menu.entities.etablissement" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/modalite-paiement">
+    <MenuItem icon="folder" to="/entity/modalite-paiement">
       <Translate contentKey="global.menu.entities.modalitePaiement" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/espace-etudiant">
+    <MenuItem icon="folder" to="/entity/espace-etudiant">
       <Translate contentKey="global.menu.entities.espaceEtudiant" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/annonce">
+    <MenuItem icon="folder" to="/entity/annonce">
       <Translate contentKey="global.menu.entities.annonce" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/note-licence">
+    <MenuItem icon="folder" to="/entity/note-licence">
       <Translate contentKey="global.menu.entities.noteLicence" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/note-master">
+    <MenuItem icon="folder" to="/entity/note-master">
       <Translate contentKey="global.menu.entities.noteMaster" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/note-executif">
+    <MenuItem icon="folder" to="/entity/note-executif">
       <Translate contentKey="global.menu.entities.noteExecutif" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/tableau-de-board">
+    <MenuItem icon="folder" to="/entity/tableau-de-board">
       <Translate contentKey="global.menu.entities.tableauDeBoard" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/document">
+    <MenuItem icon="folder" to="/entity/document">
       <Translate contentKey="global.menu.entities.document" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/emploie-du-temps">
+    <MenuItem icon="folder" to="/entity/emploie-du-temps">
       <Translate contentKey="global.menu.entities.emploieDuTemps" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/fiche-absence">
+    <MenuItem icon="folder" to="/entity/fiche-absence">
       <Translate contentKey="global.menu.entities.ficheAbsence" />
     </MenuItem>
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}

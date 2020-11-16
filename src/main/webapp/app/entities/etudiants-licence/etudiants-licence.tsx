@@ -144,7 +144,7 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
           )}
         </Row>
         <br />
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {etudiantsLicenceList && etudiantsLicenceList.length > 0 ? (
             <Table responsive>
               <thead>

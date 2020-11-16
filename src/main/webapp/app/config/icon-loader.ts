@@ -30,7 +30,14 @@ import { faRoad } from '@fortawesome/free-solid-svg-icons/faRoad';
 import { faCloud } from '@fortawesome/free-solid-svg-icons/faCloud';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons/faFilePdf';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faMinus, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faMinus, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faClock } from '@fortawesome/free-solid-svg-icons';
+import { faUniversity } from '@fortawesome/free-solid-svg-icons';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faFolder } from '@fortawesome/free-solid-svg-icons';
 
 export const loadIcons = () => {
   library.add(
@@ -66,6 +73,13 @@ export const loadIcons = () => {
     faSearch,
     faFilePdf,
     faMinus,
-    faPrint
+    faPrint,
+    faUserEdit,
+    faClock,
+    faUniversity,
+    faCog,
+    faUserCircle,
+    faCalendar,
+    faFolder
   );
 };

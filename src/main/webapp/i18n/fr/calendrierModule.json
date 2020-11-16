@@ -18,12 +18,13 @@
         "title": "Calendrier Module"
       },
       "libelle": "Libelle",
-      "dateControlContinu1": "Date Control Continu 1",
-      "dateControlContinu2": "Date Control Continu 2",
+      "dateControlContinu1": "Date contrôle Continu 1",
+      "dateControlContinu2": "Date contrôle Continu 2",
       "espaceEtudiant": "Espace Etudiant",
       "module": "Module",
       "anneeInscription": "Annee Inscription",
-      "board": "Board"
+      "board": "Board",
+      "programme": "Programme"
     }
   }
 }

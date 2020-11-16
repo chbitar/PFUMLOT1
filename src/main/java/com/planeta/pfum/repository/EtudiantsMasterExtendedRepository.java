@@ -30,5 +30,7 @@ public interface EtudiantsMasterExtendedRepository extends EtudiantsMasterReposi
 	Optional<EtudiantsMaster> findOneByCinPassIgnoreCase(String cinPass);
 
 	List<EtudiantsMaster> findAllByNiveau(Niveau niveau);
+
+	Optional<EtudiantsMaster> findOneByUserId(Long id);
 	
 }

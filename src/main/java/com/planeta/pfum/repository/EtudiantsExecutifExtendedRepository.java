@@ -28,4 +28,6 @@ public interface EtudiantsExecutifExtendedRepository extends EtudiantsExecutifRe
 
 	List<EtudiantsExecutif> findAllByNiveau(Niveau niveau);
 
+	Optional<EtudiantsExecutif> findOneByUserId(Long id);
+
 }

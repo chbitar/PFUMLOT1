@@ -77,7 +77,7 @@ export class Annonce extends React.Component<IAnnonceProps, IAnnonceState> {
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {annonceList && annonceList.length > 0 ? (
             <Table responsive>
               <thead>

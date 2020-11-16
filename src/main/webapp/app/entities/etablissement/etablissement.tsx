@@ -55,7 +55,7 @@ export class Etablissement extends React.Component<IEtablissementProps, IEtablis
           </Link>
         </h2> */}
 
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {etablissementList && etablissementList.length > 0 ? (
             <Table responsive>
               <thead>

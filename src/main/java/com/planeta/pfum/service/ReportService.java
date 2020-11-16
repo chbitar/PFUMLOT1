@@ -217,6 +217,71 @@ public class ReportService {
 		}
 		return null;
 	}
+	
+	@Transactional(readOnly = true)
+	public Resource genererFicheAbsence(Integer ficheabsenceId, Programme programme) {
+		try {
+
+			Map<String, Object> parameters = new HashMap<>();
+			parameters.put("FicheabsenceId", Long.valueOf(ficheabsenceId));
+
+			String fileName = "";
+			JasperReport jasperReport = null;
+			JasperPrint jasperPrint;
+			SimpleReportExporter simpleReportExporter = null;
+
+			switch (programme) {
+			case LICENCE:
+			
+				jasperReport = JasperCompileManager
+						.compileReport(resourceLoader.getResource("classpath:FICHEABSENCEL.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "FICHEABSENCEL.jasper");
+
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				simpleReportExporter = new SimpleReportExporter(jasperPrint);
+				fileName = "attestationFicheAbsence-Licence.pdf";
+				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
+				break;
+			case MASTER:
+
+				jasperReport = JasperCompileManager
+						.compileReport(resourceLoader.getResource("classpath:FICHEABSENCEM.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "FICHEABSENCEM.jasper");
+
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				simpleReportExporter = new SimpleReportExporter(jasperPrint);
+				fileName = "attestationFicheAbsence-Master.pdf";
+				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
+				break;
+			case MASTER_EXECUTIF:
+
+				jasperReport = JasperCompileManager
+						.compileReport(resourceLoader.getResource("classpath:FICHEABSENCEE.jrxml").getInputStream());
+				JRSaver.saveObject(jasperReport, "FICHEABSENCEE.jasper");
+
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				simpleReportExporter = new SimpleReportExporter(jasperPrint);
+				fileName = "attestationFicheAbsence-Ececutif.pdf";
+				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
+				break;
+			default:
+				break;
+			}
+
+			return loadFileAsResource(fileName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/**
 	 * Export orders

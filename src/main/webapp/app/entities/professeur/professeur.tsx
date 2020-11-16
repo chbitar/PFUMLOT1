@@ -55,7 +55,7 @@ export class Professeur extends React.Component<IProfesseurProps, IProfesseurSta
           </Link>
         </h2>
         &nbsp; &nbsp;
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {professeurList && professeurList.length > 0 ? (
             <Table responsive>
               <thead>

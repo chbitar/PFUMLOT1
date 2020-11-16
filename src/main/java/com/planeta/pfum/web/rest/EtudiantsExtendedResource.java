@@ -39,6 +39,7 @@ import com.planeta.pfum.web.rest.errors.EmailAlreadyUsedException;
 import com.planeta.pfum.web.rest.errors.StudentAlreadySuscribedException;
 
 import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing
@@ -319,10 +320,29 @@ public class EtudiantsExtendedResource {
 		}
 
 		return etudiantsMasterRepository.findAll();
-
 	}
-
-	private String genererSuffix(Long id) {
+	
+	@GetMapping("/extended/etudiants-executifs/espace")
+	public ResponseEntity<EtudiantsExecutif> getEtudiantsExecutif() {
+		Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+		Optional<EtudiantsExecutif> etudiantsExecutif = etudiantsExecutifRepository.findOneByUserId(user.get().getId());
+		return ResponseUtil.wrapOrNotFound(etudiantsExecutif);
+	}
+	
+	@GetMapping("/extended/etudiants-licences/espace")
+	public ResponseEntity<EtudiantsLicence> getEtudiantsLicence() {
+		Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+		Optional<EtudiantsLicence> etudiantsLicence = etudiantsLicenceRepository.findOneByUserId(user.get().getId());
+		return ResponseUtil.wrapOrNotFound(etudiantsLicence);
+	}
+	
+	@GetMapping("/extended/etudiants-masters/espace")
+	public ResponseEntity<EtudiantsMaster> getEtudiantsMaster() {
+		Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+		Optional<EtudiantsMaster> etudiantsMaster = etudiantsMasterRepository.findOneByUserId(user.get().getId());
+		return ResponseUtil.wrapOrNotFound(etudiantsMaster);
+	}
+	private String genererSuffix(Long id) {	
 		int fourDigYear = Calendar.getInstance().get(Calendar.YEAR);
 
 		String suffixe = "ES" + Integer.toString(fourDigYear).substring(2) + customFormat("0000", id);

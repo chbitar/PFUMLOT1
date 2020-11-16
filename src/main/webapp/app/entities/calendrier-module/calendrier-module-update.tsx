@@ -100,14 +100,6 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
               <p>Loading...</p>
             ) : (
               <AvForm model={isNew ? {} : calendrierModuleEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
-                  <AvGroup>
-                    <Label for="calendrier-module-id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="calendrier-module-id" type="text" className="form-control" name="id" required readOnly />
-                  </AvGroup>
-                ) : null}
                 <AvGroup>
                   <Label id="libelleLabel" for="calendrier-module-libelle">
                     <Translate contentKey="pfumApp.calendrierModule.libelle">Libelle</Translate>
@@ -120,11 +112,14 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
                   </Label>
                   <AvInput
                     id="calendrier-module-dateControlContinu1"
-                    type="datetime-local"
+                    type="date"
                     className="form-control"
                     name="dateControlContinu1"
                     placeholder={'YYYY-MM-DD HH:mm'}
                     value={isNew ? null : convertDateTimeFromServer(this.props.calendrierModuleEntity.dateControlContinu1)}
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
                   />
                 </AvGroup>
                 <AvGroup>
@@ -133,38 +128,76 @@ export class CalendrierModuleUpdate extends React.Component<ICalendrierModuleUpd
                   </Label>
                   <AvInput
                     id="calendrier-module-dateControlContinu2"
-                    type="datetime-local"
+                    type="date"
                     className="form-control"
                     name="dateControlContinu2"
                     placeholder={'YYYY-MM-DD HH:mm'}
                     value={isNew ? null : convertDateTimeFromServer(this.props.calendrierModuleEntity.dateControlContinu2)}
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
                   />
                 </AvGroup>
                 <AvGroup>
                   <Label for="calendrier-module-module">
                     <Translate contentKey="pfumApp.calendrierModule.module">Module</Translate>
                   </Label>
-                  <AvInput id="calendrier-module-module" type="select" className="form-control" name="module.id">
+                  <AvInput
+                    id="calendrier-module-module"
+                    type="select"
+                    className="form-control"
+                    name="module.id"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  >
                     <option value="" key="0" />
                     {modules
                       ? modules.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.nomModule}
                           </option>
                         ))
                       : null}
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
+                  <Label id="programmeLabel" for="calendrierModule-programme">
+                    <Translate contentKey="pfumApp.calendrierModule.programme">Programme</Translate>
+                  </Label>
+                  <AvInput
+                    id="calendrierModule-programme"
+                    type="select"
+                    className="form-control"
+                    name="programme"
+                    value={(!isNew && calendrierModuleEntity.programme) || 'LICENCE'}
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  >
+                    <option value="LICENCE">{translate('pfumApp.Programme.LICENCE')}</option>
+                    <option value="MASTER">{translate('pfumApp.Programme.MASTER')}</option>
+                    <option value="MASTER_EXECUTIF">{translate('pfumApp.Programme.MASTER_EXECUTIF')}</option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
                   <Label for="calendrier-module-anneeInscription">
                     <Translate contentKey="pfumApp.calendrierModule.anneeInscription">Annee Inscription</Translate>
                   </Label>
-                  <AvInput id="calendrier-module-anneeInscription" type="select" className="form-control" name="anneeInscription.id">
+                  <AvInput
+                    id="calendrier-module-anneeInscription"
+                    type="select"
+                    className="form-control"
+                    name="anneeInscription.id"
+                    validate={{
+                      required: { value: true, errorMessage: translate('entity.validation.required') }
+                    }}
+                  >
                     <option value="" key="0" />
                     {anneeInscriptions
                       ? anneeInscriptions.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.annee}
                           </option>
                         ))
                       : null}
