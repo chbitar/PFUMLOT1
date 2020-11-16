@@ -70,7 +70,9 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
           <Col>
             <div>
               <select onChange={this.filtrerListByModule}>
-                <option value="" />
+                <option value="" key="0">
+                  &nbsp;&nbsp;Filtrer par Module
+                </option>{' '}
                 {modules
                   ? modules.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
@@ -85,7 +87,9 @@ export class CalendrierModule extends React.Component<ICalendrierModuleProps, IC
           <Col>
             <div>
               <select onChange={this.filtrerListByProgramme} placeholder="Filtrer par Programme">
-                <option value="" />
+                <option value="" key="0">
+                  &nbsp;&nbsp;Filtrer par Programme
+                </option>
                 <option value="LICENCE">{translate('pfumApp.Programme.LICENCE')}</option>
                 <option value="MASTER">{translate('pfumApp.Programme.MASTER')}</option>
                 <option value="MASTER_EXECUTIF">{translate('pfumApp.Programme.MASTER_EXECUTIF')}</option>
