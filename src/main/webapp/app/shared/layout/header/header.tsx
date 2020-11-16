@@ -90,7 +90,7 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
           <Collapse isOpen={this.state.menuOpen} navbar>
             <Nav id="header-tabs" className="ml-auto" navbar>
               <div className="pull-left image">
-                <img src="content/images/logo-ostelea-ma.png" className="img-circle" alt="User Image" width="200 px" />
+                <img src="content/images/eslsca-removebg-preview.png" className="img-circle" alt="User Image" width="300 px" />
               </div>
               <Home />
               {isAuthenticated && (isUser || isAdmin) && <InscriptionsLicenceMenu />}
@@ -98,9 +98,9 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
               {isAuthenticated && (isUser || isAdmin) && <InscriptionsMasterExecutifMenu />}
               {isAuthenticated && (isRespFil || isAdmin) && <ScolariteMenu />}
               {isAuthenticated && (isProf || isAdmin) && <EspaceProfMenu />}
-              {isAuthenticated && (isEtudiantExecutif || isEtudiantLicence || isEtudiantMaster || isAdmin) && (
+              {isAuthenticated && (isEtudiantExecutif || isEtudiantLicence || isEtudiantMaster) /* || isAdmin */ && (
                 <EspaceEtudiantMenu
-                  isAdmin={isAdmin}
+                  /* isAdmin={isAdmin} */
                   isEtudiantExecutif={isEtudiantExecutif}
                   isEtudiantLicence={isEtudiantLicence}
                   isEtudiantMaster={isEtudiantMaster}

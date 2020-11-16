@@ -89,9 +89,9 @@ const EspaceEtudiantMenuMaster = (
   </>
 );
 
-export const EspaceEtudiantMenu = ({ isAdmin, isEtudiantExecutif, isEtudiantLicence, isEtudiantMaster }) => (
+export const EspaceEtudiantMenu = ({ /* isAdmin, */ isEtudiantExecutif, isEtudiantLicence, isEtudiantMaster }) => (
   <NavDropdown icon="user" name="Espace Etudiant" id="entity-menu">
-    {isEtudiantExecutif || isAdmin ? EspaceEtudiantMenuExecutif : ''}
+    {isEtudiantExecutif /* || isAdmin */ ? EspaceEtudiantMenuExecutif : ''}
     {isEtudiantLicence /* || isAdmin */ ? EspaceEtudiantMenuLicence : ''}
     {isEtudiantMaster /* || isAdmin */ ? EspaceEtudiantMenuMaster : ''}
   </NavDropdown>
