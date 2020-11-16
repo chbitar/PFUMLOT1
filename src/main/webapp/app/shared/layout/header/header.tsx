@@ -16,7 +16,7 @@ import { AUTHORITIES } from 'app/config/constants';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { IRootState } from 'app/shared/reducers';
 import { connect } from 'react-redux';
-import { EspaceEtudiantMenu } from '../menus/espace-etudiant-executif';
+import { EspaceEtudiantMenu } from '../menus/espace-etudiant';
 import { InscriptionsMasterMenu } from '../menus/inscriptions-master';
 import { InscriptionsLicenceMenu } from '../menus/inscriptions-licence';
 import { InscriptionsMasterExecutifMenu } from '../menus/inscriptions-master-executif';
@@ -90,7 +90,7 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
           <Collapse isOpen={this.state.menuOpen} navbar>
             <Nav id="header-tabs" className="ml-auto" navbar>
               <div className="pull-left image">
-                <img src="content/images/logo-ostelea-ma.png" className="img-circle" alt="User Image" width="210 px" />
+                <img src="content/images/logo-ostelea-ma.png" className="img-circle" alt="User Image" width="200 px" />
               </div>
               <Home />
               {isAuthenticated && (isUser || isAdmin) && <InscriptionsLicenceMenu />}

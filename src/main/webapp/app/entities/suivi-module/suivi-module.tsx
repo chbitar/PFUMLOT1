@@ -38,7 +38,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
   componentDidMount() {
     this.props.getEntities();
     this.props.getModules();
-    this.props.getEntitiesGroupedByModule();
+    this.props.getEntitiesGroupedByModule;
   }
 
   search = () => {
@@ -75,7 +75,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
   handleSearch = event => this.setState({ search: event.target.value });
 
   filtrerListByModule = e => {
-    if (e.target.value === '') this.props.getEntitiesGroupedByModule();
+    if (e.target.value === '') this.props.getEntitiesGroupedByModule;
     /* else this.props.getEntitiesByModule(e.target.value); */
     this.props.findAllGroupedByModuleByModuleId(e.target.value);
   };
@@ -121,7 +121,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
           </Col>
         </Row>
         <br />
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {suiviModuleGroupedByList && suiviModuleGroupedByList.length > 0 ? (
             <Table responsive id="suivimdoulesgrouped">
               <thead>

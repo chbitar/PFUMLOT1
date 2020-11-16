@@ -25,7 +25,8 @@ export class CalendrierModuleDetail extends React.Component<ICalendrierModuleDet
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="pfumApp.calendrierModule.detail.title">CalendrierModule</Translate> [<b>{calendrierModuleEntity.id}</b>]
+            <Translate contentKey="pfumApp.calendrierModule.detail.title">CalendrierModule</Translate> [
+            <b>{calendrierModuleEntity.module ? calendrierModuleEntity.module.nomModule : ''}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -53,11 +54,17 @@ export class CalendrierModuleDetail extends React.Component<ICalendrierModuleDet
             <dt>
               <Translate contentKey="pfumApp.calendrierModule.module">Module</Translate>
             </dt>
-            <dd>{calendrierModuleEntity.module ? calendrierModuleEntity.module.id : ''}</dd>
+            <dd>{calendrierModuleEntity.module ? calendrierModuleEntity.module.nomModule : ''}</dd>
+            <dt>
+              <span id="programme">
+                <Translate contentKey="pfumApp.calendrierModule.programme">Programme</Translate>
+              </span>
+            </dt>
+            <dd>{calendrierModuleEntity.programme}</dd>
             <dt>
               <Translate contentKey="pfumApp.calendrierModule.anneeInscription">Annee Inscription</Translate>
             </dt>
-            <dd>{calendrierModuleEntity.anneeInscription ? calendrierModuleEntity.anneeInscription.id : ''}</dd>
+            <dd>{calendrierModuleEntity.anneeInscription ? calendrierModuleEntity.anneeInscription.annee : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/calendrier-module" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

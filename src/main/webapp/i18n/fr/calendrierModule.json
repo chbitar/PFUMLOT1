@@ -4,13 +4,13 @@
       "home": {
         "title": "CalendrierModules",
         "createLabel": "Créer un nouveau Calendrier Module",
-        "createOrEditLabel": "Créer ou éditer un Calendrier Module",
+        "createOrEditLabel": "CrÃ©er ou Ã©diter un Calendrier Module",
         "search": "Recherche pour Calendrier Module",
-        "notFound": "Aucun Calendrier Module trouvé"
+        "notFound": "Aucun Calendrier Module trouvÃ©"
       },
-      "created": "Un nouveau Calendrier Module a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Calendrier Module avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Calendrier Module avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Calendrier Module a Ã©tÃ© crÃ©Ã© avec l'identifiant {{ param }}",
+      "updated": "Le Calendrier Module avec l'identifiant {{ param }} a Ã©tÃ© mis Ã  jour",
+      "deleted": "Le Calendrier Module avec l'identifiant {{ param }} a Ã©tÃ© supprimÃ©",
       "delete": {
         "question": "Etes-vous certain de vouloir supprimer le Calendrier Module {{ id }} ?"
       },
@@ -18,12 +18,13 @@
         "title": "Calendrier Module"
       },
       "libelle": "Libelle",
-      "dateControlContinu1": "Date Control Continu 1",
-      "dateControlContinu2": "Date Control Continu 2",
+      "dateControlContinu1": "Date contrôle Continu 1",
+      "dateControlContinu2": "Date contrôle Continu 2",
       "espaceEtudiant": "Espace Etudiant",
       "module": "Module",
       "anneeInscription": "Annee Inscription",
-      "board": "Board"
+      "board": "Board",
+      "programme": "Programme"
     }
   }
 }

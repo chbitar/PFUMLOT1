@@ -54,7 +54,7 @@ export class Filiere extends React.Component<IFiliereProps, IFiliereState> {
           </Link>
         </h2>
         &nbsp; &nbsp;
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {filiereList && filiereList.length > 0 ? (
             <Table responsive>
               <thead>

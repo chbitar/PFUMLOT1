@@ -4,6 +4,11 @@ import { IModule } from 'app/shared/model/module.model';
 import { IAnneeInscription } from 'app/shared/model/annee-inscription.model';
 import { ITableauDeBoard } from 'app/shared/model/tableau-de-board.model';
 
+export const enum Programme {
+  LICENCE = 'LICENCE',
+  MASTER = 'MASTER',
+  MASTER_EXECUTIF = 'MASTER_EXECUTIF'
+}
 export interface ICalendrierModule {
   id?: number;
   libelle?: string;
@@ -13,6 +18,7 @@ export interface ICalendrierModule {
   module?: IModule;
   anneeInscription?: IAnneeInscription;
   boards?: ITableauDeBoard[];
+  programme?: Programme;
 }
 
 export const defaultValue: Readonly<ICalendrierModule> = {};

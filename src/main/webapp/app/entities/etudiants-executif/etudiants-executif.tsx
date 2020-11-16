@@ -158,7 +158,7 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
           )}
         </Row>
         <br />
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {etudiantsExecutifList && etudiantsExecutifList.length > 0 ? (
             <Table responsive>
               <thead>
@@ -240,7 +240,6 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
-
                         {(isAdmin || isUser) && (
                           <>
                             <Button tag={Link} to={`${match.url}/${etudiantsExecutif.id}/edit`} color="primary" size="sm">

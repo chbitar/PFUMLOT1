@@ -34,4 +34,7 @@ public interface EtudiantsLicenceExtendedRepository extends EtudiantsLicenceRepo
 
 	List<EtudiantsLicence> findAllByNiveau(Niveau niveau);
 
+	Optional<EtudiantsLicence> findOneByUserId(Long id);
+
+
 }

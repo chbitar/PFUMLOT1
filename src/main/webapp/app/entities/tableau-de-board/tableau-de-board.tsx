@@ -77,7 +77,7 @@ export class TableauDeBoard extends React.Component<ITableauDeBoardProps, ITable
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {tableauDeBoardList && tableauDeBoardList.length > 0 ? (
             <Table responsive>
               <thead>

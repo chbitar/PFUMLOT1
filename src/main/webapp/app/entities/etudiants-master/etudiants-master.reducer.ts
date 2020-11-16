@@ -196,7 +196,13 @@ export const getEntitiesByEtudiantNiveau: ICrudGetAction<IEtudiantsMaster> = niv
     payload: axios.get<IEtudiantsMaster>(requestUrl)
   };
 };
-
+export const getEntityDetail: ICrudGetAction<IEtudiantsMaster> = () => {
+  const requestUrl = `${apiExtendedUrl}/espace`;
+  return {
+    type: ACTION_TYPES.FETCH_ETUDIANTSMASTER,
+    payload: axios.get<IEtudiantsMaster>(requestUrl)
+  };
+};
 export const setBlob = (name, data, contentType?) => ({
   type: ACTION_TYPES.SET_BLOB,
   payload: {

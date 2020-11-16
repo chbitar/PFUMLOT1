@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 
 export const EspaceEtudiantMenuMaster = props => (
   <NavDropdown icon="user-edit" name="Espace Etudiant" id="entity-menu">
-    <MenuItem icon="asterisk" to="/entity/etudiants-master">
+    <MenuItem icon="folder" to="/entity/etudiants-master">
       Espace Master
     </MenuItem>
   </NavDropdown>

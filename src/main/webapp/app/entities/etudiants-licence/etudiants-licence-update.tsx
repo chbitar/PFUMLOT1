@@ -21,6 +21,9 @@ import { IEtudiantsLicence } from 'app/shared/model/etudiants-licence.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
+import Filiere from '../filiere/filiere';
+import Professeur from '../professeur/professeur';
+import { Etablissement } from '../etablissement/etablissement';
 
 export interface IEtudiantsLicenceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 

@@ -77,7 +77,7 @@ export class NoteLicence extends React.Component<INoteLicenceProps, INoteLicence
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {noteLicenceList && noteLicenceList.length > 0 ? (
             <Table responsive>
               <thead>

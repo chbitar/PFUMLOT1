@@ -1,3 +1,5 @@
+import axios from 'axios';
+import fileDownload from 'react-file-download';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
@@ -29,6 +31,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
   constructor(props) {
     super(props);
     this.estAbsent = this.estAbsent.bind(this);
+    this.genererFicheAbsence = this.genererFicheAbsence.bind(this);
   }
 
   componentDidMount() {
@@ -38,9 +41,18 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
     this.props.getEtudiantsLicence();
   }
 
-  estAbsent = id => {
-    console.log(this.props.ficheAbsenceEntity.absences.length);
+  genererFicheAbsence = programme => () => {
+    const requestUrl = `/api/ficheabsence/${this.props.match.params.id}/${programme}`;
+    axios
+      .get(requestUrl, {
+        responseType: 'blob'
+      })
+      .then(res => {
+        fileDownload(res.data, 'ficheAbsence.pdf');
+      });
+  };
 
+  estAbsent = id => {
     if (this.props.ficheAbsenceEntity.absences.length === 0) {
       return false;
     }
@@ -212,13 +224,10 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>
-          {/*     &nbsp; &nbsp;
-          <Button tag={Link} to={`entity/fiche-absence/${ficheAbsenceEntity.id}/delete`} color="danger">
-            <FontAwesomeIcon icon="trash" />{' '}
-            <span className="d-none d-md-inline">
-              <Translate contentKey="entity.action.delete">Delete</Translate>
-            </span>
-          </Button> */}
+          &nbsp; &nbsp;
+          <Button color="info" onClick={this.genererFicheAbsence(ficheAbsenceEntity.programme)}>
+            <FontAwesomeIcon icon="print" /> <span className="d-none d-md-inline">Imprimer</span>
+          </Button>
           <br /> <br />
         </Col>
       </Row>

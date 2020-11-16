@@ -78,7 +78,7 @@ export class AbsenceLicence extends React.Component<IAbsenceProps, IAbsenceState
             </AvForm>
           </Col>
         </Row>
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ marginLeft: '10px' }}>
           {absenceList && absenceList.length > 0 ? (
             <Table responsive>
               <thead>

@@ -141,6 +141,13 @@ export const getEntity: ICrudGetAction<IEtudiantsExecutif> = id => {
     payload: axios.get<IEtudiantsExecutif>(requestUrl)
   };
 };
+export const getEntityDetail: ICrudGetAction<IEtudiantsExecutif> = () => {
+  const requestUrl = `${apiExtendedUrl}/espace`;
+  return {
+    type: ACTION_TYPES.FETCH_ETUDIANTSEXECUTIF,
+    payload: axios.get<IEtudiantsExecutif>(requestUrl)
+  };
+};
 
 export const createEntity: ICrudPutAction<IEtudiantsExecutif> = entity => async dispatch => {
   const result = await dispatch({
