@@ -168,7 +168,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                       </dd>
                     </Col>
                   </Row>
-                  <Row style={{ marginTop: '-100px' }}>
+                  <Row>
                     <Col md="4">
                       <dt>
                         <span id="adresseContact">
@@ -463,7 +463,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
           <Row>
             <Col md="6">
               <div style={{ float: 'right', display: 'inline-block' }}>
-                <Button tag={Link} to="/entity/etudiants-executif" replace color="info">
+                <Button tag={Link} to="/entity/etudiants-master" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />{' '}
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
@@ -471,7 +471,7 @@ export class EtudiantsMasterDetail extends React.Component<IEtudiantsMasterDetai
                 </Button>
                 &nbsp;
                 {(isAdmin || isUser) && (
-                  <Button tag={Link} to={`/entity/etudiants-executif/${etudiantsMasterEntity.id}/edit`} replace color="primary">
+                  <Button tag={Link} to={`/entity/etudiants-master/${etudiantsMasterEntity.id}/edit`} replace color="primary">
                     <FontAwesomeIcon icon="pencil-alt" />{' '}
                     <span className="d-none d-md-inline">
                       <Translate contentKey="entity.action.edit">Edit</Translate>

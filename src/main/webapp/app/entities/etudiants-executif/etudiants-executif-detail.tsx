@@ -167,7 +167,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                       </dd>
                     </Col>
                   </Row>
-                  <Row style={{ marginTop: '-100px' }}>
+                  <Row>
                     <Col md="4">
                       <dt>
                         <span id="adresseContact">
