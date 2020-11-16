@@ -38,7 +38,7 @@ export class SuiviModule extends React.Component<ISuiviModuleProps, ISuiviModule
   componentDidMount() {
     this.props.getEntities();
     this.props.getModules();
-    this.props.getEntitiesGroupedByModule;
+    this.props.getEntitiesGroupedByModule();
   }
 
   search = () => {
