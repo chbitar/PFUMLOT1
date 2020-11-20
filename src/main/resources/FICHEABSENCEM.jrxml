@@ -52,7 +52,7 @@
 	</subDataset>
 	<parameter name="FicheabsenceId" class="java.lang.Long"/>
 	<queryString>
-		<![CDATA[select f.date_seance,f.programme,m.nom_module from  fiche_absence f,module m where f.module_id=m.id and f.id=$P{FicheabsenceId}]]>
+		<![CDATA[select f.date_seance,f.programme,m.nom_module,fil.nomfiliere,u.first_name,u.last_name from  fiche_absence f,module m ,filiere fil,jhi_user u  where f.module_id=m.id and m.filiere_id=fil.id and f.user_id=u.id and f.id=$P{FicheabsenceId}]]>
 	</queryString>
 	<field name="date_seance" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.name" value="date_seance"/>
@@ -72,13 +72,16 @@
 		<property name="com.jaspersoft.studio.field.tree.path" value="module"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nomfiliere" class="java.lang.String"/>
+	<field name="first_name" class="java.lang.String"/>
+	<field name="last_name" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
 		<band height="534" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="94" width="161" height="20" uuid="f5486b00-ed45-4a19-be5b-44d4c60ce054"/>
+				<reportElement x="0" y="40" width="161" height="20" uuid="f5486b00-ed45-4a19-be5b-44d4c60ce054"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -86,42 +89,42 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="154" width="161" height="20" uuid="8098379e-19d6-455c-87bf-e983e5a2199e"/>
+				<reportElement x="0" y="100" width="161" height="20" uuid="8098379e-19d6-455c-87bf-e983e5a2199e"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Module :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="214" width="161" height="20" uuid="51638fb6-221a-4ff2-badb-7a4d511ae19e"/>
+				<reportElement x="0" y="160" width="161" height="20" uuid="51638fb6-221a-4ff2-badb-7a4d511ae19e"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Programme :]]></text>
+				<text><![CDATA[Filière :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="28" y="119" width="161" height="30" uuid="d96c5c54-eac2-427a-a019-cb3d555df3da"/>
+				<reportElement x="28" y="65" width="161" height="30" uuid="d96c5c54-eac2-427a-a019-cb3d555df3da"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{date_seance}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="28" y="179" width="161" height="30" uuid="72c922ec-f848-4dec-bc9b-b9723f26a689"/>
+				<reportElement x="28" y="125" width="372" height="30" uuid="72c922ec-f848-4dec-bc9b-b9723f26a689"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nom_module}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="28" y="241" width="161" height="30" uuid="6ddc9b4d-be0a-454d-afd5-6b2a91b278a2"/>
+				<reportElement x="28" y="187" width="372" height="30" uuid="6ddc9b4d-be0a-454d-afd5-6b2a91b278a2"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{programme}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nomfiliere}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement x="0" y="332" width="550" height="163" uuid="9d065d2f-fbb0-4c57-8903-473655802ebb">
+				<reportElement x="0" y="345" width="550" height="163" uuid="9d065d2f-fbb0-4c57-8903-473655802ebb">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -181,19 +184,40 @@
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement x="90" y="280" width="301" height="41" uuid="beb01f09-2323-48ac-832c-582d25f36ef3"/>
+				<reportElement x="90" y="293" width="301" height="41" uuid="beb01f09-2323-48ac-832c-582d25f36ef3"/>
 				<textElement>
 					<font size="14" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Liste des absents [ Master Académique ]]]></text>
+				<text><![CDATA[Liste des absents [ Master Exécutif ]]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="40" width="261" height="41" uuid="b20b0ab1-3bd7-48c5-abe0-48716ac2644d"/>
+				<reportElement x="120" y="3" width="261" height="27" uuid="b20b0ab1-3bd7-48c5-abe0-48716ac2644d"/>
 				<textElement textAlignment="Center">
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FICHE ABSENCE]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="2" y="216" width="161" height="20" uuid="40ad777f-e6b5-439b-aa2a-7356a56aa712"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Professeur :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="243" width="140" height="30" uuid="cd463b21-8653-4652-993a-cfdf99236ffc"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{first_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="243" width="180" height="30" uuid="17032d57-9292-44bd-a3c8-0f03b61dd5b0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{last_name}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

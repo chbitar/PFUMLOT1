@@ -149,7 +149,7 @@ export class EtudiantsExecutifDetail extends React.Component<IEtudiantsExecutifD
                       </Row>
                     </Col>
 
-                    <Col ms="8">
+                    <Col ms="8" style={{ marginLeft: '600px' }}>
                       <dt>
                         <span id="photo" />
                       </dt>

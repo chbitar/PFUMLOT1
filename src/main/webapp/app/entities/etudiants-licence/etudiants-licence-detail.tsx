@@ -149,7 +149,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                       </Row>
                     </Col>
 
-                    <Col ms="8">
+                    <Col ms="8" style={{ maxHeight: '200px', maxWidth: '200px' }}>
                       <dt>
                         <span id="photo" />
                       </dt>
@@ -159,7 +159,7 @@ export class EtudiantsLicenceDetail extends React.Component<IEtudiantsLicenceDet
                             <a onClick={openFile(etudiantsLicenceEntity.photoContentType, etudiantsLicenceEntity.photo)}>
                               <img
                                 src={`data:${etudiantsLicenceEntity.photoContentType};base64,${etudiantsLicenceEntity.photo}`}
-                                style={{ maxHeight: '200px' }}
+                                style={{ maxHeight: '200px', maxWidth: '200px' }}
                               />
                             </a>
                           </div>

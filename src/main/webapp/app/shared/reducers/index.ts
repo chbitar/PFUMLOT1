@@ -100,6 +100,7 @@ import emploieDuTemps, {
 import ficheAbsence, {
   FicheAbsenceState
 } from 'app/entities/fiche-absence/fiche-absence.reducer';
+import pays, { PaysState } from 'app/entities/pays/pays.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -136,6 +137,7 @@ export interface IRootState {
   readonly emploieDuTemps: EmploieDuTempsState;
   readonly ficheAbsence: FicheAbsenceState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
+  readonly pays: PaysState;
   readonly loadingBar: any;
 }
 
@@ -173,6 +175,7 @@ const rootReducer = combineReducers<IRootState>({
   emploieDuTemps,
   ficheAbsence,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
+  pays,
   loadingBar
 });
 
