@@ -245,7 +245,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   absenceEntity: storeState.absence.entity,
   loading: storeState.absence.loading,
   updating: storeState.absence.updating,
-  updateSuccess: storeState.absence.updateSuccess
+  updateSuccess: storeState.ficheAbsence.updateSuccess
 });
 
 const mapDispatchToProps = {

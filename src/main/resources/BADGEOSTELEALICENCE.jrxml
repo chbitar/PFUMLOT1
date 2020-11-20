@@ -86,8 +86,8 @@
 			</textField>
 			<staticText>
 				<reportElement x="-15" y="249" width="161" height="30" forecolor="#FFFFFF" uuid="18182d5e-8c41-4b38-a062-3c77a0592096"/>
-				<textElement textAlignment="Right">
-					<font size="18" isBold="true"/>
+				<textElement textAlignment="Left">
+					<font size="18" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[CIN :]]></text>
 			</staticText>
@@ -100,8 +100,8 @@
 			</textField>
 			<staticText>
 				<reportElement x="-15" y="280" width="161" height="30" forecolor="#FFFFFF" uuid="47a4a8c5-3cc7-4609-869b-e9a97efc936c"/>
-				<textElement textAlignment="Right">
-					<font size="18" isBold="true"/>
+				<textElement textAlignment="Left">
+					<font size="18" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[CODE ETUDIANT :]]></text>
 			</staticText>
@@ -114,8 +114,8 @@
 			</textField>
 			<staticText>
 				<reportElement x="-15" y="309" width="161" height="30" forecolor="#FFFFFF" uuid="26a5c7b8-b2f8-4286-a161-9278d0a29364"/>
-				<textElement textAlignment="Right">
-					<font size="18" isBold="true"/>
+				<textElement textAlignment="Left">
+					<font size="18" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[FILIERE :]]></text>
 			</staticText>

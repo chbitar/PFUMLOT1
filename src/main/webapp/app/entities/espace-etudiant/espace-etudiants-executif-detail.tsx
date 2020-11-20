@@ -229,6 +229,23 @@ export class EspaceEtudiantsExecutif extends React.Component<IEspaceEtudiantsExe
                         <Translate contentKey="pfumApp.etudiantsExecutif.filiere">Filiere</Translate>
                       </dt>
                       <dd>{etudiantsExecutifEntity.filiere ? etudiantsExecutifEntity.filiere.nomfiliere : ''}</dd>
+                      <hr />
+                      <dt>Modules Suivis :</dt>
+                      <br />
+                      {etudiantsExecutifEntity.filiere &&
+                        etudiantsExecutifEntity.filiere.modules &&
+                        etudiantsExecutifEntity.filiere.modules.length > 0 &&
+                        etudiantsExecutifEntity.filiere.modules
+                          .filter(m => m.semestre == 'S1')
+                          .map((module, i) => (
+                            <>
+                              <dd>
+                                <span id="module">
+                                  {i + 1} :{module.nomModule}
+                                </span>
+                              </dd>
+                            </>
+                          ))}
                     </dl>
                   </section>
                 </Col>

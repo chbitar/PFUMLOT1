@@ -26,6 +26,7 @@ export class UserManagementDetail extends React.Component<IUserManagementDetailP
           <Translate contentKey="userManagement.detail.title">User</Translate> [<b>{user.login}</b>]
         </h2>
         <Row>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{' '}
           <dl className="jh-entity-details">
             <dt>
               <Translate contentKey="userManagement.login">Login</Translate>
@@ -33,9 +34,7 @@ export class UserManagementDetail extends React.Component<IUserManagementDetailP
             <dd>
               <span>{user.login}</span>&nbsp;
               {user.activated ? (
-                <Badge color="success">
-                  <Translate contentKey="userManagement.activated">Activated</Translate>
-                </Badge>
+                <Translate contentKey="userManagement.activated">Activated</Translate>
               ) : (
                 <Badge color="danger">
                   <Translate contentKey="userManagement.deactivated">Deactivated</Translate>
@@ -83,13 +82,7 @@ export class UserManagementDetail extends React.Component<IUserManagementDetailP
             </dt>
             <dd>
               <ul className="list-unstyled">
-                {user.authorities
-                  ? user.authorities.map((authority, i) => (
-                      <li key={`user-auth-${i}`}>
-                        <Badge color="info">{authority}</Badge>
-                      </li>
-                    ))
-                  : null}
+                {user.authorities ? user.authorities.map((authority, i) => <li key={`user-auth-${i}`}>{authority}</li>) : null}
               </ul>
             </dd>
           </dl>

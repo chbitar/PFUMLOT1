@@ -138,7 +138,11 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
             <dt>
               <Translate contentKey="pfumApp.ficheAbsence.programme">Programme</Translate>
             </dt>
-            <dd>{ficheAbsenceEntity.module ? ficheAbsenceEntity.programme : ''}</dd>
+            <dd>{ficheAbsenceEntity.programme ? ficheAbsenceEntity.programme : ''}</dd>
+            <dt>Filière</dt>
+            <dd>{ficheAbsenceEntity.module ? ficheAbsenceEntity.module.filiere.nomfiliere : ''}</dd>
+            <dt>Professeur</dt>
+            <dd>{ficheAbsenceEntity.user ? ficheAbsenceEntity.user.firstName + ' ' + ficheAbsenceEntity.user.lastName : ''}</dd>
           </dl>
           {ficheAbsenceEntity.programme === Programme.MASTER_EXECUTIF ? (
             <>

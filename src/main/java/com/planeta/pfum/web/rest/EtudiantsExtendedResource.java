@@ -24,11 +24,13 @@ import com.planeta.pfum.domain.EtudiantsExecutif;
 import com.planeta.pfum.domain.EtudiantsLicence;
 import com.planeta.pfum.domain.EtudiantsMaster;
 import com.planeta.pfum.domain.Filiere;
+import com.planeta.pfum.domain.Pays;
 import com.planeta.pfum.domain.User;
 import com.planeta.pfum.domain.enumeration.Niveau;
 import com.planeta.pfum.repository.EtudiantsExecutifExtendedRepository;
 import com.planeta.pfum.repository.EtudiantsLicenceExtendedRepository;
 import com.planeta.pfum.repository.EtudiantsMasterExtendedRepository;
+import com.planeta.pfum.repository.PaysRepository;
 import com.planeta.pfum.repository.UserRepository;
 import com.planeta.pfum.security.AuthoritiesConstants;
 import com.planeta.pfum.security.SecurityUtils;
@@ -67,17 +69,22 @@ public class EtudiantsExtendedResource {
 	private final UserRepository userRepository;
 
 	private final MailService mailService;
+	
+	private final PaysRepository paysRepository;
+
 
 	public EtudiantsExtendedResource(EtudiantsExecutifExtendedRepository etudiantsExecutifRepository,
 			EtudiantsLicenceExtendedRepository etudiantsLicenceRepository,
 			EtudiantsMasterExtendedRepository etudiantsMasterRepository, UserExtendedService userService,
-			UserRepository userRepository, MailService mailService) {
+			UserRepository userRepository, MailService mailService,PaysRepository paysRepository) {
 		this.userService = userService;
 		this.etudiantsExecutifRepository = etudiantsExecutifRepository;
 		this.etudiantsLicenceRepository = etudiantsLicenceRepository;
 		this.etudiantsMasterRepository = etudiantsMasterRepository;
 		this.userRepository = userRepository;
 		this.mailService = mailService;
+		this.paysRepository = paysRepository;
+
 
 	}
 
@@ -334,6 +341,11 @@ public class EtudiantsExtendedResource {
 		Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
 		Optional<EtudiantsLicence> etudiantsLicence = etudiantsLicenceRepository.findOneByUserId(user.get().getId());
 		return ResponseUtil.wrapOrNotFound(etudiantsLicence);
+	}
+	
+	@GetMapping("/pays")
+	public List<Pays> getAllPays() {
+		return  paysRepository.findAll();
 	}
 	
 	@GetMapping("/extended/etudiants-masters/espace")

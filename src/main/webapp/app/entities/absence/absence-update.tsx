@@ -115,6 +115,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
   };
 
   handleClose = () => {
+    alert('handleClose');
     this.props.history.push('/entity/fiche-absence');
   };
 
@@ -153,7 +154,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                     type="date"
                     className="form-control"
                     name="dateSeance"
-                    placeholder={'YYYY-MM-DD'}
+                    placeholder={'YYYY-MM-DD HH:mm'}
                     value={isNew ? null : convertDateTimeFromServer(this.props.absenceEntity.dateSeance)}
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') }
@@ -247,7 +248,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   absenceEntity: storeState.absence.entity,
   loading: storeState.absence.loading,
   updating: storeState.absence.updating,
-  updateSuccess: storeState.absence.updateSuccess
+  updateSuccess: storeState.ficheAbsence.updateSuccess
 });
 
 const mapDispatchToProps = {

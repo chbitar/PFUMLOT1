@@ -105,7 +105,7 @@
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="34" y="202" width="120" height="15" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209"/>
+				<reportElement x="34" y="202" width="228" height="15" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -119,7 +119,7 @@
 				<text><![CDATA[Filière :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="308" y="161" width="89" height="15" uuid="2d2f365d-7b12-4a8f-990d-ff528a2660bc"/>
+				<reportElement x="300" y="161" width="97" height="15" uuid="2d2f365d-7b12-4a8f-990d-ff528a2660bc"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -177,14 +177,14 @@
 				<textFieldExpression><![CDATA[$F{nomfiliere}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="397" y="161" width="100" height="15" uuid="57e8390f-e9f6-4c33-8ffc-a06d29d55d56"/>
+				<reportElement x="403" y="161" width="100" height="15" uuid="57e8390f-e9f6-4c33-8ffc-a06d29d55d56"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cin_pass}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="162" y="203" width="100" height="15" uuid="290c2618-26f0-4a11-acf8-210e2a335c63"/>
+				<reportElement x="272" y="203" width="100" height="15" uuid="290c2618-26f0-4a11-acf8-210e2a335c63"/>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
