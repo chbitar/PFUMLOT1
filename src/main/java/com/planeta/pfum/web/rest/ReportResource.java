@@ -41,7 +41,7 @@ public class ReportResource {
 	private final Logger log = LoggerFactory.getLogger(ReportResource.class);
 
 	private static final String ENTITY_NAME = "report";
-
+	
 	@Value("${jhipster.clientApp.name}")
 	private String applicationName;
 

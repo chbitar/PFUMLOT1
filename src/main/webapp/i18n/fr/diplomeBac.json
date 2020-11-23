@@ -2,10 +2,20 @@
   "pfumApp": {
     "DiplomeBac": {
       "null": "",
-      "Sciences_De_La_Vie_Et_De_La_Terre": "Sciences_De_La_Vie_Et_De_La_Terre",
-      "Sciences_Physiques_Et_Chimiques": "Sciences_Physiques_Et_Chimiques",
-      "Sciences_Economiques": "Sciences_Economiques",
-      "Techniques_De_Gestion_Et_Comptabilite": "Techniques_De_Gestion_Et_Comptabilite"
+      "Sciences_De_La_Vie_Et_De_La_Terre": "Sciences de la Vie et de la Terre",
+      "Sciences_Physiques_Et_Chimiques": "Sciences Physiques et Chimiques",
+      "Sciences_Maths_A": "Sciences Maths A",
+      "Sciences_Maths_B": "Sciences Maths AB",
+      "Sciences_Economiques": "Sciences Economiques",
+      "Techniques_De_Gestion_Et_Comptabilite": "Techniques de Gestion et de Comptabilit�",
+      "Sciences_agronomiques": " Sciences agronomiques",
+      "Sciences_Et_Technologies_Electriques": "Sciences et Technologies Electriques",
+      "Sciences_Et_Technologies_Mecaniques": "Sciences et Technologies M�caniques",
+      "Arts_Appliques": "Arts Appliqu�s",
+      "Sciences_Humaines": "Sciences Humaines",
+      "Sciences_de_la_Chariaa": "Sciences de la Charia�",
+      "Sciences_de_Langue_Arabe": "Sciences de Langue Arabe",
+      "Autre": " Autre"
     }
   }
 }

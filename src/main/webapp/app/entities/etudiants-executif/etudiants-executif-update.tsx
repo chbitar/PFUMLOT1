@@ -416,10 +416,27 @@ export class etudiantsExecutifUpdate extends React.Component<IetudiantsExecutifU
                               <option value="Sciences_Physiques_Et_Chimiques">
                                 {translate('pfumApp.DiplomeBac.Sciences_Physiques_Et_Chimiques')}
                               </option>
+                              <option value="Sciences_Physiques_Et_Chimiques">
+                                {translate('pfumApp.DiplomeBac.Sciences_Physiques_Et_Chimiques')}
+                              </option>
+                              <option value="Sciences_Maths_A">{translate('pfumApp.DiplomeBac.Sciences_Maths_A')}</option>
+                              <option value="Sciences_Maths_B">{translate('pfumApp.DiplomeBac.Sciences_Maths_B')}</option>
                               <option value="Sciences_Economiques">{translate('pfumApp.DiplomeBac.Sciences_Economiques')}</option>
                               <option value="Techniques_De_Gestion_Et_Comptabilite">
                                 {translate('pfumApp.DiplomeBac.Techniques_De_Gestion_Et_Comptabilite')}
                               </option>
+                              <option value="Sciences_agronomiques">{translate('pfumApp.DiplomeBac.Sciences_agronomiques')}</option>
+                              <option value="Sciences_Et_Technologies_Electriques">
+                                {translate('pfumApp.DiplomeBac.Sciences_Et_Technologies_Electriques')}
+                              </option>
+                              <option value="Sciences_Et_Technologies_Mecaniques">
+                                {translate('pfumApp.DiplomeBac.Sciences_Et_Technologies_Mecaniques')}
+                              </option>
+                              <option value="Arts_Appliques">{translate('pfumApp.DiplomeBac.Arts_Appliques')}</option>
+                              <option value="Sciences_Humaines">{translate('pfumApp.DiplomeBac.Sciences_Humaines')}</option>
+                              <option value="Sciences_de_la_Chariaa">{translate('pfumApp.DiplomeBac.Sciences_de_la_Chariaa')}</option>
+                              <option value="Sciences_de_Langue_Arabe">{translate('pfumApp.DiplomeBac.Sciences_de_Langue_Arabe')}</option>
+                              <option value="Autre">{translate('pfumApp.DiplomeBac.Autre')}</option>
                             </AvInput>
                           </AvGroup>
                           <AvGroup>
