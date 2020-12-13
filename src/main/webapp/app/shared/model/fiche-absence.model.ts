@@ -11,7 +11,7 @@ export const enum Programme {
 
 export interface IFicheAbsence {
   id?: number;
-  dateSeance?: Date;
+  dateSeance?: Moment;
   module?: IModule;
   programme?: Programme;
   absences?: IAbsence[];

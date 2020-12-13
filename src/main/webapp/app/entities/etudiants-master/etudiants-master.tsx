@@ -193,7 +193,7 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
                     </td>
                     {(isAdmin || isRespFin) && (
                       <td>
-                        {etudiantsMaster.inscriptionvalide ? (
+                        {/*        {etudiantsMaster.inscriptionvalide ? (
                           <Button color="success" onClick={this.toggleActive(etudiantsMaster)}>
                             Validé
                           </Button>
@@ -201,7 +201,8 @@ export class EtudiantsMaster extends React.Component<IEtudiantsMasterProps, IEtu
                           <Button color="danger" onClick={this.toggleActive(etudiantsMaster)}>
                             En attente
                           </Button>
-                        )}
+                        )} */}
+                        <Button color="success">Validé</Button>
                       </td>
                     )}
                     <td>

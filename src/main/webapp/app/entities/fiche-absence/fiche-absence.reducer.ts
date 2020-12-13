@@ -139,6 +139,7 @@ export const getEntity: ICrudGetAction<IFicheAbsence> = id => {
 };
 
 export const createEntity: ICrudPutAction<IFicheAbsence> = entity => async dispatch => {
+  console.log(entity.dateSeance);
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_FICHEABSENCE,
     payload: axios.post(apiUrl, cleanEntity(entity))

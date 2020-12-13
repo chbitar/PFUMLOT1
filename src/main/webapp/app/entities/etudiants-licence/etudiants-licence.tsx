@@ -58,10 +58,10 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
 
   handleSearch = event => this.setState({ search: event.target.value });
 
-  toggleActive = etudiantsExecutif => () => {
+  toggleActive = etudiantsLicence => () => {
     this.props.updateEntity({
-      ...etudiantsExecutif,
-      inscriptionvalide: !etudiantsExecutif.inscriptionvalide
+      ...etudiantsLicence,
+      inscriptionvalide: !etudiantsLicence.inscriptionvalide
     });
   };
 
@@ -192,7 +192,7 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
                     </td>
                     {(isAdmin || isRespFin) && (
                       <td>
-                        {etudiantsLicence.inscriptionvalide ? (
+                        {/* {etudiantsLicence.inscriptionvalide ? (
                           <Button color="success" onClick={this.toggleActive(etudiantsLicence)}>
                             Validé
                           </Button>
@@ -200,7 +200,9 @@ export class EtudiantsLicence extends React.Component<IEtudiantsLicenceProps, IE
                           <Button color="danger" onClick={this.toggleActive(etudiantsLicence)}>
                             En attente
                           </Button>
-                        )}
+                        )} */}
+
+                        <Button color="success">Validé</Button>
                       </td>
                     )}
                     <td>

@@ -22,6 +22,7 @@ import { getEntities as getEtudiantsLicence } from 'app/entities/etudiants-licen
 import { getEntity } from './fiche-absence.reducer';
 import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { Programme } from 'app/shared/model/fiche-absence.model';
+import { Console } from 'console';
 
 export interface IFicheAbsenceDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -53,18 +54,17 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
   };
 
   estAbsent = id => {
-    if (this.props.ficheAbsenceEntity.absences.length === 0) {
-      return false;
-    }
-    for (var i = 0; i < this.props.ficheAbsenceEntity.absences.length; i++) {
-      if (this.props.ficheAbsenceEntity.programme === Programme.LICENCE) {
-        if (this.props.ficheAbsenceEntity.absences[i].etudiantsLicence.id === id) return true;
-      }
-      if (this.props.ficheAbsenceEntity.programme === Programme.MASTER) {
-        if (this.props.ficheAbsenceEntity.absences[i].etudiantsMaster.id === id) return true;
-      }
-      if (this.props.ficheAbsenceEntity.programme === Programme.MASTER_EXECUTIF) {
-        if (this.props.ficheAbsenceEntity.absences[i].etudiantsExecutif.id === id) return true;
+    if (this.props.ficheAbsenceEntity && this.props.ficheAbsenceEntity.absences && this.props.ficheAbsenceEntity.absences.length > 0) {
+      for (var i = 0; i < this.props.ficheAbsenceEntity.absences.length; i++) {
+        if (this.props.ficheAbsenceEntity.programme === Programme.LICENCE) {
+          if (this.props.ficheAbsenceEntity.absences[i].etudiantsLicence.id === id) return true;
+        }
+        if (this.props.ficheAbsenceEntity.programme === Programme.MASTER) {
+          if (this.props.ficheAbsenceEntity.absences[i].etudiantsMaster.id === id) return true;
+        }
+        if (this.props.ficheAbsenceEntity.programme === Programme.MASTER_EXECUTIF) {
+          if (this.props.ficheAbsenceEntity.absences[i].etudiantsExecutif.id === id) return true;
+        }
       }
     }
 
@@ -74,7 +74,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
   render() {
     const { ficheAbsenceEntity, etudiantsExecutifs, etudiantsMaster, etudiantsLicence } = this.props;
 
-    var listEtudiantMasterExecutif = this.props.etudiantsExecutifs
+    /*    var listEtudiantMasterExecutif = this.props.etudiantsExecutifs
       .filter(etudiant => this.estAbsent(etudiant.id))
       .map((etudiant, i) => {
         return (
@@ -86,9 +86,9 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
             </td>
           </tr>
         );
-      });
+      }); */
 
-    var listEtudiantMaster = this.props.etudiantsMaster
+    /*     var listEtudiantMaster = this.props.etudiantsMaster
       .filter(etudiant => this.estAbsent(etudiant.id))
       .map((etudiant, i) => {
         return (
@@ -100,8 +100,8 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
             </td>
           </tr>
         );
-      });
-    var listEtudiantLicence = this.props.etudiantsLicence
+      }); */
+    /*     var listEtudiantLicence = this.props.etudiantsLicence
       .filter(etudiant => this.estAbsent(etudiant.id))
       .map((etudiant, i) => {
         return (
@@ -113,7 +113,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
             </td>
           </tr>
         );
-      });
+      }); */
     return (
       <Row>
         <Col md="8">
@@ -140,7 +140,7 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
             </dt>
             <dd>{ficheAbsenceEntity.programme ? ficheAbsenceEntity.programme : ''}</dd>
             <dt>Filière</dt>
-            <dd>{ficheAbsenceEntity.module ? ficheAbsenceEntity.module.filiere.nomfiliere : ''}</dd>
+            <dd>{ficheAbsenceEntity.module && ficheAbsenceEntity.module.filiere ? ficheAbsenceEntity.module.filiere.nomfiliere : ''}</dd>
             <dt>Professeur</dt>
             <dd>{ficheAbsenceEntity.user ? ficheAbsenceEntity.user.firstName + ' ' + ficheAbsenceEntity.user.lastName : ''}</dd>
           </dl>
@@ -161,7 +161,22 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
                   </tr>
                 </thead>
                 {etudiantsExecutifs && etudiantsExecutifs.length > 0 ? (
-                  <tbody>{listEtudiantMasterExecutif}</tbody>
+                  <tbody>
+                    {this.props.etudiantsExecutifs
+                      .filter(etudiant => this.estAbsent(etudiant.id))
+                      .map((etudiant, i) => {
+                        return (
+                          <tr key={`entity-${i}`}>
+                            <td>{etudiant.nom}</td>
+                            <td>{etudiant.prenom}</td>
+                            <td>
+                              <input className="form-check-control" type="checkbox" name="absent" value={etudiant.id} checked />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    ;
+                  </tbody>
                 ) : (
                   <div className="alert alert-warning">Aucun absent</div>
                 )}
@@ -187,7 +202,21 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
                   </tr>
                 </thead>
                 {etudiantsLicence && etudiantsLicence.length > 0 ? (
-                  <tbody>{listEtudiantLicence}</tbody>
+                  <tbody>
+                    {this.props.etudiantsLicence
+                      .filter(etudiant => this.estAbsent(etudiant.id))
+                      .map((etudiant, i) => {
+                        return (
+                          <tr key={`entity-${i}`}>
+                            <td>{etudiant.nom}</td>
+                            <td>{etudiant.prenom}</td>
+                            <td>
+                              <input className="form-check-control" type="checkbox" name="absent" value={etudiant.id} checked />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
                 ) : (
                   <div className="alert alert-warning">Aucun absent</div>
                 )}
@@ -212,7 +241,21 @@ export class FicheAbsenceDetail extends React.Component<IFicheAbsenceDetailProps
                   </tr>
                 </thead>
                 {etudiantsMaster && etudiantsMaster.length > 0 ? (
-                  <tbody>{listEtudiantMaster}</tbody>
+                  <tbody>
+                    {this.props.etudiantsMaster
+                      .filter(etudiant => this.estAbsent(etudiant.id))
+                      .map((etudiant, i) => {
+                        return (
+                          <tr key={`entity-${i}`}>
+                            <td>{etudiant.nom}</td>
+                            <td>{etudiant.prenom}</td>
+                            <td>
+                              <input className="form-check-control" type="checkbox" name="absent" value={etudiant.id} checked />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
                 ) : (
                   <div className="alert alert-warning">Aucun absent</div>
                 )}

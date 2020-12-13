@@ -2,6 +2,7 @@
   "pfumApp": {
     "TypeDocument": {
       "null": "",
+      "TOUS": "TOUS",
       "PROFESSEUR": "PROFESSEUR",
       "LICENCE": "LICENCE",
       "MASTER": "MASTER",

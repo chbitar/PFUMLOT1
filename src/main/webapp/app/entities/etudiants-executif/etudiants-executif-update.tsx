@@ -94,7 +94,7 @@ export class etudiantsExecutifUpdate extends React.Component<IetudiantsExecutifU
   };
 
   handleClose = () => {
-    this.props.history.push('/entity/etudiants-licence');
+    this.props.history.push('/entity/etudiants-executif');
   };
 
   render() {
@@ -243,6 +243,80 @@ export class etudiantsExecutifUpdate extends React.Component<IetudiantsExecutifU
                           </Col>
                         </Row>
                         <Row>
+                          <Col md="3">
+                            <AvGroup>
+                              <Label id="niveau" for="etudiants-licence-niveau">
+                                Niveau{' '}
+                              </Label>
+                              <AvInput
+                                style={{ maxHeight: '100px', maxWidth: '200px' }}
+                                id="etudiants-licence-niveau"
+                                type="select"
+                                className="form-control"
+                                name="niveau"
+                                value={(!isNew && etudiantsExecutifEntity.niveau) || 'PREMIER'}
+                                validate={{
+                                  required: { value: true, errorMessage: translate('entity.validation.required') }
+                                }}
+                              >
+                                <option value="PREMIER">{translate('pfumApp.Niveau.PREMIER')}</option>
+                                <option value="DEUXIEME">{translate('pfumApp.Niveau.DEUXIEME')}</option>
+                                {/* <option value="TROISIEME">{translate('pfumApp.Niveau.TROISIEME')}</option> */}
+                              </AvInput>
+                            </AvGroup>
+                          </Col>
+                          <Col md="3">
+                            <AvGroup>
+                              <Label id="emailLabel" for="etudiants-licence-email">
+                                <Translate contentKey="pfumApp.etudiantsMaster.email">Email</Translate>
+                              </Label>
+                              <AvField
+                                style={{ maxHeight: '100px', maxWidth: '200px' }}
+                                id="etudiants-licence-email"
+                                type="text"
+                                name="email"
+                                validate={{
+                                  required: { value: true, errorMessage: translate('entity.validation.required') },
+                                  email: { value: true, errorMessage: translate('entity.validation.email') }
+                                }}
+                              />
+                            </AvGroup>
+                          </Col>{' '}
+                          <Col md="3">
+                            <AvGroup>
+                              <Label id="telLabel" for="etudiants-licence-tel">
+                                Téléphone
+                              </Label>
+                              <AvField
+                                style={{ maxHeight: '100px', maxWidth: '200px' }}
+                                id="etudiants-licence-tel"
+                                type="string"
+                                className="form-control"
+                                name="tel"
+                                validate={{
+                                  required: { value: true, errorMessage: translate('entity.validation.required') },
+                                  maxLength: { value: 30, errorMessage: 'Le numéro de téléphone saisie dépasse la taille autorisée' }
+                                }}
+                              />
+                            </AvGroup>
+                          </Col>{' '}
+                          <Col md="3">
+                            <AvGroup>
+                              <Label id="deuxiemeTelLabel" for="etudiants-licence-deuxiemeTel">
+                                <Translate contentKey="pfumApp.etudiantsMaster.deuxiemeTel">Deuxieme Tel</Translate>
+                              </Label>
+                              <AvField
+                                style={{ maxHeight: '100px', maxWidth: '200px' }}
+                                id="etudiants-licence-deuxiemeTel"
+                                type="string"
+                                className="form-control"
+                                name="deuxiemeTel"
+                              />
+                            </AvGroup>
+                          </Col>
+                        </Row>
+                        <br />
+                        <Row>
                           <Col>
                             <AvGroup>
                               <Label id="adresseContactLabel" for="etudiants-licence-adresseContact">
@@ -349,49 +423,7 @@ export class etudiantsExecutifUpdate extends React.Component<IetudiantsExecutifU
                             </AvGroup>
                           </Col>
                         </Row>
-                        <Row>
-                          <Col md="4">
-                            <AvGroup>
-                              <Label id="emailLabel" for="etudiants-licence-email">
-                                <Translate contentKey="pfumApp.etudiantsExecutif.email">Email</Translate>
-                              </Label>
-                              <AvField
-                                id="etudiants-licence-email"
-                                type="text"
-                                name="email"
-                                validate={{
-                                  required: { value: true, errorMessage: translate('entity.validation.required') },
-                                  email: { value: true, errorMessage: translate('entity.validation.email') }
-                                }}
-                              />
-                            </AvGroup>
-                          </Col>{' '}
-                          <Col md="4">
-                            <AvGroup>
-                              <Label id="telLabel" for="etudiants-licence-tel">
-                                <Translate contentKey="pfumApp.etudiantsExecutif.tel">Tel</Translate>
-                              </Label>
-                              <AvField
-                                id="etudiants-licence-tel"
-                                type="string"
-                                className="form-control"
-                                name="tel"
-                                validate={{
-                                  required: { value: true, errorMessage: translate('entity.validation.required') },
-                                  maxLength: { value: 30, errorMessage: 'Le numéro de téléphone saisie dépasse la taille autorisée' }
-                                }}
-                              />
-                            </AvGroup>
-                          </Col>{' '}
-                          <Col md="4">
-                            <AvGroup>
-                              <Label id="deuxiemeTelLabel" for="etudiants-licence-deuxiemeTel">
-                                <Translate contentKey="pfumApp.etudiantsExecutif.deuxiemeTel">Deuxieme Tel</Translate>
-                              </Label>
-                              <AvField id="etudiants-licence-deuxiemeTel" type="string" className="form-control" name="deuxiemeTel" />
-                            </AvGroup>
-                          </Col>
-                        </Row>
+                        <Row />
                         <Row />
                       </div>
                     </div>

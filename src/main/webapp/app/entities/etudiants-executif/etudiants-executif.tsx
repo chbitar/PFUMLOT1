@@ -204,7 +204,7 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
                     </td>
                     {(isAdmin || isRespFin) && (
                       <td>
-                        {etudiantsExecutif.inscriptionvalide ? (
+                        {/*   {etudiantsExecutif.inscriptionvalide ? (
                           <Button color="success" onClick={this.toggleActive(etudiantsExecutif)}>
                             Validé
                           </Button>
@@ -212,7 +212,8 @@ export class EtudiantsExecutif extends React.Component<IEtudiantsExecutifProps, 
                           <Button color="danger" onClick={this.toggleActive(etudiantsExecutif)}>
                             En attente
                           </Button>
-                        )}
+                        )} */}
+                        <Button color="success">Validé</Button>
                       </td>
                     )}
                     <td>

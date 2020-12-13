@@ -72,6 +72,10 @@ export class AffectationModule extends React.Component<IAffectationModuleProps, 
               <option value="S4">Semestre 4</option>
               <option value="S5">Semestre 5</option>
               <option value="S6">Semestre 6</option>
+              <option value="S7">{translate('pfumApp.Semestre.S7')}</option>
+              <option value="S8">{translate('pfumApp.Semestre.S8')}</option>
+              <option value="S9">{translate('pfumApp.Semestre.S9')}</option>
+              <option value="S10">{translate('pfumApp.Semestre.S10')}</option>
             </select>
           </Col>
         </Row>

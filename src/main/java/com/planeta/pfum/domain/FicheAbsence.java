@@ -37,7 +37,7 @@ public class FicheAbsence implements Serializable {
 
     @NotNull
     @Column(name = "date_seance", nullable = false)
-    private LocalDate dateSeance;
+    private Instant dateSeance;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "programme")
@@ -80,16 +80,16 @@ public class FicheAbsence implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDateSeance() {
+    public Instant getDateSeance() {
         return dateSeance;
     }
 
-    public FicheAbsence dateSeance(LocalDate dateSeance) {
+    public FicheAbsence dateSeance(Instant dateSeance) {
         this.dateSeance = dateSeance;
         return this;
     }
 
-    public void setDateSeance(LocalDate dateSeance) {
+    public void setDateSeance(Instant dateSeance) {
         this.dateSeance = dateSeance;
     }
 

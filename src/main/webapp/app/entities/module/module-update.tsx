@@ -134,6 +134,10 @@ export class ModuleUpdate extends React.Component<IModuleUpdateProps, IModuleUpd
                     <option value="S4">{translate('pfumApp.Semestre.S4')}</option>
                     <option value="S5">{translate('pfumApp.Semestre.S5')}</option>
                     <option value="S6">{translate('pfumApp.Semestre.S6')}</option>
+                    <option value="S7">{translate('pfumApp.Semestre.S7')}</option>
+                    <option value="S8">{translate('pfumApp.Semestre.S8')}</option>
+                    <option value="S9">{translate('pfumApp.Semestre.S9')}</option>
+                    <option value="S10">{translate('pfumApp.Semestre.S10')}</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
