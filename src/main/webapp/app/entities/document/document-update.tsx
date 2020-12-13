@@ -148,6 +148,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                     name="typeDocument"
                     value={(!isNew && documentEntity.typeDocument) || 'PROFESSEUR'}
                   >
+                    <option value="TOUS">TOUS</option>
                     <option value="PROFESSEUR">PROFESSEUR</option>
                     <option value="LICENCE">LICENCE</option>
                     <option value="MASTER_EXECUTIF">MASTER_EXECUTIF</option>

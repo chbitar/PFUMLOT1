@@ -2,6 +2,8 @@ package com.planeta.pfum.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,8 +73,12 @@ public class FicheAbsenceResource {
         if (ficheAbsence.getId() != null) {
             throw new BadRequestAlertException("A new ficheAbsence cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        ficheAbsence.setDateSeance(LocalDateTime.ofInstant(ficheAbsence.getDateSeance(), ZoneOffset.UTC).plusDays(1).toInstant(ZoneOffset.UTC));
+
         for(Absence absence:ficheAbsence.getAbsences()) {
         	absence.setFicheAbsence(ficheAbsence);
+        	absence.setDateSeance(LocalDateTime.ofInstant(absence.getDateSeance(), ZoneOffset.UTC).plusDays(1).toInstant(ZoneOffset.UTC));
+
         }
         
 		Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());

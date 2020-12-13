@@ -48,6 +48,7 @@ public class Filiere implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "programme")
+    @JsonIgnoreProperties(value="<%= programme %>", allowSetters = true)
     private Programme programme;
 
     @OneToMany(mappedBy = "filiere")

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FICHEABSENCEL" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5333e6a-a05c-4026-a850-2ba4c09f455c">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUMESLSCA"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
 		<box>
@@ -32,7 +32,7 @@
 	</style>
 	<subDataset name="Dataset1" uuid="eb5ac994-945f-47b3-b3cf-56e44a39d9ee">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUMESLSCA"/>
 		<parameter name="FicheabsenceId2" class="java.lang.Long"/>
 		<queryString language="SQL">
 			<![CDATA[select l.nom,l.prenom from etudiants_executif l ,absence a where a.etudiants_executif_id=l.id and a.fiche_absence_id=$P{FicheabsenceId2}]]>

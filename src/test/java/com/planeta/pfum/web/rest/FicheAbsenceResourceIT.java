@@ -11,8 +11,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -42,8 +44,8 @@ import com.planeta.pfum.web.rest.errors.ExceptionTranslator;
 @SpringBootTest(classes = PfumApp.class)
 public class FicheAbsenceResourceIT {
 
-    private static final LocalDate DEFAULT_DATE_SEANCE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE_SEANCE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_DATE_SEANCE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATE_SEANCE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private FicheAbsenceRepository ficheAbsenceRepository;

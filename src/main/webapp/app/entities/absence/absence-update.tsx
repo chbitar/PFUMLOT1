@@ -20,7 +20,7 @@ import { createEntity as createFicheAbsenceEntity } from 'app/entities/fiche-abs
 
 import { IAbsence } from 'app/shared/model/absence.model';
 // tslint:disable-next-line:no-unused-variable
-import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
+import { convertDateTimeFromServer, convertDateTimeToServer, convertDateTimeToServer2 } from 'app/shared/util/date-utils';
 import { IFicheAbsence, Programme } from 'app/shared/model/fiche-absence.model';
 
 export interface IAbsenceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
@@ -92,7 +92,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
 
       this.state.etudiantListExecutif.map(item => {
         const absence: IAbsence = {
-          dateSeance: entity.dateSeance,
+          dateSeance: values.dateSeance,
           user: entity.user,
           module: entity.module,
           etudiantsExecutif: {
@@ -100,22 +100,21 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
           }
         };
         absences.push(absence);
-        /* this.props.createEntity(absence); */
       });
 
       const ficheAbsence: IFicheAbsence = {
-        dateSeance: entity.dateSeance,
+        dateSeance: values.dateSeance,
         /* user: entity.user, */
         module: entity.module,
         programme: Programme.MASTER_EXECUTIF,
         absences
       };
+
       this.props.createFicheAbsenceEntity(ficheAbsence);
     }
   };
 
   handleClose = () => {
-    alert('handleClose');
     this.props.history.push('/entity/fiche-absence');
   };
 
@@ -154,7 +153,7 @@ export class AbsenceUpdate extends React.Component<IAbsenceUpdateProps, IAbsence
                     type="date"
                     className="form-control"
                     name="dateSeance"
-                    placeholder={'YYYY-MM-DD HH:mm'}
+                    placeholder={'YYYY-MM-DD'}
                     value={isNew ? null : convertDateTimeFromServer(this.props.absenceEntity.dateSeance)}
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') }

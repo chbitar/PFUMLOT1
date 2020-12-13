@@ -114,7 +114,7 @@ public class EtudiantsExtendedResource {
 
 			EtudiantsExecutif result = etudiantsExecutifRepository.save(etudiantsExecutif);
 
-			String suffixe = genererSuffix(result.getId());
+			String suffixe = genererSuffixMasterExecutif(result.getId());
 
 			// Creation d'un compte USER pour se connecter
 			User newUser = userService.createUserForActeur(etudiantsExecutif.getEmail(), etudiantsExecutif.getNom(),
@@ -122,7 +122,7 @@ public class EtudiantsExtendedResource {
 
 			etudiantsExecutif.setUser(newUser);
 			etudiantsExecutif.setSuffixe(suffixe);
-			etudiantsExecutif.setNiveau(Niveau.PREMIER);
+//			etudiantsExecutif.setNiveau(Niveau.PREMIER);
 			etudiantsExecutifRepository.save(etudiantsExecutif);
 
 			mailService.sendCreationEmail(newUser);
@@ -158,7 +158,7 @@ public class EtudiantsExtendedResource {
 
 			etudiantsLicence.setUser(newUser);
 			etudiantsLicence.setSuffixe(suffixe);
-			etudiantsLicence.setNiveau(Niveau.PREMIER);
+//			etudiantsLicence.setNiveau(Niveau.PREMIER);
 			etudiantsLicenceRepository.save(etudiantsLicence);
 
 			mailService.sendCreationEmail(newUser);
@@ -195,14 +195,14 @@ public class EtudiantsExtendedResource {
 		} else {
 			EtudiantsMaster result = etudiantsMasterRepository.save(etudiantsMaster);
 
-			String suffixe = genererSuffix(result.getId());
+			String suffixe = genererSuffixMasterAcademique(result.getId());
 
 			// Creation d'un compte USER pour se connecter
 			User newUser = userService.createUserForActeur(etudiantsMaster.getEmail(), etudiantsMaster.getNom(),
 					etudiantsMaster.getPrenom(), AuthoritiesConstants.ETUDIANT_MASTER);
 			etudiantsMaster.setUser(newUser);
 			etudiantsMaster.setSuffixe(suffixe);
-			etudiantsMaster.setNiveau(Niveau.PREMIER);
+//			etudiantsMaster.setNiveau(Niveau.PREMIER);
 			etudiantsMasterRepository.save(etudiantsMaster);
 
 			mailService.sendCreationEmail(newUser);
@@ -358,6 +358,18 @@ public class EtudiantsExtendedResource {
 		int fourDigYear = Calendar.getInstance().get(Calendar.YEAR);
 
 		String suffixe = "OS" + Integer.toString(fourDigYear).substring(2) + customFormat("0000", id);
+		return suffixe;
+	}
+	private String genererSuffixMasterAcademique(Long id) {
+		int fourDigYear = Calendar.getInstance().get(Calendar.YEAR);
+
+		String suffixe = "OSMA" + Integer.toString(fourDigYear).substring(2) + customFormat("0000", id);
+		return suffixe;
+	}
+	private String genererSuffixMasterExecutif(Long id) {
+		int fourDigYear = Calendar.getInstance().get(Calendar.YEAR);
+
+		String suffixe = "OSME" + Integer.toString(fourDigYear).substring(2) + customFormat("0000", id);
 		return suffixe;
 	}
 

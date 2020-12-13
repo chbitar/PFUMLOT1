@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="INSCIRPTION" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUMESLSCA"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
@@ -50,7 +50,7 @@
 	</style>
 	<subDataset name="modulesDataSet" uuid="f035570c-57c6-46d9-8252-7e4b56333de4">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUM"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PFUMESLSCA"/>
 		<parameter name="FiliereId2" class="java.lang.Long"/>
 		<parameter name="niveau2" class="java.lang.String"/>
 		<queryString language="SQL">
@@ -90,7 +90,7 @@
 	<field name="suffixe" class="java.lang.String"/>
 	<field name="logo" class="java.awt.Image"/>
 	<title>
-		<band height="248" splitType="Stretch">
+		<band height="260" splitType="Stretch">
 			<staticText>
 				<reportElement x="34" y="182" width="120" height="15" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
 				<textElement>
@@ -170,7 +170,10 @@
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{date_naissance})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="162" y="228" width="334" height="15" uuid="c80bbcaa-3d44-4435-9095-f9c45f9c6765"/>
+				<reportElement x="162" y="228" width="408" height="28" uuid="c80bbcaa-3d44-4435-9095-f9c45f9c6765">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>

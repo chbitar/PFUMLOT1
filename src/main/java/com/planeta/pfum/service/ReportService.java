@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -85,8 +86,8 @@ public class ReportService {
 	 */
 	@Transactional(readOnly = true)
 	public Resource genererAttestationInscription(Integer etudiantId, String type, Programme programme) {
+		Connection connexion = null;
 		try {
-
 			Map<String, Object> parameters = new HashMap<>();
 			parameters.put("EtudiantId", Long.valueOf(etudiantId));
 
@@ -95,6 +96,8 @@ public class ReportService {
 			JasperReport jasperReport = null;
 			JasperPrint jasperPrint;
 			SimpleReportExporter simpleReportExporter = null;
+			connexion = dataSource.getConnection();
+
 
 			switch (programme) {
 			case LICENCE:
@@ -106,7 +109,7 @@ public class ReportService {
 						.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONL.jrxml").getInputStream());
 				JRSaver.saveObject(jasperReport, "INSCIRPTIONL.jasper");
 
-				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connexion);
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "attestationInscription-Licence.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
@@ -114,12 +117,13 @@ public class ReportService {
 			case MASTER:
 				filiere = etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				parameters.put("FiliereId", filiere.getId());
+				parameters.put("Niveau", etudiantsMasterRepository.getOne(Long.valueOf(etudiantId)).getNiveau().name());
 
 				jasperReport = JasperCompileManager
 						.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONM.jrxml").getInputStream());
 				JRSaver.saveObject(jasperReport, "INSCIRPTIONM.jasper");
 
-				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connexion);
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "attestationInscription-Master.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
@@ -127,12 +131,13 @@ public class ReportService {
 			case MASTER_EXECUTIF:
 				filiere = etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getFiliere();
 				parameters.put("FiliereId", filiere.getId());
+				parameters.put("Niveau", etudiantsExecutifRepository.getOne(Long.valueOf(etudiantId)).getNiveau().name());
 
 				jasperReport = JasperCompileManager
 						.compileReport(resourceLoader.getResource("classpath:INSCIRPTIONE.jrxml").getInputStream());
 				JRSaver.saveObject(jasperReport, "INSCIRPTIONE.jasper");
 
-				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connexion);
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "attestationInscription-Ececutif.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
@@ -152,12 +157,21 @@ public class ReportService {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connexion.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
 
 	@Transactional(readOnly = true)
 	public Resource genererBadgeEtudiant(Integer etudiantId, String type, Programme programme) {
+		Connection connexion = null;
+
 		try {
 
 			Map<String, Object> parameters = new HashMap<>();
@@ -167,6 +181,7 @@ public class ReportService {
 			JasperReport jasperReport = null;
 			JasperPrint jasperPrint;
 			SimpleReportExporter simpleReportExporter = null;
+			connexion = dataSource.getConnection();
 			switch (programme) {
 			case LICENCE:
 
@@ -174,7 +189,7 @@ public class ReportService {
 						resourceLoader.getResource("classpath:BADGEESLSCALICENCE.jrxml").getInputStream());
 				JRSaver.saveObject(jasperReport, "BADGEESLSCALICENCE.jasper");
 
-				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connexion);
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "badge-Licence.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
@@ -185,7 +200,7 @@ public class ReportService {
 						resourceLoader.getResource("classpath:BADGEESLSCAMASTER.jrxml").getInputStream());
 				JRSaver.saveObject(jasperReport, "BADGEESLSCAMASTER.jasper");
 
-				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connexion);
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "badge-Master.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
@@ -196,7 +211,7 @@ public class ReportService {
 						resourceLoader.getResource("classpath:BADGEESLSCAEXECUTIF.jrxml").getInputStream());
 				JRSaver.saveObject(jasperReport, "BADGEESLSCAEXECUTIF.jasper");
 
-				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connexion);
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "badge-Ececutif.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
@@ -214,12 +229,20 @@ public class ReportService {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				connexion.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
 	
 	@Transactional(readOnly = true)
 	public Resource genererFicheAbsence(Integer ficheabsenceId, Programme programme) {
+		Connection connexion = null;
 		try {
 
 			Map<String, Object> parameters = new HashMap<>();
@@ -229,6 +252,7 @@ public class ReportService {
 			JasperReport jasperReport = null;
 			JasperPrint jasperPrint;
 			SimpleReportExporter simpleReportExporter = null;
+			connexion = dataSource.getConnection();
 
 			switch (programme) {
 			case LICENCE:
@@ -237,7 +261,7 @@ public class ReportService {
 						.compileReport(resourceLoader.getResource("classpath:FICHEABSENCEL.jrxml").getInputStream());
 				JRSaver.saveObject(jasperReport, "FICHEABSENCEL.jasper");
 
-				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connexion);
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "attestationFicheAbsence-Licence.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
@@ -248,7 +272,7 @@ public class ReportService {
 						.compileReport(resourceLoader.getResource("classpath:FICHEABSENCEM.jrxml").getInputStream());
 				JRSaver.saveObject(jasperReport, "FICHEABSENCEM.jasper");
 
-				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connexion);
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "attestationFicheAbsence-Master.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
@@ -259,7 +283,7 @@ public class ReportService {
 						.compileReport(resourceLoader.getResource("classpath:FICHEABSENCEE.jrxml").getInputStream());
 				JRSaver.saveObject(jasperReport, "FICHEABSENCEE.jasper");
 
-				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connexion);
 				simpleReportExporter = new SimpleReportExporter(jasperPrint);
 				fileName = "attestationFicheAbsence-Ececutif.pdf";
 				simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
@@ -279,6 +303,13 @@ public class ReportService {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connexion.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -292,6 +323,8 @@ public class ReportService {
 	 */
 	@Transactional(readOnly = true)
 	public Resource exportEtatInscriptionParFiliere(Integer filiereId, String type) {
+		Connection connexion = null;
+
 		try {
 			File file = ResourceUtils.getFile("classpath:etatInscFiliereEtudExecutif.jrxml");
 			JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -299,9 +332,9 @@ public class ReportService {
 			Map<String, Object> parameters = new HashMap<>();
 			parameters.put("FiliereId", Long.valueOf(filiereId));
 			parameters.put("FiliereNom", filiereRepository.getOne(Long.valueOf(filiereId)).getNomfiliere());
-
+			connexion = dataSource.getConnection();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
-					dataSource.getConnection());
+					connexion);
 
 			SimpleReportExporter simpleReportExporter = new SimpleReportExporter(jasperPrint);
 			String fileName = "";
@@ -334,23 +367,31 @@ public class ReportService {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connexion.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
 	
 	@Transactional(readOnly = true)
 	public Resource exportEtatFicheSuiviModule(Integer id, Integer cumul) {
+		Connection connexion = null;
 		try {
 			
 			Map<String, Object> parameters = new HashMap<>();
 			parameters.put("SuiviModuleId", Long.valueOf(id));
 			parameters.put("cumul", Long.valueOf(cumul));
-
+			connexion = dataSource.getConnection();
 			JasperReport jasperReport = JasperCompileManager
 					.compileReport(resourceLoader.getResource("classpath:EtatFicheSuiviModule.jrxml").getInputStream());
 			JRSaver.saveObject(jasperReport, "EtatFicheSuiviModule.jasper");
 
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connexion);
 			SimpleReportExporter simpleReportExporter = new SimpleReportExporter(jasperPrint);
 			String fileName = "attestationInscription-Licence.pdf";
 			simpleReportExporter.exportToPdf(this.fileStorageLocation + "/" + fileName, "DHAVAL");
@@ -366,6 +407,13 @@ public class ReportService {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connexion.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

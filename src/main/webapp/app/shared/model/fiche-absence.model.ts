@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { IModule } from 'app/shared/model/module.model';
 import { IAbsence } from 'app/shared/model/absence.model';
+import { IUser } from './user.model';
 
 export const enum Programme {
   LICENCE = 'LICENCE',
@@ -14,6 +15,7 @@ export interface IFicheAbsence {
   module?: IModule;
   programme?: Programme;
   absences?: IAbsence[];
+  user?: IUser;
 }
 
 export const defaultValue: Readonly<IFicheAbsence> = {};
